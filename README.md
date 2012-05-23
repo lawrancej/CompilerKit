@@ -1,4 +1,4 @@
-parsed
-======
+CompilerKit
+===========
 
-Parser combinator library in C
+Compiler construction library in C.
