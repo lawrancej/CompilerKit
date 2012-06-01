@@ -14,8 +14,7 @@ FIND_PACKAGE (PkgConfig REQUIRED)
 pkg_check_modules (GLIB2 glib-2.0>=2.28)
 pkg_check_modules (GOBJECT_PKG gobject-2.0)
 
-INCLUDE_DIRECTORIES(${GLIB2_INCLUDEDIR}/glib-2.0 ${GLIB2_INCLUDEDIR}/../lib/glib-2.0/include)
-message (${GLIB2_INCLUDEDIR})
+INCLUDE_DIRECTORIES(${GLIB2_INCLUDE_DIRS})
 # Compile and link CompilerKit
 # ADD_LIBRARY(CompilerKit ${SRC})
 
