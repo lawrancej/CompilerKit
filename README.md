@@ -5,7 +5,7 @@ CompilerKit will be a compiler construction library in C.
 CompilerKit aims to streamline developing any software deriving tree structures from sequences, including compilers and interpreters.
 
 ## What is the license?
-LGPLv3.
+LGPL version 2 or later.
 
 ## Why does this library exist?
 Existing compiler construction tools (especially parser generators) have problems.
@@ -100,6 +100,39 @@ Language bindings will make use of GObject introspection. This library will targ
 - Python
 - C++
 - Java
+
+## How do I get GLib installed?
+Since CompilerKit depends on GLib, a little work is needed, depending on the platform.
+
+### On Windows:
+1. Go here: <http://www.gtk.org/download/win32.php>
+2. Download GLib Run-time and Dev, pkg-config Tool.
+3. Unzip everything into the same directory, e.g., `C:\glib`. Add `C:\glib\bin` to the system PATH. To verify it's working:
+
+```
+C:\> pkg-config --list-all
+gio-2.0               GIO - glib I/O library
+gmodule-2.0           GModule - Dynamic module loader for GLib
+glib-2.0              GLib - C Utility Library
+gmodule-no-export-2.0 GModule - Dynamic module loader for GLib
+gthread-2.0           GThread - Thread support for GLib
+gobject-2.0           GObject - GLib Type, Object, Parameter and Signal Library
+```
+
+### On Linux:
+Debian, Ubuntu:
+
+    sudo apt-get install libglib2.0-dev
+
+RedHat:
+
+    sudo yum install glib-devel
+
+### On Mac:
+Install brew from: <http://mxcl.github.com/homebrew/>
+Once installed, run the following from the Terminal:
+
+    brew install glib pkg-config
 
 ## What do I need to do?
 1. [Install Software](#what-software-do-i-need).
