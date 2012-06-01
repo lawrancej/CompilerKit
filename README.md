@@ -8,8 +8,10 @@ CompilerKit aims to streamline developing any software deriving tree structures 
 LGPL version 2 or later.
 
 ## Why does this library exist?
-Existing compiler construction tools (especially parser generators) have problems.
-Scanners and parser generators:
+CompilerKit aims to [solve problems in existing tools](#problems-in-existing-compiler-compilers), and 
+
+### Problems in existing compiler compilers
+Existing compiler construction tools have problems.
 
 - Require learning a new syntax (e.g., lex, yacc, Bison)
 - Add complexity to the build process (e.g., lex, yacc, Bison)
@@ -18,6 +20,16 @@ Scanners and parser generators:
 - Produce blocking code (e.g., lex)
 - Produce non thread-safe code (e.g., lex)
 - Do not work well with Unicode or non-string sequences.
+
+### CompilerKit goals
+CompilerKit aims to:
+
+- Work across platforms, programming languages.
+- Play nicely with Unicode.
+- Never block, and be thread-safe.
+- Efficiently handle all possible CFGs, even ambiguous ones.
+- Work as a library.
+- (Future) be a drop in replacement for Bison, yacc, lex, etc.
 
 ## Where can I contribute to this?
 Here:
