@@ -8,7 +8,7 @@ CompilerKit aims to streamline developing any software deriving tree structures 
 LGPL version 2 or later.
 
 ## Why does this library exist?
-CompilerKit aims to [solve problems in existing tools](#problems-in-existing-compiler-compilers), and 
+CompilerKit aims to [solve problems in existing tools](#problems-in-existing-compiler-compilers), and [work better](#compiler-kit-goals).
 
 ### Problems in existing compiler compilers
 Existing compiler construction tools have problems.
