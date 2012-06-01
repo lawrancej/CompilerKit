@@ -3,5 +3,10 @@
 
 int main (int argc, char ** argv)
 {
-    printf ("Hello, world!");
+#ifdef G_OS_WIN32
+    printf ("Hello, Windows!");
+#endif
+#ifdef G_OS_UNIX
+    printf ("Hello, Unix!");
+#endif
 }
