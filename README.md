@@ -62,7 +62,7 @@ Proposed example usage:
 ## How will this work?
 This library will use [GObject](http://developer.gnome.org/gobject/stable/) internally.
 
-We will employ test-first pair programming in the development of CompilerKit. (By the way, if you have a better name for this, I’m all ears.)
+We will employ test-first pair programming in the development of CompilerKit. (By the way, if you have a better name for this, Iï¿½m all ears.)
 
 Testing and documentation first ensures that we consider the usage of this library before we develop it. It also helps track development progress by test completion and coverage.
 
@@ -106,7 +106,7 @@ Since CompilerKit depends on GLib, a little work is needed, depending on the pla
 
 ### On Windows:
 1. Go here: <http://www.gtk.org/download/win32.php>
-2. Download GLib Run-time and Dev, pkg-config Tool.
+2. Download GLib Dev, pkg-config Tool.
 3. Unzip everything into the same directory, e.g., `C:\glib`. Add `C:\glib\bin` to the system PATH. To verify it's working:
 
 ```
