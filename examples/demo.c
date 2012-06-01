@@ -7,6 +7,6 @@ int main (int argc, char ** argv)
     printf ("Hello, Windows!");
 #endif
 #ifdef G_OS_UNIX
-    printf ("Hello, Unix!");
+    printf ("Hello, Unix!\n");
 #endif
 }
