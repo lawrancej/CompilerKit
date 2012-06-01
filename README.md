@@ -1,17 +1,31 @@
 CompilerKit
 ===========
-CompilerKit will be a compiler construction library in C.
+CompilerKit will be a [parser combinator](#what-is-a-parser-combinator) based compiler construction library in C.
 
-CompilerKit aims to streamline developing any software deriving tree structures from sequences, including compilers and interpreters.
+- [Why does this exist?](#why-does-this-library-exist)
+- [What is the license?](#what-is-the-license)
+- [How do I build this?](#how-do-i-build-this)
+- [What problems does this solve?](#what-problems-does-this-library-solve)
+- [Where can I contribute to this?](#where-can-i-contribute-to-this)
 
 ## What is the license?
 LGPL version 2 or later.
 
 ## Why does this library exist?
-CompilerKit aims to [solve problems in existing tools](#problems-in-existing-compiler-compilers), and [work better](#compiler-kit-goals).
+CompilerKit aims to streamline developing any software deriving tree structures from text, including compilers and interpreters.
+This library will be the final product of a compiler design class.
 
-### Problems in existing compiler compilers
-Existing compiler construction tools have problems.
+This library aims to [avoid problems in existing tools](#problems-in-existing-compiler-compilers) by doing these:
+
+- Work across platforms, programming languages.
+- Play nicely with Unicode.
+- Never block, and be thread-safe.
+- Efficiently handle all possible CFGs, even ambiguous ones.
+- Work as a library.
+- (Future) be a drop in replacement for Bison, yacc, lex, etc.
+
+## What problems does this library solve?
+Many existing compiler construction tools:
 
 - Require learning a new syntax (e.g., lex, yacc, Bison)
 - Add complexity to the build process (e.g., lex, yacc, Bison)
@@ -21,22 +35,15 @@ Existing compiler construction tools have problems.
 - Produce non thread-safe code (e.g., lex)
 - Do not work well with Unicode or non-string sequences.
 
-### CompilerKit goals
-CompilerKit aims to:
-
-- Work across platforms, programming languages.
-- Play nicely with Unicode.
-- Never block, and be thread-safe.
-- Efficiently handle all possible CFGs, even ambiguous ones.
-- Work as a library.
-- (Future) be a drop in replacement for Bison, yacc, lex, etc.
-
 ## Where can I contribute to this?
-Here:
+1. Fork from here: <https://github.com/lawrancej/CompilerKit>.
+2. Check the issue tracker here: <https://github.com/lawrancej/CompilerKit/issues>.
+3. Add your improvements to a branch in your fork named for the topic.
+4. Send in a pull request.
 
-<https://github.com/lawrancej/CompilerKit>
+Or, file a bug report: <https://github.com/lawrancej/CompilerKit/issues/new>
 
-## What is a [parser combinator](http://en.wikipedia.org/wiki/Parser_combinator)?
+## What is a [parser combinator?](http://en.wikipedia.org/wiki/Parser_combinator)
 A parser combinator is a higher-order function that creates parsers from parsers.
 
 Similar libraries:
@@ -113,8 +120,19 @@ Language bindings will make use of GObject introspection. This library will targ
 - C++
 - Java
 
+## How do I build this?
+CompilerKit builds with pkg-config and [GLib installed](#how-do-i-get-glib-installed).
+
+CompilerKit builds with CMake 2.6 or higher. Simply do this:
+
+```
+mkdir build && cd build
+cmake ..
+cmake --build .
+```
+
 ## How do I get GLib installed?
-Since CompilerKit depends on GLib, a little work is needed, depending on the platform.
+Since CompilerKit depends on [GLib](http://developer.gnome.org/glib/) and [GObject](http://developer.gnome.org/gobject/), a little work is needed, depending on the platform.
 
 ### On Windows:
 1. Go here: <http://www.gtk.org/download/win32.php>
