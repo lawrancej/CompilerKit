@@ -1,3 +1,9 @@
+Background
+==========
+
+- [GObject](http://developer.gnome.org/gobject/stable/pt02.html)
+- [GLib](http://developer.gnome.org/glib/2.32/)
+
 Tests
 =====
 Generic tests
