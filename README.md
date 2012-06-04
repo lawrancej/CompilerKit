@@ -136,7 +136,11 @@ Since CompilerKit depends on [GLib](http://developer.gnome.org/glib/) and [GObje
 
 ### On Windows:
 1. Go here: <http://www.gtk.org/download/win32.php>
-2. Download [GLib Dev](http://ftp.gnome.org/pub/gnome/binaries/win32/glib/2.28/glib-dev_2.28.8-1_win32.zip), [pkg-config Tool](http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/pkg-config_0.26-1_win32.zip).
+2. Download 
+	* [GLib Dev](http://ftp.gnome.org/pub/gnome/binaries/win32/glib/2.28/glib-dev_2.28.8-1_win32.zip), 
+	* [pkg-config Tool](http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/pkg-config_0.26-1_win32.zip),
+	* [GLib Run-time](http://ftp.gnome.org/pub/gnome/binaries/win32/glib/2.28/glib_2.28.8-1_win32.zip),
+	* [gettext-runtime Run-time](http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/gettext-runtime_0.18.1.1-2_win32.zip)
 3. Unzip everything into the same directory, e.g., `C:\glib`. Add `C:\glib\bin` to the system PATH. To verify it's working:
 
 ```
