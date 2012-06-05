@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <glib.h>
+#include "CompilerKit.h"
 
 int main (int argc, char ** argv)
 {

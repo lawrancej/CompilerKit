@@ -22,6 +22,8 @@
 G_DEFINE_TYPE(CompilerKitFSM, compilerkit_FSM, G_TYPE_OBJECT);
 
 /** Private method function prototypes */
+static void compilerkit_FSM_finalize (GObject* object);
+static void compilerkit_FSM_dispose (GObject* object);
 
 struct _CompilerKitFSMPrivate
 {
@@ -73,7 +75,7 @@ compilerkit_FSM_finalize (GObject* object)
 }
 
 static void
-example_dispose (GObject* object)
+compilerkit_FSM_dispose (GObject* object)
 {
   /* Reverse what was allocated by instance init */
 
