@@ -22,7 +22,6 @@
 
 /*
  * http://en.wikipedia.org/wiki/Regular_expression#Formal_language_theory
- * TODO: implement 
  */
 #define COMPILERKIT_TYPE_REGEX                  (compilerkit_regex_get_type ())
 #define COMPILERKIT_REGEX(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_REGEX, CompilerKitRegex))
@@ -31,25 +30,26 @@
 #define COMPILERKIT_IS_REGEX_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), COMPILERKIT_TYPE_REGEX))
 #define COMPILERKIT_REGEX_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), COMPILERKIT_TYPE_REGEX, CompilerKitRegexClass))
 
-typedef struct _CompilerKitRegex        CompilerKitRegex;
-typedef struct _CompilerKitRegexClass   CompilerKitRegexClass;
+// CompilerKitRegexPrivate is defined elsewhere.
 typedef struct _CompilerKitRegexPrivate CompilerKitRegexPrivate;
 
-struct _CompilerKitRegex
+typedef struct _CompilerKitRegex
 {
   GObject parent_instance;
 
   /* instance members */
   /*< private >*/
   CompilerKitRegexPrivate *priv;
-};
+  
+} CompilerKitRegex;
 
-struct _CompilerKitRegexClass
+typedef struct _CompilerKitRegexClass
 {
   GObjectClass parent_class;
 
-  /* class members */
-};
+  /* class members (methods) */
+  
+} CompilerKitRegexClass;
 
 /* used by COMPILERKIT_TYPE_REGEX */
 GType compilerkit_regex_get_type (void);

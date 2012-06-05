@@ -1,12 +1,19 @@
-/* 
+/** 
  * Boilerplate header.
  * 
- * DO NOT: #include ".boilerplate.h"
+ * Read the GObject Tutorial and follow the given directions. DO NOT: #include ".boilerplate.h"
  * 
- * Directions:
- * 1. Replace BAR, Bar, and bar with TYPE, Type, and type, respectively to declare a class called Type.
- * 2. Replace header with the file name.
- * 3. Remove this comment.
+ * @see http://syscall.org/doku.php/gobjectutorial/start 
+ * @see http://developer.gnome.org/gobject/stable/
+ * @see http://article.gmane.org/gmane.comp.gnome.gtk%2B.devel.general/6329 (mostly out of date)
+ * 
+ * @todo Directions:
+ * 1. Save a copy of this header file (named for the type) into the include/CompilerKit folder.
+ * 2. Replace "BAR" with TYPE, "Bar" with Type, and "bar" with type, declare a class called Type.
+ * 3. Replace "header" with the file name from step 1.
+ * 4. Search for all @todo items.
+ * 5. Follow the instructions for .boilerplate.c (the corresponding .c file)
+ * 6. Remove this comment.
  */
 /*
  * Copyright (C) 2012 The CompilerKit contributors.
@@ -30,7 +37,6 @@
 
 #include <glib-object.h>
 
-
 #define COMPILERKIT_TYPE_BAR                  (compilerkit_bar_get_type ())
 #define COMPILERKIT_BAR(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_BAR, CompilerKitBar))
 #define COMPILERKIT_IS_BAR(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), COMPILERKIT_TYPE_BAR))
@@ -38,26 +44,35 @@
 #define COMPILERKIT_IS_BAR_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), COMPILERKIT_TYPE_BAR))
 #define COMPILERKIT_BAR_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), COMPILERKIT_TYPE_BAR, CompilerKitBarClass))
 
-typedef struct _CompilerKitBar        CompilerKitBar;
-typedef struct _CompilerKitBarClass   CompilerKitBarClass;
 typedef struct _CompilerKitBarPrivate CompilerKitBarPrivate;
 
-struct _CompilerKitBar
+typedef struct _CompilerKitBar
 {
+  // Base instance
   GObject parent_instance;
 
-  /* instance members */
-  /*< private >*/
-  CompilerKitBarPrivate *priv;
-};
+  /** @todo Define public fields here */
 
-struct _CompilerKitBarClass
+  /*< Define private member variables inside CompilerKitBarPrivate in the corresponding .c file >*/
+  CompilerKitBarPrivate *priv;
+
+} CompilerKitBar;
+
+typedef struct _CompilerKitBarClass
 {
+  // Base class
   GObjectClass parent_class;
 
-  /* class members */
-};
+  /** @todo Virtual public methods (function pointers) go here */
+  // void (*method_name) (CompilerKitBar *self, ...);
+  
+} CompilerKitBarClass;
 
 /* used by COMPILERKIT_TYPE_BAR */
 GType compilerkit_bar_get_type (void);
+
+/** Public method function prototypes 
+ * @todo Add function prototypes here for both virtual and non-virtual public methods.
+ * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
+ */
 #endif

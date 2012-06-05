@@ -18,4 +18,40 @@
 #ifndef INCLUDE_CompilerKit_automata_h__
 #define INCLUDE_CompilerKit_automata_h__
 
+#include <glib-object.h>
+#include <glib.h>
+
+#define COMPILERKIT_TYPE_FSM                  (compilerkit_FSM_get_type ())
+#define COMPILERKIT_FSM(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_FSM, CompilerKitFSM))
+#define COMPILERKIT_IS_FSM(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), COMPILERKIT_TYPE_FSM))
+#define COMPILERKIT_FSM_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), COMPILERKIT_TYPE_FSM, CompilerKitFSMClass))
+#define COMPILERKIT_IS_FSM_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), COMPILERKIT_TYPE_FSM))
+#define COMPILERKIT_FSM_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), COMPILERKIT_TYPE_FSM, CompilerKitFSMClass))
+
+typedef struct _CompilerKitFSMPrivate CompilerKitFSMPrivate;
+
+typedef struct _CompilerKitFSM
+{
+  GObject parent_instance;
+  
+  /*< define private member variables inside CompilerKitFSMPrivate in the corresponding .c file >*/
+  CompilerKitFSMPrivate *priv;
+  
+} CompilerKitFSM;
+
+typedef struct _CompilerKitFSMClass
+{
+  GObjectClass parent_class;
+
+  /* Methods */
+  void (*add_transition) (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
+  void (*add_accepting_state) (CompilerKitFSM* self, gchar *state);
+  void (*merge) (CompilerKitFSM *self, CompilerKitFSM *other);
+} CompilerKitFSMClass;
+
+/** Public method function prototypes */
+void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
+void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state);
+void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other);
+
 #endif
