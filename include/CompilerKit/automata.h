@@ -50,6 +50,7 @@ typedef struct _CompilerKitFSMClass
 } CompilerKitFSMClass;
 
 /** Public method function prototypes */
+CompilerKitBar* compilerkit_FSM_new (void);
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state);
 void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other);

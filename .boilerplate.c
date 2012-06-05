@@ -4,6 +4,7 @@
  * Read the GObject Tutorial and follow the given directions.
  *
  * @see http://syscall.org/doku.php/gobjectutorial/start 
+ * @see http://irrepupavel.com/documents/gtk/gobject-faq.html
  * @see http://developer.gnome.org/gobject/stable/
  * @see http://article.gmane.org/gmane.comp.gnome.gtk%2B.devel.general/6329 (mostly out of date)
  *
@@ -77,6 +78,11 @@ compilerkit_bar_init (CompilerKitBar *self)
   // priv->member = whatever;
 }
 
+CompilerKitBar* compilerkit_bar_new (void)
+{
+	return COMPILERKIT_BAR (g_object_new (COMPILERKIT_TYPE_BAR, NULL));
+}
+
 static void
 compilerkit_bar_finalize (GObject* object)
 {
@@ -85,7 +91,7 @@ compilerkit_bar_finalize (GObject* object)
 }
 
 static void
-example_dispose (GObject* object)
+compilerkit_bar_dispose (GObject* object)
 {
   /* Reverse what was allocated by instance init */
 

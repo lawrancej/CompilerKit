@@ -67,6 +67,11 @@ compilerkit_FSM_init (CompilerKitFSM *self)
 
 }
 
+CompilerKitFSM* compilerkit_FSM_new (void)
+{
+	return COMPILERKIT_FSM (g_object_new (COMPILERKIT_TYPE_FSM, NULL));
+}
+
 static void
 compilerkit_FSM_finalize (GObject* object)
 {

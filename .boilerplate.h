@@ -4,6 +4,7 @@
  * Read the GObject Tutorial and follow the given directions. DO NOT: #include ".boilerplate.h"
  * 
  * @see http://syscall.org/doku.php/gobjectutorial/start 
+ * @see http://irrepupavel.com/documents/gtk/gobject-faq.html
  * @see http://developer.gnome.org/gobject/stable/
  * @see http://article.gmane.org/gmane.comp.gnome.gtk%2B.devel.general/6329 (mostly out of date)
  * 
@@ -75,4 +76,5 @@ GType compilerkit_bar_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
+CompilerKitBar* compilerkit_bar_new (void);
 #endif
