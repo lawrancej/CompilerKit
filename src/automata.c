@@ -66,7 +66,10 @@ compilerkit_FSM_init (CompilerKitFSM *self)
 
   self->priv = priv = COMPILERKIT_FSM_GET_PRIVATE (self);
 
-  /** @todo Initialize hash tables here */
+  /** @todo: initialize start table **/
+  self->states = g_hash_table_new(g_str_hash(),g_str_equal());
+  self->transitions = g_hash_table_new(g_str_hash(),g_str_equal());
+  self->acceptStates = g_hash_table_new(g_str_hash(),g_str_equal());
 }
 
 CompilerKitFSM* compilerkit_FSM_new (void)
@@ -91,22 +94,29 @@ compilerkit_FSM_dispose (GObject* object)
 
   priv = COMPILERKIT_FSM_GET_PRIVATE (self);
   
-  /** @todo Deallocate memory as necessary */
+  free(*priv);
+  free(*self);
 
   G_OBJECT_CLASS (compilerkit_FSM_parent_class)->dispose (object);
 }
 
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
 {
-
+	/** @todo: Alphabet tables **/
+	set_add(self->states,*to_state);
+	set_add(self->transitions,*state);
 }
 
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state)
 {
-
+	/** @todo:  **/
+	set_add(self->acceptStates,*state);
+	set_add(self->states,*state);
 }
 
 void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other)
 {
-
+	/** @todo: Alphabet tables **/
+	set_add(self->states,other->states);
+	set_add(self->transitions,other->transitions);
 }
