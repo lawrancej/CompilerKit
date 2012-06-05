@@ -1,3 +1,4 @@
+// http://www.ibm.com/developerworks/linux/tutorials/l-glib/section5.html
 /*
  * Copyright (C) 2012 The CompilerKit contributors.
  *
@@ -65,6 +66,7 @@ compilerkit_FSM_init (CompilerKitFSM *self)
 
   self->priv = priv = COMPILERKIT_FSM_GET_PRIVATE (self);
 
+  /** @todo Initialize hash tables here */
 }
 
 CompilerKitFSM* compilerkit_FSM_new (void)
