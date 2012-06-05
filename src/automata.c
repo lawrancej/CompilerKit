@@ -67,9 +67,9 @@ compilerkit_FSM_init (CompilerKitFSM *self)
   self->priv = priv = COMPILERKIT_FSM_GET_PRIVATE (self);
 
   /** @todo: initialize start table **/
-  self->states = g_hash_table_new(g_str_hash(),g_str_equal());
-  self->transitions = g_hash_table_new(g_str_hash(),g_str_equal());
-  self->acceptStates = g_hash_table_new(g_str_hash(),g_str_equal());
+  self->states = g_hash_table_new(g_str_hash,g_str_equal);
+  self->transitions = g_hash_table_new(g_str_hash,g_str_equal);
+  self->acceptStates = g_hash_table_new(g_str_hash,g_str_equal);
 }
 
 CompilerKitFSM* compilerkit_FSM_new (void)
@@ -94,8 +94,8 @@ compilerkit_FSM_dispose (GObject* object)
 
   priv = COMPILERKIT_FSM_GET_PRIVATE (self);
   
-  free(*priv);
-  free(*self);
+  free(priv);
+  free(self);
 
   G_OBJECT_CLASS (compilerkit_FSM_parent_class)->dispose (object);
 }
