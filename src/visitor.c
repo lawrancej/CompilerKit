@@ -16,6 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "CompilerKit/visitor.h"
+#include <stdio.h>
 #include <glib.h>
 #define COMPILERKIT_VISITOR_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_VISITOR, CompilerKitVisitorPrivate))
 G_DEFINE_TYPE(CompilerKitVisitor, compilerkit_visitor, G_TYPE_OBJECT);
@@ -74,16 +75,13 @@ compilerkit_visitor_class_init (CompilerKitVisitorClass *klass)
 static void
 compilerkit_visitor_init (CompilerKitVisitor *self)
 {
-  CompilerKitVisitorPrivate *priv;
+    CompilerKitVisitorPrivate *priv;
 
-  self->priv = priv = COMPILERKIT_VISITOR_GET_PRIVATE (self);
+    self->priv = priv = COMPILERKIT_VISITOR_GET_PRIVATE (self);
 
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
+    self->state = NULL;
 
-  /** @todo Initialize private fields */
-  priv->visitors = g_hash_table_new (g_int64_hash,g_int64_equal);
-  
+    priv->visitors = g_hash_table_new (g_str_hash,g_str_equal);
 }
 
 /**
@@ -131,6 +129,7 @@ compilerkit_visitor_dispose (GObject* object)
     priv = COMPILERKIT_VISITOR_GET_PRIVATE (self);
   
     /** @todo Deallocate memory as necessary */
+    g_hash_table_destroy (priv->visitors);
 
     G_OBJECT_CLASS (compilerkit_visitor_parent_class)->dispose (object);
 }
@@ -138,30 +137,34 @@ compilerkit_visitor_dispose (GObject* object)
 /**
  * compilerkit_visitor_register:
  * @fn compilerkit_visitor_register
+ * @memberof CompilerKitVisitor
  * Associate the GType of a class with a visitor function.
  * @pre CompilerKitVisitor* is not NULL.
  * @param CompilerKitVisitor* The visitor instance.
  * @param GType The type of the class to visit.
- * @param CompilerKitVisitorFuc A pointer to the visitor function.
+ * @param CompilerKitVisitorFunc A pointer to a visitor function for the specified type.
  * @return void
  */
 void compilerkit_visitor_register (CompilerKitVisitor *self, GType the_type, CompilerKitVisitorFunc func)
 {
-    g_hash_table_insert (self->priv->visitors, the_type, func);
+    g_hash_table_insert (self->priv->visitors, g_type_name(the_type), func);
 }
 
 /**
  * compilerkit_visitor_visit:
  * @fn compilerkit_visitor_visit
+ * @memberof CompilerKitVisitor
  * Visit the GObject. The function it calls depends on the GObject type.
  * @pre CompilerKitVisitor* is not NULL.
  * @param CompilerKitVisitor* The visitor instance.
  * @param GObject* The object to visit.
- * @return void*
+ * @return GObject* Anything to return (can be NULL).
  */
-void * compilerkit_visitor_visit (CompilerKitVisitor *self, GObject *obj)
+GObject *compilerkit_visitor_visit (CompilerKitVisitor *self, GObject *obj)
 {
-    GType key = G_OBJECT_TYPE(obj);
-    CompilerKitVisitorFunc func = (CompilerKitVisitorFunc) g_hash_table_lookup (self->priv->visitors, &key);
-    func (self, obj);
+    if(self == NULL || obj == NULL)
+        return NULL;
+    GType the_type = G_OBJECT_TYPE(obj);
+    CompilerKitVisitorFunc func = (CompilerKitVisitorFunc) g_hash_table_lookup (self->priv->visitors, g_type_name(the_type));
+    if (func) return func (self, obj);
 }

@@ -41,13 +41,13 @@ typedef struct _CompilerKitBarPrivate CompilerKitBarPrivate;
  */
 typedef struct _CompilerKitBar
 {
-  /** Base instance (GObject) */
-  GObject parent_instance;
+    /** Base instance (GObject) */
+    GObject parent_instance;
 
-  /** @todo Define public fields here */
+    /** @todo Define public fields here */
 
-  /** Opaque pointer to private fields */
-  CompilerKitBarPrivate *priv;
+    /** Opaque pointer to private fields */
+    CompilerKitBarPrivate *priv;
 
 } CompilerKitBar;
 
@@ -60,12 +60,11 @@ typedef struct _CompilerKitBar
  */
 typedef struct _CompilerKitBarClass
 {
-  /** Base class (GobjectClass) */
-  GObjectClass parent_class;
+    /** Base class (GObjectClass) */
+    GObjectClass parent_class;
 
-  /** @todo Virtual public methods (function pointers) go here */
-  // void (*method_name) (CompilerKitBar *self, ...);
-  
+    /** @todo Virtual public methods (function pointers) go here */
+    // void (*method_name) (CompilerKitBar *self, ...);
 } CompilerKitBarClass;
 
 /**

@@ -31,9 +31,13 @@ typedef struct _CompilerKitVisitorPrivate CompilerKitVisitorPrivate;
 
 /**
  * @struct CompilerKitVisitor
- * @todo Briefly describe this struct. (Remove the todo).
+ * A visitor struct.
  *
- * Defines all public fields. Private fields live behind an opaque pointer.
+ * A typical visitor implementation uses function overloading.
+ * C, however, does not support function overloading.
+ * To get around this limitation, the visitor class uses the GObject type system.
+ * Every GObject has a type associated with it. This serves as a key into a hash table of function pointers.
+ * To define a visitor, see the example below.
  * @see #_CompilerKitVisitorPrivate for private fields.
  * @see #CompilerKitVisitorClass for virtual public methods.
  * @example visitor-demo.c
@@ -44,7 +48,6 @@ typedef struct _CompilerKitVisitor
     /** Base instance (GObject) */
     GObject parent_instance;
 
-  /** @todo Define public fields here */
     /** Pointer to any useful data during traversal. */
     gpointer state;
 
@@ -53,25 +56,36 @@ typedef struct _CompilerKitVisitor
 
 } CompilerKitVisitor;
 
-typedef void * (*CompilerKitVisitorFunc) (CompilerKitVisitor *, GObject *);
+/**
+ * @typedef CompilerKitVisitorFunc
+ * @memberof CompilerKitVisitor
+ * A function pointer type for visitors. To use, define a function like this:
+ * 
+ *     GObject *do_something (CompilerKitVisitor *visitor, GObject *object)
+ *     {
+ *     
+ *     }
+ *
+ * Then, when registering function pointers into the visitor, do this (replace `CLASSNAMEGOESHERE` with the right thing):
+ *
+ *     compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_CLASSNAMEGOESHERE, do_something);
+ */
+typedef GObject *(*CompilerKitVisitorFunc) (CompilerKitVisitor *, GObject *);
 
 /**
  * @struct CompilerKitVisitorClass
- * @todo Briefly describe this struct. (Remove the todo).
  *
- * This struct declares the virtual public methods.
+ * This struct declares the virtual public methods of visitor (there aren't any).
  * @see #CompilerKitVisitor for a list of fields.
  */
 typedef struct _CompilerKitVisitorClass
 {
     /** Base class (GobjectClass) */
     GObjectClass parent_class;
-
-    /** @todo Virtual public methods (function pointers) go here */
-
 } CompilerKitVisitorClass;
 
 /**
+ * compilerkit_visitor_get_type:
  * @fn compilerkit_visitor_get_type
  * Returns the runtime type information for CompilerKitVisitor. Macro COMPILERKIT_TYPE_VISITOR uses it.
  * @pre None
@@ -80,13 +94,10 @@ typedef struct _CompilerKitVisitorClass
  */
 GType compilerkit_visitor_get_type (void);
 
-/** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
- * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
- */
+/** Public method function prototypes */
 CompilerKitVisitor* compilerkit_visitor_new (void);
 void compilerkit_visitor_register (CompilerKitVisitor *visitor, GType the_type, CompilerKitVisitorFunc);
-void compilerkit_visitor_visit (CompilerKitVisitor *visitor, GObject *obj);
+GObject *compilerkit_visitor_visit (CompilerKitVisitor *visitor, GObject *obj);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_visitor_h__ */
