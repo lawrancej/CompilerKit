@@ -96,9 +96,9 @@ compilerkit_FSM_dispose (GObject* object)
   
   /** @todo Deallocate memory as necessary */
   /** @todo What to do about start state? */
-  g_hash_table_destroy(self->states);
-  g_hash_table_destroy(self->transitions);
-  g_hash_table_destroy(self->acceptStates);
+  g_hash_table_destroy(priv->states);
+  g_hash_table_destroy(priv->transitions);
+  g_hash_table_destroy(priv->acceptStates);
   
   G_OBJECT_CLASS (compilerkit_FSM_parent_class)->dispose (object);
 }
