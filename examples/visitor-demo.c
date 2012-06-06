@@ -105,9 +105,9 @@ int main (int argc, char ** argv)
     compilerkit_visitor_visit (visitor, regex);
 
 	/* Make sure that visitor repsonds correctly to NULL data */
-	assert(compilerkit_visitor_visit(visitor, NULL) == NULL);
-	assert(compilerkit_visitor_visit(NULL, regex) == NULL);
-	assert(compilerkit_visitor_visit(NULL, NULL) == NULL);
+	g_assert(compilerkit_visitor_visit(visitor, NULL) == NULL);
+	g_assert(compilerkit_visitor_visit(NULL, regex) == NULL);
+	g_assert(compilerkit_visitor_visit(NULL, NULL) == NULL);
 	
     /* Clean up after ourselves. */
     g_object_unref (visitor);
