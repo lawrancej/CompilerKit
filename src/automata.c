@@ -68,7 +68,7 @@ compilerkit_FSM_init (CompilerKitFSM *self)
   self->priv = priv = COMPILERKIT_FSM_GET_PRIVATE (self);
 
   /** @todo Initialize hash tables here */
-  self->priv = g_hash_table_new(g_str_hash, g_str_equal);
+  self->priv->states = g_hash_table_new(g_str_hash, g_str_equal);
 }
 
 CompilerKitFSM* compilerkit_FSM_new (void)
