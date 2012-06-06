@@ -15,10 +15,14 @@ pkg_check_modules (GLIB2 glib-2.0>=2.26)
 pkg_check_modules (GOBJECT_PKG gobject-2.0)
 
 FILE (GLOB SRC src/*.c)
-INCLUDE_DIRECTORIES(${GLIB2_INCLUDE_DIRS} src include)
+
+INCLUDE_DIRECTORIES(${GLIB2_INCLUDE_DIRS} ${GOBJECT_PKG_INCLUDE_DIRS} src include)
+LINK_LIBRARIES(${GLIB2_LIBRARIES} ${GOBJECT_PKG_LIBRARIES})
+LINK_DIRECTORIES(${GLIB2_LIBRARY_DIRS} ${GOBJECT_PKG_LIBRARY_DIRS})
+
 # Compile and link CompilerKit
 
 ADD_LIBRARY(CompilerKit ${SRC})
 
 ADD_EXECUTABLE(compilerkit-demo examples/demo.c)
-# TARGET_LINK_LIBRARIES(compilerkit-demo CompilerKit)
+TARGET_LINK_LIBRARIES(compilerkit-demo CompilerKit)

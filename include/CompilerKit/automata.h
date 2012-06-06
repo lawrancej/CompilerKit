@@ -20,7 +20,7 @@
 
 #include <glib-object.h>
 #include <glib.h>
-
+G_BEGIN_DECLS
 #define COMPILERKIT_TYPE_FSM                  (compilerkit_FSM_get_type ())
 #define COMPILERKIT_FSM(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_FSM, CompilerKitFSM))
 #define COMPILERKIT_IS_FSM(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), COMPILERKIT_TYPE_FSM))
@@ -43,16 +43,15 @@ typedef struct _CompilerKitFSMClass
 {
   GObjectClass parent_class;
 
-  /* Methods */
+  /* Virtual public methods */
   void (*add_transition) (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
-  void (*add_accepting_state) (CompilerKitFSM* self, gchar *state);
-  void (*merge) (CompilerKitFSM *self, CompilerKitFSM *other);
 } CompilerKitFSMClass;
 
 /** Public method function prototypes */
 CompilerKitFSM* compilerkit_FSM_new (void);
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
+void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state);
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state);
 void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other);
-
+G_END_DECLS
 #endif
