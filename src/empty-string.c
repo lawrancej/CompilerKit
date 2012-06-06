@@ -65,9 +65,9 @@ compilerkit_empty_string_init (CompilerKitEmptyString *self)
  * @param None
  * @return A new CompilerKitEmptyString struct.
  */
-CompilerKitEmptyString* compilerkit_empty_string_new (void)
+GObject *compilerkit_empty_string_new (void)
 {
-	return COMPILERKIT_EMPTY_STRING (g_object_new (COMPILERKIT_TYPE_EMPTY_STRING, NULL));
+	return g_object_new (COMPILERKIT_TYPE_EMPTY_STRING, NULL);
 }
 
 /**

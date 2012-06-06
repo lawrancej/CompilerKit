@@ -16,6 +16,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "CompilerKit/concatenation.h"
+#include "CompilerKit/empty-set.h"
+#include "CompilerKit/empty-string.h"
 #define COMPILERKIT_CONCATENATION_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_CONCATENATION, CompilerKitConcatenationPrivate))
 G_DEFINE_TYPE(CompilerKitConcatenation, compilerkit_concatenation, G_TYPE_OBJECT);
 
@@ -87,14 +89,21 @@ compilerkit_concatenation_init (CompilerKitConcatenation *self)
  * @pre GObject* are all non NULL.
  * @param GObject* Left side of concatenation
  * @param GObject* Right side of concatenation
- * @return A new CompilerKitConcatenation struct.
+ * @return A new CompilerKitConcatenation struct if concatenation is necessary otherwise return the single element or EmptySet.
  */
-CompilerKitConcatenation* compilerkit_concatenation_new (GObject *left, GObject *right)
+GObject *compilerkit_concatenation_new (GObject *left, GObject *right)
 {
-	CompilerKitConcatenation* result = COMPILERKIT_CONCATENATION (g_object_new (COMPILERKIT_TYPE_CONCATENATION, NULL));
+	CompilerKitConcatenation* result;
+	if (COMPILERKIT_IS_EMPTY_SET(left) || COMPILERKIT_IS_EMPTY_SET(right))//if left or right is EmptySet
+		return compilerkit_empty_set_new();
+	if (COMPILERKIT_IS_EMPTY_STRING(left)) //if left is EmptyString, return right
+		return right;
+	if (COMPILERKIT_IS_EMPTY_STRING(right)) //if right is EmpltyString, return left
+		return left;
+	result = COMPILERKIT_CONCATENATION (g_object_new (COMPILERKIT_TYPE_CONCATENATION, NULL));
     result->priv->left = left;
     result->priv->right = right;
-    return result;
+    return G_OBJECT(result);
 }
 
 /**

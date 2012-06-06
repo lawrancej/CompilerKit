@@ -16,6 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "test-suite.h"
+#include <glib.h>
 
 int main (int argc, char ** argv)
 {
@@ -25,6 +26,7 @@ int main (int argc, char ** argv)
     /** @todo Add here: g_test_add_func ("/test-class/test-class-method", test_class_method); */
     g_test_add_func ("/test-automata/test-FSM-start-state", test_FSM_start_state);
     g_test_add_func ("/test-automata/test-FSM-states", test_FSM_states);
+    g_test_add_func ("/test-automata/test-concatenation-constructor", test_concatenation_constructor);
 
     g_test_run();
 }

@@ -97,9 +97,9 @@ compilerkit_nonterminal_init (CompilerKitNonterminal *self)
  * @param None
  * @return A new CompilerKitNonterminal struct.
  */
-CompilerKitNonterminal* compilerkit_nonterminal_new (void)
+GObject *compilerkit_nonterminal_new (void)
 {
-	return COMPILERKIT_NONTERMINAL (g_object_new (COMPILERKIT_TYPE_NONTERMINAL, NULL));
+	return g_object_new (COMPILERKIT_TYPE_NONTERMINAL, NULL);
 }
 
 /**

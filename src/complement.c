@@ -95,11 +95,11 @@ compilerkit_complement_init (CompilerKitComplement *self)
  * Construct a CompilerKitComplement instance.
  * @pre None
  * @param None
- * @return A new CompilerKitComplement struct.
+ * @return A new CompilerKitComplement struct, cast to GObject*.
  */
-CompilerKitComplement* compilerkit_complement_new (void)
+GObject *compilerkit_complement_new (void)
 {
-	return COMPILERKIT_COMPLEMENT (g_object_new (COMPILERKIT_TYPE_COMPLEMENT, NULL));
+	return g_object_new (COMPILERKIT_TYPE_COMPLEMENT, NULL);
 }
 
 /**

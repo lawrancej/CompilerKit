@@ -83,13 +83,13 @@ compilerkit_kleene_star_init (CompilerKitKleeneStar *self)
  * Construct a CompilerKitKleeneStar instance.
  * @pre None
  * @param None
- * @return A new CompilerKitKleeneStar struct.
+ * @return A new CompilerKitKleeneStar struct, cast to GObject*.
  */
-CompilerKitKleeneStar* compilerkit_kleene_star_new (GObject *node)
+GObject *compilerkit_kleene_star_new (GObject *node)
 {
 	CompilerKitKleeneStar* result = COMPILERKIT_KLEENE_STAR (g_object_new (COMPILERKIT_TYPE_KLEENE_STAR, NULL));
     result->priv->node = node;
-    return result;
+    return G_OBJECT(result);
 }
 
 /**
