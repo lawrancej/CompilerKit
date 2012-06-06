@@ -194,7 +194,8 @@ gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
  */
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state)
 {
-
+	CompilerKitFSMPrivate* priv = self->priv;
+	g_hash_table_add(priv->acceptStates,state);
 }
 
 /**
@@ -209,7 +210,24 @@ void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state)
  */
 void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other)
 {
+	CompilerKitFSMPrivate* priv = self->priv;
+	CompilerKitFSMPrivate* newPriv = other->priv;
+	
+	compilerkit_FSM_mergeTables(priv->states, newPriv->states);
+	compilerkit_FSM_mergeTables(priv->transitions, newPriv->transitions);
+	compilerkit_FSM_mergeTables(priv->acceptStates, newPriv->acceptStates);
+}
 
+void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2)
+{
+	GHashTableIter iter;
+	gpointer key, value;
+
+	g_hash_table_iter_init (&iter, table2);
+	while (g_hash_table_iter_next (&iter, &key, &value))
+	{
+		g_hash_table_add(table1, key);
+	}
 }
 
 /**
@@ -224,7 +242,8 @@ void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other)
  */
 void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
 {
-
+	CompilerKitFSMPrivate* priv = self->priv;
+	g_hash_table_add(priv->states,state);
 }
 
 /**
@@ -239,7 +258,8 @@ void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
 */
 void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state)
 {
-
+	CompilerKitFSMPrivate* priv = self->priv;
+	priv-start = state;
 }
 
 // For virtual methods only, we have a layer of indirection. The actual implementation goes here.
