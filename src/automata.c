@@ -63,9 +63,7 @@ compilerkit_FSM_class_init (CompilerKitFSMClass *klass)
 static void
 compilerkit_FSM_init (CompilerKitFSM *self)
 {
-  CompilerKitFSMPrivate *priv;
-
-  self->priv = priv = COMPILERKIT_FSM_GET_PRIVATE (self);
+  self->priv = COMPILERKIT_FSM_GET_PRIVATE (self);
 
   /** @todo Initialize hash tables here */
   self->priv->states = g_hash_table_new(g_str_hash, g_str_equal);
