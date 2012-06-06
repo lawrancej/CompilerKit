@@ -14,7 +14,7 @@ int main (int argc, char ** argv)
 #ifdef G_OS_UNIX
     printf ("Hello, Unix!\n");
 #endif
-    
+//    compilerkit_FSM_add_transition (fsm, "A", "B");
 
     g_object_unref (fsm);
 }

@@ -26,6 +26,7 @@ G_DEFINE_TYPE(CompilerKitFSM, compilerkit_FSM, G_TYPE_OBJECT);
 static void compilerkit_FSM_finalize (GObject* object);
 static void compilerkit_FSM_dispose (GObject* object);
 static void real_compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
+static gboolean real_compilerkit_FSM_match (CompilerKitFSM* self, gchar *str);
 
 struct _CompilerKitFSMPrivate
 {
@@ -52,6 +53,7 @@ compilerkit_FSM_class_init (CompilerKitFSMClass *klass)
   
   /* Hook overridable methods */
   klass->add_transition = real_compilerkit_FSM_add_transition;
+  klass->match = real_compilerkit_FSM_match;
   
   /* Hook finalization functions */
   g_object_class->dispose = compilerkit_FSM_dispose;   /* instance destructor, reverse of init */
@@ -66,6 +68,7 @@ compilerkit_FSM_init (CompilerKitFSM *self)
   self->priv = priv = COMPILERKIT_FSM_GET_PRIVATE (self);
 
   /** @todo Initialize hash tables here */
+  self->priv = g_hash_table_new(g_str_hash, g_str_equal);
 }
 
 CompilerKitFSM* compilerkit_FSM_new (void)
@@ -100,6 +103,11 @@ void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gc
     COMPILERKIT_FSM_CLASS (self)->add_transition (self, from_state, to_state, transition);
 }
 
+gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
+{
+    return COMPILERKIT_FSM_CLASS (self)->match (self, str);
+}
+
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state)
 {
 
@@ -118,4 +126,9 @@ void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
 static void real_compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
 {
 
+}
+
+static gboolean real_compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
+{
+    return TRUE;
 }
