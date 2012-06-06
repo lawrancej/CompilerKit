@@ -27,6 +27,7 @@ int main (int argc, char ** argv)
     g_test_add_func ("/test-automata/test-FSM-start-state", test_FSM_start_state);
     g_test_add_func ("/test-automata/test-FSM-states", test_FSM_states);
     g_test_add_func ("/test-automata/test-concatenation-constructor", test_concatenation_constructor);
+    g_test_add_func ("/test-visitor/test-visitor-null-visit",test_visitor_null_visit);
 
     g_test_run();
 }
