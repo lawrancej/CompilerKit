@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/visitor.h"
+#include "CompilerKit.h"
 #include "test-suite.h"
 
 /** @todo Write test cases of the form: void test_visitor_method (void); */
@@ -124,6 +124,6 @@ CompilerKitVisitor* regex_printer ()
 void test_visitor_null_visit(void)
 {
 	CompilerKitVisitor* visitor = regex_printer();
-	g_assert(compilerkit_visitor_visit(visitor, G_OBJECT(compilerkit_symbol_new('a'))) != NULL);
-	g_assert(compilerkit_visitor_visit(visitor, NULL) != NULL);
+	g_assert(compilerkit_visitor_visit(visitor, G_OBJECT(compilerkit_symbol_new('a'))) == NULL);
+	g_assert(compilerkit_visitor_visit(visitor, NULL) == NULL);
 }
