@@ -45,12 +45,13 @@ typedef struct _CompilerKitFSMClass
 
   /* Virtual public methods */
   void (*add_transition) (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
+  gboolean (*match) (CompilerKitFSM* self, gchar *str);
 } CompilerKitFSMClass;
 
 /** Public method function prototypes */
 CompilerKitFSM* compilerkit_FSM_new (void);
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
-void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state);
+gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str);
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state);
 void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other);
 G_END_DECLS
