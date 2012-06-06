@@ -37,7 +37,7 @@
 #define INCLUDE_CompilerKit_header_h__
 
 #include <glib-object.h>
-
+G_BEGIN_DECLS
 #define COMPILERKIT_TYPE_BAR                  (compilerkit_bar_get_type ())
 #define COMPILERKIT_BAR(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_BAR, CompilerKitBar))
 #define COMPILERKIT_IS_BAR(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), COMPILERKIT_TYPE_BAR))
@@ -77,4 +77,5 @@ GType compilerkit_bar_get_type (void);
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
 CompilerKitBar* compilerkit_bar_new (void);
-#endif
+G_END_DECLS
+#endif /* INCLUDE_CompilerKit_header_h__ */

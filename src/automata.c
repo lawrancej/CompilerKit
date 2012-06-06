@@ -25,6 +25,7 @@ G_DEFINE_TYPE(CompilerKitFSM, compilerkit_FSM, G_TYPE_OBJECT);
 /** Private method function prototypes */
 static void compilerkit_FSM_finalize (GObject* object);
 static void compilerkit_FSM_dispose (GObject* object);
+static void real_compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
 
 struct _CompilerKitFSMPrivate
 {
@@ -50,9 +51,7 @@ compilerkit_FSM_class_init (CompilerKitFSMClass *klass)
   g_object_class = G_OBJECT_CLASS(klass);
   
   /* Hook overridable methods */
-  klass->add_transition = compilerkit_FSM_add_transition;
-  klass->add_accepting_state = compilerkit_FSM_add_accepting_state;
-  klass->merge = compilerkit_FSM_merge;
+  klass->add_transition = real_compilerkit_FSM_add_transition;
   
   /* Hook finalization functions */
   g_object_class->dispose = compilerkit_FSM_dispose;   /* instance destructor, reverse of init */
@@ -106,7 +105,7 @@ compilerkit_FSM_dispose (GObject* object)
 
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
 {
-
+    COMPILERKIT_FSM_CLASS (self)->add_transition (self, from_state, to_state, transition);
 }
 
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state)
@@ -115,6 +114,16 @@ void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state)
 }
 
 void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other)
+{
+
+}
+
+void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
+{
+
+}
+
+static void real_compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
 {
 
 }
