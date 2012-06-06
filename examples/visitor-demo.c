@@ -92,6 +92,7 @@ int main (int argc, char ** argv)
     g_type_init();
     
     visitor = regex_printer();
+	
     
     /* Construct regex (a|ab)* programmatically. */
     regex = G_OBJECT(compilerkit_kleene_star_new (G_OBJECT(compilerkit_alternation_new(G_OBJECT(compilerkit_symbol_new('a')),
@@ -103,6 +104,11 @@ int main (int argc, char ** argv)
     /* Traverse through the regex structure using the regex_printer. */
     compilerkit_visitor_visit (visitor, regex);
 
+	/* Make sure that visitor repsonds correctly to NULL data */
+	g_assert(compilerkit_visitor_visit(visitor, NULL) == NULL);
+	g_assert(compilerkit_visitor_visit(NULL, regex) == NULL);
+	g_assert(compilerkit_visitor_visit(NULL, NULL) == NULL);
+	
     /* Clean up after ourselves. */
     g_object_unref (visitor);
     g_object_unref (regex);
