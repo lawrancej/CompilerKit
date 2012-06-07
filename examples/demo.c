@@ -7,13 +7,6 @@ int main (int argc, char ** argv)
     g_type_init();
     
     fsm = compilerkit_FSM_new();
-    
-#ifdef G_OS_WIN32
-    printf ("Hello, Windows!");
-#endif
-#ifdef G_OS_UNIX
-    printf ("Hello, Unix!\n");
-#endif
 
     compilerkit_FSM_set_start_state (fsm, "A");
     compilerkit_FSM_add_transition (fsm, "A", "B", 'd');

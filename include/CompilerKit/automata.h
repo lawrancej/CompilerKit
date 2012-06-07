@@ -39,6 +39,8 @@ typedef struct _CompilerKitFSMPrivate CompilerKitFSMPrivate;
  *
  * @see #_CompilerKitFSMPrivate for private fields.
  * @see #CompilerKitFSMClass for virtual public methods.
+ * @example demo.c
+ * This is an example of how to use the CompilerKitFSM struct.
  */
 typedef struct _CompilerKitFSM
 {
@@ -82,5 +84,6 @@ gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str);
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state);
 void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state);
 void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other);
+
 G_END_DECLS
 #endif
