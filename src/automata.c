@@ -149,7 +149,8 @@ compilerkit_FSM_dispose (GObject* object)
 */
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
 {
-    COMPILERKIT_FSM_CLASS (self)->add_transition (self, from_state, to_state, transition);
+    g_return_if_fail (COMPILERKIT_IS_FSM (self));
+    COMPILERKIT_FSM_GET_CLASS (self)->add_transition (self, from_state, to_state, transition);
 }
 
 /**
@@ -163,7 +164,8 @@ void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gc
 */
 gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
 {
-    return COMPILERKIT_FSM_CLASS (self)->match (self, str);
+    g_return_if_fail (COMPILERKIT_IS_FSM (self));
+    return COMPILERKIT_FSM_GET_CLASS (self)->match (self, str);
 }
 
 /**
