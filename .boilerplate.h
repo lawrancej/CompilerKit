@@ -54,6 +54,9 @@ typedef struct _CompilerKitBarPrivate CompilerKitBarPrivate;
  * Defines all public fields. Private fields live behind an opaque pointer.
  * @see #_CompilerKitBarPrivate for private fields.
  * @see #CompilerKitBarClass for virtual public methods.
+ * @example filename.c
+ * This is an example of how to use the CompilerKitBar struct.
+ * @todo Replace filename.c with an actual file in the examples/ folder that demonstrates how to use this.
  */
 typedef struct _CompilerKitBar
 {
@@ -98,5 +101,6 @@ GType compilerkit_bar_get_type (void);
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
 CompilerKitBar* compilerkit_bar_new (void);
+
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_header_h__ */
