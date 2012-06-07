@@ -16,7 +16,7 @@
  * 5. Follow the instructions for .boilerplate.c (the corresponding .c file)
  * 6. Remove this comment.
  */
-/*
+/**
  * Copyright (C) 2012 The CompilerKit contributors.
  *
  * This library is free software; you can redistribute it and/or
@@ -47,21 +47,36 @@ G_BEGIN_DECLS
 
 typedef struct _CompilerKitBarPrivate CompilerKitBarPrivate;
 
+/**
+ * @struct CompilerKitBar
+ * @todo Briefly describe this struct. (Remove the todo).
+ *
+ * Defines all public fields. Private fields live behind an opaque pointer.
+ * @see #_CompilerKitBarPrivate for private fields.
+ * @see #CompilerKitBarClass for virtual public methods.
+ */
 typedef struct _CompilerKitBar
 {
-  // Base instance
+  /** Base instance (GObject) */
   GObject parent_instance;
 
   /** @todo Define public fields here */
 
-  /*< Define private member variables inside CompilerKitBarPrivate in the corresponding .c file >*/
+  /** Opaque pointer to private fields */
   CompilerKitBarPrivate *priv;
 
 } CompilerKitBar;
 
+/**
+ * @struct CompilerKitBarClass
+ * @todo Briefly describe this struct. (Remove the todo).
+ *
+ * This struct declares the virtual public methods.
+ * @see #CompilerKitBar for a list of fields.
+ */
 typedef struct _CompilerKitBarClass
 {
-  // Base class
+  /** Base class (GobjectClass) */
   GObjectClass parent_class;
 
   /** @todo Virtual public methods (function pointers) go here */
@@ -69,7 +84,13 @@ typedef struct _CompilerKitBarClass
   
 } CompilerKitBarClass;
 
-/* used by COMPILERKIT_TYPE_BAR */
+/**
+ * @fn compilerkit_bar_get_type
+ * Returns the runtime type information for CompilerKitBar. Macro COMPILERKIT_TYPE_BAR uses it.
+ * @pre None
+ * @param None
+ * @return GType (runtime type information)
+ */
 GType compilerkit_bar_get_type (void);
 
 /** Public method function prototypes 
