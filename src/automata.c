@@ -81,10 +81,14 @@ compilerkit_FSM_class_init (CompilerKitFSMClass *klass)
 static void
 compilerkit_FSM_init (CompilerKitFSM *self)
 {
-  self->priv = COMPILERKIT_FSM_GET_PRIVATE (self);
+  CompilerKitFSMPrivate* priv;
+  self->priv = priv = COMPILERKIT_FSM_GET_PRIVATE (self);
 
   /** @todo Initialize hash tables here */
-  self->priv->states = g_hash_table_new(g_str_hash, g_str_equal);
+  /** @todo What to do about start state? */
+  priv->states = g_hash_table_new(g_direct_hash, g_direct_equal);
+  priv->transitions = g_hash_table_new(g_direct_hash, g_direct_equal);
+  priv->acceptStates = g_hash_table_new(g_direct_hash, g_direct_equal);
 }
 
 /**
@@ -131,7 +135,11 @@ compilerkit_FSM_dispose (GObject* object)
   priv = COMPILERKIT_FSM_GET_PRIVATE (self);
   
   /** @todo Deallocate memory as necessary */
-
+  /** @todo What to do about start state? */
+  g_hash_table_destroy(priv->states);
+  g_hash_table_destroy(priv->transitions);
+  g_hash_table_destroy(priv->acceptStates);
+  
   G_OBJECT_CLASS (compilerkit_FSM_parent_class)->dispose (object);
 }
 
