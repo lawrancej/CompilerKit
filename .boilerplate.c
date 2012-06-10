@@ -1,20 +1,3 @@
-/** 
- * Boilerplate implementation instructions.
- * 
- * Read the GObject Tutorial and follow the given directions.
- *
- * @see http://syscall.org/doku.php/gobjectutorial/start 
- * @see http://irrepupavel.com/documents/gtk/gobject-faq.html
- * @see http://developer.gnome.org/gobject/stable/
- * @see http://article.gmane.org/gmane.comp.gnome.gtk%2B.devel.general/6329 (mostly out of date)
- *
- * @todo Directions:
- * 1. Save a copy of this file (named for the type) into the src folder.
- * 2. Replace "BAR" with TYPE, "Bar" with Type, and "bar" with type, declare a class called Type.
- * 3. Replace "header" with the file name from step 1.
- * 4. Search for all @todo items.
- * 5. Remove this comment.
- */
 /**
  * Copyright (C) 2012 The CompilerKit contributors.
  *
@@ -69,7 +52,7 @@ compilerkit_bar_class_init (CompilerKitBarClass *klass)
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
   
-  /** @todo Hook overridable methods */
+  /** @todo Hook virtual methods to implementations */
   // klass->method = method_implementation;
   
   /* Hook finalization functions */
