@@ -4,6 +4,7 @@ Get up-to-speed with CompilerKit development.
 
 1. [Install all dependencies.](#what-software-do-i-need)
 2. [Build CompilerKit](#how-to-build-compilerkit)
+3. [Read Doxygen-produced documentation](#where-is-the-documentation) 
 
 ## What software do I need?
 - A C compiler (e.g., Visual Studio, Xcode, gcc, [MinGW](http://sourceforge.net/projects/mingw/files/latest/download?source=files), or Clang)
@@ -80,3 +81,6 @@ mkdir build && cd build
 cmake ..
 cmake --build .
 ```
+
+## Where is the documentation?
+After building CompilerKit, look inside the docs/html folder.

@@ -3,14 +3,15 @@ CompilerKit
 CompilerKit will be a [parser combinator](#what-is-a-parser-combinator) based compiler construction library in C.
 
 - [How can I contribute to this?](#how-can-i-contribute-to-this)
-- [How do I get started?](#how-do-i-get-started)
 - [What is the license?](#what-is-the-license)
 - [Why does this exist?](#why-does-this-library-exist)
 - [What problems does this solve?](#what-problems-does-this-library-solve)
 - [How will this library work?](#how-will-this-work)
 
 ## How can I contribute to this?
-1. [Fork the project.](<https://github.com/lawrancej/CompilerKit>)
+First, read [how to hack on CompilerKit](HACKING.md), to install necessary software, and work with GObject and CMake.
+
+1. [Fork the project.](https://github.com/lawrancej/CompilerKit/fork)
 2. Find something to work on:
     * [Check the coordination document](https://docs.google.com/document/d/1g7SXO8BSL5rq2cJVqp_9XfWkzNyi9ZWKKl2Heb_nS1g/edit?pli=1)
     * [Check the issue tracker](https://github.com/lawrancej/CompilerKit/issues)
@@ -19,9 +20,6 @@ CompilerKit will be a [parser combinator](#what-is-a-parser-combinator) based co
 
 Or, [file a bug report.](https://github.com/lawrancej/CompilerKit/issues/new)
 
-## How do I get started?
-See the [Hacking CompilerKit](HACKING.md)
-
 ## What is the license?
 LGPL version 2.1 or later.
 
@@ -29,7 +27,7 @@ LGPL version 2.1 or later.
 CompilerKit aims to streamline developing any software deriving tree structures from text, including compilers and interpreters.
 This library will be the final product of a compiler design class.
 
-This library aims to [avoid problems in existing tools](#problems-in-existing-compiler-compilers) by doing these:
+This library aims to [avoid problems in existing tools](#what-problems-does-this-library-solve) by doing these:
 
 - Work across platforms, programming languages.
 - Play nicely with Unicode.
