@@ -1,4 +1,3 @@
-// http://www.ibm.com/developerworks/linux/tutorials/l-glib/section5.html
 /**
  * Copyright (C) 2012 The CompilerKit contributors.
  *
