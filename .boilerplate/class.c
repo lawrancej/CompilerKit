@@ -35,6 +35,7 @@ struct _CompilerKitBarPrivate
 };
 
 /**
+ * compilerkit_bar_class_init:
  * @fn compilerkit_bar_class_init
  * Initializes the CompilerKitBarClass (virtual table).
  * @pre klass is not NULL.
@@ -61,6 +62,7 @@ compilerkit_bar_class_init (CompilerKitBarClass *klass)
 }
 
 /**
+ * compilerkit_bar_init:
  * @fn compilerkit_bar_init 
  * Initializes the CompilerKitBar instance.
  * @pre self is not NULL.
@@ -82,6 +84,7 @@ compilerkit_bar_init (CompilerKitBar *self)
 }
 
 /**
+ * compilerkit_bar_new:
  * @fn compilerkit_bar_new
  * @memberof CompilerKitBar
  * Construct a CompilerKitBar instance.
@@ -95,6 +98,7 @@ CompilerKitBar* compilerkit_bar_new (void)
 }
 
 /**
+ * compilerkit_bar_finalize:
  * @fn compilerkit_bar_finalize
  * Reverse what compilerkit_bar_class_init allocated.
  * @pre GObject is not NULL.
@@ -108,6 +112,7 @@ compilerkit_bar_finalize (GObject* object)
 }
 
 /**
+ * compilerkit_bar_dispose:
  * @fn compilerkit_bar_dispose
  * Reverse what compilerkit_bar_init allocated.
  * @pre GObject is not NULL.
