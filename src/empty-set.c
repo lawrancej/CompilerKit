@@ -34,7 +34,7 @@ static void
 compilerkit_empty_set_class_init (CompilerKitEmptySetClass *klass)
 {
   GObjectClass *g_object_class;
-    
+
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
   
