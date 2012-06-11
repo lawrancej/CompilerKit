@@ -18,6 +18,21 @@
 #ifndef INCLUDE_CompilerKit_h__
 #define INCLUDE_CompilerKit_h__
 
+/* Regular expression includes */
 #include "CompilerKit/automata.h"
+#include "CompilerKit/empty-set.h"
+#include "CompilerKit/empty-string.h"
+#include "CompilerKit/symbol.h"
+#include "CompilerKit/alternation.h"
+#include "CompilerKit/complement.h"
+#include "CompilerKit/concatenation.h"
+#include "CompilerKit/kleene-star.h"
+
+#include "CompilerKit/scanner.h"
+
+/* Context-free grammar includes */
+#include "CompilerKit/nonterminal.h"
+#include "CompilerKit/terminal.h"
+#include "CompilerKit/grammar.h"
 
 #endif
