@@ -20,10 +20,10 @@
 /** @todo Meta-todo: make a boilerplate test application */
 int main (int argc, char ** argv)
 {
-    g_test_init (argc, argv, NULL);
+    g_test_init (&argc, &argv, NULL);
 
     /** @todo Add here: g_test_add_func ("/test-class/test-class-method", test_class_method); */
-    g_test_add_func ("/test-automata/test-FSM-method", test_bar_method);
+    g_test_add_func ("/test-automata/test-FSM-method", test_FSM_set_start_state);
 
     g_test_run();
 }
