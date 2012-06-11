@@ -15,24 +15,24 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/header.h"
+#include "CompilerKit/automata.h"
 #include "test-suite.h"
 
 /** @todo Write test cases of the form: void test_bar_method (void); */
 /** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-header/test-bar-method", test_bar_method); */
+/** @todo Add to test-suite.c: g_test_add_func ("/test-automata/test-FSM-method", test_bar_method); */
 
 /**
- * test_bar_method:
- * @fn test_bar_method
- * Tests method compilerkit_bar_method in CompilerKitBar struct.
+ * test_FSM_set_start_state:
+ * @fn test_FSM_set_start_state
+ * Tests method compilerkit_FSM_set_start_state in CompilerKitFSM struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_bar_method (void)
+void test_FSM_start_state (void)
 {
-    g_test_message ("Testing Bar method");
+    g_test_message ("Testing FSM set_start_state");
     g_test_timer_start ();
     
     /** @todo Test here  */

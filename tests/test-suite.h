@@ -15,28 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/header.h"
-#include "test-suite.h"
+#include <glib.h>
 
-/** @todo Write test cases of the form: void test_bar_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-header/test-bar-method", test_bar_method); */
-
-/**
- * test_bar_method:
- * @fn test_bar_method
- * Tests method compilerkit_bar_method in CompilerKitBar struct.
- * @pre None
- * @param None
- * @return void
- */
-void test_bar_method (void)
-{
-    g_test_message ("Testing Bar method");
-    g_test_timer_start ();
-    
-    /** @todo Test here  */
-    g_assert(FALSE);
-    
-    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
+/** Test case function prototypes of the form: void test_class_method (void); */
+void test_FSM_start_state (void);
