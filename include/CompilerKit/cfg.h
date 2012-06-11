@@ -15,12 +15,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#ifndef INCLUDE_CompilerKit_h__
-#define INCLUDE_CompilerKit_h__
+#ifndef INCLUDE_CompilerKit_cfg_h__
+#define INCLUDE_CompilerKit_cfg_h__
 
-#include "CompilerKit/regex.h"
-#include "CompilerKit/cfg.h"
+/* Context-free grammar includes */
+#include "nonterminal.h"
+#include "terminal.h"
+#include "grammar.h"
 
-#include "CompilerKit/scanner.h"
-
-#endif
+#endif /* INCLUDE_CompilerKit_cfg_h__ */

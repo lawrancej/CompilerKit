@@ -15,12 +15,18 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#ifndef INCLUDE_CompilerKit_h__
-#define INCLUDE_CompilerKit_h__
+#ifndef INCLUDE_CompilerKit_regex_h__
+#define INCLUDE_CompilerKit_regex_h__
 
-#include "CompilerKit/regex.h"
-#include "CompilerKit/cfg.h"
+/* Regular expression includes */
+#include "automata.h"
 
-#include "CompilerKit/scanner.h"
+#include "empty-set.h"
+#include "empty-string.h"
+#include "symbol.h"
+#include "alternation.h"
+#include "complement.h"
+#include "concatenation.h"
+#include "kleene-star.h"
 
-#endif
+#endif /* INCLUDE_CompilerKit_regex_h__ */
