@@ -1,5 +1,4 @@
-// http://www.ibm.com/developerworks/linux/tutorials/l-glib/section5.html
-/*
+/**
  * Copyright (C) 2012 The CompilerKit contributors.
  *
  * This library is free software; you can redistribute it and/or
@@ -25,19 +24,34 @@ G_DEFINE_TYPE(CompilerKitFSM, compilerkit_FSM, G_TYPE_OBJECT);
 /** Private method function prototypes */
 static void compilerkit_FSM_finalize (GObject* object);
 static void compilerkit_FSM_dispose (GObject* object);
+static void real_compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
+static gboolean real_compilerkit_FSM_match (CompilerKitFSM* self, gchar *str);
 
+/**
+ * @struct _CompilerKitFSMPrivate
+ * The private fields of the finite state machine.
+ * 
+ * @see #CompilerKitFSM
+ */
 struct _CompilerKitFSMPrivate
 {
-  // Start state
+  /** Starting state of the finite automaton. */
   gchar *start;
-  // Set of states
+  /** Set of states (vertices) in the finite automaton. */
   GHashTable *states;
-  // Transition
+  /** Transitions between states (edges) in the finite automaton. */
   GHashTable *transitions;
-  // Accepting states
+  /** If we are in any of these accepting states by the end of a match, then the match succeeds. */
   GHashTable *acceptStates;
 };
 
+/**
+ * compilerkit_FSM_class_init:
+ * Initializes the CompilerKitFSMClass struct.
+ * @pre klass is not NULL.
+ * @param CompilerKitFSMClass to initialize
+ * @return void
+ */
 static void
 compilerkit_FSM_class_init (CompilerKitFSMClass *klass)
 {
@@ -50,33 +64,55 @@ compilerkit_FSM_class_init (CompilerKitFSMClass *klass)
   g_object_class = G_OBJECT_CLASS(klass);
   
   /* Hook overridable methods */
-  klass->add_transition = compilerkit_FSM_add_transition;
-  klass->add_accepting_state = compilerkit_FSM_add_accepting_state;
-  klass->merge = compilerkit_FSM_merge;
+  klass->add_transition = real_compilerkit_FSM_add_transition;
+  klass->match = real_compilerkit_FSM_match;
   
   /* Hook finalization functions */
   g_object_class->dispose = compilerkit_FSM_dispose;   /* instance destructor, reverse of init */
   g_object_class->finalize = compilerkit_FSM_finalize; /* class finalization, reverse of class init */
 }
 
+/**
+ * compilerkit_FSM_init:
+ * Initializes the CompilerKitFSM struct.
+ * @pre self is not NULL.
+ * @param CompilerKitFSM to initialize
+ * @return void
+ */
 static void
 compilerkit_FSM_init (CompilerKitFSM *self)
 {
-  CompilerKitFSMPrivate *priv;
-
+  CompilerKitFSMPrivate* priv;
   self->priv = priv = COMPILERKIT_FSM_GET_PRIVATE (self);
 
-  /** @todo: initialize start table **/
-  self->states = g_hash_table_new(g_str_hash,g_str_equal);
-  self->transitions = g_hash_table_new(g_str_hash,g_str_equal);
-  self->acceptStates = g_hash_table_new(g_str_hash,g_str_equal);
+  /** @todo Initialize hash tables here */
+  /** @todo What to do about start state? */
+  priv->states = g_hash_table_new(g_direct_hash, g_direct_equal);
+  priv->transitions = g_hash_table_new(g_direct_hash, g_direct_equal);
+  priv->acceptStates = g_hash_table_new(g_direct_hash, g_direct_equal);
 }
 
+/**
+ * compilerkit_FSM_new:
+ * @fn compilerkit_FSM_new
+ * Construct a CompilerKitFSM
+ * @pre None
+ * @param None
+ * @return A new CompilerKitFSM struct.
+ * @memberof CompilerKitFSM
+ */
 CompilerKitFSM* compilerkit_FSM_new (void)
 {
 	return COMPILERKIT_FSM (g_object_new (COMPILERKIT_TYPE_FSM, NULL));
 }
 
+/**
+ * compilerkit_FSM_finalize:
+ * Reverse what compilerkit_FSM_class_init allocated.
+ * @pre GObject is not NULL.
+ * @param GObject to finalize
+ * @return void
+ */
 static void
 compilerkit_FSM_finalize (GObject* object)
 {
@@ -84,6 +120,14 @@ compilerkit_FSM_finalize (GObject* object)
 	G_OBJECT_CLASS (compilerkit_FSM_parent_class)->finalize (object);
 }
 
+/**
+ * compilerkit_FSM_dispose:
+ * @fn compilerkit_FSM_dispose
+ * Reverse what compilerkit_FSM_init allocated.
+ * @pre GObject is not NULL.
+ * @param GObject to dispose.
+ * @return void
+ */
 static void
 compilerkit_FSM_dispose (GObject* object)
 {
@@ -94,29 +138,118 @@ compilerkit_FSM_dispose (GObject* object)
 
   priv = COMPILERKIT_FSM_GET_PRIVATE (self);
   
-  free(priv);
-  free(self);
-
+  /** @todo Deallocate memory as necessary */
+  /** @todo What to do about start state? */
+  g_hash_table_destroy(priv->states);
+  g_hash_table_destroy(priv->transitions);
+  g_hash_table_destroy(priv->acceptStates);
+  
   G_OBJECT_CLASS (compilerkit_FSM_parent_class)->dispose (object);
 }
 
+/**
+ * compilerkit_FSM_add_transition:
+ * @fn compilerkit_FSM_add_transition
+ * Add a transition to a finite state machine.
+ * If the start and end states aren't already in the set of states, this function adds them in.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer.
+ * @param gchar*           Start state for the transition.
+ * @param gchar*           End state for the transition.
+ * @param gchar            The necessary input to make the transition.
+ * @return void
+ * @memberof CompilerKitFSM
+ */
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
 {
-	/** @todo: Alphabet tables **/
-	set_add(self->states,*to_state);
-	set_add(self->transitions,*state);
+    g_return_if_fail (COMPILERKIT_IS_FSM (self));
+    COMPILERKIT_FSM_GET_CLASS (self)->add_transition (self, from_state, to_state, transition);
 }
 
+/**
+ * compilerkit_FSM_match:
+ * @fn compilerkit_FSM_match
+ * @memberof CompilerKitFSM
+ * Match a string with the finite state machine.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer.
+ * @param gchar*           The string to read in.
+ * @return TRUE or FALSE. Whether the FSM was in an accepting state by the end of the string.
+ */
+gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
+{
+    g_return_if_fail (COMPILERKIT_IS_FSM (self));
+    return COMPILERKIT_FSM_GET_CLASS (self)->match (self, str);
+}
+
+/**
+ * compilerkit_FSM_add_accepting_state:
+ * @fn compilerkit_FSM_add_accepting_state
+ * @memberof CompilerKitFSM
+ * Add an accepting state to a finite state machine.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer.
+ * @param gchar*           An accepting state.
+ * @return void
+ */
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state)
 {
-	/** @todo:  **/
-	set_add(self->acceptStates,*state);
-	set_add(self->states,*state);
+
 }
 
+/**
+ * compilerkit_FSM_merge:
+ * @fn compilerkit_FSM_merge
+ * @memberof CompilerKitFSM
+ * Copy all states and transitions (but not accepting states) from another CompilerKitFSM into self.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer (self).
+ * @param CompilerKitFSM*  The other CompilerKitFSM pointer.
+ * @return void
+ */
 void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other)
 {
-	/** @todo: Alphabet tables **/
-	set_add(self->states,other->states);
-	set_add(self->transitions,other->transitions);
+
+}
+
+/**
+ * compilerkit_FSM_add_state:
+ * @fn compilerkit_FSM_add_state
+ * @memberof CompilerKitFSM
+ * Add a state into the set of states of a finite state machine.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer (self).
+ * @param CompilerKitFSM*  The other CompilerKitFSM pointer.
+ * @return void
+ */
+void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
+{
+
+}
+
+/**
+ * compilerkit_FSM_set_start_state:
+ * @fn compilerkit_FSM_set_start_state
+ * @memberof CompilerKitFSM
+ * Designate the starting state of a finite state machine.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer (self).
+ * @param gchar*           The starting state
+ * @return void
+*/
+void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state)
+{
+
+}
+
+// For virtual methods only, we have a layer of indirection. The actual implementation goes here.
+static void real_compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
+{
+
+}
+
+// For virtual methods only, we have a layer of indirection. The actual implementation goes here.
+static gboolean real_compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
+{
+    return TRUE;
 }

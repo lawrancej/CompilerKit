@@ -1,21 +1,4 @@
-/** 
- * Boilerplate implementation instructions.
- * 
- * Read the GObject Tutorial and follow the given directions.
- *
- * @see http://syscall.org/doku.php/gobjectutorial/start 
- * @see http://irrepupavel.com/documents/gtk/gobject-faq.html
- * @see http://developer.gnome.org/gobject/stable/
- * @see http://article.gmane.org/gmane.comp.gnome.gtk%2B.devel.general/6329 (mostly out of date)
- *
- * @todo Directions:
- * 1. Save a copy of this file (named for the type) into the src folder.
- * 2. Replace "BAR" with TYPE, "Bar" with Type, and "bar" with type, declare a class called Type.
- * 3. Replace "header" with the file name from step 1.
- * 4. Search for all @todo items.
- * 5. Remove this comment.
- */
-/*
+/**
  * Copyright (C) 2012 The CompilerKit contributors.
  *
  * This library is free software; you can redistribute it and/or
@@ -40,11 +23,25 @@ G_DEFINE_TYPE(CompilerKitBar, compilerkit_bar, G_TYPE_OBJECT);
 static void compilerkit_bar_finalize (GObject* object);
 static void compilerkit_bar_dispose (GObject* object);
 
+/**
+ * @struct _CompilerKitBarPrivate
+ * The private fields of the CompilerKitBar struct.
+ * 
+ * @see #CompilerKitBar
+ */
 struct _CompilerKitBarPrivate
 {
 /** @todo Declare private members here */
 };
 
+/**
+ * compilerkit_bar_class_init:
+ * @fn compilerkit_bar_class_init
+ * Initializes the CompilerKitBarClass (virtual table).
+ * @pre klass is not NULL.
+ * @param CompilerKitBarClass to initialize
+ * @return void
+ */
 static void
 compilerkit_bar_class_init (CompilerKitBarClass *klass)
 {
@@ -56,7 +53,7 @@ compilerkit_bar_class_init (CompilerKitBarClass *klass)
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
   
-  /** @todo Hook overridable methods */
+  /** @todo Hook virtual methods to implementations */
   // klass->method = method_implementation;
   
   /* Hook finalization functions */
@@ -64,6 +61,14 @@ compilerkit_bar_class_init (CompilerKitBarClass *klass)
   g_object_class->finalize = compilerkit_bar_finalize; /* class finalization, reverse of class init */
 }
 
+/**
+ * compilerkit_bar_init:
+ * @fn compilerkit_bar_init 
+ * Initializes the CompilerKitBar instance.
+ * @pre self is not NULL.
+ * @param CompilerKitBar to initialize
+ * @return void
+ */
 static void
 compilerkit_bar_init (CompilerKitBar *self)
 {
@@ -78,23 +83,45 @@ compilerkit_bar_init (CompilerKitBar *self)
   // priv->member = whatever;
 }
 
+/**
+ * compilerkit_bar_new:
+ * @fn compilerkit_bar_new
+ * @memberof CompilerKitBar
+ * Construct a CompilerKitBar instance.
+ * @pre None
+ * @param None
+ * @return A new CompilerKitBar struct.
+ */
 CompilerKitBar* compilerkit_bar_new (void)
 {
 	return COMPILERKIT_BAR (g_object_new (COMPILERKIT_TYPE_BAR, NULL));
 }
 
+/**
+ * compilerkit_bar_finalize:
+ * @fn compilerkit_bar_finalize
+ * Reverse what compilerkit_bar_class_init allocated.
+ * @pre GObject is not NULL.
+ * @param GObject* An object to finalize.
+ * @return void
+ */
 static void
 compilerkit_bar_finalize (GObject* object)
 {
-	/* Reverse what was allocated by class init */
 	G_OBJECT_CLASS (compilerkit_bar_parent_class)->finalize (object);
 }
 
+/**
+ * compilerkit_bar_dispose:
+ * @fn compilerkit_bar_dispose
+ * Reverse what compilerkit_bar_init allocated.
+ * @pre GObject is not NULL.
+ * @param GObject* An object to dispose.
+ * @return void
+ */
 static void
 compilerkit_bar_dispose (GObject* object)
 {
-  /* Reverse what was allocated by instance init */
-
   CompilerKitBar *self = COMPILERKIT_BAR (object);
   CompilerKitBarPrivate* priv;
 

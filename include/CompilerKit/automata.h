@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2012 The CompilerKit contributors.
  *
  * This library is free software; you can redistribute it and/or
@@ -20,7 +20,7 @@
 
 #include <glib-object.h>
 #include <glib.h>
-
+G_BEGIN_DECLS
 #define COMPILERKIT_TYPE_FSM                  (compilerkit_FSM_get_type ())
 #define COMPILERKIT_FSM(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_FSM, CompilerKitFSM))
 #define COMPILERKIT_IS_FSM(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), COMPILERKIT_TYPE_FSM))
@@ -30,29 +30,60 @@
 
 typedef struct _CompilerKitFSMPrivate CompilerKitFSMPrivate;
 
+/**
+ * @struct CompilerKitFSM
+ * A finite state machine instance struct.
+  *
+ * This struct provides all necessary information for instances of CompilerKitFSM.
+ * Namely, an opaque pointer (priv) for private fields.
+ *
+ * @see #_CompilerKitFSMPrivate for private fields.
+ * @see #CompilerKitFSMClass for virtual public methods.
+ * @example automata-demo.c
+ * This is an example of how to use the CompilerKitFSM struct.
+ */
 typedef struct _CompilerKitFSM
 {
+  /** Base instance (GObject) */
   GObject parent_instance;
   
-  /*< define private member variables inside CompilerKitFSMPrivate in the corresponding .c file >*/
+  /** Opaque pointer to private fields */
   CompilerKitFSMPrivate *priv;
   
 } CompilerKitFSM;
 
+/**
+ * @struct CompilerKitFSMClass
+ * A finite state machine class struct.
+ * This struct declares the virtual public methods.
+ * @see #CompilerKitFSM for the instance struct.
+ */
 typedef struct _CompilerKitFSMClass
 {
+  /** Base class (GobjectClass) */
   GObjectClass parent_class;
 
-  /* Methods */
+  /* Virtual public methods */
   void (*add_transition) (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
-  void (*add_accepting_state) (CompilerKitFSM* self, gchar *state);
-  void (*merge) (CompilerKitFSM *self, CompilerKitFSM *other);
+  gboolean (*match) (CompilerKitFSM* self, gchar *str);
 } CompilerKitFSMClass;
 
-/** Public method function prototypes */
+/**
+ * @fn compilerkit_FSM_get_type
+ * Returns the runtime type information for CompilerKitFSM. Macro COMPILERKIT_TYPE_FSM uses it.
+ * @pre None
+ * @param void
+ * @return GType (runtime type information)
+ */
+GType compilerkit_FSM_get_type (void);
+
+/* Public method function prototypes */
 CompilerKitFSM* compilerkit_FSM_new (void);
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
+gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str);
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state);
+void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state);
 void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other);
 
+G_END_DECLS
 #endif
