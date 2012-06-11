@@ -46,7 +46,8 @@ struct _CompilerKitFSMPrivate
 };
 
 /**
- * compilerkit_FSM_class_init initializes the CompilerKitFSMClass struct.
+ * compilerkit_FSM_class_init:
+ * Initializes the CompilerKitFSMClass struct.
  * @pre klass is not NULL.
  * @param CompilerKitFSMClass to initialize
  * @return void
@@ -72,7 +73,8 @@ compilerkit_FSM_class_init (CompilerKitFSMClass *klass)
 }
 
 /**
- * compilerkit_FSM_init initializes the CompilerKitFSM struct.
+ * compilerkit_FSM_init:
+ * Initializes the CompilerKitFSM struct.
  * @pre self is not NULL.
  * @param CompilerKitFSM to initialize
  * @return void
@@ -91,6 +93,7 @@ compilerkit_FSM_init (CompilerKitFSM *self)
 }
 
 /**
+ * compilerkit_FSM_new:
  * @fn compilerkit_FSM_new
  * Construct a CompilerKitFSM
  * @pre None
@@ -104,6 +107,7 @@ CompilerKitFSM* compilerkit_FSM_new (void)
 }
 
 /**
+ * compilerkit_FSM_finalize:
  * Reverse what compilerkit_FSM_class_init allocated.
  * @pre GObject is not NULL.
  * @param GObject to finalize
@@ -117,6 +121,7 @@ compilerkit_FSM_finalize (GObject* object)
 }
 
 /**
+ * compilerkit_FSM_dispose:
  * @fn compilerkit_FSM_dispose
  * Reverse what compilerkit_FSM_init allocated.
  * @pre GObject is not NULL.
@@ -143,17 +148,18 @@ compilerkit_FSM_dispose (GObject* object)
 }
 
 /**
-* @fn compilerkit_FSM_add_transition
-* Add a transition to a finite state machine.
-* If the start and end states aren't already in the set of states, this function adds them in.
-* @pre No NULL parameters.
-* @param CompilerKitFSM*  A CompilerKitFSM pointer.
-* @param gchar*           Start state for the transition.
-* @param gchar*           End state for the transition.
-* @param gchar            The necessary input to make the transition.
-* @return void
-* @memberof CompilerKitFSM
-*/
+ * compilerkit_FSM_add_transition:
+ * @fn compilerkit_FSM_add_transition
+ * Add a transition to a finite state machine.
+ * If the start and end states aren't already in the set of states, this function adds them in.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer.
+ * @param gchar*           Start state for the transition.
+ * @param gchar*           End state for the transition.
+ * @param gchar            The necessary input to make the transition.
+ * @return void
+ * @memberof CompilerKitFSM
+ */
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
 {
     g_return_if_fail (COMPILERKIT_IS_FSM (self));
@@ -161,14 +167,15 @@ void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gc
 }
 
 /**
-* @fn compilerkit_FSM_match
-* @memberof CompilerKitFSM
-* Match a string with the finite state machine.
-* @pre No NULL parameters.
-* @param CompilerKitFSM*  A CompilerKitFSM pointer.
-* @param gchar*           The string to read in.
-* @return TRUE or FALSE. Whether the FSM was in an accepting state by the end of the string.
-*/
+ * compilerkit_FSM_match:
+ * @fn compilerkit_FSM_match
+ * @memberof CompilerKitFSM
+ * Match a string with the finite state machine.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer.
+ * @param gchar*           The string to read in.
+ * @return TRUE or FALSE. Whether the FSM was in an accepting state by the end of the string.
+ */
 gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
 {
     g_return_if_fail (COMPILERKIT_IS_FSM (self));
@@ -176,55 +183,59 @@ gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
 }
 
 /**
-* @fn compilerkit_FSM_add_accepting_state
-* @memberof CompilerKitFSM
-* Add an accepting state to a finite state machine.
-* @pre No NULL parameters.
-* @param CompilerKitFSM*  A CompilerKitFSM pointer.
-* @param gchar*           An accepting state.
-* @return void
-*/
+ * compilerkit_FSM_add_accepting_state:
+ * @fn compilerkit_FSM_add_accepting_state
+ * @memberof CompilerKitFSM
+ * Add an accepting state to a finite state machine.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer.
+ * @param gchar*           An accepting state.
+ * @return void
+ */
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state)
 {
 
 }
 
 /**
-* @fn compilerkit_FSM_merge
-* @memberof CompilerKitFSM
-* Copy all states and transitions (but not accepting states) from another CompilerKitFSM into self.
-* @pre No NULL parameters.
-* @param CompilerKitFSM*  A CompilerKitFSM pointer (self).
-* @param CompilerKitFSM*  The other CompilerKitFSM pointer.
-* @return void
-*/
+ * compilerkit_FSM_merge:
+ * @fn compilerkit_FSM_merge
+ * @memberof CompilerKitFSM
+ * Copy all states and transitions (but not accepting states) from another CompilerKitFSM into self.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer (self).
+ * @param CompilerKitFSM*  The other CompilerKitFSM pointer.
+ * @return void
+ */
 void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other)
 {
 
 }
 
 /**
-* @fn compilerkit_FSM_add_state
-* @memberof CompilerKitFSM
-* Add a state into the set of states of a finite state machine.
-* @pre No NULL parameters.
-* @param CompilerKitFSM*  A CompilerKitFSM pointer (self).
-* @param CompilerKitFSM*  The other CompilerKitFSM pointer.
-* @return void
-*/
+ * compilerkit_FSM_add_state:
+ * @fn compilerkit_FSM_add_state
+ * @memberof CompilerKitFSM
+ * Add a state into the set of states of a finite state machine.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer (self).
+ * @param CompilerKitFSM*  The other CompilerKitFSM pointer.
+ * @return void
+ */
 void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
 {
 
 }
 
 /**
-* @fn compilerkit_FSM_set_start_state
-* @memberof CompilerKitFSM
-* Designate the starting state of a finite state machine.
-* @pre No NULL parameters.
-* @param CompilerKitFSM*  A CompilerKitFSM pointer (self).
-* @param gchar*           The starting state
-* @return void
+ * compilerkit_FSM_set_start_state:
+ * @fn compilerkit_FSM_set_start_state
+ * @memberof CompilerKitFSM
+ * Designate the starting state of a finite state machine.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer (self).
+ * @param gchar*           The starting state
+ * @return void
 */
 void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state)
 {
