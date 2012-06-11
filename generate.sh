@@ -32,7 +32,7 @@ exit_if_file_exists() {
 
 get_class_name
 
-boilerplate=( ".boilerplate/class.c" ".boilerplate/class-include.h" ".boilerplate/demo.c" ".boilerplate/test.c" )
+boilerplate=( ".boilerplate/class.c" ".boilerplate/class.h" ".boilerplate/demo.c" ".boilerplate/test.c" )
 replacement=( "src/$class_filename.c" "include/CompilerKit/$class_filename.h" "examples/$class_filename-demo.c" "tests/$class_filename-test.c" )
 
 for i in 0 1 2 3
