@@ -1,22 +1,4 @@
-/** 
- * Boilerplate header.
- * 
- * Read the GObject Tutorial and follow the given directions. DO NOT: #include ".boilerplate.h"
- * 
- * @see http://syscall.org/doku.php/gobjectutorial/start 
- * @see http://irrepupavel.com/documents/gtk/gobject-faq.html
- * @see http://developer.gnome.org/gobject/stable/
- * @see http://article.gmane.org/gmane.comp.gnome.gtk%2B.devel.general/6329 (mostly out of date)
- * 
- * @todo Directions:
- * 1. Save a copy of this header file (named for the type) into the include/CompilerKit folder.
- * 2. Replace "BAR" with TYPE, "Bar" with Type, and "bar" with type, declare a class called Type.
- * 3. Replace "header" with the file name from step 1.
- * 4. Search for all @todo items.
- * 5. Follow the instructions for .boilerplate.c (the corresponding .c file)
- * 6. Remove this comment.
- */
-/*
+/**
  * Copyright (C) 2012 The CompilerKit contributors.
  *
  * This library is free software; you can redistribute it and/or
@@ -33,8 +15,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#ifndef INCLUDE_CompilerKit_header_h__
-#define INCLUDE_CompilerKit_header_h__
+#ifndef INCLUDE_CompilerKit_bar_h__
+#define INCLUDE_CompilerKit_bar_h__
 
 #include <glib-object.h>
 G_BEGIN_DECLS
@@ -47,21 +29,38 @@ G_BEGIN_DECLS
 
 typedef struct _CompilerKitBarPrivate CompilerKitBarPrivate;
 
+/**
+ * @struct CompilerKitBar
+ * @todo Briefly describe this struct. (Remove the todo).
+ *
+ * Defines all public fields. Private fields live behind an opaque pointer.
+ * @see #_CompilerKitBarPrivate for private fields.
+ * @see #CompilerKitBarClass for virtual public methods.
+ * @example header-demo.c
+ * This is an example of how to use the CompilerKitBar struct.
+ */
 typedef struct _CompilerKitBar
 {
-  // Base instance
+  /** Base instance (GObject) */
   GObject parent_instance;
 
   /** @todo Define public fields here */
 
-  /*< Define private member variables inside CompilerKitBarPrivate in the corresponding .c file >*/
+  /** Opaque pointer to private fields */
   CompilerKitBarPrivate *priv;
 
 } CompilerKitBar;
 
+/**
+ * @struct CompilerKitBarClass
+ * @todo Briefly describe this struct. (Remove the todo).
+ *
+ * This struct declares the virtual public methods.
+ * @see #CompilerKitBar for a list of fields.
+ */
 typedef struct _CompilerKitBarClass
 {
-  // Base class
+  /** Base class (GobjectClass) */
   GObjectClass parent_class;
 
   /** @todo Virtual public methods (function pointers) go here */
@@ -69,7 +68,13 @@ typedef struct _CompilerKitBarClass
   
 } CompilerKitBarClass;
 
-/* used by COMPILERKIT_TYPE_BAR */
+/**
+ * @fn compilerkit_bar_get_type
+ * Returns the runtime type information for CompilerKitBar. Macro COMPILERKIT_TYPE_BAR uses it.
+ * @pre None
+ * @param None
+ * @return GType (runtime type information)
+ */
 GType compilerkit_bar_get_type (void);
 
 /** Public method function prototypes 
@@ -77,5 +82,6 @@ GType compilerkit_bar_get_type (void);
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
 CompilerKitBar* compilerkit_bar_new (void);
+
 G_END_DECLS
-#endif /* INCLUDE_CompilerKit_header_h__ */
+#endif /* INCLUDE_CompilerKit_bar_h__ */
