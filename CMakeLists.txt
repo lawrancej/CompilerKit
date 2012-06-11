@@ -29,5 +29,5 @@ LINK_DIRECTORIES(${GLIB2_LIBRARY_DIRS} ${GOBJECT_PKG_LIBRARY_DIRS})
 
 ADD_LIBRARY(CompilerKit ${SRC})
 
-ADD_EXECUTABLE(compilerkit-demo examples/demo.c)
-TARGET_LINK_LIBRARIES(compilerkit-demo CompilerKit)
+ADD_EXECUTABLE(automata-demo examples/automata-demo.c)
+TARGET_LINK_LIBRARIES(automata-demo CompilerKit)
