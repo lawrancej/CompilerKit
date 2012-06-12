@@ -1,20 +1,3 @@
-/** 
- * Boilerplate implementation instructions.
- * 
- * Read the GObject Tutorial and follow the given directions.
- *
- * @see http://syscall.org/doku.php/gobjectutorial/start 
- * @see http://irrepupavel.com/documents/gtk/gobject-faq.html
- * @see http://developer.gnome.org/gobject/stable/
- * @see http://article.gmane.org/gmane.comp.gnome.gtk%2B.devel.general/6329 (mostly out of date)
- *
- * @todo Directions:
- * 1. Save a copy of this file (named for the type) into the src folder.
- * 2. Replace "BAR" with TYPE, "Bar" with Type, and "bar" with type, declare a class called Type.
- * 3. Replace "header" with the file name from step 1.
- * 4. Search for all @todo items.
- * 5. Remove this comment.
- */
 /**
  * Copyright (C) 2012 The CompilerKit contributors.
  *
@@ -48,10 +31,16 @@ static void compilerkit_bar_dispose (GObject* object);
  */
 struct _CompilerKitBarPrivate
 {
-/** @todo Declare private members here */
+    /** @todo Declare private members here */
+    /**
+     * @todo dummy is here so everything will compile by default.
+     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
+     */ 
+    int dummy;
 };
 
 /**
+ * compilerkit_bar_class_init:
  * @fn compilerkit_bar_class_init
  * Initializes the CompilerKitBarClass (virtual table).
  * @pre klass is not NULL.
@@ -69,7 +58,7 @@ compilerkit_bar_class_init (CompilerKitBarClass *klass)
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
   
-  /** @todo Hook overridable methods */
+  /** @todo Hook virtual methods to implementations */
   // klass->method = method_implementation;
   
   /* Hook finalization functions */
@@ -78,6 +67,7 @@ compilerkit_bar_class_init (CompilerKitBarClass *klass)
 }
 
 /**
+ * compilerkit_bar_init:
  * @fn compilerkit_bar_init 
  * Initializes the CompilerKitBar instance.
  * @pre self is not NULL.
@@ -99,6 +89,7 @@ compilerkit_bar_init (CompilerKitBar *self)
 }
 
 /**
+ * compilerkit_bar_new:
  * @fn compilerkit_bar_new
  * @memberof CompilerKitBar
  * Construct a CompilerKitBar instance.
@@ -112,6 +103,7 @@ CompilerKitBar* compilerkit_bar_new (void)
 }
 
 /**
+ * compilerkit_bar_finalize:
  * @fn compilerkit_bar_finalize
  * Reverse what compilerkit_bar_class_init allocated.
  * @pre GObject is not NULL.
@@ -125,6 +117,7 @@ compilerkit_bar_finalize (GObject* object)
 }
 
 /**
+ * compilerkit_bar_dispose:
  * @fn compilerkit_bar_dispose
  * Reverse what compilerkit_bar_init allocated.
  * @pre GObject is not NULL.

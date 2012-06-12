@@ -1,21 +1,3 @@
-/** 
- * Boilerplate header.
- * 
- * Read the GObject Tutorial and follow the given directions. DO NOT: #include ".boilerplate.h"
- * 
- * @see http://syscall.org/doku.php/gobjectutorial/start 
- * @see http://irrepupavel.com/documents/gtk/gobject-faq.html
- * @see http://developer.gnome.org/gobject/stable/
- * @see http://article.gmane.org/gmane.comp.gnome.gtk%2B.devel.general/6329 (mostly out of date)
- * 
- * @todo Directions:
- * 1. Save a copy of this header file (named for the type) into the include/CompilerKit folder.
- * 2. Replace "BAR" with TYPE, "Bar" with Type, and "bar" with type, declare a class called Type.
- * 3. Replace "header" with the file name from step 1.
- * 4. Search for all @todo items.
- * 5. Follow the instructions for .boilerplate.c (the corresponding .c file)
- * 6. Remove this comment.
- */
 /**
  * Copyright (C) 2012 The CompilerKit contributors.
  *
@@ -33,8 +15,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#ifndef INCLUDE_CompilerKit_header_h__
-#define INCLUDE_CompilerKit_header_h__
+#ifndef INCLUDE_CompilerKit_bar_h__
+#define INCLUDE_CompilerKit_bar_h__
 
 #include <glib-object.h>
 G_BEGIN_DECLS
@@ -54,9 +36,8 @@ typedef struct _CompilerKitBarPrivate CompilerKitBarPrivate;
  * Defines all public fields. Private fields live behind an opaque pointer.
  * @see #_CompilerKitBarPrivate for private fields.
  * @see #CompilerKitBarClass for virtual public methods.
- * @example filename.c
+ * @example header-demo.c
  * This is an example of how to use the CompilerKitBar struct.
- * @todo Replace filename.c with an actual file in the examples/ folder that demonstrates how to use this.
  */
 typedef struct _CompilerKitBar
 {
@@ -103,4 +84,4 @@ GType compilerkit_bar_get_type (void);
 CompilerKitBar* compilerkit_bar_new (void);
 
 G_END_DECLS
-#endif /* INCLUDE_CompilerKit_header_h__ */
+#endif /* INCLUDE_CompilerKit_bar_h__ */

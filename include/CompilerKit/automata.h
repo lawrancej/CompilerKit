@@ -39,7 +39,7 @@ typedef struct _CompilerKitFSMPrivate CompilerKitFSMPrivate;
  *
  * @see #_CompilerKitFSMPrivate for private fields.
  * @see #CompilerKitFSMClass for virtual public methods.
- * @example demo.c
+ * @example automata-demo.c
  * This is an example of how to use the CompilerKitFSM struct.
  */
 typedef struct _CompilerKitFSM
