@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2012 The CompilerKit contributors.
  *
  * This library is free software; you can redistribute it and/or
@@ -18,10 +18,10 @@
 #ifndef INCLUDE_CompilerKit_h__
 #define INCLUDE_CompilerKit_h__
 
-#include "CompilerKit/automata.h"
+#include "CompilerKit/regex.h"
 #include "CompilerKit/cfg.h"
-#include "CompilerKit/re.h"
-#include "CompilerKit/parser.h"
+
 #include "CompilerKit/scanner.h"
+#include "CompilerKit/visitor.h"
 
 #endif

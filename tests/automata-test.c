@@ -30,7 +30,7 @@
  * @param None
  * @return void
  */
-void test_FSM_start_state (void)
+void test_FSM_set_start_state (void)
 {
     g_test_message ("Testing FSM set_start_state");
     g_test_timer_start ();
