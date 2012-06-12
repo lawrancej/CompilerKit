@@ -81,7 +81,10 @@ GType compilerkit_concatenation_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitConcatenation* compilerkit_concatenation_new (void);
+CompilerKitConcatenation* compilerkit_concatenation_new (GObject *left, GObject *right);
+
+GObject *compilerkit_concatenation_get_left(CompilerKitConcatenation *self);
+GObject *compilerkit_concatenation_get_right(CompilerKitConcatenation *self);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_concatenation_h__ */

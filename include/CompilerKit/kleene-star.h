@@ -81,7 +81,9 @@ GType compilerkit_kleene_star_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitKleeneStar* compilerkit_kleene_star_new (void);
+CompilerKitKleeneStar* compilerkit_kleene_star_new (GObject *node);
+
+GObject *compilerkit_kleene_star_get_node (CompilerKitKleeneStar *self);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_kleene_star_h__ */

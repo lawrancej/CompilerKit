@@ -36,7 +36,7 @@ struct _CompilerKitKleeneStarPrivate
      * @todo dummy is here so everything will compile by default.
      * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
      */ 
-    int dummy;
+    GObject *node;
 };
 
 /**
@@ -97,9 +97,11 @@ compilerkit_kleene_star_init (CompilerKitKleeneStar *self)
  * @param None
  * @return A new CompilerKitKleeneStar struct.
  */
-CompilerKitKleeneStar* compilerkit_kleene_star_new (void)
+CompilerKitKleeneStar* compilerkit_kleene_star_new (GObject *node)
 {
-	return COMPILERKIT_KLEENE_STAR (g_object_new (COMPILERKIT_TYPE_KLEENE_STAR, NULL));
+	CompilerKitKleeneStar* result = COMPILERKIT_KLEENE_STAR (g_object_new (COMPILERKIT_TYPE_KLEENE_STAR, NULL));
+    result->priv->node = node;
+    return result;
 }
 
 /**
@@ -135,4 +137,17 @@ compilerkit_kleene_star_dispose (GObject* object)
   /** @todo Deallocate memory as necessary */
 
   G_OBJECT_CLASS (compilerkit_kleene_star_parent_class)->dispose (object);
+}
+
+/**
+ * compilerkit_kleene_star_get_node:
+ * @fn compilerkit_kleene_star_get_node
+ * In an kleene_star `a|b`, return `a`.
+ * @pre CompilerKitKleeneStar* is not NULL.
+ * @param CompilerKitKleeneStar* The kleene_star to query.
+ * @return The node side of the kleene_star.
+ */
+GObject* compilerkit_kleene_star_get_node (CompilerKitKleeneStar *self)
+{
+    return self->priv->node;
 }

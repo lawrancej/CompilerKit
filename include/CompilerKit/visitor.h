@@ -31,7 +31,7 @@ typedef struct _CompilerKitVisitorPrivate CompilerKitVisitorPrivate;
 
 /**
  * @struct CompilerKitVisitor
- * @todo Briefly describe this struct. (Remove the todo).
+ * Visitor class
  *
  * Defines all public fields. Private fields live behind an opaque pointer.
  * @see #_CompilerKitVisitorPrivate for private fields.
@@ -53,7 +53,7 @@ typedef struct _CompilerKitVisitor
 
 } CompilerKitVisitor;
 
-typedef void * (*CompilerKitVisitorFunc) (CompilerKitVisitor *, GObject *);
+typedef void (*CompilerKitVisitorFunc) (CompilerKitVisitor *, GObject *);
 
 /**
  * @struct CompilerKitVisitorClass
@@ -72,6 +72,7 @@ typedef struct _CompilerKitVisitorClass
 } CompilerKitVisitorClass;
 
 /**
+ * compilerkit_visitor_get_type:
  * @fn compilerkit_visitor_get_type
  * Returns the runtime type information for CompilerKitVisitor. Macro COMPILERKIT_TYPE_VISITOR uses it.
  * @pre None

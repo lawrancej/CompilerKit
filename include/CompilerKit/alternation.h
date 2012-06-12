@@ -48,7 +48,6 @@ typedef struct _CompilerKitAlternation
 
   /** Opaque pointer to private fields */
   CompilerKitAlternationPrivate *priv;
-
 } CompilerKitAlternation;
 
 /**
@@ -81,7 +80,10 @@ GType compilerkit_alternation_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitAlternation* compilerkit_alternation_new (void);
+CompilerKitAlternation* compilerkit_alternation_new (GObject *left, GObject *right);
+
+GObject* compilerkit_alternation_get_left (CompilerKitAlternation *self);
+GObject* compilerkit_alternation_get_right (CompilerKitAlternation *self);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_alternation_h__ */

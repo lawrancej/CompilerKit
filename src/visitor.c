@@ -16,6 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "CompilerKit/visitor.h"
+#include <stdio.h>
 #include <glib.h>
 #define COMPILERKIT_VISITOR_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_VISITOR, CompilerKitVisitorPrivate))
 G_DEFINE_TYPE(CompilerKitVisitor, compilerkit_visitor, G_TYPE_OBJECT);
@@ -82,7 +83,7 @@ compilerkit_visitor_init (CompilerKitVisitor *self)
   // self->public_field = some_value;
 
   /** @todo Initialize private fields */
-  priv->visitors = g_hash_table_new (g_int64_hash,g_int64_equal);
+  priv->visitors = g_hash_table_new (g_str_hash,g_str_equal);
   
 }
 
@@ -147,7 +148,7 @@ compilerkit_visitor_dispose (GObject* object)
  */
 void compilerkit_visitor_register (CompilerKitVisitor *self, GType the_type, CompilerKitVisitorFunc func)
 {
-    g_hash_table_insert (self->priv->visitors, the_type, func);
+    g_hash_table_insert (self->priv->visitors, g_type_name(the_type), func);
 }
 
 /**
@@ -157,11 +158,11 @@ void compilerkit_visitor_register (CompilerKitVisitor *self, GType the_type, Com
  * @pre CompilerKitVisitor* is not NULL.
  * @param CompilerKitVisitor* The visitor instance.
  * @param GObject* The object to visit.
- * @return void*
+ * @return void
  */
-void * compilerkit_visitor_visit (CompilerKitVisitor *self, GObject *obj)
+void compilerkit_visitor_visit (CompilerKitVisitor *self, GObject *obj)
 {
-    GType key = G_OBJECT_TYPE(obj);
-    CompilerKitVisitorFunc func = (CompilerKitVisitorFunc) g_hash_table_lookup (self->priv->visitors, &key);
-    func (self, obj);
+    GType the_type = G_OBJECT_TYPE(obj);
+    CompilerKitVisitorFunc func = (CompilerKitVisitorFunc) g_hash_table_lookup (self->priv->visitors, g_type_name(the_type));
+    if (func) func (self, obj);
 }

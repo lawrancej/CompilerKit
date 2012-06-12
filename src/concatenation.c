@@ -36,7 +36,7 @@ struct _CompilerKitConcatenationPrivate
      * @todo dummy is here so everything will compile by default.
      * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
      */ 
-    int dummy;
+    GObject *left, *right;
 };
 
 /**
@@ -93,13 +93,17 @@ compilerkit_concatenation_init (CompilerKitConcatenation *self)
  * @fn compilerkit_concatenation_new
  * @memberof CompilerKitConcatenation
  * Construct a CompilerKitConcatenation instance.
- * @pre None
- * @param None
+ * @pre GObject* are all non NULL.
+ * @param GObject* Left side of concatenation
+ * @param GObject* Right side of concatenation
  * @return A new CompilerKitConcatenation struct.
  */
-CompilerKitConcatenation* compilerkit_concatenation_new (void)
+CompilerKitConcatenation* compilerkit_concatenation_new (GObject *left, GObject *right)
 {
-	return COMPILERKIT_CONCATENATION (g_object_new (COMPILERKIT_TYPE_CONCATENATION, NULL));
+	CompilerKitConcatenation* result = COMPILERKIT_CONCATENATION (g_object_new (COMPILERKIT_TYPE_CONCATENATION, NULL));
+    result->priv->left = left;
+    result->priv->right = right;
+    return result;
 }
 
 /**
@@ -135,4 +139,31 @@ compilerkit_concatenation_dispose (GObject* object)
   /** @todo Deallocate memory as necessary */
 
   G_OBJECT_CLASS (compilerkit_concatenation_parent_class)->dispose (object);
+}
+
+
+/**
+ * compilerkit_concatenation_get_left:
+ * @fn compilerkit_concatenation_get_left
+ * In an concatenation `a|b`, return `a`.
+ * @pre CompilerKitConcatenation* is not NULL.
+ * @param CompilerKitConcatenation* The concatenation to query.
+ * @return The left side of the concatenation.
+ */
+GObject* compilerkit_concatenation_get_left (CompilerKitConcatenation *self)
+{
+    return self->priv->left;
+}
+
+/**
+ * compilerkit_concatenation_get_right:
+ * @fn compilerkit_concatenation_get_right
+ * In an concatenation `a|b`, return `b`.
+ * @pre CompilerKitConcatenation* is not NULL.
+ * @param CompilerKitConcatenation* The concatenation to query.
+ * @return The right side of the concatenation.
+ */
+GObject* compilerkit_concatenation_get_right (CompilerKitConcatenation *self)
+{
+    return self->priv->right;
 }

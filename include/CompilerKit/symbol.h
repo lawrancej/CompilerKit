@@ -81,7 +81,9 @@ GType compilerkit_symbol_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitSymbol* compilerkit_symbol_new (void);
+CompilerKitSymbol* compilerkit_symbol_new (char symbol);
+
+char compilerkit_symbol_get_symbol(CompilerKitSymbol *self);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_symbol_h__ */

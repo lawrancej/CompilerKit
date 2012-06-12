@@ -36,7 +36,7 @@ struct _CompilerKitAlternationPrivate
      * @todo dummy is here so everything will compile by default.
      * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
      */ 
-    int dummy;
+    GObject *left, *right;
 };
 
 /**
@@ -93,13 +93,17 @@ compilerkit_alternation_init (CompilerKitAlternation *self)
  * @fn compilerkit_alternation_new
  * @memberof CompilerKitAlternation
  * Construct a CompilerKitAlternation instance.
- * @pre None
- * @param None
+ * @pre GObject* are all non NULL.
+ * @param GObject* Left side of alternation
+ * @param GObject* Right side of alternation
  * @return A new CompilerKitAlternation struct.
  */
-CompilerKitAlternation* compilerkit_alternation_new (void)
+CompilerKitAlternation* compilerkit_alternation_new (GObject *left, GObject *right)
 {
-	return COMPILERKIT_ALTERNATION (g_object_new (COMPILERKIT_TYPE_ALTERNATION, NULL));
+	CompilerKitAlternation *result = COMPILERKIT_ALTERNATION (g_object_new (COMPILERKIT_TYPE_ALTERNATION, NULL));
+    result->priv->left = left;
+    result->priv->right = right;
+    return result;
 }
 
 /**
@@ -135,4 +139,30 @@ compilerkit_alternation_dispose (GObject* object)
   /** @todo Deallocate memory as necessary */
 
   G_OBJECT_CLASS (compilerkit_alternation_parent_class)->dispose (object);
+}
+
+/**
+ * compilerkit_alternation_get_left:
+ * @fn compilerkit_alternation_get_left
+ * In an alternation `a|b`, return `a`.
+ * @pre CompilerKitAlternation* is not NULL.
+ * @param CompilerKitAlternation* The alternation to query.
+ * @return The left side of the alternation.
+ */
+GObject* compilerkit_alternation_get_left (CompilerKitAlternation *self)
+{
+    return self->priv->left;
+}
+
+/**
+ * compilerkit_alternation_get_right:
+ * @fn compilerkit_alternation_get_right
+ * In an alternation `a|b`, return `b`.
+ * @pre CompilerKitAlternation* is not NULL.
+ * @param CompilerKitAlternation* The alternation to query.
+ * @return The right side of the alternation.
+ */
+GObject* compilerkit_alternation_get_right (CompilerKitAlternation *self)
+{
+    return self->priv->right;
 }
