@@ -1,35 +1,28 @@
 Hacking CompilerKit
 ===================
-Get up-to-speed with CompilerKit development. 
+To develop CompilerKit, 
 
-1. [Install all dependencies.](#what-software-do-i-need)
-2. [Build CompilerKit](#how-to-build-compilerkit)
-3. [Read Doxygen-produced documentation](#where-is-the-documentation) 
+1. Install the dependencies for your platform.
+    - [Windows](#what-to-install-on-windows)
+    - [Linux](#what-to-install-on-linux)
+    - [Mac](#what-to-install-on-mac)
+2. [Build CompilerKit.](#how-to-build-compilerkit)
+3. [Read Documentation](#what-documentation-to-read)
 
-## What software do I need?
-- A C compiler (e.g., Visual Studio, Xcode, gcc, [MinGW](http://sourceforge.net/projects/mingw/files/latest/download?source=files), or Clang)
-- [Git (version control)](http://git-scm.com/downloads)
-- [CMake](http://www.cmake.org/cmake/resources/software.html)
-- [Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc)
-- [GLib](http://www.gtk.org/download/index.php)
+## What to install on Windows
+You will need to download and install everything manually.
+Therefore, verify everything is working first before building CompilerKit.
 
-## How do I install GLib and GObject?
-CompilerKit depends on [GLib](http://developer.gnome.org/glib/) and [GObject](http://developer.gnome.org/gobject/).
+ - Visual Studio 2010 or [MinGW](http://sourceforge.net/projects/mingw/files/latest/download?source=files)
+ - [Git (version control).](http://git-scm.com/downloads)
+ - [CMake.](http://www.cmake.org/cmake/resources/software.html)
+ - [Doxygen.](http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc)
+ - [GLib and GObject.](http://ftp.gnome.org/pub/gnome/binaries/win32/gtk+/2.24/gtk+-bundle_2.24.10-20120208_win32.zip). Extract to `C:\glib`. Add `C:\glib\bin` to the system PATH.
 
-Installation instructions for GLib depends on the platform:
-
-### On Windows:
-1. Go here: <http://www.gtk.org/download/win32.php>
-2. Download 
-    * [GLib Dev](http://ftp.gnome.org/pub/gnome/binaries/win32/glib/2.28/glib-dev_2.28.8-1_win32.zip) 
-    * [pkg-config Tool](http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/pkg-config_0.26-1_win32.zip)
-    * [GLib Run-time](http://ftp.gnome.org/pub/gnome/binaries/win32/glib/2.28/glib_2.28.8-1_win32.zip)
-    * [gettext-runtime Run-time](http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/gettext-runtime_0.18.1.1-2_win32.zip)
-    * [gettext-dev](http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/gettext-runtime-dev_0.18.1.1-2_win32.zip)
-3. Unzip everything into the same directory, e.g., `C:\glib`. Add `C:\glib\bin` to the system PATH. To verify it's working:
-
+### How do I know it's working?
+Open Git Bash to the `CompilerKit` folder. Type in the first line. Did you see the rest? You should.
 ```
-C:\> pkg-config --list-all
+pkg-config --list-all
 gio-2.0               GIO - glib I/O library
 gmodule-2.0           GModule - Dynamic module loader for GLib
 glib-2.0              GLib - C Utility Library
@@ -38,43 +31,43 @@ gthread-2.0           GThread - Thread support for GLib
 gobject-2.0           GObject - GLib Type, Object, Parameter and Signal Library
 ```
 
-### On Linux:
-Debian, Ubuntu:
+Did you see `command not found` after typing these into Git Bash? You should not.
 
-    sudo apt-get install libglib2.0-dev
+ - `doxygen`
+ - `cmake`
 
-RedHat:
+## What to install on Linux
+In the terminal, paste this in for your distribution:
 
-    sudo yum install glib-devel
+### Red Hat:
 
-### On Mac:
-Install brew from: <http://mxcl.github.com/homebrew/>
-Once installed, run the following from the Terminal:
+    sudo yum install git cmake doxygen glib-devel pkgconfig
 
-    brew install glib pkg-config
+### Debian, Ubuntu:
 
-## How do I use GLib?
-GLib is a C utility library similar to the Standard Template Library in C++. It provides data structures as well as [GObject](#how-do-i-use-gobject).
+    sudo apt-get install git cmake doxygen libglib2.0-dev pkg-config
 
-To use it, read the following:
+## What to install on Mac
+If you do not already have it, install:
 
-* [Documentation for GLib](http://developer.gnome.org/glib/stable/)
-* [GLib Hash table tutorial](http://www.ibm.com/developerworks/linux/tutorials/l-glib/section5.html)
+ - [Command Line Tools for Xcode](https://developer.apple.com/downloads) or [Xcode](http://itunes.apple.com/us/app/xcode/id448457090)
+ - [Java Developer Update](https://connect.apple.com)
 
-## How do I use GObject?
-GObject may seem intimidating. Learn how it works, and realize that OOP languages provide a lot of shortcuts that C exposes to the programmer.
+In the terminal, paste this in:
 
-To use GObject, read the following:
+    /usr/bin/ruby -e "$(/usr/bin/curl -fsSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
+    
+Once installed, paste this into the Terminal:
 
-* [GObject Tutorial](http://syscall.org/doku.php/gobjectutorial/start)
-* [GObject FAQ](http://irrepupavel.com/documents/gtk/gobject-faq.html)
-* [GObject Documentation](http://developer.gnome.org/gobject/stable/)
+    brew install git cmake doxygen glib pkg-config
 
-## How do I write GObject classes?
-Run `./generate.sh`, and follow the instructions.
+2. [Build CompilerKit](#how-to-build-compilerkit)
+3. [Read Doxygen-produced documentation](#where-is-the-documentation) 
 
 ## How to build CompilerKit?
-CompilerKit builds with CMake. Simply do this:
+CompilerKit builds with CMake. 
+
+The first time you build, do this:
 
 ```
 mkdir build && cd build
@@ -82,5 +75,29 @@ cmake ..
 cmake --build .
 ```
 
-## Where is the documentation?
-After building CompilerKit, look inside the docs/html folder.
+For subsequent builds, just run `cmake --build .`
+
+## What documentation to read?
+After building CompilerKit, look inside the `docs/html` folder.
+
+Also, read up on [GLib](#how-do-i-use-glib) and [GObject](#how-do-i-use-gobject).
+
+## How do I use GLib?
+GLib is a C utility library similar to the Standard Template Library in C++. It provides data structures as well as [GObject](#how-do-i-use-gobject).
+
+To use it, read these first:
+
+* [Documentation for GLib](http://developer.gnome.org/glib/stable/)
+* [GLib Hash table tutorial](http://www.ibm.com/developerworks/linux/tutorials/l-glib/section5.html)
+
+## How do I use GObject?
+GObject may seem intimidating. Learn how it works, and realize that OOP languages provide a lot of shortcuts that C exposes to the programmer.
+
+To use GObject, read these first:
+
+* [GObject Tutorial](http://syscall.org/doku.php/gobjectutorial/start)
+* [GObject FAQ](http://irrepupavel.com/documents/gtk/gobject-faq.html)
+* [GObject Documentation](http://developer.gnome.org/gobject/stable/)
+
+## How do I write GObject classes?
+Run `./generate.sh`, and follow the instructions.
