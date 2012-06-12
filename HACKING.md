@@ -7,7 +7,7 @@ To develop CompilerKit,
     - [Linux](#what-to-install-on-linux)
     - [Mac](#what-to-install-on-mac)
 2. [Build CompilerKit.](#how-to-build-compilerkit)
-3. [Read Documentation](#what-documentation-to-read)
+3. [Read Documentation](#where is the documentation)
 
 ## What to install on Windows
 You will need to download and install everything manually.
@@ -61,9 +61,6 @@ Once installed, paste this into the Terminal:
 
     brew install git cmake doxygen glib pkg-config
 
-2. [Build CompilerKit](#how-to-build-compilerkit)
-3. [Read Doxygen-produced documentation](#where-is-the-documentation) 
-
 ## How to build CompilerKit?
 CompilerKit builds with CMake. 
 
@@ -77,7 +74,7 @@ cmake --build .
 
 For subsequent builds, just run `cmake --build .`
 
-## What documentation to read?
+## Where is the documentation?
 After building CompilerKit, look inside the `docs/html` folder.
 
 Also, read up on [GLib](#how-do-i-use-glib) and [GObject](#how-do-i-use-gobject).
