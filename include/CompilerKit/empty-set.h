@@ -46,9 +46,6 @@ typedef struct _CompilerKitEmptySet
 
   /** @todo Define public fields here */
 
-  /** Opaque pointer to private fields */
-  CompilerKitEmptySetPrivate *priv;
-
 } CompilerKitEmptySet;
 
 /**

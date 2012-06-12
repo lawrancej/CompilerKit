@@ -31,7 +31,12 @@ static void compilerkit_bar_dispose (GObject* object);
  */
 struct _CompilerKitBarPrivate
 {
-/** @todo Declare private members here */
+    /** @todo Declare private members here */
+    /**
+     * @todo dummy is here so everything will compile by default.
+     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
+     */ 
+    int dummy;
 };
 
 /**
