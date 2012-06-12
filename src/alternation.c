@@ -19,7 +19,6 @@
 #define COMPILERKIT_ALTERNATION_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_ALTERNATION, CompilerKitAlternationPrivate))
 G_DEFINE_TYPE(CompilerKitAlternation, compilerkit_alternation, G_TYPE_OBJECT);
 
-/** @todo Private method function prototypes go here (for private methods, declare as static) */
 static void compilerkit_alternation_finalize (GObject* object);
 static void compilerkit_alternation_dispose (GObject* object);
 
@@ -31,12 +30,10 @@ static void compilerkit_alternation_dispose (GObject* object);
  */
 struct _CompilerKitAlternationPrivate
 {
-    /** @todo Declare private members here */
-    /**
-     * @todo dummy is here so everything will compile by default.
-     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
-     */ 
-    GObject *left, *right;
+    /** Left side of alternation */
+    GObject *left;
+    /** Right side of alternation */
+    GObject *right;
 };
 
 /**
@@ -58,9 +55,6 @@ compilerkit_alternation_class_init (CompilerKitAlternationClass *klass)
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
   
-  /** @todo Hook virtual methods to implementations */
-  // klass->method = method_implementation;
-  
   /* Hook finalization functions */
   g_object_class->dispose = compilerkit_alternation_dispose;   /* instance destructor, reverse of init */
   g_object_class->finalize = compilerkit_alternation_finalize; /* class finalization, reverse of class init */
@@ -77,15 +71,12 @@ compilerkit_alternation_class_init (CompilerKitAlternationClass *klass)
 static void
 compilerkit_alternation_init (CompilerKitAlternation *self)
 {
-  CompilerKitAlternationPrivate *priv;
+    CompilerKitAlternationPrivate *priv;
 
-  self->priv = priv = COMPILERKIT_ALTERNATION_GET_PRIVATE (self);
+    self->priv = priv = COMPILERKIT_ALTERNATION_GET_PRIVATE (self);
 
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
-
-  /** @todo Initialize private fields */
-  // priv->member = whatever;
+    priv->left = NULL;
+    priv->right = NULL;
 }
 
 /**
@@ -144,6 +135,7 @@ compilerkit_alternation_dispose (GObject* object)
 /**
  * compilerkit_alternation_get_left:
  * @fn compilerkit_alternation_get_left
+ * @memberof CompilerKitAlternation
  * In an alternation `a|b`, return `a`.
  * @pre CompilerKitAlternation* is not NULL.
  * @param CompilerKitAlternation* The alternation to query.
@@ -157,6 +149,7 @@ GObject* compilerkit_alternation_get_left (CompilerKitAlternation *self)
 /**
  * compilerkit_alternation_get_right:
  * @fn compilerkit_alternation_get_right
+ * @memberof CompilerKitAlternation
  * In an alternation `a|b`, return `b`.
  * @pre CompilerKitAlternation* is not NULL.
  * @param CompilerKitAlternation* The alternation to query.

@@ -31,9 +31,9 @@ typedef struct _CompilerKitConcatenationPrivate CompilerKitConcatenationPrivate;
 
 /**
  * @struct CompilerKitConcatenation
- * @todo Briefly describe this struct. (Remove the todo).
+ * A concatenation struct.
  *
- * Defines all public fields. Private fields live behind an opaque pointer.
+ * If `a` is a regular expression, and `b` is a regular expression, then `ab` is a regular expression that matches `a` followed by `b`.
  * @see #_CompilerKitConcatenationPrivate for private fields.
  * @see #CompilerKitConcatenationClass for virtual public methods.
  * @example concatenation-demo.c

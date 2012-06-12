@@ -31,9 +31,9 @@ typedef struct _CompilerKitSymbolPrivate CompilerKitSymbolPrivate;
 
 /**
  * @struct CompilerKitSymbol
- * @todo Briefly describe this struct. (Remove the todo).
+ * A symbol struct.
  *
- * Defines all public fields. Private fields live behind an opaque pointer.
+ * This struct merely boxes up a single character into a regular expression to match said character.
  * @see #_CompilerKitSymbolPrivate for private fields.
  * @see #CompilerKitSymbolClass for virtual public methods.
  * @example symbol-demo.c
@@ -44,8 +44,6 @@ typedef struct _CompilerKitSymbol
   /** Base instance (GObject) */
   GObject parent_instance;
 
-  /** @todo Define public fields here */
-
   /** Opaque pointer to private fields */
   CompilerKitSymbolPrivate *priv;
 
@@ -53,9 +51,8 @@ typedef struct _CompilerKitSymbol
 
 /**
  * @struct CompilerKitSymbolClass
- * @todo Briefly describe this struct. (Remove the todo).
  *
- * This struct declares the virtual public methods.
+ * This struct declares the virtual public methods of symbol (there aren't any).
  * @see #CompilerKitSymbol for a list of fields.
  */
 typedef struct _CompilerKitSymbolClass
@@ -63,9 +60,6 @@ typedef struct _CompilerKitSymbolClass
   /** Base class (GobjectClass) */
   GObjectClass parent_class;
 
-  /** @todo Virtual public methods (function pointers) go here */
-  // void (*method_name) (CompilerKitSymbol *self, ...);
-  
 } CompilerKitSymbolClass;
 
 /**
@@ -77,10 +71,7 @@ typedef struct _CompilerKitSymbolClass
  */
 GType compilerkit_symbol_get_type (void);
 
-/** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
- * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
- */
+/** Public method function prototypes  */
 CompilerKitSymbol* compilerkit_symbol_new (char symbol);
 
 char compilerkit_symbol_get_symbol(CompilerKitSymbol *self);

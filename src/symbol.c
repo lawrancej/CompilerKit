@@ -81,11 +81,7 @@ compilerkit_symbol_init (CompilerKitSymbol *self)
 
   self->priv = priv = COMPILERKIT_SYMBOL_GET_PRIVATE (self);
 
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
-
-  /** @todo Initialize private fields */
-  // priv->member = whatever;
+  priv->symbol = '\0';
 }
 
 /**
@@ -142,6 +138,7 @@ compilerkit_symbol_dispose (GObject* object)
 /**
  * compilerkit_symbol_get_symbol:
  * @fn compilerkit_symbol_get_symbol
+ * @memberof CompilerKitSymbol
  * Return the symbol contained herein.
  * @pre CompilerKitSymbol* is not NULL.
  * @param CompilerKitSymbol* The symbol (a box).

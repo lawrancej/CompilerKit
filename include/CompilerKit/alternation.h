@@ -31,9 +31,9 @@ typedef struct _CompilerKitAlternationPrivate CompilerKitAlternationPrivate;
 
 /**
  * @struct CompilerKitAlternation
- * @todo Briefly describe this struct. (Remove the todo).
+ * An alternation struct. 
  *
- * Defines all public fields. Private fields live behind an opaque pointer.
+ * If `a` is a regular expression, and `b` is a regular expression, then alternation `a|b` is a regular expression that matches `a` or `b`.
  * @see #_CompilerKitAlternationPrivate for private fields.
  * @see #CompilerKitAlternationClass for virtual public methods.
  * @example alternation-demo.c
@@ -44,16 +44,13 @@ typedef struct _CompilerKitAlternation
   /** Base instance (GObject) */
   GObject parent_instance;
 
-  /** @todo Define public fields here */
-
   /** Opaque pointer to private fields */
   CompilerKitAlternationPrivate *priv;
 } CompilerKitAlternation;
 
 /**
  * @struct CompilerKitAlternationClass
- * @todo Briefly describe this struct. (Remove the todo).
- *
+ * 
  * This struct declares the virtual public methods.
  * @see #CompilerKitAlternation for a list of fields.
  */
@@ -61,10 +58,6 @@ typedef struct _CompilerKitAlternationClass
 {
   /** Base class (GobjectClass) */
   GObjectClass parent_class;
-
-  /** @todo Virtual public methods (function pointers) go here */
-  // void (*method_name) (CompilerKitAlternation *self, ...);
-  
 } CompilerKitAlternationClass;
 
 /**
@@ -76,10 +69,6 @@ typedef struct _CompilerKitAlternationClass
  */
 GType compilerkit_alternation_get_type (void);
 
-/** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
- * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
- */
 CompilerKitAlternation* compilerkit_alternation_new (GObject *left, GObject *right);
 
 GObject* compilerkit_alternation_get_left (CompilerKitAlternation *self);
