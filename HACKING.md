@@ -6,8 +6,8 @@ To develop CompilerKit,
     - [Windows](#what-to-install-on-windows)
     - [Linux](#what-to-install-on-linux)
     - [Mac](#what-to-install-on-mac)
-2. [Build CompilerKit.](#how-to-build-compilerkit)
-3. [Read Documentation](#where is the documentation)
+2. [Build CompilerKit.](#how-do-i-build-compilerkit)
+3. [Read Documentation](#where-is-the-documentation)
 
 ## What to install on Windows
 You will need to download and install everything manually.
@@ -17,7 +17,7 @@ Therefore, verify everything is working first before building CompilerKit.
  - [Git (version control).](http://git-scm.com/downloads)
  - [CMake.](http://www.cmake.org/cmake/resources/software.html)
  - [Doxygen.](http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc)
- - [GLib and GObject.](http://ftp.gnome.org/pub/gnome/binaries/win32/gtk+/2.24/gtk+-bundle_2.24.10-20120208_win32.zip). Extract to `C:\glib`. Add `C:\glib\bin` to the system PATH.
+ - [GLib and GObject.](http://ftp.gnome.org/pub/gnome/binaries/win32/gtk+/2.24/gtk+-bundle_2.24.10-20120208_win32.zip) Extract to `C:\glib`. Add `C:\glib\bin` to the system PATH.
 
 ### How do I know it's working?
 Open Git Bash to the `CompilerKit` folder. Type in the first line. Did you see the rest? You should.
@@ -61,7 +61,7 @@ Once installed, paste this into the Terminal:
 
     brew install git cmake doxygen glib pkg-config
 
-## How to build CompilerKit?
+## How do I build CompilerKit?
 CompilerKit builds with CMake. 
 
 The first time you build, do this:
@@ -72,7 +72,7 @@ cmake ..
 cmake --build .
 ```
 
-For subsequent builds, just run `cmake --build .`
+For subsequent builds, in the `build` folder, just run `cmake --build .`
 
 ## Where is the documentation?
 After building CompilerKit, look inside the `docs/html` folder.
