@@ -16,23 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "CompilerKit/empty-set.h"
-#define COMPILERKIT_EMPTY_SET_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_EMPTY_SET, CompilerKitEmptySetPrivate))
 G_DEFINE_TYPE(CompilerKitEmptySet, compilerkit_empty_set, G_TYPE_OBJECT);
 
 /** @todo Private method function prototypes go here (for private methods, declare as static) */
 static void compilerkit_empty_set_finalize (GObject* object);
 static void compilerkit_empty_set_dispose (GObject* object);
-
-/**
- * @struct _CompilerKitEmptySetPrivate
- * The private fields of the CompilerKitEmptySet struct.
- * 
- * @see #CompilerKitEmptySet
- */
-struct _CompilerKitEmptySetPrivate
-{
-/** @todo Declare private members here */
-};
 
 /**
  * compilerkit_empty_set_class_init:
@@ -46,10 +34,7 @@ static void
 compilerkit_empty_set_class_init (CompilerKitEmptySetClass *klass)
 {
   GObjectClass *g_object_class;
-  
-  /* Add private structure */
-  g_type_class_add_private (klass, sizeof (CompilerKitEmptySetPrivate));
-  
+
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
   
@@ -72,15 +57,9 @@ compilerkit_empty_set_class_init (CompilerKitEmptySetClass *klass)
 static void
 compilerkit_empty_set_init (CompilerKitEmptySet *self)
 {
-  CompilerKitEmptySetPrivate *priv;
-
-  self->priv = priv = COMPILERKIT_EMPTY_SET_GET_PRIVATE (self);
-
   /** @todo Initialize public fields */
   // self->public_field = some_value;
 
-  /** @todo Initialize private fields */
-  // priv->member = whatever;
 }
 
 /**
@@ -123,9 +102,6 @@ static void
 compilerkit_empty_set_dispose (GObject* object)
 {
   CompilerKitEmptySet *self = COMPILERKIT_EMPTY_SET (object);
-  CompilerKitEmptySetPrivate* priv;
-
-  priv = COMPILERKIT_EMPTY_SET_GET_PRIVATE (self);
   
   /** @todo Deallocate memory as necessary */
 
