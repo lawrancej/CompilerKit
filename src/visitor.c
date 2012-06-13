@@ -158,11 +158,11 @@ void compilerkit_visitor_register (CompilerKitVisitor *self, GType the_type, Com
  * @pre CompilerKitVisitor* is not NULL.
  * @param CompilerKitVisitor* The visitor instance.
  * @param GObject* The object to visit.
- * @return void
+ * @return GObject* Anything to return (can be NULL).
  */
-void compilerkit_visitor_visit (CompilerKitVisitor *self, GObject *obj)
+GObject *compilerkit_visitor_visit (CompilerKitVisitor *self, GObject *obj)
 {
     GType the_type = G_OBJECT_TYPE(obj);
     CompilerKitVisitorFunc func = (CompilerKitVisitorFunc) g_hash_table_lookup (self->priv->visitors, g_type_name(the_type));
-    if (func) func (self, obj);
+    if (func) return func (self, obj);
 }
