@@ -51,7 +51,7 @@ typedef struct _CompilerKitAlternation
 /**
  * @struct CompilerKitAlternationClass
  * 
- * This struct declares the virtual public methods.
+ * This struct declares the virtual public methods (there aren't any).
  * @see #CompilerKitAlternation for a list of fields.
  */
 typedef struct _CompilerKitAlternationClass
@@ -69,8 +69,8 @@ typedef struct _CompilerKitAlternationClass
  */
 GType compilerkit_alternation_get_type (void);
 
+/** Public method function prototypes */
 CompilerKitAlternation* compilerkit_alternation_new (GObject *left, GObject *right);
-
 GObject* compilerkit_alternation_get_left (CompilerKitAlternation *self);
 GObject* compilerkit_alternation_get_right (CompilerKitAlternation *self);
 

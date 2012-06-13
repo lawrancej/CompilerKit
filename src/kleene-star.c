@@ -19,7 +19,6 @@
 #define COMPILERKIT_KLEENE_STAR_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_KLEENE_STAR, CompilerKitKleeneStarPrivate))
 G_DEFINE_TYPE(CompilerKitKleeneStar, compilerkit_kleene_star, G_TYPE_OBJECT);
 
-/** @todo Private method function prototypes go here (for private methods, declare as static) */
 static void compilerkit_kleene_star_finalize (GObject* object);
 static void compilerkit_kleene_star_dispose (GObject* object);
 
@@ -31,11 +30,7 @@ static void compilerkit_kleene_star_dispose (GObject* object);
  */
 struct _CompilerKitKleeneStarPrivate
 {
-    /** @todo Declare private members here */
-    /**
-     * @todo dummy is here so everything will compile by default.
-     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
-     */ 
+    /** The regular expression to match 0 or more times. */
     GObject *node;
 };
 
@@ -58,9 +53,6 @@ compilerkit_kleene_star_class_init (CompilerKitKleeneStarClass *klass)
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
   
-  /** @todo Hook virtual methods to implementations */
-  // klass->method = method_implementation;
-  
   /* Hook finalization functions */
   g_object_class->dispose = compilerkit_kleene_star_dispose;   /* instance destructor, reverse of init */
   g_object_class->finalize = compilerkit_kleene_star_finalize; /* class finalization, reverse of class init */
@@ -77,15 +69,11 @@ compilerkit_kleene_star_class_init (CompilerKitKleeneStarClass *klass)
 static void
 compilerkit_kleene_star_init (CompilerKitKleeneStar *self)
 {
-  CompilerKitKleeneStarPrivate *priv;
+    CompilerKitKleeneStarPrivate *priv;
 
-  self->priv = priv = COMPILERKIT_KLEENE_STAR_GET_PRIVATE (self);
+    self->priv = priv = COMPILERKIT_KLEENE_STAR_GET_PRIVATE (self);
 
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
-
-  /** @todo Initialize private fields */
-  // priv->member = whatever;
+    priv->node = NULL;
 }
 
 /**
@@ -129,23 +117,24 @@ compilerkit_kleene_star_finalize (GObject* object)
 static void
 compilerkit_kleene_star_dispose (GObject* object)
 {
-  CompilerKitKleeneStar *self = COMPILERKIT_KLEENE_STAR (object);
-  CompilerKitKleeneStarPrivate* priv;
+    CompilerKitKleeneStar *self = COMPILERKIT_KLEENE_STAR (object);
+    CompilerKitKleeneStarPrivate* priv;
 
-  priv = COMPILERKIT_KLEENE_STAR_GET_PRIVATE (self);
+    priv = COMPILERKIT_KLEENE_STAR_GET_PRIVATE (self);
   
-  /** @todo Deallocate memory as necessary */
+    g_object_unref (priv->node);
 
-  G_OBJECT_CLASS (compilerkit_kleene_star_parent_class)->dispose (object);
+    G_OBJECT_CLASS (compilerkit_kleene_star_parent_class)->dispose (object);
 }
 
 /**
  * compilerkit_kleene_star_get_node:
  * @fn compilerkit_kleene_star_get_node
- * In an kleene_star `a|b`, return `a`.
+ * @memberof CompilerKitKleeneStar
+ * In a Kleene star `a*`, return `a`.
  * @pre CompilerKitKleeneStar* is not NULL.
- * @param CompilerKitKleeneStar* The kleene_star to query.
- * @return The node side of the kleene_star.
+ * @param CompilerKitKleeneStar* The Kleene star to query.
+ * @return The regular expression in the Kleene star.
  */
 GObject* compilerkit_kleene_star_get_node (CompilerKitKleeneStar *self)
 {

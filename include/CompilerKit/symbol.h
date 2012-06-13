@@ -73,7 +73,6 @@ GType compilerkit_symbol_get_type (void);
 
 /** Public method function prototypes  */
 CompilerKitSymbol* compilerkit_symbol_new (char symbol);
-
 char compilerkit_symbol_get_symbol(CompilerKitSymbol *self);
 
 G_END_DECLS

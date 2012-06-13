@@ -61,7 +61,7 @@ typedef struct _CompilerKitVisitor
  * @memberof CompilerKitVisitor
  * A function pointer type for visitors. To use, define a function like this:
  * 
- *     void do_something (CompilerKitVisitor *visitor, GObject *object)
+ *     GObject *do_something (CompilerKitVisitor *visitor, GObject *object)
  *     {
  *     
  *     }
@@ -70,7 +70,7 @@ typedef struct _CompilerKitVisitor
  *
  *     compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_CLASSNAMEGOESHERE, do_something);
  */
-typedef void (*CompilerKitVisitorFunc) (CompilerKitVisitor *, GObject *);
+typedef GObject *(*CompilerKitVisitorFunc) (CompilerKitVisitor *, GObject *);
 
 /**
  * @struct CompilerKitVisitorClass
@@ -94,10 +94,7 @@ typedef struct _CompilerKitVisitorClass
  */
 GType compilerkit_visitor_get_type (void);
 
-/** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
- * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
- */
+/** Public method function prototypes */
 CompilerKitVisitor* compilerkit_visitor_new (void);
 void compilerkit_visitor_register (CompilerKitVisitor *visitor, GType the_type, CompilerKitVisitorFunc);
 void compilerkit_visitor_visit (CompilerKitVisitor *visitor, GObject *obj);

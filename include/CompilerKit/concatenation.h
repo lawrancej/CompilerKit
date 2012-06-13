@@ -44,8 +44,6 @@ typedef struct _CompilerKitConcatenation
   /** Base instance (GObject) */
   GObject parent_instance;
 
-  /** @todo Define public fields here */
-
   /** Opaque pointer to private fields */
   CompilerKitConcatenationPrivate *priv;
 
@@ -53,19 +51,14 @@ typedef struct _CompilerKitConcatenation
 
 /**
  * @struct CompilerKitConcatenationClass
- * @todo Briefly describe this struct. (Remove the todo).
  *
- * This struct declares the virtual public methods.
+ * This struct declares the virtual public methods of concatenation (there aren't any).
  * @see #CompilerKitConcatenation for a list of fields.
  */
 typedef struct _CompilerKitConcatenationClass
 {
-  /** Base class (GobjectClass) */
-  GObjectClass parent_class;
-
-  /** @todo Virtual public methods (function pointers) go here */
-  // void (*method_name) (CompilerKitConcatenation *self, ...);
-  
+    /** Base class (GObjectClass) */
+    GObjectClass parent_class;
 } CompilerKitConcatenationClass;
 
 /**
@@ -77,12 +70,8 @@ typedef struct _CompilerKitConcatenationClass
  */
 GType compilerkit_concatenation_get_type (void);
 
-/** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
- * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
- */
+/** Public method function prototypes */
 CompilerKitConcatenation* compilerkit_concatenation_new (GObject *left, GObject *right);
-
 GObject *compilerkit_concatenation_get_left(CompilerKitConcatenation *self);
 GObject *compilerkit_concatenation_get_right(CompilerKitConcatenation *self);
 

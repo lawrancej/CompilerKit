@@ -129,6 +129,7 @@ compilerkit_visitor_dispose (GObject* object)
     priv = COMPILERKIT_VISITOR_GET_PRIVATE (self);
   
     /** @todo Deallocate memory as necessary */
+    g_hash_table_destroy (priv->visitors);
 
     G_OBJECT_CLASS (compilerkit_visitor_parent_class)->dispose (object);
 }

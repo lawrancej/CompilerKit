@@ -127,7 +127,8 @@ compilerkit_alternation_dispose (GObject* object)
 
   priv = COMPILERKIT_ALTERNATION_GET_PRIVATE (self);
   
-  /** @todo Deallocate memory as necessary */
+  g_object_unref (priv->left);
+  g_object_unref (priv->right);
 
   G_OBJECT_CLASS (compilerkit_alternation_parent_class)->dispose (object);
 }

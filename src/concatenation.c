@@ -19,7 +19,6 @@
 #define COMPILERKIT_CONCATENATION_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_CONCATENATION, CompilerKitConcatenationPrivate))
 G_DEFINE_TYPE(CompilerKitConcatenation, compilerkit_concatenation, G_TYPE_OBJECT);
 
-/** @todo Private method function prototypes go here (for private methods, declare as static) */
 static void compilerkit_concatenation_finalize (GObject* object);
 static void compilerkit_concatenation_dispose (GObject* object);
 
@@ -31,12 +30,10 @@ static void compilerkit_concatenation_dispose (GObject* object);
  */
 struct _CompilerKitConcatenationPrivate
 {
-    /** @todo Declare private members here */
-    /**
-     * @todo dummy is here so everything will compile by default.
-     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
-     */ 
-    GObject *left, *right;
+    /* Left side of the concatenation */
+    GObject *left;
+    /* Right side of the concatenation */
+    GObject *right;
 };
 
 /**
@@ -58,9 +55,6 @@ compilerkit_concatenation_class_init (CompilerKitConcatenationClass *klass)
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
   
-  /** @todo Hook virtual methods to implementations */
-  // klass->method = method_implementation;
-  
   /* Hook finalization functions */
   g_object_class->dispose = compilerkit_concatenation_dispose;   /* instance destructor, reverse of init */
   g_object_class->finalize = compilerkit_concatenation_finalize; /* class finalization, reverse of class init */
@@ -81,11 +75,8 @@ compilerkit_concatenation_init (CompilerKitConcatenation *self)
 
   self->priv = priv = COMPILERKIT_CONCATENATION_GET_PRIVATE (self);
 
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
-
-  /** @todo Initialize private fields */
-  // priv->member = whatever;
+  priv->left = NULL;
+  priv->right = NULL;
 }
 
 /**
@@ -136,7 +127,8 @@ compilerkit_concatenation_dispose (GObject* object)
 
   priv = COMPILERKIT_CONCATENATION_GET_PRIVATE (self);
   
-  /** @todo Deallocate memory as necessary */
+  g_object_unref (priv->left);
+  g_object_unref (priv->right);
 
   G_OBJECT_CLASS (compilerkit_concatenation_parent_class)->dispose (object);
 }
