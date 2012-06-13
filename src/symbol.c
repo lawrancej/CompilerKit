@@ -36,7 +36,7 @@ struct _CompilerKitSymbolPrivate
      * @todo dummy is here so everything will compile by default.
      * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
      */ 
-    int dummy;
+    char symbol;
 };
 
 /**
@@ -81,11 +81,7 @@ compilerkit_symbol_init (CompilerKitSymbol *self)
 
   self->priv = priv = COMPILERKIT_SYMBOL_GET_PRIVATE (self);
 
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
-
-  /** @todo Initialize private fields */
-  // priv->member = whatever;
+  priv->symbol = '\0';
 }
 
 /**
@@ -97,9 +93,11 @@ compilerkit_symbol_init (CompilerKitSymbol *self)
  * @param None
  * @return A new CompilerKitSymbol struct.
  */
-CompilerKitSymbol* compilerkit_symbol_new (void)
+CompilerKitSymbol* compilerkit_symbol_new (char symbol)
 {
-	return COMPILERKIT_SYMBOL (g_object_new (COMPILERKIT_TYPE_SYMBOL, NULL));
+	CompilerKitSymbol *result = COMPILERKIT_SYMBOL (g_object_new (COMPILERKIT_TYPE_SYMBOL, NULL));
+    result->priv->symbol = symbol;
+    return result;
 }
 
 /**
@@ -135,4 +133,18 @@ compilerkit_symbol_dispose (GObject* object)
   /** @todo Deallocate memory as necessary */
 
   G_OBJECT_CLASS (compilerkit_symbol_parent_class)->dispose (object);
+}
+
+/**
+ * compilerkit_symbol_get_symbol:
+ * @fn compilerkit_symbol_get_symbol
+ * @memberof CompilerKitSymbol
+ * Return the symbol contained herein.
+ * @pre CompilerKitSymbol* is not NULL.
+ * @param CompilerKitSymbol* The symbol (a box).
+ * @return char The actual symbol.
+ */
+char compilerkit_symbol_get_symbol(CompilerKitSymbol *self)
+{
+    return self->priv->symbol;
 }
