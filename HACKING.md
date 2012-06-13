@@ -94,9 +94,9 @@ Let's compare with some examples.
 GObject                                Java/C#
 (prefix everything with COMPILERKIT)   package CompilerKit;
 COMPILERKIT_IS_ALTERNATION(obj)        (obj instanceof Alternation)
-COMPILERKIT_ALTERNATION (obj)          (Alternation) obj;
-COMPILERKIT_TYPE_ALTERNATION (obj)     obj.class
-G_OBJECT_TYPE (obj)                    obj.class
+COMPILERKIT_ALTERNATION (obj)          (Alternation) obj
+COMPILERKIT_TYPE_ALTERNATION           Alternation.class
+G_OBJECT_TYPE (obj)                    obj.getClass()
 ```
 
 ## How do I use GObject?
