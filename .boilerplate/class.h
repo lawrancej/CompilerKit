@@ -60,7 +60,7 @@ typedef struct _CompilerKitBar
  */
 typedef struct _CompilerKitBarClass
 {
-    /** Base class (GobjectClass) */
+    /** Base class (GObjectClass) */
     GObjectClass parent_class;
 
     /** @todo Virtual public methods (function pointers) go here */
