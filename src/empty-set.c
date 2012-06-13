@@ -18,7 +18,6 @@
 #include "CompilerKit/empty-set.h"
 G_DEFINE_TYPE(CompilerKitEmptySet, compilerkit_empty_set, G_TYPE_OBJECT);
 
-/** @todo Private method function prototypes go here (for private methods, declare as static) */
 static void compilerkit_empty_set_finalize (GObject* object);
 static void compilerkit_empty_set_dispose (GObject* object);
 
@@ -38,9 +37,6 @@ compilerkit_empty_set_class_init (CompilerKitEmptySetClass *klass)
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
   
-  /** @todo Hook virtual methods to implementations */
-  // klass->method = method_implementation;
-  
   /* Hook finalization functions */
   g_object_class->dispose = compilerkit_empty_set_dispose;   /* instance destructor, reverse of init */
   g_object_class->finalize = compilerkit_empty_set_finalize; /* class finalization, reverse of class init */
@@ -57,9 +53,6 @@ compilerkit_empty_set_class_init (CompilerKitEmptySetClass *klass)
 static void
 compilerkit_empty_set_init (CompilerKitEmptySet *self)
 {
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
-
 }
 
 /**
@@ -103,7 +96,5 @@ compilerkit_empty_set_dispose (GObject* object)
 {
   CompilerKitEmptySet *self = COMPILERKIT_EMPTY_SET (object);
   
-  /** @todo Deallocate memory as necessary */
-
   G_OBJECT_CLASS (compilerkit_empty_set_parent_class)->dispose (object);
 }

@@ -15,7 +15,7 @@ int main (int argc, char ** argv)
     compilerkit_FSM_add_transition (fsm, "D", "E", 'o');
     compilerkit_FSM_add_accepting_state (fsm, "E");
     
-    g_assert (compilerkit_FSM_match (fsm, "demo"));
+    compilerkit_FSM_match (fsm, "demo");
 
     g_object_unref (fsm);
 }
