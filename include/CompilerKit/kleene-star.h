@@ -31,9 +31,9 @@ typedef struct _CompilerKitKleeneStarPrivate CompilerKitKleeneStarPrivate;
 
 /**
  * @struct CompilerKitKleeneStar
- * @todo Briefly describe this struct. (Remove the todo).
+ * A Kleene Star struct.
  *
- * Defines all public fields. Private fields live behind an opaque pointer.
+ * If `a` is a regular expression, then Kleene star `a*` is a regular expression that matches `a` 0 or more times.
  * @see #_CompilerKitKleeneStarPrivate for private fields.
  * @see #CompilerKitKleeneStarClass for virtual public methods.
  * @example kleene-star-demo.c
@@ -44,28 +44,20 @@ typedef struct _CompilerKitKleeneStar
   /** Base instance (GObject) */
   GObject parent_instance;
 
-  /** @todo Define public fields here */
-
   /** Opaque pointer to private fields */
   CompilerKitKleeneStarPrivate *priv;
-
 } CompilerKitKleeneStar;
 
 /**
  * @struct CompilerKitKleeneStarClass
- * @todo Briefly describe this struct. (Remove the todo).
  *
- * This struct declares the virtual public methods.
+ * This struct declares the virtual public methods of Kleene star (there aren't any).
  * @see #CompilerKitKleeneStar for a list of fields.
  */
 typedef struct _CompilerKitKleeneStarClass
 {
-  /** Base class (GobjectClass) */
-  GObjectClass parent_class;
-
-  /** @todo Virtual public methods (function pointers) go here */
-  // void (*method_name) (CompilerKitKleeneStar *self, ...);
-  
+    /** Base class (GObjectClass) */
+    GObjectClass parent_class;
 } CompilerKitKleeneStarClass;
 
 /**
@@ -77,11 +69,9 @@ typedef struct _CompilerKitKleeneStarClass
  */
 GType compilerkit_kleene_star_get_type (void);
 
-/** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
- * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
- */
-CompilerKitKleeneStar* compilerkit_kleene_star_new (void);
+/** Public method function prototypes */
+CompilerKitKleeneStar* compilerkit_kleene_star_new (GObject *node);
+GObject *compilerkit_kleene_star_get_node (CompilerKitKleeneStar *self);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_kleene_star_h__ */

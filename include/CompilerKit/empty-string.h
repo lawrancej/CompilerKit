@@ -31,9 +31,9 @@ typedef struct _CompilerKitEmptyStringPrivate CompilerKitEmptyStringPrivate;
 
 /**
  * @struct CompilerKitEmptyString
- * @todo Briefly describe this struct. (Remove the todo).
+ * An empty string struct.
  *
- * Defines all public fields. Private fields live behind an opaque pointer.
+ * This struct is a tag for the empty string
  * @see #_CompilerKitEmptyStringPrivate for private fields.
  * @see #CompilerKitEmptyStringClass for virtual public methods.
  * @example empty-string-demo.c
@@ -43,19 +43,12 @@ typedef struct _CompilerKitEmptyString
 {
   /** Base instance (GObject) */
   GObject parent_instance;
-
-  /** @todo Define public fields here */
-
-  /** Opaque pointer to private fields */
-  CompilerKitEmptyStringPrivate *priv;
-
 } CompilerKitEmptyString;
 
 /**
  * @struct CompilerKitEmptyStringClass
- * @todo Briefly describe this struct. (Remove the todo).
  *
- * This struct declares the virtual public methods.
+ * This struct declares the virtual public methods of empty string (there aren't any).
  * @see #CompilerKitEmptyString for a list of fields.
  */
 typedef struct _CompilerKitEmptyStringClass
@@ -63,9 +56,6 @@ typedef struct _CompilerKitEmptyStringClass
   /** Base class (GobjectClass) */
   GObjectClass parent_class;
 
-  /** @todo Virtual public methods (function pointers) go here */
-  // void (*method_name) (CompilerKitEmptyString *self, ...);
-  
 } CompilerKitEmptyStringClass;
 
 /**
@@ -77,10 +67,7 @@ typedef struct _CompilerKitEmptyStringClass
  */
 GType compilerkit_empty_string_get_type (void);
 
-/** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
- * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
- */
+/** Public method function prototypes */
 CompilerKitEmptyString* compilerkit_empty_string_new (void);
 
 G_END_DECLS
