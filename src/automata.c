@@ -179,7 +179,7 @@ void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gc
  */
 gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
 {
-    g_return_if_fail (COMPILERKIT_IS_FSM (self));
+    g_assert (COMPILERKIT_IS_FSM (self));
     return COMPILERKIT_FSM_GET_CLASS (self)->match (self, str);
 }
 
