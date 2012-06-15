@@ -25,6 +25,7 @@ G_DEFINE_TYPE(CompilerKitFSM, compilerkit_FSM, G_TYPE_OBJECT);
 /** Private method function prototypes */
 static void compilerkit_FSM_finalize (GObject* object);
 static void compilerkit_FSM_dispose (GObject* object);
+static void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2);
 
 /**
  * @struct _CompilerKitFSMPrivate
@@ -172,7 +173,7 @@ void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gc
  */
 gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
 {
-    g_return_if_fail (COMPILERKIT_IS_FSM (self));
+    g_assert (COMPILERKIT_IS_FSM (self));
     return COMPILERKIT_FSM_GET_CLASS (self)->match (self, str);
 }
 
@@ -189,7 +190,7 @@ gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state)
 {
 	CompilerKitFSMPrivate* priv = self->priv;
-	g_hash_table_add(priv->acceptStates,state);
+	g_hash_table_insert(priv->acceptStates,state, NULL);
 }
 
 /**
@@ -212,7 +213,7 @@ void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other)
 	compilerkit_FSM_mergeTables(priv->acceptStates, newPriv->acceptStates);
 }
 
-void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2)
+static void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2)
 {
 	GHashTableIter iter;
 	gpointer key, value;
@@ -220,7 +221,7 @@ void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2)
 	g_hash_table_iter_init (&iter, table2);
 	while (g_hash_table_iter_next (&iter, &key, &value))
 	{
-		g_hash_table_add(table1, key);
+		g_hash_table_insert(table1, key, value);
 	}
 }
 
@@ -237,7 +238,7 @@ void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2)
 void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
 {
 	CompilerKitFSMPrivate* priv = self->priv;
-	g_hash_table_add(priv->states,state);
+	g_hash_table_insert(priv->states,state, NULL);
 }
 
 /**
