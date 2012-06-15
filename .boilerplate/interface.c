@@ -15,13 +15,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#ifndef INCLUDE_CompilerKit_h__
-#define INCLUDE_CompilerKit_h__
+#include "CompilerKit/header.h"
+G_DEFINE_INTERFACE(CompilerKitIBar, compilerkit_ibar, G_TYPE_INTERFACE);
 
-#include "CompilerKit/regex.h"
-#include "CompilerKit/cfg.h"
+void compilerkit_ibar_do_action (CompilerKitIBar *self)
+{
 
-#include "CompilerKit/scanner.h"
-#include "CompilerKit/visitor.h"
-
-#endif
+}

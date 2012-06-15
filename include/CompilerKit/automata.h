@@ -19,7 +19,6 @@
 #define INCLUDE_CompilerKit_automata_h__
 
 #include <glib-object.h>
-#include <glib.h>
 G_BEGIN_DECLS
 #define COMPILERKIT_TYPE_FSM                  (compilerkit_FSM_get_type ())
 #define COMPILERKIT_FSM(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_FSM, CompilerKitFSM))

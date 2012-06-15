@@ -41,3 +41,5 @@ ADD_TEST(compilerkit-tests test-suite)
 ADD_EXECUTABLE(automata-demo examples/automata-demo.c)
 TARGET_LINK_LIBRARIES(automata-demo CompilerKit)
 
+ADD_EXECUTABLE(visitor-demo examples/visitor-demo.c)
+TARGET_LINK_LIBRARIES(visitor-demo CompilerKit)
