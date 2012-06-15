@@ -260,7 +260,7 @@ void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
 void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state)
 {
 	CompilerKitFSMPrivate* priv = self->priv;
-	priv-start = state;
+	priv->start = state;
 }
 
 // For virtual methods only, we have a layer of indirection. The actual implementation goes here.
