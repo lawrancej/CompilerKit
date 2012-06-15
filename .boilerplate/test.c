@@ -32,6 +32,7 @@
  */
 void test_bar_method (void)
 {
+    Bar *obj;
     g_test_message ("Testing Bar method");
     g_test_timer_start ();
     
