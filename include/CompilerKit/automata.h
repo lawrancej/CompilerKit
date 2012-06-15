@@ -54,17 +54,13 @@ typedef struct _CompilerKitFSM
 /**
  * @struct CompilerKitFSMClass
  * A finite state machine class struct.
- * This struct declares the virtual public methods.
+ * This struct declares the virtual public methods of automata (there aren't any).
  * @see #CompilerKitFSM for the instance struct.
  */
 typedef struct _CompilerKitFSMClass
 {
   /** Base class (GobjectClass) */
   GObjectClass parent_class;
-
-  /* Virtual public methods */
-  void (*add_transition) (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
-  gboolean (*match) (CompilerKitFSM* self, gchar *str);
 } CompilerKitFSMClass;
 
 /**
@@ -77,11 +73,11 @@ typedef struct _CompilerKitFSMClass
 GType compilerkit_FSM_get_type (void);
 
 /* Public method function prototypes */
-CompilerKitFSM* compilerkit_FSM_new (void);
+CompilerKitFSM* compilerkit_FSM_new (gchar *str);
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
-gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str);
 void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state);
 void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state);
+gchar *compilerkit_FSM_get_start_state (CompilerKitFSM* self);
 void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other);
 
 G_END_DECLS

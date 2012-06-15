@@ -25,8 +25,6 @@ G_DEFINE_TYPE(CompilerKitFSM, compilerkit_FSM, G_TYPE_OBJECT);
 /** Private method function prototypes */
 static void compilerkit_FSM_finalize (GObject* object);
 static void compilerkit_FSM_dispose (GObject* object);
-static void real_compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
-static gboolean real_compilerkit_FSM_match (CompilerKitFSM* self, gchar *str);
 
 /**
  * @struct _CompilerKitFSMPrivate
@@ -36,14 +34,14 @@ static gboolean real_compilerkit_FSM_match (CompilerKitFSM* self, gchar *str);
  */
 struct _CompilerKitFSMPrivate
 {
-  /** Starting state of the finite automaton. */
-  gchar *start;
-  /** Set of states (vertices) in the finite automaton. */
-  GHashTable *states;
-  /** Transitions between states (edges) in the finite automaton. */
-  GHashTable *transitions;
-  /** If we are in any of these accepting states by the end of a match, then the match succeeds. */
-  GHashTable *acceptStates;
+    /** Starting state of the finite automaton. */
+    gchar *start;
+    /** Set of states (vertices) in the finite automaton. */
+    GHashTable *states;
+    /** Transitions between states (edges) in the finite automaton. */
+    GHashTable *transitions;
+    /** If we are in any of these accepting states by the end of a match, then the match succeeds. */
+    GHashTable *acceptStates;
 };
 
 /**
@@ -56,21 +54,17 @@ struct _CompilerKitFSMPrivate
 static void
 compilerkit_FSM_class_init (CompilerKitFSMClass *klass)
 {
-  GObjectClass *g_object_class;
-  
-  /* Add private structure */
-  g_type_class_add_private (klass, sizeof (CompilerKitFSMPrivate));
-  
-  /* Get the parent gobject class */
-  g_object_class = G_OBJECT_CLASS(klass);
-  
-  /* Hook overridable methods */
-  klass->add_transition = real_compilerkit_FSM_add_transition;
-  klass->match = real_compilerkit_FSM_match;
-  
-  /* Hook finalization functions */
-  g_object_class->dispose = compilerkit_FSM_dispose;   /* instance destructor, reverse of init */
-  g_object_class->finalize = compilerkit_FSM_finalize; /* class finalization, reverse of class init */
+    GObjectClass *g_object_class;
+
+    /* Add private structure */
+    g_type_class_add_private (klass, sizeof (CompilerKitFSMPrivate));
+
+    /* Get the parent gobject class */
+    g_object_class = G_OBJECT_CLASS(klass);
+
+    /* Hook finalization functions */
+    g_object_class->dispose = compilerkit_FSM_dispose;   /* instance destructor, reverse of init */
+    g_object_class->finalize = compilerkit_FSM_finalize; /* class finalization, reverse of class init */
 }
 
 /**
@@ -83,14 +77,14 @@ compilerkit_FSM_class_init (CompilerKitFSMClass *klass)
 static void
 compilerkit_FSM_init (CompilerKitFSM *self)
 {
-  CompilerKitFSMPrivate* priv;
-  self->priv = priv = COMPILERKIT_FSM_GET_PRIVATE (self);
+    CompilerKitFSMPrivate* priv;
+    self->priv = priv = COMPILERKIT_FSM_GET_PRIVATE (self);
 
-  /** @todo Initialize hash tables here */
-  /** @todo What to do about start state? */
-  priv->states = g_hash_table_new(g_direct_hash, g_direct_equal);
-  priv->transitions = g_hash_table_new(g_direct_hash, g_direct_equal);
-  priv->acceptStates = g_hash_table_new(g_direct_hash, g_direct_equal);
+    /** @todo Initialize hash tables here */
+    priv->start = NULL;
+    priv->states = g_hash_table_new(g_direct_hash, g_direct_equal);
+    priv->transitions = g_hash_table_new(g_direct_hash, g_direct_equal);
+    priv->acceptStates = g_hash_table_new(g_direct_hash, g_direct_equal);
 }
 
 /**
@@ -102,9 +96,10 @@ compilerkit_FSM_init (CompilerKitFSM *self)
  * @return A new CompilerKitFSM struct.
  * @memberof CompilerKitFSM
  */
-CompilerKitFSM* compilerkit_FSM_new (void)
+CompilerKitFSM* compilerkit_FSM_new (gchar *start)
 {
-	return COMPILERKIT_FSM (g_object_new (COMPILERKIT_TYPE_FSM, NULL));
+	CompilerKitFSM *result = COMPILERKIT_FSM (g_object_new (COMPILERKIT_TYPE_FSM, NULL));
+    result->priv->start = g_strdup(start);
 }
 
 /**
@@ -132,20 +127,18 @@ compilerkit_FSM_finalize (GObject* object)
 static void
 compilerkit_FSM_dispose (GObject* object)
 {
-  /* Reverse what was allocated by instance init */
+    /* Reverse what was allocated by instance init */
+    CompilerKitFSM *self = COMPILERKIT_FSM (object);
+    CompilerKitFSMPrivate* priv;
 
-  CompilerKitFSM *self = COMPILERKIT_FSM (object);
-  CompilerKitFSMPrivate* priv;
+    priv = COMPILERKIT_FSM_GET_PRIVATE (self);
 
-  priv = COMPILERKIT_FSM_GET_PRIVATE (self);
-  
-  /** @todo Deallocate memory as necessary */
-  /** @todo What to do about start state? */
-  g_hash_table_destroy(priv->states);
-  g_hash_table_destroy(priv->transitions);
-  g_hash_table_destroy(priv->acceptStates);
-  
-  G_OBJECT_CLASS (compilerkit_FSM_parent_class)->dispose (object);
+    g_free (priv->start);
+    g_hash_table_destroy(priv->states);
+    g_hash_table_destroy(priv->transitions);
+    g_hash_table_destroy(priv->acceptStates);
+
+    G_OBJECT_CLASS (compilerkit_FSM_parent_class)->dispose (object);
 }
 
 /**
@@ -263,14 +256,16 @@ void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state)
 	priv->start = state;
 }
 
-// For virtual methods only, we have a layer of indirection. The actual implementation goes here.
-static void real_compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
+/**
+ * compilerkit_FSM_set_start_state:
+ * @fn compilerkit_FSM_set_start_state
+ * @memberof CompilerKitFSM
+ * Return the starting state of a finite state machine.
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer (self).
+ * @return gchar*          The start state.
+*/
+gchar *compilerkit_FSM_get_start_state (CompilerKitFSM* self)
 {
-
-}
-
-// For virtual methods only, we have a layer of indirection. The actual implementation goes here.
-static gboolean real_compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
-{
-    return TRUE;
+    return self->priv->start;
 }
