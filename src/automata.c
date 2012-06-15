@@ -101,6 +101,7 @@ CompilerKitFSM* compilerkit_FSM_new (gchar *start)
 {
 	CompilerKitFSM *result = COMPILERKIT_FSM (g_object_new (COMPILERKIT_TYPE_FSM, NULL));
     result->priv->start = g_strdup(start);
+    return result;
 }
 
 /**
@@ -158,23 +159,7 @@ compilerkit_FSM_dispose (GObject* object)
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
 {
     g_return_if_fail (COMPILERKIT_IS_FSM (self));
-    COMPILERKIT_FSM_GET_CLASS (self)->add_transition (self, from_state, to_state, transition);
-}
-
-/**
- * compilerkit_FSM_match:
- * @fn compilerkit_FSM_match
- * @memberof CompilerKitFSM
- * Match a string with the finite state machine.
- * @pre No NULL parameters.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer.
- * @param gchar*           The string to read in.
- * @return TRUE or FALSE. Whether the FSM was in an accepting state by the end of the string.
- */
-gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str)
-{
-    g_assert (COMPILERKIT_IS_FSM (self));
-    return COMPILERKIT_FSM_GET_CLASS (self)->match (self, str);
+    
 }
 
 /**
