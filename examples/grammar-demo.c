@@ -8,8 +8,8 @@ int main (int argc, char ** argv)
     g_type_init();
     
     grammar = compilerkit_grammar_new();
-    
     /** @todo Briefly show how to use the methods in CompilerKitGrammar to accomplish the task. */
+    compilerkit_grammar_add_rule();
 
     g_object_unref (grammar);
 }
