@@ -100,7 +100,7 @@ int main (int argc, char ** argv)
                                                                         G_OBJECT(compilerkit_symbol_new('b')))
                                                                     ))
                                         )));
-    /* Traverse through the regex structure using the regex_printer. */
+	/* Traverse through the regex structure using the regex_printer. */
     compilerkit_visitor_visit (visitor, regex);
 
     /* Clean up after ourselves. */

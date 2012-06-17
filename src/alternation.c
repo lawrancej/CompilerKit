@@ -16,6 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "CompilerKit/alternation.h"
+#include <stdarg.h>
 #define COMPILERKIT_ALTERNATION_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_ALTERNATION, CompilerKitAlternationPrivate))
 G_DEFINE_TYPE(CompilerKitAlternation, compilerkit_alternation, G_TYPE_OBJECT);
 
@@ -87,14 +88,43 @@ compilerkit_alternation_init (CompilerKitAlternation *self)
  * @pre GObject* are all non NULL.
  * @param GObject* Left side of alternation
  * @param GObject* Right side of alternation
- * @return A new CompilerKitAlternation struct.
+ * @return A new GObject struct.
  */
-CompilerKitAlternation* compilerkit_alternation_new (GObject *left, GObject *right)
+GObject* compilerkit_alternation_new (GObject *left, GObject *right)
 {
 	CompilerKitAlternation *result = COMPILERKIT_ALTERNATION (g_object_new (COMPILERKIT_TYPE_ALTERNATION, NULL));
     result->priv->left = left;
     result->priv->right = right;
-    return result;
+    return G_OBJECT(result);
+}
+
+/**
+ * compilerkit_alternation_vlist_new:
+ * @fn compilerkit_alternation_vlist_new
+ * @memberof CompilerKitAlternation
+ * Construct a CompilerKitAlternation instance.
+ * @pre GObject* are all non NULL.
+ * @param gint Number of GObject* parameters
+ * @param ... Comma separated list of GObject*
+ * @return A new GObject struct.
+ */
+GObject* compilerkit_alternation_vlist_new (int arg_count, ...)
+{
+	gint i;
+	GObject* first;
+	GObject* second;
+	va_list args;
+	va_start(args,arg_count);
+
+	first = va_arg(args, GObject*); /** @todo change this to first = EmptySet (is this correct?)*/
+	
+	for(i=0;i<arg_count-1;i++) /** @todo change this to i<arg_count*/
+	{
+		second = va_arg(args, GObject*);
+		first = compilerkit_alternation_new(first, second);
+	}
+
+    return G_OBJECT(first);
 }
 
 /**
