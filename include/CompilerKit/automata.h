@@ -32,7 +32,13 @@ typedef struct _CompilerKitFSMPrivate CompilerKitFSMPrivate;
 /**
  * @struct CompilerKitFSM
  * A finite state machine instance struct.
-  *
+ *
+ * The associated functions use non-`NULL` strings to represent states.
+ * At the moment, this class leaks memory like a sieve.
+ * Also, this class implements a DFA for the moment. It should be a superclass for DFA and NFA.
+ * Whereas a DFA can only have one next state for a given state and character, an 
+ * NFA can have a list of possible next states, given a state and character.
+ * 
  * This struct provides all necessary information for instances of CompilerKitFSM.
  * Namely, an opaque pointer (priv) for private fields.
  *
@@ -65,7 +71,8 @@ typedef struct _CompilerKitFSMClass
 
 /**
  * @fn compilerkit_FSM_get_type
- * Returns the runtime type information for CompilerKitFSM. Macro COMPILERKIT_TYPE_FSM uses it.
+ * Returns the runtime type information for CompilerKitFSM.
+ * Macro COMPILERKIT_TYPE_FSM uses it.
  * @pre None
  * @param void
  * @return GType (runtime type information)
@@ -73,12 +80,36 @@ typedef struct _CompilerKitFSMClass
 GType compilerkit_FSM_get_type (void);
 
 /* Public method function prototypes */
-CompilerKitFSM* compilerkit_FSM_new (gchar *str);
-void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
-void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state);
-void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state);
-gchar *compilerkit_FSM_get_start_state (CompilerKitFSM* self);
-void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other);
+CompilerKitFSM* compilerkit_FSM_new         (gchar *str);
+
+void compilerkit_FSM_set_start_state        (CompilerKitFSM* self,
+                                             gchar *state);
+gchar *compilerkit_FSM_get_start_state      (CompilerKitFSM* self);
+
+void compilerkit_FSM_add_state              (CompilerKitFSM *self,
+                                             gchar *state);
+
+GList *compilerkit_FSM_get_states           (CompilerKitFSM *self);
+
+void compilerkit_FSM_add_transition         (CompilerKitFSM* self,
+                                             gchar *from_state,
+                                             gchar *to_state,
+                                             gchar input);
+
+gchar *compilerkit_FSM_get_next_state       (CompilerKitFSM *self,
+                                             gchar *from_state,
+                                             gchar transition);
+
+void compilerkit_FSM_add_accepting_state    (CompilerKitFSM* self,
+                                             gchar *state);
+
+GList *compilerkit_FSM_get_accepting_states (CompilerKitFSM *self);
+
+gboolean compilerkit_FSM_is_accepting_state (CompilerKitFSM *self,
+                                             gchar *state);
+
+void compilerkit_FSM_merge                  (CompilerKitFSM *self,
+                                             CompilerKitFSM *other);
 
 G_END_DECLS
 #endif
