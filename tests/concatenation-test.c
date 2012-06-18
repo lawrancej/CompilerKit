@@ -40,7 +40,7 @@ void test_concatenation_method (void)
     /** @todo Test here  */
 	//both parameters are symbols
 	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_symbol_new('b'));
-    g_assert(COMPILER_IS_CONCATENATION(ckc));
+    g_assert(COMPILERKIT_IS_CONCATENATION(ckc));
 	g_object_unref (ckc);
 
 	//right parameter is EmptyString
