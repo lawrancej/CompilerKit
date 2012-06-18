@@ -4,7 +4,7 @@
 GObject *print_alternation(CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitAlternation *alt;
-    if (!COMPILERKIT_IS_ALTERNATION(obj)) return NULL;
+    g_assert(COMPILERKIT_IS_ALTERNATION(obj));
     
     alt = COMPILERKIT_ALTERNATION (obj);
     
@@ -17,7 +17,7 @@ GObject *print_alternation(CompilerKitVisitor *self, GObject *obj)
 GObject *print_concatenation(CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitConcatenation *cat;
-    if (!COMPILERKIT_IS_CONCATENATION(obj)) return NULL;
+    g_assert(COMPILERKIT_IS_CONCATENATION(obj));
     
     cat = COMPILERKIT_CONCATENATION (obj);
     
@@ -29,7 +29,7 @@ GObject *print_concatenation(CompilerKitVisitor *self, GObject *obj)
 GObject *print_kleene_star(CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitKleeneStar *star;
-    if (!COMPILERKIT_IS_KLEENE_STAR(obj)) return NULL;
+    g_assert(COMPILERKIT_IS_KLEENE_STAR(obj));
     
     star = COMPILERKIT_KLEENE_STAR (obj);
     
@@ -41,14 +41,14 @@ GObject *print_kleene_star(CompilerKitVisitor *self, GObject *obj)
 
 GObject *print_empty_set(CompilerKitVisitor *self, GObject *obj)
 {
-    if (!COMPILERKIT_IS_EMPTY_SET(obj)) return NULL;
+    g_assert(COMPILERKIT_IS_EMPTY_SET(obj));
     printf("{}");
     return NULL;
 }
 
 GObject *print_empty_string(CompilerKitVisitor *self, GObject *obj)
 {
-    if (!COMPILERKIT_IS_EMPTY_STRING(obj)) return NULL;
+    g_assert(COMPILERKIT_IS_EMPTY_STRING(obj));
     printf("\"\"");
     return NULL;
 }
@@ -56,7 +56,7 @@ GObject *print_empty_string(CompilerKitVisitor *self, GObject *obj)
 GObject *print_symbol(CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitSymbol *symbol;
-    if (!COMPILERKIT_IS_SYMBOL(obj)) return NULL;
+    g_assert(COMPILERKIT_IS_SYMBOL(obj));
     
     symbol = COMPILERKIT_SYMBOL (obj);
     
