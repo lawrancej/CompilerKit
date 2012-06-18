@@ -20,6 +20,10 @@ G_DEFINE_TYPE(CompilerKitEmptySet, compilerkit_empty_set, G_TYPE_OBJECT);
 
 static void compilerkit_empty_set_finalize (GObject* object);
 static void compilerkit_empty_set_dispose (GObject* object);
+CompilerKitEmptySet* compilerkit_empty_set_new (void);
+
+//static instance of EmptySet
+static	CompilerKitEmptySet* empty_set_instance;
 
 /**
  * compilerkit_empty_set_class_init:
@@ -33,7 +37,7 @@ static void
 compilerkit_empty_set_class_init (CompilerKitEmptySetClass *klass)
 {
   GObjectClass *g_object_class;
-
+ 
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
   
@@ -67,6 +71,25 @@ compilerkit_empty_set_init (CompilerKitEmptySet *self)
 CompilerKitEmptySet* compilerkit_empty_set_new (void)
 {
 	return COMPILERKIT_EMPTY_SET (g_object_new (COMPILERKIT_TYPE_EMPTY_SET, NULL));
+}
+
+/**
+ * compilerkit_empty_set_get_instance:
+ * @fn compilerkit_empty_set_get_instance
+ * @memberof CompilerKitEmptySet
+ * Returns the instance of Empty Set
+ * @pre None
+ * @param None
+ * @return A the instance of CompilerKitEmptySet struct.
+ */
+static CompilerKitEmptySet* compilerkit_empty_set_get_instance (void)
+{
+	if(empty_set_instance == NULL)
+	{
+		empty_set_instance = compilerkit_empty_set_new();
+	}
+	
+	return empty_set_instance;
 }
 
 /**
