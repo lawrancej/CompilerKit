@@ -3,10 +3,10 @@
 
 int main (int argc, char ** argv)
 {
-    CompilerKitFSM* fsm;
-    g_type_init();
+    CompilerKitFSM* fsm; //creates pointer for FSM
+    g_type_init(); //initializes gobject type system. Allows us to query the types of an object Only needs to be called once, Test suite already calls it and is not necessary there.
     
-    fsm = compilerkit_FSM_new();
+    fsm = compilerkit_FSM_new(); //Calls the constructor for the FSM
 
     compilerkit_FSM_set_start_state (fsm, "A");
     compilerkit_FSM_add_transition (fsm, "A", "B", 'd');
@@ -17,5 +17,5 @@ int main (int argc, char ** argv)
     
     compilerkit_FSM_match (fsm, "demo");
 
-    g_object_unref (fsm);
+    g_object_unref (fsm); //decreases the reference count by 1, if count becomes 0 free memeory.
 }

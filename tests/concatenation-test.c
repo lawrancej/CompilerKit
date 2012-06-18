@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/concatenation.h"
+#include "CompilerKit.h"
 #include "test-suite.h"
 
 /** @todo Write test cases of the form: void test_concatenation_method (void); */
@@ -32,11 +32,36 @@
  */
 void test_concatenation_method (void)
 {
+	CompilerKitConcatenation* ckc;
+
     g_test_message ("Testing Concatenation method");
     g_test_timer_start ();
     
     /** @todo Test here  */
-    g_assert(FALSE);
+	//both parameters are symbols
+	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_symbol_new('b'));
+    g_assert(COMPILER_IS_CONCATENATION(ckc));
+	g_object_unref (ckc);
+
+	//right parameter is EmptyString
+	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_empty_string_new());
+	g_assert(COMPILERKIT_IS_SYMBOL(ckc));
+	g_object_unref (ckc);
+
+	//left parameter is EmptyString
+	ckc = compilerkit_concatenation_new(compilerkit_empty_string_new(),compilerkit_symbol_new('a'));
+	g_assert(COMPILERKIT_IS_SYMBOL(ckc));
+	g_object_unref (ckc);
+
+	//right parameter is EmptySet
+	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_empty_set_new());
+	g_assert(COMPILERKIT_IS_EMPTY_SET(ckc));
+	g_object_unref (ckc);
+
+	//left parameter is EmptySet
+	ckc = compilerkit_concatenation_new(compilerkit_empty_set_new(),compilerkit_symbol_new('a'));
+	g_assert(COMPILERKIT_IS_EMPTY_SET(ckc));
+	g_object_unref (ckc);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
