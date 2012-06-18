@@ -15,16 +15,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "test-suite.h"
+#include "CompilerKit/header.h"
+G_DEFINE_INTERFACE(CompilerKitIBar, compilerkit_ibar, G_TYPE_INTERFACE);
 
-int main (int argc, char ** argv)
+void compilerkit_ibar_do_action (CompilerKitIBar *self)
 {
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
 
-    /** @todo Add here: g_test_add_func ("/test-class/test-class-method", test_class_method); */
-    g_test_add_func ("/test-automata/test-FSM-start-state", test_FSM_start_state);
-    g_test_add_func ("/test-automata/test-FSM-states", test_FSM_states);
-
-    g_test_run();
 }

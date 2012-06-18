@@ -87,6 +87,18 @@ To use it, read these first:
 * [Documentation for GLib](http://developer.gnome.org/glib/stable/)
 * [GLib Hash table tutorial](http://www.ibm.com/developerworks/linux/tutorials/l-glib/section5.html)
 
+## What do the GObject macros mean?
+Let's compare with some examples.
+
+```
+GObject                                Java/C#
+(prefix everything with COMPILERKIT)   package CompilerKit;
+COMPILERKIT_IS_ALTERNATION(obj)        (obj instanceof Alternation)
+COMPILERKIT_ALTERNATION (obj)          (Alternation) obj
+COMPILERKIT_TYPE_ALTERNATION           Alternation.class
+G_OBJECT_TYPE (obj)                    obj.getClass()
+```
+
 ## How do I use GObject?
 GObject may seem intimidating. Learn how it works, and realize that OOP languages provide a lot of shortcuts that C exposes to the programmer.
 
