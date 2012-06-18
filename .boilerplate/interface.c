@@ -16,28 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "CompilerKit/header.h"
-#include "test-suite.h"
+G_DEFINE_INTERFACE(CompilerKitIBar, compilerkit_ibar, G_TYPE_INTERFACE);
 
-/** @todo Write test cases of the form: void test_bar_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-header/test-bar-method", test_bar_method); */
-
-/**
- * test_bar_method:
- * @fn test_bar_method
- * Tests method compilerkit_bar_method in CompilerKitBar struct.
- * @pre None
- * @param None
- * @return void
- */
-void test_bar_method (void)
+void compilerkit_ibar_do_action (CompilerKitIBar *self)
 {
-    Bar *obj;
-    g_test_message ("Testing Bar method");
-    g_test_timer_start ();
-    
-    /** @todo Test here  */
-    g_assert(FALSE);
-    
-    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+
 }
