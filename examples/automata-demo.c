@@ -1,16 +1,11 @@
 #include <stdio.h>
 #include "CompilerKit.h"
 
-int main (int argc, char ** argv)
+// Build up the state machine. Should match "fsm" or "demo", separated by (but not ending with) spaces.
+CompilerKitFSM *state_machine ()
 {
     CompilerKitFSM* fsm;
-    GList *list;
-    char *state;
-    gchar buf[20];
-    gchar *str;
-    g_type_init();
-    
-    // Build up the state machine
+
     fsm = compilerkit_FSM_new("A");
 //    compilerkit_FSM_set_start_state(fsm, "A");
     compilerkit_FSM_add_transition (fsm, "A", "B", 'd');
@@ -24,8 +19,14 @@ int main (int argc, char ** argv)
     compilerkit_FSM_add_transition (fsm, "H", "A", ' ');
     compilerkit_FSM_add_accepting_state (fsm, "E");
     compilerkit_FSM_add_accepting_state (fsm, "H");
-    
-    // Print out the states
+    return fsm;
+}
+
+// Print out the states
+void print_states(CompilerKitFSM *fsm)
+{
+    GList *list;
+
     printf ("states: ");
     list = compilerkit_FSM_get_states (fsm);
     while (list) {
@@ -34,8 +35,15 @@ int main (int argc, char ** argv)
     }
     printf ("\n");
     g_list_free (list);
-    
-    // Match a string. Should match "fsm" or "demo", separated by (but not ending with) spaces.
+}
+
+// Match a string.
+void match_string(CompilerKitFSM *fsm)
+{
+    char *state;
+    gchar buf[20];
+    gchar *str;
+
     printf ("Enter a string: ");
     scanf ("%20[^\n]s", buf);
     str = buf;
@@ -47,6 +55,16 @@ int main (int argc, char ** argv)
     }
     printf ((compilerkit_FSM_is_accepting_state(fsm, state)) ? 
              "Accepted!\n" : "Not accepted!\n");
+}
+
+int main (int argc, char ** argv)
+{
+    CompilerKitFSM* fsm;
+    g_type_init();
+    
+    fsm = state_machine();
+    print_states(fsm);
+    match_string(fsm);
     
     g_object_unref (fsm);
 }
