@@ -103,26 +103,32 @@ GObject* compilerkit_alternation_new (GObject *left, GObject *right)
  * @fn compilerkit_alternation_vlist_new
  * @memberof CompilerKitAlternation
  * Construct a CompilerKitAlternation instance.
- * @pre GObject* are all non NULL.
- * @param gint Number of GObject* parameters
- * @param ... Comma separated list of GObject*
+ * @pre all GObject* until the last one are all non NULL, and the last arg must be NULL.
+ * @param GObject* left the first parameter in an alternation
+ * @param GObject* right the second parameter in an alternation
+ * @param ... Comma separated list of GObject*, terminated by a NULL param
  * @return A new GObject struct.
  */
-GObject* compilerkit_alternation_vlist_new (int arg_count, ...)
+GObject* compilerkit_alternation_vlist_new (GObject *left, GObject *right, ...)
 {
-	gint i;
 	GObject* first;
 	GObject* second;
 	va_list args;
-	va_start(args,arg_count);
-
-	first = va_arg(args, GObject*); /** @todo change this to first = EmptySet (is this correct?)*/
+	va_start(args,right);
 	
-	for(i=0;i<arg_count-1;i++) /** @todo change this to i<arg_count*/
+	first = compilerkit_alternation_new(left, right);
+	
+	while(1)
 	{
 		second = va_arg(args, GObject*);
+		if(second == NULL)
+		{
+			break;
+		}
 		first = compilerkit_alternation_new(first, second);
 	}
+	
+	va_end(args);
 
     return G_OBJECT(first);
 }
