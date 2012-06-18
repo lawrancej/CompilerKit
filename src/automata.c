@@ -28,6 +28,9 @@ static void compilerkit_FSM_finalize (GObject* object);
 static void compilerkit_FSM_dispose (GObject* object);
 static void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2);
 
+/**
+ * Get the key for a state and transition. (Private function)
+ */
 static gchar *compilerkit_FSM_get_transition_key (gchar *state, gchar transition)
 {
     int key_length = strlen (state) + 1;
