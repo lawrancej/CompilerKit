@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2012 The CompilerKit contributors.
  *
  * This library is free software; you can redistribute it and/or
@@ -15,7 +15,28 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#ifndef INCLUDE_CompilerKit_parser_h__
-#define INCLUDE_CompilerKit_parser_h__
+#include "CompilerKit/concatenation.h"
+#include "test-suite.h"
 
-#endif
+/** @todo Write test cases of the form: void test_concatenation_method (void); */
+/** @todo Add function prototypes for all functions into test-suite.h */
+/** @todo Add to test-suite.c: g_test_add_func ("/test-concatenation/test-concatenation-method", test_concatenation_method); */
+
+/**
+ * test_concatenation_method:
+ * @fn test_concatenation_method
+ * Tests method compilerkit_concatenation_method in CompilerKitConcatenation struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_concatenation_method (void)
+{
+    g_test_message ("Testing Concatenation method");
+    g_test_timer_start ();
+    
+    /** @todo Test here  */
+    g_assert(FALSE);
+    
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}

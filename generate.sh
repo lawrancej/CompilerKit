@@ -15,8 +15,8 @@ generate() {
 }
 
 # Ask for the class name in camel case, and export all class name variations for generate()
-get_class_name() {
-    echo -n "Enter the class name in CamelCase (e.g., ClassName): "
+get_identifier() {
+    echo -n "Enter the $choice name in CamelCase (e.g., ClassName): "
     read CamelClassName
 
     export CamelClassName
@@ -30,25 +30,7 @@ exit_if_file_exists() {
     [ -e $1 ] && echo "Oops, I cannot continue! File $1 already exists." && exit
 }
 
-get_class_name
-
-boilerplate=( ".boilerplate/class.c" ".boilerplate/class-include.h" ".boilerplate/demo.c" ".boilerplate/test.c" )
-replacement=( "src/$class_filename.c" "include/CompilerKit/$class_filename.h" "examples/$class_filename-demo.c" "tests/$class_filename-test.c" )
-
-for i in 0 1 2 3
-do
-    # By default, generate the specified class
-    if [ $# = 0 ]; then
-        exit_if_file_exists ${replacement[$i]}
-        cp ${boilerplate[$i]} ${replacement[$i]}
-        generate ${replacement[$i]}
-    # If the user specified rm, clean up generated class
-    elif [ $1 == "rm" ]; then
-        [ -e ${replacement[$i]} ] && rm ${replacement[$i]}
-    fi
-done
-
-if [ $# = 0 ]; then
+next_steps() {
     echo
     echo "To properly implement $CamelClassName,"
     echo "1. Address all @todo items in:"
@@ -60,6 +42,47 @@ if [ $# = 0 ]; then
     echo "#include \"CompilerKit/$class_filename.h\""
     echo
     echo "3. Update CMakeLists.txt"
-    echo "4. Test, Document, Code, Build, Debug, Commit, Push, Rinse, Repeat."
-    echo "   Happy Hacking!"
-fi
+    echo "4. Test, document, code, build, and debug as necessary."
+    echo "5. Commit changes. To commit, git must be aware of the new files:"
+    echo "   git add ${replacement[@]}"
+    echo "6. Happy Hacking!"
+}
+
+usage() {
+    echo "Usage: $0 cmd"
+    echo 
+    echo "Where cmd is:"
+    echo "class      Generate a class"
+    echo "interface  Generate an interface (WARNING: untested boilerplate interface)"
+    echo "rm         Remove an existing class or interface"
+}
+
+# Main driver function
+main() {
+    if [ $# == 0 ]; then
+        usage
+    elif [[ $1 == "class" || $1 == "interface" ]]; then
+        export choice="$1"
+        get_identifier
+        boilerplate=( ".boilerplate/$choice.c" ".boilerplate/$choice.h" ".boilerplate/demo.c" ".boilerplate/test.c" )
+        replacement=( "src/$class_filename.c" "include/CompilerKit/$class_filename.h" "examples/$class_filename-demo.c" "tests/$class_filename-test.c" )
+        for i in 0 1 2 3
+        do
+            exit_if_file_exists ${replacement[$i]}
+            cp ${boilerplate[$i]} ${replacement[$i]}
+            generate ${replacement[$i]}
+        done
+        next_steps
+    elif [ $1 == "rm" ]; then
+        get_identifier
+        replacement=( "src/$class_filename.c" "include/CompilerKit/$class_filename.h" "examples/$class_filename-demo.c" "tests/$class_filename-test.c" )
+        for filename in "${replacement[@]}"
+        do
+            [ -e $filename ] && echo rm $filename && rm $filename
+        done
+    else
+        usage
+    fi
+}
+
+main $*

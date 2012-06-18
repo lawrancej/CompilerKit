@@ -18,9 +18,13 @@
 #include "CompilerKit/header.h"
 #include "test-suite.h"
 
-/** @todo Write test cases of the form: void test_bar_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-header/test-bar-method", test_bar_method); */
+/** @todo Write test cases for Bar.
+ * 1. Use this prototype (replace `case` as appropriate):
+ *  `void test_bar_case (void);` 
+ * 2. Add function prototypes for all functions into `test-suite.h`
+ * 3. Add to `test-suite.c`:
+ *  `g_test_add_func ("/test-bar/test-bar-case", test_bar_case);`
+ */
 
 /**
  * test_bar_method:
@@ -32,6 +36,7 @@
  */
 void test_bar_method (void)
 {
+    Bar *obj;
     g_test_message ("Testing Bar method");
     g_test_timer_start ();
     
