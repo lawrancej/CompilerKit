@@ -17,5 +17,6 @@
  */
 #include <glib.h>
 
-/** Test case function prototypes of the form: void test_class_method (void); */
+/** Test case function prototypes of the form: void test_class_case (void); */
 void test_FSM_start_state (void);
+void test_FSM_states (void);

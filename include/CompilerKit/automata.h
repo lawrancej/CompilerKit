@@ -91,6 +91,10 @@ void compilerkit_FSM_add_state              (CompilerKitFSM *self,
 
 GList *compilerkit_FSM_get_states           (CompilerKitFSM *self);
 
+gboolean compilerkit_FSM_has_state          (CompilerKitFSM *self,
+                                             gchar *state);
+
+
 void compilerkit_FSM_add_transition         (CompilerKitFSM* self,
                                              gchar *from_state,
                                              gchar *to_state,

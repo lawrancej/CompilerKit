@@ -33,7 +33,7 @@
 void test_FSM_start_state (void)
 {
     CompilerKitFSM *fsm;
-    g_test_message ("Testing FSM set_start_state");
+    g_test_message ("Testing FSM start_state");
     g_test_timer_start ();
     
     /** @todo Test here  */
@@ -47,3 +47,33 @@ void test_FSM_start_state (void)
     g_object_unref (fsm);
 }
 
+/**
+ * test_FSM_state:
+ * @fn test_FSM_state
+ * Tests `compilerkit_FSM_*_state` in CompilerKitFSM struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_FSM_states (void)
+{
+    CompilerKitFSM *fsm;
+    g_test_message ("Testing FSM state");
+    g_test_timer_start ();
+
+    /** @todo Test here  */
+    fsm = compilerkit_FSM_new ("zero");
+    compilerkit_FSM_add_state (fsm, "one");
+    compilerkit_FSM_add_state (fsm, "two");
+    compilerkit_FSM_add_state (fsm, "three");
+    
+    g_assert (compilerkit_FSM_has_state (fsm, "zero"));
+    g_assert (compilerkit_FSM_has_state (fsm, "one"));
+    g_assert (compilerkit_FSM_has_state (fsm, "two"));
+    g_assert (compilerkit_FSM_has_state (fsm, "three"));
+    g_assert (!compilerkit_FSM_has_state (fsm, "four"));
+    g_assert (!compilerkit_FSM_has_state (fsm, NULL));
+    
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+    g_object_unref (fsm);
+}

@@ -115,7 +115,7 @@ compilerkit_FSM_init (CompilerKitFSM *self)
 CompilerKitFSM* compilerkit_FSM_new (gchar *start)
 {
 	CompilerKitFSM *result = COMPILERKIT_FSM (g_object_new (COMPILERKIT_TYPE_FSM, NULL));
-    result->priv->start = g_strdup(start);
+    compilerkit_FSM_set_start_state (result, g_strdup(start));
     return result;
 }
 
@@ -255,6 +255,24 @@ void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
     g_assert (state);
 
 	g_hash_table_insert(self->priv->states,state, NULL);
+}
+
+/**
+ * compilerkit_FSM_has_state:
+ * Return whether the state exists.
+ * @fn compilerkit_FSM_has_state
+ * @pre CompilerKitFSM* is not `NULL`.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
+ * @param gchar*           A `state`. (Possibly `NULL`)
+ * @return gboolean        Whether the `state` exists.
+ * @memberof CompilerKitFSM
+ */
+gboolean compilerkit_FSM_has_state (CompilerKitFSM *self, gchar *state)
+{
+    g_assert (self);
+
+    if (!state) return FALSE;
+    return g_hash_table_lookup_extended (self->priv->states, state, NULL, NULL);
 }
 
 /**
