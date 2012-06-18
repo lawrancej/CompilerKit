@@ -17,7 +17,6 @@
  */
 #include "test-suite.h"
 
-/** @todo Meta-todo: make a boilerplate test application */
 int main (int argc, char ** argv)
 {
     g_test_init (&argc, &argv, NULL);

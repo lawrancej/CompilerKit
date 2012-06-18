@@ -18,10 +18,14 @@
 #include "CompilerKit/automata.h"
 #include "test-suite.h"
 
-/** @todo Write test cases of the form: void test_bar_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-automata/test-FSM-method", test_bar_method); */
-
+/** @todo Write test cases for CompilerKitFSM.
+ * 1. Use this prototype (replace `case` as appropriate):
+ *  `void test_FSM_case (void);` 
+ * 2. Add function prototypes for all functions into `test-suite.h`
+ * 3. Add to `test-suite.c`:
+ *  `g_test_add_func ("/test-bar/test-FSM-case", test_FSM_case);`
+ */
+ 
 /**
  * test_FSM_start_state:
  * @fn test_FSM_set_start_state
@@ -74,6 +78,12 @@ void test_FSM_states (void)
     g_assert (!compilerkit_FSM_has_state (fsm, "four"));
     g_assert (!compilerkit_FSM_has_state (fsm, NULL));
     
+    compilerkit_FSM_add_transition (fsm, "zero", "five", '5');
+    compilerkit_FSM_add_accepting_state (fsm, "six");
+    g_assert (compilerkit_FSM_has_state (fsm, "five"));
+    g_assert (compilerkit_FSM_has_state (fsm, "six"));
+    
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
     g_object_unref (fsm);
 }
+
