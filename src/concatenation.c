@@ -91,7 +91,7 @@ compilerkit_concatenation_init (CompilerKitConcatenation *self)
  * @param GObject* Right side of concatenation
  * @return A new CompilerKitConcatenation struct if concatenation is necessary otherwise return the single element or EmptySet.
  */
-CompilerKitConcatenation* compilerkit_concatenation_new (GObject *left, GObject *right)
+GObject *compilerkit_concatenation_new (GObject *left, GObject *right)
 {
 	CompilerKitConcatenation* result;
 	if (COMPILERKIT_IS_EMPTY_SET(left) || COMPILERKIT_IS_EMPTY_SET(right))//if left or right is EmptySet
@@ -103,7 +103,7 @@ CompilerKitConcatenation* compilerkit_concatenation_new (GObject *left, GObject 
 	result = COMPILERKIT_CONCATENATION (g_object_new (COMPILERKIT_TYPE_CONCATENATION, NULL));
     result->priv->left = left;
     result->priv->right = right;
-    return result;
+    return G_OBJECT(result);
 }
 
 /**

@@ -93,7 +93,7 @@ compilerkit_visitor_init (CompilerKitVisitor *self)
  * @param None
  * @return A new CompilerKitVisitor struct.
  */
-CompilerKitVisitor* compilerkit_visitor_new (void)
+CompilerKitVisitor *compilerkit_visitor_new (void)
 {
 	return COMPILERKIT_VISITOR (g_object_new (COMPILERKIT_TYPE_VISITOR, NULL));
 }

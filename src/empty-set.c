@@ -64,9 +64,9 @@ compilerkit_empty_set_init (CompilerKitEmptySet *self)
  * @param None
  * @return A new CompilerKitEmptySet struct.
  */
-CompilerKitEmptySet* compilerkit_empty_set_new (void)
+GObject *compilerkit_empty_set_new (void)
 {
-	return COMPILERKIT_EMPTY_SET (g_object_new (COMPILERKIT_TYPE_EMPTY_SET, NULL));
+	return g_object_new (COMPILERKIT_TYPE_EMPTY_SET, NULL);
 }
 
 /**
