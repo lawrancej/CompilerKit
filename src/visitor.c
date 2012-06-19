@@ -147,7 +147,7 @@ compilerkit_visitor_dispose (GObject* object)
  */
 void compilerkit_visitor_register (CompilerKitVisitor *self, GType the_type, CompilerKitVisitorFunc func)
 {
-    g_hash_table_insert (self->priv->visitors, g_type_name(the_type), func);
+    g_hash_table_insert (self->priv->visitors, (gpointer) g_type_name(the_type), func);
 }
 
 /**
