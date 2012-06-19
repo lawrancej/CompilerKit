@@ -97,7 +97,7 @@ compilerkit_scanner_init (CompilerKitScanner *self)
  * @param None
  * @return A new CompilerKitScanner struct.
  */
-CompilerKitScanner* compilerkit_scanner_new (void)
+CompilerKitScanner *compilerkit_scanner_new (void)
 {
 	return COMPILERKIT_SCANNER (g_object_new (COMPILERKIT_TYPE_SCANNER, NULL));
 }

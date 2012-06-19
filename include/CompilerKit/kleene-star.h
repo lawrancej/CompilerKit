@@ -70,7 +70,7 @@ typedef struct _CompilerKitKleeneStarClass
 GType compilerkit_kleene_star_get_type (void);
 
 /** Public method function prototypes */
-CompilerKitKleeneStar* compilerkit_kleene_star_new (GObject *node);
+GObject *compilerkit_kleene_star_new (GObject *node);
 GObject *compilerkit_kleene_star_get_node (CompilerKitKleeneStar *self);
 
 G_END_DECLS

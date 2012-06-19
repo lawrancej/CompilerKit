@@ -93,7 +93,7 @@ compilerkit_visitor_init (CompilerKitVisitor *self)
  * @param None
  * @return A new CompilerKitVisitor struct.
  */
-CompilerKitVisitor* compilerkit_visitor_new (void)
+CompilerKitVisitor *compilerkit_visitor_new (void)
 {
 	return COMPILERKIT_VISITOR (g_object_new (COMPILERKIT_TYPE_VISITOR, NULL));
 }
@@ -147,7 +147,7 @@ compilerkit_visitor_dispose (GObject* object)
  */
 void compilerkit_visitor_register (CompilerKitVisitor *self, GType the_type, CompilerKitVisitorFunc func)
 {
-    g_hash_table_insert (self->priv->visitors, g_type_name(the_type), func);
+    g_hash_table_insert (self->priv->visitors, (gpointer) g_type_name(the_type), func);
 }
 
 /**

@@ -28,6 +28,9 @@ static void compilerkit_FSM_finalize (GObject* object);
 static void compilerkit_FSM_dispose (GObject* object);
 static void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2);
 
+/**
+ * Get the key for a state and transition. (Private function)
+ */
 static gchar *compilerkit_FSM_get_transition_key (gchar *state, gchar transition)
 {
     int key_length = strlen (state) + 1;
@@ -109,10 +112,10 @@ compilerkit_FSM_init (CompilerKitFSM *self)
  * @return A new CompilerKitFSM struct.
  * @memberof CompilerKitFSM
  */
-CompilerKitFSM* compilerkit_FSM_new (gchar *start)
+CompilerKitFSM *compilerkit_FSM_new (gchar *start)
 {
 	CompilerKitFSM *result = COMPILERKIT_FSM (g_object_new (COMPILERKIT_TYPE_FSM, NULL));
-    result->priv->start = g_strdup(start);
+    compilerkit_FSM_set_start_state (result, g_strdup(start));
     return result;
 }
 
@@ -252,6 +255,24 @@ void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
     g_assert (state);
 
 	g_hash_table_insert(self->priv->states,state, NULL);
+}
+
+/**
+ * compilerkit_FSM_has_state:
+ * Return whether the state exists.
+ * @fn compilerkit_FSM_has_state
+ * @pre CompilerKitFSM* is not `NULL`.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
+ * @param gchar*           A `state`. (Possibly `NULL`)
+ * @return gboolean        Whether the `state` exists.
+ * @memberof CompilerKitFSM
+ */
+gboolean compilerkit_FSM_has_state (CompilerKitFSM *self, gchar *state)
+{
+    g_assert (self);
+
+    if (!state) return FALSE;
+    return g_hash_table_lookup_extended (self->priv->states, state, NULL, NULL);
 }
 
 /**

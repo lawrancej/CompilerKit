@@ -80,7 +80,7 @@ typedef struct _CompilerKitFSMClass
 GType compilerkit_FSM_get_type (void);
 
 /* Public method function prototypes */
-CompilerKitFSM* compilerkit_FSM_new         (gchar *str);
+CompilerKitFSM *compilerkit_FSM_new         (gchar *str);
 
 void compilerkit_FSM_set_start_state        (CompilerKitFSM* self,
                                              gchar *state);
@@ -90,6 +90,10 @@ void compilerkit_FSM_add_state              (CompilerKitFSM *self,
                                              gchar *state);
 
 GList *compilerkit_FSM_get_states           (CompilerKitFSM *self);
+
+gboolean compilerkit_FSM_has_state          (CompilerKitFSM *self,
+                                             gchar *state);
+
 
 void compilerkit_FSM_add_transition         (CompilerKitFSM* self,
                                              gchar *from_state,
