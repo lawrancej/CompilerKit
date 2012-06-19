@@ -43,3 +43,6 @@ TARGET_LINK_LIBRARIES(automata-demo CompilerKit)
 
 ADD_EXECUTABLE(visitor-demo examples/visitor-demo.c)
 TARGET_LINK_LIBRARIES(visitor-demo CompilerKit)
+
+ADD_EXECUTABLE(symbol-demo examples/symbol-demo.c)
+TARGET_LINK_LIBRARIES(symbol-demo CompilerKit)
