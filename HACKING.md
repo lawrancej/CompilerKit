@@ -1,15 +1,63 @@
 Hacking CompilerKit
 ===================
-<https://www.ohloh.net/p/CompilerKit> <script type="text/javascript" src="http://www.ohloh.net/p/602736/widgets/project_partner_badge.js"></script>
+## Status
+- [Ohloh tracker](https://www.ohloh.net/p/CompilerKit)
 
-To develop CompilerKit, 
-
+## Getting started
 1. Install the dependencies for your platform.
     - [Windows](#what-to-install-on-windows)
     - [Linux](#what-to-install-on-linux)
     - [Mac](#what-to-install-on-mac)
-2. [Build CompilerKit.](#how-do-i-build-compilerkit)
-3. [Read Documentation](#where-is-the-documentation)
+2. [Fork the project here.](https://github.com/lawrancej/CompilerKit/fork)
+3. [Learn how to contribute.](#how-to-contribute)
+4. [Build CompilerKit.](#how-do-i-build-compilerkit)
+5. [Read Documentation.](#where-is-the-documentation)
+
+## How to contribute
+1. Find something to work on:
+    * [Check the issue tracker](https://github.com/lawrancej/CompilerKit/issues)
+      Comment on the issue to get dibs.
+    * [Check the coordination document](https://docs.google.com/document/d/1g7SXO8BSL5rq2cJVqp_9XfWkzNyi9ZWKKl2Heb_nS1g/edit?pli=1)
+2. [Add your improvements to a branch named for the issue.](#getting-your-branched-merged-checklist)
+3. [Send in a pull request.](https://github.com/lawrancej/CompilerKit/pull/new/master)
+4. Profit!
+
+Or, [file a bug report.](https://github.com/lawrancej/CompilerKit/issues/new)
+
+## Getting your branch merged checklist
+### Use topic branches for your work
+Topic branches isolate chunks of work so that it's easier for others to merge in.
+
+ 1. Create a new branch:
+     `git checkout -b issueXYZ`
+ 2. Hack away, making commits along the way.
+ 3. Push your issue branch to github:
+     `git push origin issueXYZ`
+ 4. Switch to that branch in github, and send in a pull request for feedback.
+
+Sometimes, it's necessary to switch between branches. Your work will always be saved.
+
+ - To switch back to master:
+    `git checkout master`
+ - To see the branches:
+    `git branch`
+
+### Test your changes
+I will not merge code into my master branch until it has passing test cases in the test suite.
+If the changes include documentation, then [ensure the documentation looks as expected](#where-is-the-documentation).
+If the changes include code, ensure it works.
+
+#### If the code is a demo
+
+1. Ensure the [project builds successfully.](#how-do-i-build-compilerkit)
+2. Ensure the demo works.
+
+#### If the code is not a demo
+
+1. Write test cases for your code.
+2. Add test cases to the test suite.
+3. Ensure the [project builds successfully.](#how-do-i-build-compilerkit)
+4. Ensure the test suite passes.
 
 ## What to install on Windows
 You will need to download and install everything manually.
