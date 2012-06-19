@@ -39,5 +39,9 @@ TARGET_LINK_LIBRARIES(test-suite CompilerKit)
 ADD_TEST(compilerkit-tests test-suite)
 
 # Build demo applications
-ADD_EXECUTABLE(compilerkit-demo ${EXAMPLES})
-TARGET_LINK_LIBRARIES(compilerkit-demo CompilerKit)
+
+FOREACH(FILE ${EXAMPLES})
+	GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
+	ADD_EXECUTABLE(${FNAME} ${FILE})
+	TARGET_LINK_LIBRARIES(${FNAME} CompilerKit)
+ENDFOREACH(FILE)
