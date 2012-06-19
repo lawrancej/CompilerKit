@@ -88,7 +88,7 @@ GObject *compilerkit_empty_set_get_instance (void)
 		empty_set_instance = compilerkit_empty_set_new();
 	}
 	
-	return empty_set_instance;
+	return COMPILERKIT_EMPTY_SET(empty_set_instance);
 }
 
 /**
@@ -102,7 +102,7 @@ GObject *compilerkit_empty_set_get_instance (void)
 static void
 compilerkit_empty_set_finalize (GObject* object)
 {
-	G_OBJECT_CLASS (compilerkit_empty_set_parent_class)->finalize (object);
+	//G_OBJECT_CLASS (compilerkit_empty_set_parent_class)->finalize (object);
 }
 
 /**
@@ -116,7 +116,7 @@ compilerkit_empty_set_finalize (GObject* object)
 static void
 compilerkit_empty_set_dispose (GObject* object)
 {
-  CompilerKitEmptySet *self = COMPILERKIT_EMPTY_SET (object);
+  //CompilerKitEmptySet *self = COMPILERKIT_EMPTY_SET (object);
   
-  G_OBJECT_CLASS (compilerkit_empty_set_parent_class)->dispose (object);
+  //G_OBJECT_CLASS (compilerkit_empty_set_parent_class)->dispose (object);
 }

@@ -33,33 +33,49 @@
 void test_concatenation_constructor (void)
 {
 	GObject* ckc;
+	GObject* test;
+	GObject* test2;
 
     g_test_message ("Testing Concatenation method");
     g_test_timer_start ();
     
+	printf ("\n");
     /** @todo Test here  */
 	//both parameters are symbols
 	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_symbol_new('b'));
     g_assert(COMPILERKIT_IS_CONCATENATION(ckc));
 	g_object_unref (ckc);
+	printf ("\n");
 
 	//right parameter is EmptyString
 	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_empty_string_new());
 	g_assert(COMPILERKIT_IS_SYMBOL(ckc));
 	g_object_unref (ckc);
+	printf ("\n");
 
 	//left parameter is EmptyString
 	ckc = compilerkit_concatenation_new(compilerkit_empty_string_new(),compilerkit_symbol_new('a'));
 	g_assert(COMPILERKIT_IS_SYMBOL(ckc));
 	g_object_unref (ckc);
+	printf ("\n");
 
 	//right parameter is EmptySet
-	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_empty_set_get_instance());
+	test = compilerkit_symbol_new('a');
+	test2 = compilerkit_empty_set_get_instance();
+	ckc = compilerkit_concatenation_new(test2,test);
+	printf ("1: %p\n",test2);
+	printf ("2: %p\n",test);
+	printf ("3: %p\n",ckc);
 	g_assert(COMPILERKIT_IS_EMPTY_SET(ckc));
 	g_object_unref (ckc);
 
 	//left parameter is EmptySet
-	ckc = compilerkit_concatenation_new(compilerkit_empty_set_get_instance(),compilerkit_symbol_new('a'));
+	test = compilerkit_symbol_new('a');
+	test2 = compilerkit_empty_set_get_instance();
+	ckc = compilerkit_concatenation_new(test,test2);
+	printf ("1: %p\n",test);
+	printf ("2: %p\n",test2);
+	printf ("3: %p\n",ckc);
 	g_assert(COMPILERKIT_IS_EMPTY_SET(ckc));
 	g_object_unref (ckc);
     
