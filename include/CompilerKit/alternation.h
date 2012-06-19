@@ -71,7 +71,7 @@ GType compilerkit_alternation_get_type (void);
 
 /** Public method function prototypes */
 GObject* compilerkit_alternation_new (GObject *left, GObject *right);
-GObject* compilerkit_alternation_vlist_new (int arg_count, ...);
+GObject* compilerkit_alternation_vlist_new (GObject *left, GObject *right, ...);
 GObject* compilerkit_alternation_get_left (CompilerKitAlternation *self);
 GObject* compilerkit_alternation_get_right (CompilerKitAlternation *self);
 
