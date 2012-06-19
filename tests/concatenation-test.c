@@ -54,12 +54,12 @@ void test_concatenation_constructor (void)
 	g_object_unref (ckc);
 
 	//right parameter is EmptySet
-	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_empty_set_new());
+	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_empty_set_get_instance());
 	g_assert(COMPILERKIT_IS_EMPTY_SET(ckc));
 	g_object_unref (ckc);
 
 	//left parameter is EmptySet
-	ckc = compilerkit_concatenation_new(compilerkit_empty_set_new(),compilerkit_symbol_new('a'));
+	ckc = compilerkit_concatenation_new(compilerkit_empty_set_get_instance(),compilerkit_symbol_new('a'));
 	g_assert(COMPILERKIT_IS_EMPTY_SET(ckc));
 	g_object_unref (ckc);
     

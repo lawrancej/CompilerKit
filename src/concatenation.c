@@ -95,7 +95,7 @@ GObject *compilerkit_concatenation_new (GObject *left, GObject *right)
 {
 	CompilerKitConcatenation* result;
 	if (COMPILERKIT_IS_EMPTY_SET(left) || COMPILERKIT_IS_EMPTY_SET(right))//if left or right is EmptySet
-		return compilerkit_empty_set_new();
+		return compilerkit_empty_set_get_instance();
 	if (COMPILERKIT_IS_EMPTY_STRING(left)) //if left is EmptyString, return right
 		return right;
 	if (COMPILERKIT_IS_EMPTY_STRING(right)) //if right is EmpltyString, return left
