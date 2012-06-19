@@ -1,17 +1,20 @@
-#include <stdio.h>
+#include <glib.h>
 #include "CompilerKit/symbol.h"
 
-/** @todo Describe what task main will accomplish. */
+/** Symbol unicode works, but there's got to be an easier way. */
 int main (int argc, char ** argv)
 {
-    GObject* symbol;
+    CompilerKitSymbol* symbol;
     g_type_init();
     
-//    symbol = compilerkit_symbol_new('a');
-    symbol = compilerkit_symbol_new(21488);
-	wprintf (L"Here's a Japanese character: %lc\n", compilerkit_symbol_get_symbol(symbol));
-    
-    /** @todo Briefly show how to use the methods in CompilerKitSymbol to accomplish the task. */
-
+    symbol = COMPILERKIT_SYMBOL(compilerkit_symbol_new('a'));
+    g_printf ("The symbol is: %c\n", compilerkit_symbol_get_symbol(symbol));
     g_object_unref (symbol);
+
+    symbol = COMPILERKIT_SYMBOL(compilerkit_symbol_new(21488));
+    gchar character[4];
+    g_unichar_to_utf8 (compilerkit_symbol_get_symbol(symbol), character);
+	g_printf ("Here's a Japanese symbol: %s\n", character);
+    g_object_unref (symbol);
+    return 0;
 }
