@@ -23,6 +23,7 @@ pkg_check_modules (GOBJECT_PKG gobject-2.0)
 
 FILE (GLOB SRC src/*.c)
 FILE (GLOB TEST_SUITE tests/*.c)
+FILE (GLOB EXAMPLES examples/*.c)
 
 INCLUDE_DIRECTORIES(${GLIB2_INCLUDE_DIRS} ${GOBJECT_PKG_INCLUDE_DIRS} src include)
 LINK_LIBRARIES(${GLIB2_LIBRARIES} ${GOBJECT_PKG_LIBRARIES})
@@ -38,8 +39,5 @@ TARGET_LINK_LIBRARIES(test-suite CompilerKit)
 ADD_TEST(compilerkit-tests test-suite)
 
 # Build demo applications
-ADD_EXECUTABLE(automata-demo examples/automata-demo.c)
-TARGET_LINK_LIBRARIES(automata-demo CompilerKit)
-
-ADD_EXECUTABLE(visitor-demo examples/visitor-demo.c)
-TARGET_LINK_LIBRARIES(visitor-demo CompilerKit)
+ADD_EXECUTABLE(compilerkit-demo ${EXAMPLES})
+TARGET_LINK_LIBRARIES(compilerkit-demo CompilerKit)
