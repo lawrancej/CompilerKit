@@ -87,14 +87,14 @@ compilerkit_alternation_init (CompilerKitAlternation *self)
  * @pre GObject* are all non NULL.
  * @param GObject* Left side of alternation
  * @param GObject* Right side of alternation
- * @return A new CompilerKitAlternation struct.
+ * @return A new CompilerKitAlternation struct, cast to GObject*.
  */
-CompilerKitAlternation* compilerkit_alternation_new (GObject *left, GObject *right)
+GObject *compilerkit_alternation_new (GObject *left, GObject *right)
 {
 	CompilerKitAlternation *result = COMPILERKIT_ALTERNATION (g_object_new (COMPILERKIT_TYPE_ALTERNATION, NULL));
     result->priv->left = left;
     result->priv->right = right;
-    return result;
+    return G_OBJECT(result);
 }
 
 /**

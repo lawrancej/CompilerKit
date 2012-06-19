@@ -97,9 +97,9 @@ compilerkit_grammar_init (CompilerKitGrammar *self)
  * @param None
  * @return A new CompilerKitGrammar struct.
  */
-CompilerKitGrammar* compilerkit_grammar_new (void)
+GObject *compilerkit_grammar_new (void)
 {
-	return COMPILERKIT_GRAMMAR (g_object_new (COMPILERKIT_TYPE_GRAMMAR, NULL));
+	return G_OBJECT(COMPILERKIT_GRAMMAR (g_object_new (COMPILERKIT_TYPE_GRAMMAR, NULL)));
 }
 
 /**

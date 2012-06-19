@@ -81,7 +81,7 @@ GType compilerkit_complement_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitComplement* compilerkit_complement_new (void);
+GObject *compilerkit_complement_new (void);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_complement_h__ */

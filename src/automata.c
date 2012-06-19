@@ -112,7 +112,7 @@ compilerkit_FSM_init (CompilerKitFSM *self)
  * @return A new CompilerKitFSM struct.
  * @memberof CompilerKitFSM
  */
-CompilerKitFSM* compilerkit_FSM_new (gchar *start)
+CompilerKitFSM *compilerkit_FSM_new (gchar *start)
 {
 	CompilerKitFSM *result = COMPILERKIT_FSM (g_object_new (COMPILERKIT_TYPE_FSM, NULL));
     compilerkit_FSM_set_start_state (result, g_strdup(start));

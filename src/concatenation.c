@@ -89,12 +89,12 @@ compilerkit_concatenation_init (CompilerKitConcatenation *self)
  * @param GObject* Right side of concatenation
  * @return A new CompilerKitConcatenation struct.
  */
-CompilerKitConcatenation* compilerkit_concatenation_new (GObject *left, GObject *right)
+GObject *compilerkit_concatenation_new (GObject *left, GObject *right)
 {
 	CompilerKitConcatenation* result = COMPILERKIT_CONCATENATION (g_object_new (COMPILERKIT_TYPE_CONCATENATION, NULL));
     result->priv->left = left;
     result->priv->right = right;
-    return result;
+    return G_OBJECT(result);
 }
 
 /**

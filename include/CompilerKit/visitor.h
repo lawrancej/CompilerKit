@@ -95,7 +95,7 @@ typedef struct _CompilerKitVisitorClass
 GType compilerkit_visitor_get_type (void);
 
 /** Public method function prototypes */
-CompilerKitVisitor* compilerkit_visitor_new (void);
+CompilerKitVisitor *compilerkit_visitor_new (void);
 void compilerkit_visitor_register (CompilerKitVisitor *visitor, GType the_type, CompilerKitVisitorFunc);
 GObject *compilerkit_visitor_visit (CompilerKitVisitor *visitor, GObject *obj);
 
