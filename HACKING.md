@@ -1,5 +1,7 @@
 Hacking CompilerKit
 ===================
+<script type="text/javascript" src="http://www.ohloh.net/p/602736/widgets/project_partner_badge.js"></script>
+
 To develop CompilerKit, 
 
 1. Install the dependencies for your platform.
