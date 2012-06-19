@@ -81,7 +81,7 @@ GType compilerkit_scanner_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitScanner* compilerkit_scanner_new (void);
+CompilerKitScanner *compilerkit_scanner_new (void);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_scanner_h__ */

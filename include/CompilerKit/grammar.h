@@ -81,7 +81,7 @@ GType compilerkit_grammar_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitGrammar* compilerkit_grammar_new (void);
+GObject *compilerkit_grammar_new (void);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_grammar_h__ */

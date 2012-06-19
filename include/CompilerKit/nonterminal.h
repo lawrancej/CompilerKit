@@ -81,7 +81,7 @@ GType compilerkit_nonterminal_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitNonterminal* compilerkit_nonterminal_new (void);
+GObject *compilerkit_nonterminal_new (void);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_nonterminal_h__ */

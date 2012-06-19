@@ -97,9 +97,9 @@ compilerkit_terminal_init (CompilerKitTerminal *self)
  * @param None
  * @return A new CompilerKitTerminal struct.
  */
-CompilerKitTerminal* compilerkit_terminal_new (void)
+GObject *compilerkit_terminal_new (void)
 {
-	return COMPILERKIT_TERMINAL (g_object_new (COMPILERKIT_TYPE_TERMINAL, NULL));
+	return G_OBJECT(COMPILERKIT_TERMINAL (g_object_new (COMPILERKIT_TYPE_TERMINAL, NULL)));
 }
 
 /**
