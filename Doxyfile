@@ -889,7 +889,7 @@ COLS_IN_ALPHA_INDEX    = 5
 # The IGNORE_PREFIX tag can be used to specify one or more prefixes that 
 # should be ignored while generating the index headers.
 
-IGNORE_PREFIX          = CompilerKit _CompilerKit
+IGNORE_PREFIX          = CompilerKit _CompilerKit compilerkit
 
 #---------------------------------------------------------------------------
 # configuration options related to the HTML output

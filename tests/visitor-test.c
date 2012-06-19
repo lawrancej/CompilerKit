@@ -15,12 +15,28 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#ifndef INCLUDE_CompilerKit_cfg_h__
-#define INCLUDE_CompilerKit_cfg_h__
+#include "CompilerKit/visitor.h"
+#include "test-suite.h"
 
-/* Context-free grammar includes */
-#include "nonterminal.h"
-#include "terminal.h"
-#include "grammar.h"
+/** @todo Write test cases of the form: void test_visitor_method (void); */
+/** @todo Add function prototypes for all functions into test-suite.h */
+/** @todo Add to test-suite.c: g_test_add_func ("/test-visitor/test-visitor-method", test_visitor_method); */
 
-#endif /* INCLUDE_CompilerKit_cfg_h__ */
+/**
+ * test_visitor_method:
+ * @fn test_visitor_method
+ * Tests method compilerkit_visitor_method in CompilerKitVisitor struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_visitor_method (void)
+{
+    g_test_message ("Testing Visitor method");
+    g_test_timer_start ();
+    
+    /** @todo Test here  */
+    g_assert(FALSE);
+    
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}

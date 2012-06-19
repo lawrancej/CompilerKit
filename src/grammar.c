@@ -16,39 +16,44 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "CompilerKit/grammar.h"
-#define COMPILERKIT_GRAMMAR_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_GRAMMAR, CompilerKitgrammarPrivate))
-G_DEFINE_TYPE(CompilerKitgrammar, compilerkit_grammar, G_TYPE_OBJECT);
+#define COMPILERKIT_GRAMMAR_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_GRAMMAR, CompilerKitGrammarPrivate))
+G_DEFINE_TYPE(CompilerKitGrammar, compilerkit_grammar, G_TYPE_OBJECT);
 
 /** @todo Private method function prototypes go here (for private methods, declare as static) */
 static void compilerkit_grammar_finalize (GObject* object);
 static void compilerkit_grammar_dispose (GObject* object);
 
 /**
- * @struct _CompilerKitgrammarPrivate
- * The private fields of the CompilerKitgrammar struct.
+ * @struct _CompilerKitGrammarPrivate
+ * The private fields of the CompilerKitGrammar struct.
  * 
- * @see #CompilerKitgrammar
+ * @see #CompilerKitGrammar
  */
-struct _CompilerKitgrammarPrivate
+struct _CompilerKitGrammarPrivate
 {
-/** @todo Declare private members here */
+    /** @todo Declare private members here */
+    /**
+     * @todo dummy is here so everything will compile by default.
+     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
+     */ 
+    int dummy;
 };
 
 /**
  * compilerkit_grammar_class_init:
  * @fn compilerkit_grammar_class_init
- * Initializes the CompilerKitgrammarClass (virtual table).
+ * Initializes the CompilerKitGrammarClass (virtual table).
  * @pre klass is not NULL.
- * @param CompilerKitgrammarClass to initialize
+ * @param CompilerKitGrammarClass to initialize
  * @return void
  */
 static void
-compilerkit_grammar_class_init (CompilerKitgrammarClass *klass)
+compilerkit_grammar_class_init (CompilerKitGrammarClass *klass)
 {
   GObjectClass *g_object_class;
   
   /* Add private structure */
-  g_type_class_add_private (klass, sizeof (CompilerKitgrammarPrivate));
+  g_type_class_add_private (klass, sizeof (CompilerKitGrammarPrivate));
   
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
@@ -64,15 +69,15 @@ compilerkit_grammar_class_init (CompilerKitgrammarClass *klass)
 /**
  * compilerkit_grammar_init:
  * @fn compilerkit_grammar_init 
- * Initializes the CompilerKitgrammar instance.
+ * Initializes the CompilerKitGrammar instance.
  * @pre self is not NULL.
- * @param CompilerKitgrammar to initialize
+ * @param CompilerKitGrammar to initialize
  * @return void
  */
 static void
-compilerkit_grammar_init (CompilerKitgrammar *self)
+compilerkit_grammar_init (CompilerKitGrammar *self)
 {
-  CompilerKitgrammarPrivate *priv;
+  CompilerKitGrammarPrivate *priv;
 
   self->priv = priv = COMPILERKIT_GRAMMAR_GET_PRIVATE (self);
 
@@ -86,15 +91,15 @@ compilerkit_grammar_init (CompilerKitgrammar *self)
 /**
  * compilerkit_grammar_new:
  * @fn compilerkit_grammar_new
- * @memberof CompilerKitgrammar
- * Construct a CompilerKitgrammar instance.
+ * @memberof CompilerKitGrammar
+ * Construct a CompilerKitGrammar instance.
  * @pre None
  * @param None
- * @return A new CompilerKitgrammar struct.
+ * @return A new CompilerKitGrammar struct.
  */
-CompilerKitgrammar* compilerkit_grammar_new (void)
+GObject *compilerkit_grammar_new (void)
 {
-	return COMPILERKIT_GRAMMAR (g_object_new (COMPILERKIT_TYPE_GRAMMAR, NULL));
+	return G_OBJECT(COMPILERKIT_GRAMMAR (g_object_new (COMPILERKIT_TYPE_GRAMMAR, NULL)));
 }
 
 /**
@@ -122,8 +127,8 @@ compilerkit_grammar_finalize (GObject* object)
 static void
 compilerkit_grammar_dispose (GObject* object)
 {
-  CompilerKitgrammar *self = COMPILERKIT_GRAMMAR (object);
-  CompilerKitgrammarPrivate* priv;
+  CompilerKitGrammar *self = COMPILERKIT_GRAMMAR (object);
+  CompilerKitGrammarPrivate* priv;
 
   priv = COMPILERKIT_GRAMMAR_GET_PRIVATE (self);
   

@@ -31,9 +31,9 @@ typedef struct _CompilerKitEmptySetPrivate CompilerKitEmptySetPrivate;
 
 /**
  * @struct CompilerKitEmptySet
- * @todo Briefly describe this struct. (Remove the todo).
+ * An empty set struct.
  *
- * Defines all public fields. Private fields live behind an opaque pointer.
+ * This struct is a tag for the empty set.
  * @see #_CompilerKitEmptySetPrivate for private fields.
  * @see #CompilerKitEmptySetClass for virtual public methods.
  * @example empty-set-demo.c
@@ -44,28 +44,18 @@ typedef struct _CompilerKitEmptySet
   /** Base instance (GObject) */
   GObject parent_instance;
 
-  /** @todo Define public fields here */
-
-  /** Opaque pointer to private fields */
-  CompilerKitEmptySetPrivate *priv;
-
 } CompilerKitEmptySet;
 
 /**
  * @struct CompilerKitEmptySetClass
- * @todo Briefly describe this struct. (Remove the todo).
  *
- * This struct declares the virtual public methods.
+ * This struct declares the virtual public methods of empty set (there aren't any).
  * @see #CompilerKitEmptySet for a list of fields.
  */
 typedef struct _CompilerKitEmptySetClass
 {
   /** Base class (GobjectClass) */
-  GObjectClass parent_class;
-
-  /** @todo Virtual public methods (function pointers) go here */
-  // void (*method_name) (CompilerKitEmptySet *self, ...);
-  
+  GObjectClass parent_class;  
 } CompilerKitEmptySetClass;
 
 /**
@@ -77,11 +67,8 @@ typedef struct _CompilerKitEmptySetClass
  */
 GType compilerkit_empty_set_get_type (void);
 
-/** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
- * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
- */
-CompilerKitEmptySet* compilerkit_empty_set_new (void);
+/** Public method function prototypes */
+GObject *compilerkit_empty_set_new (void);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_empty_set_h__ */

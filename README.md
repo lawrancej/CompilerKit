@@ -9,16 +9,7 @@ CompilerKit will be a [parser combinator](#what-is-a-parser-combinator) based co
 - [How will this library work?](#how-will-this-work)
 
 ## How can I contribute to this?
-First, read [how to hack on CompilerKit](HACKING.md), to install necessary software, and work with GObject and CMake.
-
-1. [Fork the project.](https://github.com/lawrancej/CompilerKit/fork)
-2. Find something to work on:
-    * [Check the coordination document](https://docs.google.com/document/d/1g7SXO8BSL5rq2cJVqp_9XfWkzNyi9ZWKKl2Heb_nS1g/edit?pli=1)
-    * [Check the issue tracker](https://github.com/lawrancej/CompilerKit/issues)
-3. Add your improvements to a branch in your fork named for the topic.
-4. Send in a pull request.
-
-Or, [file a bug report.](https://github.com/lawrancej/CompilerKit/issues/new)
+Read [how to hack on CompilerKit.](HACKING.md)
 
 ## What is the license?
 LGPL version 2.1 or later.

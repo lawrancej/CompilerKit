@@ -21,25 +21,25 @@
 #include <glib-object.h>
 G_BEGIN_DECLS
 #define COMPILERKIT_TYPE_GRAMMAR                  (compilerkit_grammar_get_type ())
-#define COMPILERKIT_GRAMMAR(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_GRAMMAR, CompilerKitgrammar))
+#define COMPILERKIT_GRAMMAR(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_GRAMMAR, CompilerKitGrammar))
 #define COMPILERKIT_IS_GRAMMAR(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), COMPILERKIT_TYPE_GRAMMAR))
-#define COMPILERKIT_GRAMMAR_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), COMPILERKIT_TYPE_GRAMMAR, CompilerKitgrammarClass))
+#define COMPILERKIT_GRAMMAR_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), COMPILERKIT_TYPE_GRAMMAR, CompilerKitGrammarClass))
 #define COMPILERKIT_IS_GRAMMAR_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), COMPILERKIT_TYPE_GRAMMAR))
-#define COMPILERKIT_GRAMMAR_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), COMPILERKIT_TYPE_GRAMMAR, CompilerKitgrammarClass))
+#define COMPILERKIT_GRAMMAR_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), COMPILERKIT_TYPE_GRAMMAR, CompilerKitGrammarClass))
 
-typedef struct _CompilerKitgrammarPrivate CompilerKitgrammarPrivate;
+typedef struct _CompilerKitGrammarPrivate CompilerKitGrammarPrivate;
 
 /**
- * @struct CompilerKitgrammar
+ * @struct CompilerKitGrammar
  * @todo Briefly describe this struct. (Remove the todo).
  *
  * Defines all public fields. Private fields live behind an opaque pointer.
- * @see #_CompilerKitgrammarPrivate for private fields.
- * @see #CompilerKitgrammarClass for virtual public methods.
+ * @see #_CompilerKitGrammarPrivate for private fields.
+ * @see #CompilerKitGrammarClass for virtual public methods.
  * @example grammar-demo.c
- * This is an example of how to use the CompilerKitgrammar struct.
+ * This is an example of how to use the CompilerKitGrammar struct.
  */
-typedef struct _CompilerKitgrammar
+typedef struct _CompilerKitGrammar
 {
   /** Base instance (GObject) */
   GObject parent_instance;
@@ -47,30 +47,30 @@ typedef struct _CompilerKitgrammar
   /** @todo Define public fields here */
 
   /** Opaque pointer to private fields */
-  CompilerKitgrammarPrivate *priv;
+  CompilerKitGrammarPrivate *priv;
 
-} CompilerKitgrammar;
+} CompilerKitGrammar;
 
 /**
- * @struct CompilerKitgrammarClass
+ * @struct CompilerKitGrammarClass
  * @todo Briefly describe this struct. (Remove the todo).
  *
  * This struct declares the virtual public methods.
- * @see #CompilerKitgrammar for a list of fields.
+ * @see #CompilerKitGrammar for a list of fields.
  */
-typedef struct _CompilerKitgrammarClass
+typedef struct _CompilerKitGrammarClass
 {
   /** Base class (GobjectClass) */
   GObjectClass parent_class;
 
   /** @todo Virtual public methods (function pointers) go here */
-  // void (*method_name) (CompilerKitgrammar *self, ...);
+  // void (*method_name) (CompilerKitGrammar *self, ...);
   
-} CompilerKitgrammarClass;
+} CompilerKitGrammarClass;
 
 /**
  * @fn compilerkit_grammar_get_type
- * Returns the runtime type information for CompilerKitgrammar. Macro COMPILERKIT_TYPE_GRAMMAR uses it.
+ * Returns the runtime type information for CompilerKitGrammar. Macro COMPILERKIT_TYPE_GRAMMAR uses it.
  * @pre None
  * @param None
  * @return GType (runtime type information)
@@ -81,7 +81,7 @@ GType compilerkit_grammar_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitgrammar* compilerkit_grammar_new (void);
+GObject *compilerkit_grammar_new (void);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_grammar_h__ */

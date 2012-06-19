@@ -19,7 +19,6 @@
 #define INCLUDE_CompilerKit_automata_h__
 
 #include <glib-object.h>
-#include <glib.h>
 G_BEGIN_DECLS
 #define COMPILERKIT_TYPE_FSM                  (compilerkit_FSM_get_type ())
 #define COMPILERKIT_FSM(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_FSM, CompilerKitFSM))
@@ -33,7 +32,13 @@ typedef struct _CompilerKitFSMPrivate CompilerKitFSMPrivate;
 /**
  * @struct CompilerKitFSM
  * A finite state machine instance struct.
-  *
+ *
+ * The associated functions use non-`NULL` strings to represent states.
+ * At the moment, this class leaks memory like a sieve.
+ * Also, this class implements a DFA for the moment. It should be a superclass for DFA and NFA.
+ * Whereas a DFA can only have one next state for a given state and character, an 
+ * NFA can have a list of possible next states, given a state and character.
+ * 
  * This struct provides all necessary information for instances of CompilerKitFSM.
  * Namely, an opaque pointer (priv) for private fields.
  *
@@ -55,22 +60,19 @@ typedef struct _CompilerKitFSM
 /**
  * @struct CompilerKitFSMClass
  * A finite state machine class struct.
- * This struct declares the virtual public methods.
+ * This struct declares the virtual public methods of automata (there aren't any).
  * @see #CompilerKitFSM for the instance struct.
  */
 typedef struct _CompilerKitFSMClass
 {
   /** Base class (GobjectClass) */
   GObjectClass parent_class;
-
-  /* Virtual public methods */
-  void (*add_transition) (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
-  gboolean (*match) (CompilerKitFSM* self, gchar *str);
 } CompilerKitFSMClass;
 
 /**
  * @fn compilerkit_FSM_get_type
- * Returns the runtime type information for CompilerKitFSM. Macro COMPILERKIT_TYPE_FSM uses it.
+ * Returns the runtime type information for CompilerKitFSM.
+ * Macro COMPILERKIT_TYPE_FSM uses it.
  * @pre None
  * @param void
  * @return GType (runtime type information)
@@ -78,12 +80,40 @@ typedef struct _CompilerKitFSMClass
 GType compilerkit_FSM_get_type (void);
 
 /* Public method function prototypes */
-CompilerKitFSM* compilerkit_FSM_new (void);
-void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition);
-gboolean compilerkit_FSM_match (CompilerKitFSM* self, gchar *str);
-void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state);
-void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state);
-void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other);
+CompilerKitFSM *compilerkit_FSM_new         (gchar *str);
+
+void compilerkit_FSM_set_start_state        (CompilerKitFSM* self,
+                                             gchar *state);
+gchar *compilerkit_FSM_get_start_state      (CompilerKitFSM* self);
+
+void compilerkit_FSM_add_state              (CompilerKitFSM *self,
+                                             gchar *state);
+
+GList *compilerkit_FSM_get_states           (CompilerKitFSM *self);
+
+gboolean compilerkit_FSM_has_state          (CompilerKitFSM *self,
+                                             gchar *state);
+
+
+void compilerkit_FSM_add_transition         (CompilerKitFSM* self,
+                                             gchar *from_state,
+                                             gchar *to_state,
+                                             gchar input);
+
+gchar *compilerkit_FSM_get_next_state       (CompilerKitFSM *self,
+                                             gchar *from_state,
+                                             gchar transition);
+
+void compilerkit_FSM_add_accepting_state    (CompilerKitFSM* self,
+                                             gchar *state);
+
+GList *compilerkit_FSM_get_accepting_states (CompilerKitFSM *self);
+
+gboolean compilerkit_FSM_is_accepting_state (CompilerKitFSM *self,
+                                             gchar *state);
+
+void compilerkit_FSM_merge                  (CompilerKitFSM *self,
+                                             CompilerKitFSM *other);
 
 G_END_DECLS
 #endif

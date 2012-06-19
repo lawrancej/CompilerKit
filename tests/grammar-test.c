@@ -25,14 +25,14 @@
 /**
  * test_grammar_method:
  * @fn test_grammar_method
- * Tests method compilerkit_grammar_method in CompilerKitgrammar struct.
+ * Tests method compilerkit_grammar_method in CompilerKitGrammar struct.
  * @pre None
  * @param None
  * @return void
  */
 void test_grammar_method (void)
 {
-    g_test_message ("Testing grammar method");
+    g_test_message ("Testing Grammar method");
     g_test_timer_start ();
     
     /** @todo Test here  */

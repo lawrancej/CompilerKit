@@ -15,12 +15,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#ifndef INCLUDE_CompilerKit_cfg_h__
-#define INCLUDE_CompilerKit_cfg_h__
+#include "CompilerKit/header.h"
+G_DEFINE_INTERFACE(CompilerKitIBar, compilerkit_ibar, G_TYPE_INTERFACE);
 
-/* Context-free grammar includes */
-#include "nonterminal.h"
-#include "terminal.h"
-#include "grammar.h"
+void compilerkit_ibar_do_action (CompilerKitIBar *self)
+{
 
-#endif /* INCLUDE_CompilerKit_cfg_h__ */
+}

@@ -31,7 +31,12 @@ static void compilerkit_bar_dispose (GObject* object);
  */
 struct _CompilerKitBarPrivate
 {
-/** @todo Declare private members here */
+    /** @todo Declare private members here */
+    /**
+     * @todo dummy is here so everything will compile by default.
+     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
+     */ 
+    int dummy;
 };
 
 /**
@@ -45,20 +50,20 @@ struct _CompilerKitBarPrivate
 static void
 compilerkit_bar_class_init (CompilerKitBarClass *klass)
 {
-  GObjectClass *g_object_class;
-  
-  /* Add private structure */
-  g_type_class_add_private (klass, sizeof (CompilerKitBarPrivate));
-  
-  /* Get the parent gobject class */
-  g_object_class = G_OBJECT_CLASS(klass);
-  
-  /** @todo Hook virtual methods to implementations */
-  // klass->method = method_implementation;
-  
-  /* Hook finalization functions */
-  g_object_class->dispose = compilerkit_bar_dispose;   /* instance destructor, reverse of init */
-  g_object_class->finalize = compilerkit_bar_finalize; /* class finalization, reverse of class init */
+    GObjectClass *g_object_class;
+
+    /* Add private structure */
+    g_type_class_add_private (klass, sizeof (CompilerKitBarPrivate));
+
+    /* Get the parent gobject class */
+    g_object_class = G_OBJECT_CLASS(klass);
+
+    /** @todo Hook virtual methods to implementations */
+    // klass->method = method_implementation;
+
+    /* Hook finalization functions */
+    g_object_class->dispose = compilerkit_bar_dispose;   /* instance destructor, reverse of init */
+    g_object_class->finalize = compilerkit_bar_finalize; /* class finalization, reverse of class init */
 }
 
 /**
@@ -72,15 +77,15 @@ compilerkit_bar_class_init (CompilerKitBarClass *klass)
 static void
 compilerkit_bar_init (CompilerKitBar *self)
 {
-  CompilerKitBarPrivate *priv;
+    CompilerKitBarPrivate *priv;
 
-  self->priv = priv = COMPILERKIT_BAR_GET_PRIVATE (self);
+    self->priv = priv = COMPILERKIT_BAR_GET_PRIVATE (self);
 
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
+    /** @todo Initialize public fields */
+    // self->public_field = some_value;
 
-  /** @todo Initialize private fields */
-  // priv->member = whatever;
+    /** @todo Initialize private fields */
+    // priv->member = whatever;
 }
 
 /**
@@ -122,12 +127,12 @@ compilerkit_bar_finalize (GObject* object)
 static void
 compilerkit_bar_dispose (GObject* object)
 {
-  CompilerKitBar *self = COMPILERKIT_BAR (object);
-  CompilerKitBarPrivate* priv;
+    CompilerKitBar *self = COMPILERKIT_BAR (object);
+    CompilerKitBarPrivate* priv;
 
-  priv = COMPILERKIT_BAR_GET_PRIVATE (self);
-  
-  /** @todo Deallocate memory as necessary */
+    priv = COMPILERKIT_BAR_GET_PRIVATE (self);
 
-  G_OBJECT_CLASS (compilerkit_bar_parent_class)->dispose (object);
+    /** @todo Deallocate memory as necessary */
+
+    G_OBJECT_CLASS (compilerkit_bar_parent_class)->dispose (object);
 }
