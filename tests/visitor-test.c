@@ -37,7 +37,7 @@ void test_visitor_method (void)
     
     /** @todo Test here  */
 	/* Make sure that visitor repsonds correctly to NULL data */
-	g_assert(compilerkit_visitor_visit(NULL, regex) == NULL);
+	g_assert(compilerkit_visitor_visit(NULL, G_OBJECT(compilerkit_symbol_new('a'))) == NULL);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
