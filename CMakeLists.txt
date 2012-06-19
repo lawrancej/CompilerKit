@@ -33,6 +33,7 @@ ENDIF ()
 
 FILE (GLOB SRC src/*.c)
 FILE (GLOB TEST_SUITE tests/*.c)
+FILE (GLOB EXAMPLES examples/*.c)
 
 INCLUDE_DIRECTORIES(${GLIB2_INCLUDE_DIRS} ${GOBJECT_PKG_INCLUDE_DIRS} src include)
 LINK_LIBRARIES(${GLIB2_LIBRARIES} ${GOBJECT_PKG_LIBRARIES})
@@ -48,11 +49,8 @@ TARGET_LINK_LIBRARIES(test-suite CompilerKit)
 ADD_TEST(compilerkit-tests test-suite)
 
 # Build demo applications
-ADD_EXECUTABLE(automata-demo examples/automata-demo.c)
-TARGET_LINK_LIBRARIES(automata-demo CompilerKit)
-
-ADD_EXECUTABLE(visitor-demo examples/visitor-demo.c)
-TARGET_LINK_LIBRARIES(visitor-demo CompilerKit)
-
-ADD_EXECUTABLE(symbol-demo examples/symbol-demo.c)
-TARGET_LINK_LIBRARIES(symbol-demo CompilerKit)
+FOREACH(FILE ${EXAMPLES})
+	GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
+	ADD_EXECUTABLE(${FNAME} ${FILE})
+	TARGET_LINK_LIBRARIES(${FNAME} CompilerKit)
+ENDFOREACH(FILE)
