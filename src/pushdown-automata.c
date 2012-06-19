@@ -32,6 +32,8 @@ static void compilerkit_pushdown_automata_dispose (GObject* object);
 struct _CompilerKitPushdownAutomataPrivate
 {
 /** @todo Declare private members here */
+
+int i;
 };
 
 /**
