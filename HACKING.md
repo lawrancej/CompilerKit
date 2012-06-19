@@ -121,6 +121,8 @@ mkdir build && cd build
 cmake ..
 cmake --build .
 ```
+##Error
+
 
 For subsequent builds, in the `build` folder, just run `cmake --build .`
 
