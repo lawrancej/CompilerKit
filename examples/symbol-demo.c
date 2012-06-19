@@ -5,6 +5,7 @@
 int main (int argc, char ** argv)
 {
     CompilerKitSymbol* symbol;
+    gchar character[4];
     g_type_init();
     
     symbol = COMPILERKIT_SYMBOL(compilerkit_symbol_new('a'));
@@ -12,7 +13,6 @@ int main (int argc, char ** argv)
     g_object_unref (symbol);
 
     symbol = COMPILERKIT_SYMBOL(compilerkit_symbol_new(21488));
-    gchar character[4];
     g_unichar_to_utf8 (compilerkit_symbol_get_symbol(symbol), character);
 	g_printf ("Here's a Japanese symbol: %s\n", character);
     g_object_unref (symbol);
