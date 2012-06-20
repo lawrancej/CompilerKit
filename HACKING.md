@@ -9,9 +9,9 @@ Hacking CompilerKit
     - [Linux](#what-to-install-on-linux)
     - [Mac](#what-to-install-on-mac)
 2. [Fork the project here.](https://github.com/lawrancej/CompilerKit/fork)
-3. [Learn how to contribute.](#how-to-contribute)
-4. [Build CompilerKit.](#how-do-i-build-compilerkit)
-5. [Read Documentation.](#where-is-the-documentation)
+3. [Build CompilerKit.](#how-do-i-build-compilerkit)
+4. [Read Documentation.](#where-is-the-documentation)
+5. [Learn how to contribute.](#how-to-contribute)
 
 ## What to install on Windows
 You will need to download and install everything manually.
@@ -84,12 +84,25 @@ After building CompilerKit, look inside the `docs/html` folder.
 Also, read up on [GLib](#how-do-i-use-glib) and [GObject](#how-do-i-use-gobject).
 
 ## How to contribute
-### Find something to work on
- * [Check the issue tracker](https://github.com/lawrancej/CompilerKit/issues)
- * Or [file a bug report.](https://github.com/lawrancej/CompilerKit/issues/new)
- * Or pair up: split the work on an issue with someone else. 
+### Know thy code layout
+The folder structure of CompilerKit is as follows:
 
-Comment on the issue to get dibs.
+```
+.boilerplate        Contains boilerplate that ./generate.sh copies to the appropriate folderss.
+build               You should make this folder yourself and run cmake inside there. Executables are here.
+build/Debug         The folder where executables go in Windows.
+docs                Once you've built CompilerKit, all generated documentation goes there. Read it!
+examples            Source code demonstrations for how to use each class. Shows up in the documentation.
+include             The include files for the CompilerKit library.
+src                 The CompilerKit library source code.
+tests               The test suite to exercise the CompilerKit library.
+```
+
+### Find an issue to work on
+We use github's [issue tracker](https://github.com/lawrancej/CompilerKit/issues) to manage our work.
+Check there to find unassigned issues (comment on an issue to get dibs).
+Even better, find an issue yourself and [file a bug report.](https://github.com/lawrancej/CompilerKit/issues/new)
+Or, best of all, pair up and split the work on an issue with someone else. 
 
 ### Use topic branches for your work
 Topic branches isolate chunks of work so that it's easier to merge in changes.
