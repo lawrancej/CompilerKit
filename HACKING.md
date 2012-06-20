@@ -129,6 +129,11 @@ After building CompilerKit, look inside the `docs/html` folder.
 
 Also, read up on [GLib](#how-do-i-use-glib) and [GObject](#how-do-i-use-gobject).
 
+What is Doxygen:
+It is a generator "a programming tool generates programming languages" for many programming languages. Also, it can configure to extract the code structure from undocumented source file. It supports C++, C, java, Python … etc. It will create documentation in HTML, LATEX, RTF (MS-Word).
+
+![A graph of how Doxygen works](Doxygen.png)
+
 ## How do I use GLib?
 GLib is a C utility library similar to the Standard Template Library in C++. It provides data structures as well as [GObject](#how-do-i-use-gobject).
 
