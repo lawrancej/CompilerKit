@@ -76,6 +76,9 @@ cmake ..
 cmake --build .
 ```
 
+
+For subsequent builds, in the `build` folder, just run `cmake --build .`
+
 ##Error
 ```
 build User$ cmake ..
@@ -100,9 +103,6 @@ CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
 
 This will fix the error above
 
-
-
-For subsequent builds, in the `build` folder, just run `cmake --build .`
 
 ## Where is the documentation?
 After building CompilerKit, look inside the `docs/html` folder.
