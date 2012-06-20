@@ -77,6 +77,7 @@ cmake --build .
 ```
 
 ##Error
+```
 build User$ cmake ..
 CMake Error: CMake was unable to find a build program corresponding to "Unix Makefiles". CMAKE_MAKE_PROGRAM is not set. You probably need to select a different build tool.
 CMake Error: Error required internal CMake variable not set, cmake may be not be built correctly.
@@ -88,6 +89,7 @@ CMAKE_C_COMPILER
 CMake Error: Could not find cmake module file:/Users/User/CompilerKit/build/CMakeFiles/CMakeCCompiler.cmake
 CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
 -- Configuring incomplete, errors occurred!
+```
 
 ##Solution
 Open XCode
