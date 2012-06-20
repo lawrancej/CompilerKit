@@ -92,10 +92,11 @@ CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
 ```
 
 ##Solution
-Open XCode
-Go to Preferences
-Download tab
-Install Command line
+
+1.	Open XCode
+2.	Go to Preferences
+3.	Download tab
+4.	Install Command line
 
 This will fix the error above
 
