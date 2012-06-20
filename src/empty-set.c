@@ -39,8 +39,8 @@ compilerkit_empty_set_class_init (CompilerKitEmptySetClass *klass)
     /* Get the parent gobject class */
     g_object_class = G_OBJECT_CLASS(klass);
 
-    g_object_class->constructor = compilerkit_empty_set_constructor;
     /* Hook finalization functions */
+    g_object_class->constructor = compilerkit_empty_set_constructor;
     g_object_class->dispose = compilerkit_empty_set_dispose;   /* instance destructor, reverse of init */
     g_object_class->finalize = compilerkit_empty_set_finalize; /* class finalization, reverse of class init */
 }
