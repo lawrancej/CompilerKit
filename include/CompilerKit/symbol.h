@@ -19,6 +19,7 @@
 #define INCLUDE_CompilerKit_symbol_h__
 
 #include <glib-object.h>
+#include <glib/gunicode.h>
 G_BEGIN_DECLS
 #define COMPILERKIT_TYPE_SYMBOL                  (compilerkit_symbol_get_type ())
 #define COMPILERKIT_SYMBOL(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_SYMBOL, CompilerKitSymbol))
@@ -72,8 +73,8 @@ typedef struct _CompilerKitSymbolClass
 GType compilerkit_symbol_get_type (void);
 
 /** Public method function prototypes  */
-GObject *compilerkit_symbol_new (char symbol);
-char compilerkit_symbol_get_symbol(CompilerKitSymbol *self);
+GObject *compilerkit_symbol_new (gunichar symbol);
+gunichar compilerkit_symbol_get_symbol(CompilerKitSymbol *self);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_symbol_h__ */

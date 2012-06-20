@@ -15,18 +15,19 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 #include "test-suite.h"
-#include <glib.h>
 
 int main (int argc, char ** argv)
 {
     g_test_init (&argc, &argv, NULL);
     g_type_init ();
 
-    /** @todo Add here: g_test_add_func ("/test-class/test-class-method", test_class_method); */
-    g_test_add_func ("/test-automata/test-FSM-start-state", test_FSM_start_state);
-    g_test_add_func ("/test-automata/test-FSM-states", test_FSM_states);
-    g_test_add_func ("/test-automata/test-concatenation-constructor", test_concatenation_constructor);
+    /** @todo Add here: g_test_add_func ("/class/method", test_class_method); */
+    g_test_add_func ("/automata/start-state", test_FSM_start_state);
+    g_test_add_func ("/automata/states", test_FSM_states);
+    g_test_add_func ("/visitor/null-visit",test_visitor_null_visit);
+    g_test_add_func ("/concatenation/constructor", test_concatenation_constructor);
 
     g_test_run();
 }
