@@ -18,7 +18,6 @@
 #include "CompilerKit/concatenation.h"
 #include "CompilerKit/empty-set.h"
 #include "CompilerKit/empty-string.h"
-#include <stdio.h>
 #define COMPILERKIT_CONCATENATION_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_CONCATENATION, CompilerKitConcatenationPrivate))
 G_DEFINE_TYPE(CompilerKitConcatenation, compilerkit_concatenation, G_TYPE_OBJECT);
 
@@ -95,17 +94,15 @@ compilerkit_concatenation_init (CompilerKitConcatenation *self)
 GObject *compilerkit_concatenation_new (GObject *left, GObject *right)
 {
 	CompilerKitConcatenation* result;
-	printf("checking empty set\n");
-	if (COMPILERKIT_IS_EMPTY_SET(left) || COMPILERKIT_IS_EMPTY_SET(right))//if left or right is EmptySet
+
+	if (COMPILERKIT_IS_EMPTY_SET(left) || COMPILERKIT_IS_EMPTY_SET(right)) // If left or right is EmptySet
 		return compilerkit_empty_set_get_instance();
-	printf("checking empty string left\n");
-	if (COMPILERKIT_IS_EMPTY_STRING(left)) //if left is EmptyString, return right
+	if (COMPILERKIT_IS_EMPTY_STRING(left)) // If left is EmptyString, return right
 		return right;
-	printf("checking empty string right\n");
-	if (COMPILERKIT_IS_EMPTY_STRING(right)) //if right is EmpltyString, return left
+	if (COMPILERKIT_IS_EMPTY_STRING(right)) // If right is EmpltyString, return left
 		return left;
-	printf("concatenating\n");
-	result = COMPILERKIT_CONCATENATION (g_object_new (COMPILERKIT_TYPE_CONCATENATION, NULL));
+
+    result = COMPILERKIT_CONCATENATION (g_object_new (COMPILERKIT_TYPE_CONCATENATION, NULL));
     result->priv->left = left;
     result->priv->right = right;
     return G_OBJECT(result);
