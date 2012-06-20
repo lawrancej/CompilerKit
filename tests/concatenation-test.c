@@ -57,7 +57,7 @@ void test_concatenation_constructor (void)
 	// Right parameter is EmptyString
     {
         left = compilerkit_symbol_new('a');
-        right = compilerkit_empty_string_new ();
+        right = compilerkit_empty_string_get_instance ();
         ckc = compilerkit_concatenation_new(left,right);
 
         g_assert(COMPILERKIT_IS_SYMBOL(ckc));
@@ -69,7 +69,7 @@ void test_concatenation_constructor (void)
 
 	// Left parameter is EmptyString
     {
-        left = compilerkit_empty_string_new ();
+        left = compilerkit_empty_string_get_instance ();
         right = compilerkit_symbol_new('a');
         ckc = compilerkit_concatenation_new(left,right);
 
