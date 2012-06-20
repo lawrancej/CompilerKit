@@ -27,8 +27,9 @@ IF (MSVC)
     SET(CMAKE_C_FLAGS_DEBUG "/Od /DEBUG /MTd /RTC1 /RTCs /RTCu")
     SET(CMAKE_C_FLAGS_RELEASE "/MT /O2")
 ELSE ()
-	SET(CMAKE_C_FLAGS "-O2 -g -D_GNU_SOURCE -Wall -Wextra -Wno-missing-field-initializers -Wstrict-aliasing=2 -Wstrict-prototypes -Wmissing-prototypes ${CMAKE_C_FLAGS}")
-	SET(CMAKE_C_FLAGS_DEBUG "-O0 -g")
+    SET(CMAKE_C_FLAGS "-O2 -g -D_GNU_SOURCE -Wall -Wextra -Wno-missing-field-initializers -Wstrict-aliasing=2 -Wstrict-prototypes -Wmissing-prototypes -fprofile-arcs -ftest-coverage ${CMAKE_C_FLAGS}")
+    SET(CMAKE_C_FLAGS_DEBUG "-O0 -g")
+    SET(CMAKE_EXE_LINKER_FLAGS="-fprofile-arcs -ftest-coverage")
 ENDIF ()
 
 FILE (GLOB SRC src/*.c)
@@ -45,8 +46,8 @@ ADD_LIBRARY(CompilerKit ${SRC})
 # Test suite
 ENABLE_TESTING()
 ADD_EXECUTABLE(test-suite ${TEST_SUITE})
-TARGET_LINK_LIBRARIES(test-suite CompilerKit)
-ADD_TEST(compilerkit-tests test-suite)
+TARGET_LINK_LIBRARIES(test-suite CompilerKit gcov)
+ADD_TEST(NAME compilerkit-tests COMMAND test-suite)
 
 # Build demo applications
 FOREACH(FILE ${EXAMPLES})
