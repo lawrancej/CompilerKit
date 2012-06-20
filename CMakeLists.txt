@@ -46,7 +46,11 @@ ADD_LIBRARY(CompilerKit ${SRC})
 # Test suite
 ENABLE_TESTING()
 ADD_EXECUTABLE(test-suite ${TEST_SUITE})
-TARGET_LINK_LIBRARIES(test-suite CompilerKit gcov)
+IF (MSVC)
+    TARGET_LINK_LIBRARIES(test-suite CompilerKit)
+ELSE ()
+    TARGET_LINK_LIBRARIES(test-suite CompilerKit gcov)
+ENDIF()
 ADD_TEST(NAME compilerkit-tests COMMAND test-suite)
 
 # Build demo applications
