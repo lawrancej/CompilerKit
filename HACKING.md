@@ -13,63 +13,6 @@ Hacking CompilerKit
 4. [Build CompilerKit.](#how-do-i-build-compilerkit)
 5. [Read Documentation.](#where-is-the-documentation)
 
-## How to contribute
-1. Find something to work on:
-    * [Check the issue tracker](https://github.com/lawrancej/CompilerKit/issues)
-      Comment on the issue to get dibs.
-    * [Check the coordination document](https://docs.google.com/document/d/1g7SXO8BSL5rq2cJVqp_9XfWkzNyi9ZWKKl2Heb_nS1g/edit?pli=1)
-2. [Add your improvements to a branch named for the issue.](#getting-your-branched-merged-checklist)
-3. [Send in a pull request.](https://github.com/lawrancej/CompilerKit/pull/new/master)
-4. Profit!
-
-Or, [file a bug report.](https://github.com/lawrancej/CompilerKit/issues/new)
-
-## Getting your branch merged checklist
-### Use topic branches for your work
-Topic branches isolate chunks of work so that it's easier to merge in changes.
-Here's how it works:
-
-```
-git checkout -b issueXYZ # Create a new local branch issueXYZ
-... Hack away ...
-git commit -a -m "Work in progress on issueXYZ"
-git push origin issueXYZ # Push local branch to remote repo
-```
-
-Using topic branches means you'll need to know how to switch among branches and remove old branches as necessary.
-
-- To switch back to master, type: `git checkout master`
-- To see the branches, type: `git branch`
-- To remove a local branch, type: `git branch -D branch_name`
-- To remove a remote branch, type: `git push origin :branch_name`
-
-You will also need to understand merging.
-
-- If you haven't already done so, type: `./collaborators.sh setup`
-- To get everyone's updates, type: `git fetch --all`
-- To see a list of remotes, type: `git remote`
-- To merge in changes from `contributor`'s `branch` into your current branch, type: `git merge contributor/branch`
-- To deal with merge conflicts, type: `git status`. Then, open up all unstaged files. Make changes as necessary, and do `git add file_name` for each file.
-- To merge in only the version from `somebranch`, type: `git checkout somebranch file_name`
-
-### Test your changes
-I will not merge code into my master branch until:
-
- - The [project builds successfully.](#how-do-i-build-compilerkit)
- - It has a demo (see `examples/`).
- - Test cases pass in the test suite (see `tests/test-suite.c` and `tests/test-suite.h`)
- - [The documentation looks as expected](#where-is-the-documentation).
-
-Look for the demo and test suite executables in these folders:
-
- - `build/Debug` (Windows)
- - `build` (Mac, Linux)
-
-## Send in a pull request for feedback
-Switch to your branch in github, and send in a pull request that describes what you did.
-Do so when you think your changes are ready to be merged in.
-
-
 ## What to install on Windows
 You will need to download and install everything manually.
 Therefore, verify everything is working first before building CompilerKit.
@@ -140,6 +83,58 @@ After building CompilerKit, look inside the `docs/html` folder.
 
 Also, read up on [GLib](#how-do-i-use-glib) and [GObject](#how-do-i-use-gobject).
 
+## How to contribute
+### Find something to work on
+ * [Check the issue tracker](https://github.com/lawrancej/CompilerKit/issues)
+ * Or [file a bug report.](https://github.com/lawrancej/CompilerKit/issues/new)
+ * Or pair up: split the work on an issue with someone else. 
+
+Comment on the issue to get dibs.
+
+### Use topic branches for your work
+Topic branches isolate chunks of work so that it's easier to merge in changes.
+Here's how it works:
+
+```
+git checkout -b issueXYZ # Create a new local branch issueXYZ
+... Hack away ...
+git commit -a -m "Work in progress on issueXYZ"
+git push origin issueXYZ # Push local branch to remote repo
+```
+
+Using topic branches means you'll need to know how to switch among branches and remove old branches as necessary.
+
+- To switch back to master, type: `git checkout master`
+- To see the branches, type: `git branch`
+- To remove a local branch, type: `git branch -D branch_name`
+- To remove a remote branch, type: `git push origin :branch_name`
+
+You will also need to understand merging.
+
+- If you haven't already done so, type: `./collaborators.sh setup`
+- To get everyone's updates, type: `git fetch --all`
+- To see a list of remotes, type: `git remote`
+- To merge in changes from `contributor`'s `branch` into your current branch, type: `git merge contributor/branch`
+- To deal with merge conflicts, type: `git status`. Then, open up all unstaged files. Make changes as necessary, and do `git add file_name` for each file.
+- To merge in only the version from `somebranch`, type: `git checkout somebranch file_name`
+
+### Test your changes
+I will not merge code into my master branch until:
+
+ - The [project builds successfully.](#how-do-i-build-compilerkit)
+ - It has a demo (see `examples/`).
+ - Test cases pass in the test suite (see `tests/test-suite.c` and `tests/test-suite.h`)
+ - [The documentation looks as expected](#where-is-the-documentation).
+
+Look for the demo and test suite executables in these folders:
+
+ - `build/Debug` (Windows)
+ - `build` (Mac, Linux)
+
+## Send in a pull request for feedback
+Switch to your branch in github, and [send in a pull request](https://github.com/lawrancej/CompilerKit/pull/new/master) that describes what you did.
+Do so when you think your changes are ready to be merged in. But do not hesitate to push works in progress.
+
 ## How do I use GLib?
 GLib is a C utility library similar to the Standard Template Library in C++. It provides data structures as well as [GObject](#how-do-i-use-gobject).
 
@@ -158,6 +153,7 @@ COMPILERKIT_IS_ALTERNATION(obj)        (obj instanceof Alternation)
 COMPILERKIT_ALTERNATION (obj)          (Alternation) obj
 COMPILERKIT_TYPE_ALTERNATION           Alternation.class
 G_OBJECT_TYPE (obj)                    obj.getClass()
+compilerkit_alternation_get_left(alt)  alt.getLeft()
 ```
 
 ## How do I use GObject?
