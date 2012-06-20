@@ -26,38 +26,49 @@ Or, [file a bug report.](https://github.com/lawrancej/CompilerKit/issues/new)
 
 ## Getting your branch merged checklist
 ### Use topic branches for your work
-Topic branches isolate chunks of work so that it's easier for others to merge in.
+Topic branches isolate chunks of work so that it's easier to merge in changes.
+Here's how it works:
 
- 1. Create a new branch:
-     `git checkout -b issueXYZ`
- 2. Hack away, making commits along the way.
- 3. Push your issue branch to github:
-     `git push origin issueXYZ`
- 4. Switch to that branch in github, and send in a pull request for feedback.
+```
+git checkout -b issueXYZ # Create a new local branch issueXYZ
+... Hack away ...
+git commit -a -m "Work in progress on issueXYZ"
+git push origin issueXYZ # Push local branch to remote repo
+```
 
-Sometimes, it's necessary to switch between branches. Your work will always be saved.
+Using topic branches means you'll need to know how to switch among branches and remove old branches as necessary.
 
- - To switch back to master:
-    `git checkout master`
- - To see the branches:
-    `git branch`
+- To switch back to master, type: `git checkout master`
+- To see the branches, type: `git branch`
+- To remove a local branch, type: `git branch -D branch_name`
+- To remove a remote branch, type: `git push origin :branch_name`
+
+You will also need to understand merging.
+
+- If you haven't already done so, type: `./collaborators.sh setup`
+- To get everyone's updates, type: `git fetch --all`
+- To see a list of remotes, type: `git remote`
+- To merge in changes from `contributor`'s `branch` into your current branch, type: `git merge contributor/branch`
+- To deal with merge conflicts, type: `git status`. Then, open up all unstaged files. Make changes as necessary, and do `git add file_name` for each file.
+- To merge in only the version from `somebranch`, type: `git checkout somebranch file_name`
 
 ### Test your changes
-I will not merge code into my master branch until it has passing test cases in the test suite.
-If the changes include documentation, then [ensure the documentation looks as expected](#where-is-the-documentation).
-If the changes include code, ensure it works.
+I will not merge code into my master branch until:
 
-#### If the code is a demo
+ - The [project builds successfully.](#how-do-i-build-compilerkit)
+ - It has a demo (see `examples/`).
+ - Test cases pass in the test suite (see `tests/test-suite.c` and `tests/test-suite.h`)
+ - [The documentation looks as expected](#where-is-the-documentation).
 
-1. Ensure the [project builds successfully.](#how-do-i-build-compilerkit)
-2. Ensure the demo works.
+Look for the demo and test suite executables in these folders:
 
-#### If the code is not a demo
+ - `build/Debug` (Windows)
+ - `build` (Mac, Linux)
 
-1. Write test cases for your code.
-2. Add test cases to the test suite.
-3. Ensure the [project builds successfully.](#how-do-i-build-compilerkit)
-4. Ensure the test suite passes.
+## Send in a pull request for feedback
+Switch to your branch in github, and send in a pull request that describes what you did.
+Do so when you think your changes are ready to be merged in.
+
 
 ## What to install on Windows
 You will need to download and install everything manually.
