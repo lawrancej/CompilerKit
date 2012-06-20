@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include "CompilerKit/complement.h"
+#include "CompilerKit.h"
 
 /** @todo Describe what task main will accomplish. */
 int main (int argc, char ** argv)

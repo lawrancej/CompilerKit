@@ -4,9 +4,9 @@
 // Build up the state machine. Should match "fsm" or "demo", separated by (but not ending with) spaces.
 CompilerKitFSM *state_machine ()
 {
-    CompilerKitFSM* fsm;
-
-    fsm = compilerkit_FSM_new("A");
+    CompilerKitFSM* fsm; // Creates pointer for FSM
+    
+    fsm = compilerkit_FSM_new("A");  // Calls the constructor for the FSM
 //    compilerkit_FSM_set_start_state(fsm, "A");
     compilerkit_FSM_add_transition (fsm, "A", "B", 'd');
     compilerkit_FSM_add_transition (fsm, "A", "F", 'f');
@@ -60,11 +60,14 @@ void match_string(CompilerKitFSM *fsm)
 int main (int argc, char ** argv)
 {
     CompilerKitFSM* fsm;
-    g_type_init();
+    // Initialize GObject type system.
+    // Allow us to query the types of an object.
+    // Only needs to be called once, Test suite already calls it and is not necessary there.
+    g_type_init(); 
     
     fsm = state_machine();
     print_states(fsm);
     match_string(fsm);
     
-    g_object_unref (fsm);
+    g_object_unref (fsm); // Decreases the reference count by 1, if count becomes 0, then free memeory.
 }
