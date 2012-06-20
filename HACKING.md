@@ -131,7 +131,7 @@ Look for the demo and test suite executables in these folders:
  - `build/Debug` (Windows)
  - `build` (Mac, Linux)
 
-## Send in a pull request for feedback
+### Send in a pull request for feedback
 Switch to your branch in github, and [send in a pull request](https://github.com/lawrancej/CompilerKit/pull/new/master) that describes what you did.
 Do so when you think your changes are ready to be merged in. But do not hesitate to push works in progress.
 
