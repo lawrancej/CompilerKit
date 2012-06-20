@@ -36,7 +36,7 @@ struct _CompilerKitSymbolPrivate
      * @todo dummy is here so everything will compile by default.
      * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
      */ 
-    char symbol;
+    gunichar symbol;
 };
 
 /**
@@ -93,7 +93,7 @@ compilerkit_symbol_init (CompilerKitSymbol *self)
  * @param None
  * @return A new CompilerKitSymbol struct, cast to GObject*.
  */
-GObject *compilerkit_symbol_new (char symbol)
+GObject *compilerkit_symbol_new (gunichar symbol)
 {
 	CompilerKitSymbol *result = COMPILERKIT_SYMBOL (g_object_new (COMPILERKIT_TYPE_SYMBOL, NULL));
     result->priv->symbol = symbol;
@@ -144,7 +144,7 @@ compilerkit_symbol_dispose (GObject* object)
  * @param CompilerKitSymbol* The symbol (a box).
  * @return char The actual symbol.
  */
-char compilerkit_symbol_get_symbol(CompilerKitSymbol *self)
+gunichar compilerkit_symbol_get_symbol(CompilerKitSymbol *self)
 {
     return self->priv->symbol;
 }

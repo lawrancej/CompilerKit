@@ -33,35 +33,84 @@
 void test_concatenation_constructor (void)
 {
 	GObject* ckc;
+	GObject* left;
+	GObject* right;
 
     g_test_message ("Testing Concatenation method");
     g_test_timer_start ();
     
     /** @todo Test here  */
-	//both parameters are symbols
-	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_symbol_new('b'));
-    g_assert(COMPILERKIT_IS_CONCATENATION(ckc));
-	g_object_unref (ckc);
+    
+	// Both parameters are symbols
+    {
+        left = compilerkit_symbol_new('a');
+        right = compilerkit_symbol_new('b');
+        ckc = compilerkit_concatenation_new(left,right);
 
-	//right parameter is EmptyString
-	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_empty_string_new());
-	g_assert(COMPILERKIT_IS_SYMBOL(ckc));
-	g_object_unref (ckc);
+        g_assert(COMPILERKIT_IS_CONCATENATION(ckc));
+        g_assert (left != ckc);
+        g_assert (right != ckc);
 
-	//left parameter is EmptyString
-	ckc = compilerkit_concatenation_new(compilerkit_empty_string_new(),compilerkit_symbol_new('a'));
-	g_assert(COMPILERKIT_IS_SYMBOL(ckc));
-	g_object_unref (ckc);
+        g_object_unref (ckc); // This will unref left and right as well
+    }
 
-	//right parameter is EmptySet
-	ckc = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_empty_set_new());
-	g_assert(COMPILERKIT_IS_EMPTY_SET(ckc));
-	g_object_unref (ckc);
+	// Right parameter is EmptyString
+    {
+        left = compilerkit_symbol_new('a');
+        right = compilerkit_empty_string_new ();
+        ckc = compilerkit_concatenation_new(left,right);
 
-	//left parameter is EmptySet
-	ckc = compilerkit_concatenation_new(compilerkit_empty_set_new(),compilerkit_symbol_new('a'));
-	g_assert(COMPILERKIT_IS_EMPTY_SET(ckc));
-	g_object_unref (ckc);
+        g_assert(COMPILERKIT_IS_SYMBOL(ckc));
+        g_assert (left == ckc);
+        
+        g_object_unref (left);
+        g_object_unref (right);
+    }
+
+	// Left parameter is EmptyString
+    {
+        left = compilerkit_empty_string_new ();
+        right = compilerkit_symbol_new('a');
+        ckc = compilerkit_concatenation_new(left,right);
+
+        g_assert(COMPILERKIT_IS_SYMBOL(ckc));
+        g_assert (ckc == right);
+        
+        g_object_unref (left);
+        g_object_unref (right);
+    }
+
+	// Right parameter is EmptySet
+    {
+        left = compilerkit_symbol_new('a');
+        right = compilerkit_empty_set_get_instance();
+        ckc = compilerkit_concatenation_new(left,right);
+        
+        // Assert that ckc is the empty set, and that emptyset is a singleton.
+        g_assert (right == ckc);
+        g_assert(COMPILERKIT_IS_EMPTY_SET(ckc));
+        
+        g_printf ("\nckc:   %p\nleft:  %p\nright: %p\n", ckc, left, right);
+
+        g_object_unref (left);
+        g_object_unref (right);
+    }
+
+	// Left parameter is EmptySet
+    {
+        left = compilerkit_empty_set_get_instance();
+        right = compilerkit_symbol_new('a');
+        ckc = compilerkit_concatenation_new(left,right);
+    
+        // Assert that concatenation is returning the empty set here.
+        g_assert (ckc == left);
+        g_assert (COMPILERKIT_IS_EMPTY_SET(ckc));
+
+        g_printf ("\nckc:   %p\nleft:  %p\nright: %p\n\n", ckc, left, right);
+        
+        g_object_unref (left);
+        g_object_unref (right);
+    }
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
