@@ -70,7 +70,8 @@ typedef struct _CompilerKitAlternationClass
 GType compilerkit_alternation_get_type (void);
 
 /** Public method function prototypes */
-GObject *compilerkit_alternation_new (GObject *left, GObject *right);
+GObject* compilerkit_alternation_new (GObject *left, GObject *right);
+GObject* compilerkit_alternation_vlist_new (GObject *left, GObject *right, ...);
 GObject* compilerkit_alternation_get_left (CompilerKitAlternation *self);
 GObject* compilerkit_alternation_get_right (CompilerKitAlternation *self);
 
