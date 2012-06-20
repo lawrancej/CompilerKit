@@ -1,7 +1,7 @@
 #include <glib.h>
 #include "CompilerKit/symbol.h"
 
-/** Symbol unicode works, but there's got to be an easier way. */
+/** Symbol unicode works (on Linux), but there's got to be an easier way. */
 int main (int argc, char ** argv)
 {
     CompilerKitSymbol* symbol;
