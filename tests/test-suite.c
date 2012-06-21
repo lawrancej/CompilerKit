@@ -34,5 +34,7 @@ int main (int argc, char ** argv)
     g_test_add_func ("/concatenation/constructor_empty_set", test_concatenation_constructor_empty_set);
     g_test_add_func ("/concatenation/constructor_empty_string", test_concatenation_constructor_empty_string);
 
+    g_test_add_func ("/empty-set/singleton", test_empty_set_singleton);
+
     g_test_run();
 }
