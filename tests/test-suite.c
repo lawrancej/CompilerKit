@@ -30,7 +30,9 @@ int main (int argc, char ** argv)
     g_test_add_func ("/visitor/null-visit",test_visitor_null_visit);
     g_test_add_func ("/visitor/register_identity", test_visitor_register_identity);
     
-    g_test_add_func ("/concatenation/constructor", test_concatenation_constructor);
+    g_test_add_func ("/concatenation/constructor_normal", test_concatenation_constructor_normal);
+    g_test_add_func ("/concatenation/constructor_empty_set", test_concatenation_constructor_empty_set);
+    g_test_add_func ("/concatenation/constructor_empty_string", test_concatenation_constructor_empty_string);
     
     g_test_run();
 }
