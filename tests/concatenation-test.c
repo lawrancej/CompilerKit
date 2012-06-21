@@ -73,7 +73,7 @@ void test_concatenation_constructor_empty_set (void)
 	// Right parameter is EmptySet
     {
         left = compilerkit_symbol_new('a');
-        right = compilerkit_empty_set_get_instance();
+        right = compilerkit_empty_set_get_instance ();
         ckc = compilerkit_concatenation_new(left,right);
 
         // Assert that ckc is the empty set, and that emptyset is a singleton.
@@ -124,7 +124,7 @@ void test_concatenation_constructor_empty_string (void)
 	// Right parameter is EmptyString
     {
         left = compilerkit_symbol_new('a');
-        right = compilerkit_empty_string_new ();
+        right = compilerkit_empty_string_get_instance ();
         ckc = compilerkit_concatenation_new(left,right);
 
         g_assert(COMPILERKIT_IS_SYMBOL(ckc));
@@ -136,7 +136,7 @@ void test_concatenation_constructor_empty_string (void)
 
 	// Left parameter is EmptyString
     {
-        left = compilerkit_empty_string_new ();
+        left = compilerkit_empty_string_get_instance ();
         right = compilerkit_symbol_new('a');
         ckc = compilerkit_concatenation_new(left,right);
 

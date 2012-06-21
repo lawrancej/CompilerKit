@@ -18,10 +18,6 @@
 #include "CompilerKit/empty-set.h"
 #include "test-suite.h"
 
-/** @todo Write test cases of the form: void test_empty_set_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-empty-set/test-empty_set-method", test_empty_set_method); */
-
 /**
  * test_empty_set_singleton:
  * @fn test_empty_set_singleton
@@ -46,12 +42,6 @@ void test_empty_set_singleton (void)
 
     g_object_unref (emptyset1);
     g_object_unref (emptyset2);
-
-    emptyset1 = compilerkit_empty_set_get_instance();
-
-    g_assert(emptyset1 == emptyset2);
-
-    g_object_unref (emptyset1);
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
