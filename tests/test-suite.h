@@ -30,3 +30,6 @@ void test_visitor_null_visit(void);
 void test_visitor_register_identity(void);
 
 void test_empty_set_singleton (void);
+
+void test_symbol_unicode (void);
+void test_symbol_flyweight (void);

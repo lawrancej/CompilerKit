@@ -36,5 +36,8 @@ int main (int argc, char ** argv)
 
     g_test_add_func ("/empty-set/singleton", test_empty_set_singleton);
 
+    g_test_add_func ("/symbol/unicode", test_symbol_unicode);
+    g_test_add_func ("/symbol/flyweight", test_symbol_flyweight);
+
     g_test_run();
 }
