@@ -31,6 +31,6 @@ int main (int argc, char ** argv)
     g_test_add_func ("/visitor/register_identity", test_visitor_register_identity);
     
     g_test_add_func ("/concatenation/constructor", test_concatenation_constructor);
-
+    
     g_test_run();
 }

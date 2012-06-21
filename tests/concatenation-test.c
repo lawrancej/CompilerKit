@@ -23,6 +23,62 @@
 /** @todo Add to test-suite.c: g_test_add_func ("/test-concatenation/test-concatenation-method", test_concatenation_method); */
 
 /**
+ * test_concatenation_constructor_normal:
+ * @fn test_concatenation_constructor_normal
+ * Tests compilerkit_concatenation_method in CompilerKitConcatenation struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_concatenation_constructor_normal (void)
+{
+	GObject* ckc;
+	GObject* left;
+	GObject* right;
+
+    g_test_message ("Testing concatenation constructor");
+    g_test_timer_start ();
+
+    left = compilerkit_symbol_new('a');
+    right = compilerkit_symbol_new('b');
+    ckc = compilerkit_concatenation_new(left,right);
+
+    g_assert(COMPILERKIT_IS_CONCATENATION(ckc));
+    g_assert (left != ckc);
+    g_assert (right != ckc);
+
+    g_object_unref (ckc); // This will unref left and right as well
+
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+/**
+ * test_concatenation_method:
+ * @fn test_concatenation_method
+ * Tests method compilerkit_concatenation_method in CompilerKitConcatenation struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_concatenation_constuctor_empty_set (void)
+{
+
+}
+
+/**
+ * test_concatenation_method:
+ * @fn test_concatenation_method
+ * Tests method compilerkit_concatenation_method in CompilerKitConcatenation struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_concatenation_constructor_empty_string (void)
+{
+
+}
+
+/**
  * test_concatenation_method:
  * @fn test_concatenation_method
  * Tests method compilerkit_concatenation_method in CompilerKitConcatenation struct.

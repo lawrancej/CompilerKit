@@ -49,10 +49,17 @@ static CompilerKitVisitor* check_symbol ()
  */
 void test_visitor_register_identity (void)
 {
-    GObject *symbol = compilerkit_symbol_new ('a');
-    GObject *empty_set = compilerkit_empty_set_get_instance ();
-    CompilerKitVisitor *visitor = compilerkit_visitor_new();
+    GObject *symbol;
+    GObject *empty_set;
+    CompilerKitVisitor *visitor;
 
+    g_test_message ("Testing visitor register identity");
+    g_test_timer_start ();
+
+    symbol    = compilerkit_symbol_new ('a');
+    empty_set = compilerkit_empty_set_get_instance ();
+    visitor   = compilerkit_visitor_new();
+    
     // Register the identity function (it returns whatever GObject* gets as a parameter during the visit)
     compilerkit_visitor_register_identity (visitor, COMPILERKIT_TYPE_EMPTY_SET);
     
@@ -66,6 +73,9 @@ void test_visitor_register_identity (void)
     g_object_unref (symbol);
     g_object_unref (empty_set);
     g_object_unref (visitor);
+
+    // This test shouldn't take too long to run
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
 
 /**
@@ -78,9 +88,16 @@ void test_visitor_register_identity (void)
  */
 void test_visitor_null_visit(void)
 {
-    GObject *symbol = compilerkit_symbol_new ('a');
-    GObject *empty_set = compilerkit_empty_set_get_instance ();
-    CompilerKitVisitor* visitor = check_symbol();
+    GObject *symbol;
+    GObject *empty_set;
+    CompilerKitVisitor* visitor;
+
+    g_test_message ("Testing visitor null visits");
+    g_test_timer_start ();
+
+    symbol = compilerkit_symbol_new ('a');
+    empty_set = compilerkit_empty_set_get_instance ();
+    visitor = check_symbol();
 
     // Assert that visitor produces the correct result
     g_assert(compilerkit_visitor_visit(visitor, symbol) == symbol);
@@ -95,4 +112,7 @@ void test_visitor_null_visit(void)
     g_object_unref (symbol);
     g_object_unref (empty_set);
     g_object_unref (visitor);
+
+    // This test shouldn't take too long to run
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }

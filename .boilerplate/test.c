@@ -28,7 +28,7 @@
 /**
  * test_bar_method:
  * @fn test_bar_method
- * Tests method compilerkit_bar_method in CompilerKitBar struct.
+ * Tests compilerkit_bar_method in CompilerKitBar struct.
  * @pre None
  * @param None
  * @return void
@@ -36,6 +36,7 @@
 void test_bar_method (void)
 {
     Bar *obj;
+
     g_test_message ("Testing Bar method");
     g_test_timer_start ();
     
