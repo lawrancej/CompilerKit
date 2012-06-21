@@ -26,7 +26,10 @@ int main (int argc, char ** argv)
     /** @todo Add here: g_test_add_func ("/class/method", test_class_method); */
     g_test_add_func ("/automata/start-state", test_FSM_start_state);
     g_test_add_func ("/automata/states", test_FSM_states);
+    
     g_test_add_func ("/visitor/null-visit",test_visitor_null_visit);
+    g_test_add_func ("/visitor/register_identity", test_visitor_register_identity);
+    
     g_test_add_func ("/concatenation/constructor", test_concatenation_constructor);
 
     g_test_run();

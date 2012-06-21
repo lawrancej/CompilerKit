@@ -24,13 +24,11 @@
 
 static GObject *symbol_check(CompilerKitVisitor *self, GObject *obj)
 {
-    CompilerKitSymbol *symbol;
     g_assert (COMPILERKIT_IS_SYMBOL(obj));
-    
     return obj;
 }
 
-/* Construct a visitor checks whether symbol is a symbol. */
+/* Construct a visitor that checks whether symbol is a symbol. */
 static CompilerKitVisitor* check_symbol ()
 {
     CompilerKitVisitor *visitor;
@@ -39,6 +37,35 @@ static CompilerKitVisitor* check_symbol ()
     compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_SYMBOL, symbol_check);
 
     return visitor;
+}
+
+/**
+ * test_visitor_register_identity:
+ * @fn test_visitor_register_identity
+ * Tests whether compilerkit_visitor_register_identity function works as intended.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_visitor_register_identity (void)
+{
+    GObject *symbol = compilerkit_symbol_new ('a');
+    GObject *empty_set = compilerkit_empty_set_get_instance ();
+    CompilerKitVisitor *visitor = compilerkit_visitor_new();
+
+    // Register the identity function (it returns whatever GObject* gets as a parameter during the visit)
+    compilerkit_visitor_register_identity (visitor, COMPILERKIT_TYPE_EMPTY_SET);
+    
+    // Since we didn't register the symbol, the visitor should return NULL
+    g_assert (compilerkit_visitor_visit (visitor, symbol) == NULL);
+    
+    // The visitor should produce symbol here, since we registered the identity function for the symbol class.
+    g_assert (compilerkit_visitor_visit (visitor, empty_set) == empty_set);
+    
+    // Decrease the reference count for objects to free them.
+    g_object_unref (symbol);
+    g_object_unref (empty_set);
+    g_object_unref (visitor);
 }
 
 /**
@@ -64,6 +91,8 @@ void test_visitor_null_visit(void)
     // Nothing registered for empty set, so return NULL
     g_assert(compilerkit_visitor_visit(visitor, empty_set) == NULL);
 
+    // Decrease the reference count for objects to free them.
     g_object_unref (symbol);
     g_object_unref (empty_set);
+    g_object_unref (visitor);
 }

@@ -176,7 +176,7 @@ void compilerkit_visitor_register (CompilerKitVisitor *self, GType the_type, Com
  * @param GType The type of the class to visit.
  * @return void
  */
-void compilerKit_visitor_register_identity (CompilerKitVisitor *self, GType the_type)
+void compilerkit_visitor_register_identity (CompilerKitVisitor *self, GType the_type)
 {
     compilerkit_visitor_register (self, the_type, compilerkit_visitor_identity);
 }
