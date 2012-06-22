@@ -49,20 +49,17 @@ struct _CompilerKitVisitorPrivate
 static void
 compilerkit_visitor_class_init (CompilerKitVisitorClass *klass)
 {
-  GObjectClass *g_object_class;
-  
-  /* Add private structure */
-  g_type_class_add_private (klass, sizeof (CompilerKitVisitorPrivate));
-  
-  /* Get the parent gobject class */
-  g_object_class = G_OBJECT_CLASS(klass);
-  
-  /** @todo Hook virtual methods to implementations */
-  // klass->method = method_implementation;
-  
-  /* Hook finalization functions */
-  g_object_class->dispose = compilerkit_visitor_dispose;   /* instance destructor, reverse of init */
-  g_object_class->finalize = compilerkit_visitor_finalize; /* class finalization, reverse of class init */
+    GObjectClass *g_object_class;
+
+    /* Add private structure */
+    g_type_class_add_private (klass, sizeof (CompilerKitVisitorPrivate));
+
+    /* Get the parent gobject class */
+    g_object_class = G_OBJECT_CLASS(klass);
+
+    /* Hook finalization functions */
+    g_object_class->dispose = compilerkit_visitor_dispose;   /* instance destructor, reverse of init */
+    g_object_class->finalize = compilerkit_visitor_finalize; /* class finalization, reverse of class init */
 }
 
 /**
