@@ -144,6 +144,21 @@ src                 The CompilerKit library source code.
 tests               The test suite to exercise the CompilerKit library.
 ```
 
+The regex classes are:
+* CompilerKitSymbol
+* CompilerKitEmptySet,
+* CompiletKitEmptystring
+* CompilerKitConcatenation
+* CompilerKitAlternation
+* CompilerKitKleenestar
+* CompilerKitComplement
+
+The cfg classes are:
+* CompilerKitGrammar
+* CompilerKitTerminal
+* CompilerKitNonterminal
+* CompilerKitProduction
+
 ### Find an issue to work on
 We use github's [issue tracker](https://github.com/lawrancej/CompilerKit/issues) to manage our work.
 Check there to find unassigned issues (comment on an issue to get dibs).
