@@ -24,6 +24,7 @@
 CompilerKitVisitor *compilerkit_derivative_visitor ();
 CompilerKitVisitor *compilerkit_nullable_visitor ();
 CompilerKitVisitor *compilerkit_string_builder_visitor ();
+CompilerKitVisitor *compilerkit_to_nfa_visitor ();
 
 
 #endif
