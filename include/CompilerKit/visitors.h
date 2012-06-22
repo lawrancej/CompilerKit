@@ -26,6 +26,7 @@ CompilerKitVisitor *compilerkit_nullable_visitor ();
 CompilerKitVisitor *compilerkit_string_builder_visitor ();
 CompilerKitVisitor *compilerkit_to_nfa_visitor ();
 CompilerKitVisitor *compilerkit_to_graphviz_visitor ();
+CompilerKitVisitor *compilerkit_to_grammar_visitor ();
 
 
 #endif
