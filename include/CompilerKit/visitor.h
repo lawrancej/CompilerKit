@@ -38,6 +38,7 @@ typedef struct _CompilerKitVisitorPrivate CompilerKitVisitorPrivate;
  * To get around this limitation, the visitor class uses the GObject type system.
  * Every GObject has a type associated with it. This serves as a key into a hash table of function pointers.
  * To define a visitor, see the example below.
+ * Alternatively, use `./generate.sh visitor` and follow the instructions.
  * @see #_CompilerKitVisitorPrivate for private fields.
  * @see #CompilerKitVisitorClass for virtual public methods.
  * @example visitor-demo.c
