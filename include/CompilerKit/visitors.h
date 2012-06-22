@@ -22,5 +22,6 @@
 
 /* Visitor function prototypes */
 CompilerKitVisitor *compilerkit_derivative_visitor ();
+CompilerKitVisitor *compilerkit_nullable_visitor ();
 
 #endif
