@@ -65,6 +65,29 @@ Once installed, paste this into the Terminal:
 
     brew install git cmake doxygen glib pkg-config
 
+If you see the following error when using CMake:
+
+```
+build User$ cmake ..
+CMake Error: CMake was unable to find a build program corresponding to "Unix Makefiles". CMAKE_MAKE_PROGRAM is not set. You probably need to select a different build tool.
+CMake Error: Error required internal CMake variable not set, cmake may be not be built correctly.
+Missing variable is:
+CMAKE_C_COMPILER_ENV_VAR
+CMake Error: Error required internal CMake variable not set, cmake may be not be built correctly.
+Missing variable is:
+CMAKE_C_COMPILER
+CMake Error: Could not find cmake module file:/Users/User/CompilerKit/build/CMakeFiles/CMakeCCompiler.cmake
+CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
+-- Configuring incomplete, errors occurred!
+```
+
+Follow these steps to fix the error:
+
+1.	Open XCode
+2.	Go to Preferences
+3.	Download tab
+4.	Install Command line
+
 ## How do I build CompilerKit?
 CompilerKit builds with CMake. 
 
@@ -75,6 +98,7 @@ mkdir build && cd build
 cmake ..
 cmake --build .
 ```
+
 
 For subsequent builds, in the `build` folder, just run `cmake --build .`
 
