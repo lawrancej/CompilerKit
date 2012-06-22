@@ -65,7 +65,8 @@ Once installed, paste this into the Terminal:
 
     brew install git cmake doxygen glib pkg-config
 
-If you see the following error when using CMake:
+### Troubleshooting
+If you see the following error when using CMake on the Mac:
 
 ```
 build User$ cmake ..
