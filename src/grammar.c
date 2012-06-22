@@ -15,7 +15,9 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/grammar.h"
+#include "CompilerKit/cfg.h"
+#include "CompilerKit/production.h"
+#include <stdarg.h>
 #define COMPILERKIT_GRAMMAR_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_GRAMMAR, CompilerKitGrammarPrivate))
 G_DEFINE_TYPE(CompilerKitGrammar, compilerkit_grammar, G_TYPE_OBJECT);
 
@@ -32,11 +34,10 @@ static void compilerkit_grammar_dispose (GObject* object);
 struct _CompilerKitGrammarPrivate
 {
     /** @todo Declare private members here */
-    /**
-     * @todo dummy is here so everything will compile by default.
-     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
-     */ 
-    int dummy;
+    /** The start nonterminal. */
+    CompilerKitNonterminal *start;
+    /** The set of productions. */
+    GHashTable *productions;
 };
 
 /**
@@ -50,20 +51,17 @@ struct _CompilerKitGrammarPrivate
 static void
 compilerkit_grammar_class_init (CompilerKitGrammarClass *klass)
 {
-  GObjectClass *g_object_class;
-  
-  /* Add private structure */
-  g_type_class_add_private (klass, sizeof (CompilerKitGrammarPrivate));
-  
-  /* Get the parent gobject class */
-  g_object_class = G_OBJECT_CLASS(klass);
-  
-  /** @todo Hook virtual methods to implementations */
-  // klass->method = method_implementation;
-  
-  /* Hook finalization functions */
-  g_object_class->dispose = compilerkit_grammar_dispose;   /* instance destructor, reverse of init */
-  g_object_class->finalize = compilerkit_grammar_finalize; /* class finalization, reverse of class init */
+    GObjectClass *g_object_class;
+
+    /* Add private structure */
+    g_type_class_add_private (klass, sizeof (CompilerKitGrammarPrivate));
+
+    /* Get the parent gobject class */
+    g_object_class = G_OBJECT_CLASS(klass);
+
+    /* Hook finalization functions */
+    g_object_class->dispose = compilerkit_grammar_dispose;   /* instance destructor, reverse of init */
+    g_object_class->finalize = compilerkit_grammar_finalize; /* class finalization, reverse of class init */
 }
 
 /**
@@ -77,29 +75,52 @@ compilerkit_grammar_class_init (CompilerKitGrammarClass *klass)
 static void
 compilerkit_grammar_init (CompilerKitGrammar *self)
 {
-  CompilerKitGrammarPrivate *priv;
+    CompilerKitGrammarPrivate *priv;
 
-  self->priv = priv = COMPILERKIT_GRAMMAR_GET_PRIVATE (self);
+    self->priv = priv = COMPILERKIT_GRAMMAR_GET_PRIVATE (self);
 
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
-
-  /** @todo Initialize private fields */
-  // priv->member = whatever;
+    priv->start = NULL;
+    priv->productions = g_hash_table_new (NULL, NULL);
 }
 
 /**
  * compilerkit_grammar_new:
  * @fn compilerkit_grammar_new
- * @memberof CompilerKitGrammar
  * Construct a CompilerKitGrammar instance.
  * @pre None
- * @param None
+ * @param CompilerKitNonterminal* The starting nonterminal
+ * @param A variable length argument list of CompilerKitProduction* terminated with a NULL pointer.
  * @return A new CompilerKitGrammar struct.
+ * @memberof CompilerKitGrammar
  */
-GObject *compilerkit_grammar_new (void)
+CompilerKitGrammar *compilerkit_grammar_new (CompilerKitNonterminal *start, ...)
 {
-	return G_OBJECT(COMPILERKIT_GRAMMAR (g_object_new (COMPILERKIT_TYPE_GRAMMAR, NULL)));
+	va_list args;
+	CompilerKitGrammar *cfg = COMPILERKIT_GRAMMAR (g_object_new (COMPILERKIT_TYPE_GRAMMAR, NULL));
+    CompilerKitProduction *production;
+    GList *list = NULL;
+    CompilerKitNonterminal *key;
+
+	va_start(args,start);
+
+    cfg->priv->start = start;
+    
+    while (production = va_arg(args, CompilerKitProduction*))
+    {
+        key = compilerkit_production_get_variable (production);
+        if (list = g_hash_table_lookup (cfg->priv->productions, key))
+        {
+            list = g_list_append (list, production);
+            g_hash_table_replace (cfg->priv->productions, key, list);
+        }
+        else
+        {
+            g_list_append (list, production);
+            g_hash_table_insert (cfg->priv->productions, key, list);
+        }
+    }
+    va_end (args);
+    return cfg;
 }
 
 /**
@@ -127,12 +148,42 @@ compilerkit_grammar_finalize (GObject* object)
 static void
 compilerkit_grammar_dispose (GObject* object)
 {
-  CompilerKitGrammar *self = COMPILERKIT_GRAMMAR (object);
-  CompilerKitGrammarPrivate* priv;
+    CompilerKitGrammar *self = COMPILERKIT_GRAMMAR (object);
+    CompilerKitGrammarPrivate* priv;
 
-  priv = COMPILERKIT_GRAMMAR_GET_PRIVATE (self);
-  
-  /** @todo Deallocate memory as necessary */
+    priv = COMPILERKIT_GRAMMAR_GET_PRIVATE (self);
 
-  G_OBJECT_CLASS (compilerkit_grammar_parent_class)->dispose (object);
+    g_hash_table_destroy (priv->productions);
+    g_object_unref (priv->start);
+
+    G_OBJECT_CLASS (compilerkit_grammar_parent_class)->dispose (object);
+}
+
+/**
+ * compilerkit_grammar_productions_for:
+ * @fn compilerkit_grammar_productions_for
+ * Return the productions for a given nonterminal.
+ * @pre CompilerKitGrammar* is not NULL.
+ * @param CompilerKitGrammar* The grammar.
+ * @param CompilerKitNonterminal* A nonterminal.
+ * @return A list of productions for the given nonterminal, or NULL.
+ * @memberof CompilerKitGrammar
+ */
+GList *compilerkit_grammar_productions_for (CompilerKitGrammar *grammar, CompilerKitNonterminal *variable)
+{
+    return g_hash_table_lookup (grammar->priv->productions, variable);
+}
+
+/**
+ * compilerkit_grammar_get_start:
+ * @fn compilerkit_grammar_get_start
+ * Return the starting nonterminal.
+ * @pre CompilerKitGrammar* is not NULL.
+ * @param CompilerKitGrammar* The grammar.
+ * @return The starting nonterminal.
+ * @memberof CompilerKitGrammar
+ */
+CompilerKitNonterminal *compilerkit_grammar_get_start (CompilerKitGrammar *grammar)
+{
+    return grammar->priv->start;
 }

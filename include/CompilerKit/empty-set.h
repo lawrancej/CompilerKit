@@ -43,7 +43,7 @@ typedef struct _CompilerKitEmptySet
 {
   /** Base instance (GObject) */
   GObject parent_instance;
-
+  
 } CompilerKitEmptySet;
 
 /**
@@ -56,6 +56,7 @@ typedef struct _CompilerKitEmptySetClass
 {
   /** Base class (GobjectClass) */
   GObjectClass parent_class;  
+  
 } CompilerKitEmptySetClass;
 
 /**
@@ -68,7 +69,7 @@ typedef struct _CompilerKitEmptySetClass
 GType compilerkit_empty_set_get_type (void);
 
 /** Public method function prototypes */
-GObject *compilerkit_empty_set_new (void);
+GObject *compilerkit_empty_set_get_instance (void);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_empty_set_h__ */

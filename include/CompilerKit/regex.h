@@ -20,6 +20,7 @@
 
 /* Regular expression includes */
 #include "automata.h"
+#include "scanner.h"
 
 #include "empty-set.h"
 #include "empty-string.h"

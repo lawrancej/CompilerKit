@@ -24,6 +24,7 @@ G_DEFINE_TYPE(CompilerKitVisitor, compilerkit_visitor, G_TYPE_OBJECT);
 /** @todo Private method function prototypes go here (for private methods, declare as static) */
 static void compilerkit_visitor_finalize (GObject* object);
 static void compilerkit_visitor_dispose (GObject* object);
+static GObject *identity (CompilerKitVisitor *visitor, GObject *visit);
 
 /**
  * @struct _CompilerKitVisitorPrivate
@@ -135,6 +136,21 @@ compilerkit_visitor_dispose (GObject* object)
 }
 
 /**
+ * compilerkit_visitor_identity:
+ * @fn compilerkit_visitor_identity
+ * Return the visited GObject
+ * @pre CompilerKitVisitor* is not NULL.
+ * @param CompilerKitVisitor* A visitor.
+ * @param GObject* An object to visit.
+ * @return GObject* The visited object.
+ */
+static GObject *compilerkit_visitor_identity (CompilerKitVisitor *visitor, GObject *node)
+{
+    g_assert (visitor);
+    return node;
+}
+
+/**
  * compilerkit_visitor_register:
  * @fn compilerkit_visitor_register
  * @memberof CompilerKitVisitor
@@ -151,6 +167,21 @@ void compilerkit_visitor_register (CompilerKitVisitor *self, GType the_type, Com
 }
 
 /**
+ * compilerkit_visitor_register_identity:
+ * @fn compilerkit_visitor_register_identity
+ * @memberof CompilerKitVisitor
+ * Register the visitor function that returns the visited GObject*.
+ * @pre CompilerKitVisitor* is not NULL.
+ * @param CompilerKitVisitor* The visitor instance.
+ * @param GType The type of the class to visit.
+ * @return void
+ */
+void compilerkit_visitor_register_identity (CompilerKitVisitor *self, GType the_type)
+{
+    compilerkit_visitor_register (self, the_type, compilerkit_visitor_identity);
+}
+
+/**
  * compilerkit_visitor_visit:
  * @fn compilerkit_visitor_visit
  * @memberof CompilerKitVisitor
@@ -162,7 +193,16 @@ void compilerkit_visitor_register (CompilerKitVisitor *self, GType the_type, Com
  */
 GObject *compilerkit_visitor_visit (CompilerKitVisitor *self, GObject *obj)
 {
-    GType the_type = G_OBJECT_TYPE(obj);
-    CompilerKitVisitorFunc func = (CompilerKitVisitorFunc) g_hash_table_lookup (self->priv->visitors, g_type_name(the_type));
+    GType the_type;
+    CompilerKitVisitorFunc func;
+    g_assert (self);
+
+    if(!obj) return NULL;
+
+    the_type = G_OBJECT_TYPE(obj);
+    func = g_hash_table_lookup (self->priv->visitors, g_type_name(the_type));
+
     if (func) return func (self, obj);
+    return NULL;
 }
+

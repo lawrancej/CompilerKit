@@ -18,25 +18,31 @@
 #include "CompilerKit/empty-set.h"
 #include "test-suite.h"
 
-/** @todo Write test cases of the form: void test_empty_set_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-empty-set/test-empty_set-method", test_empty_set_method); */
-
 /**
- * test_empty_set_method:
- * @fn test_empty_set_method
- * Tests method compilerkit_empty_set_method in CompilerKitEmptySet struct.
+ * test_empty_set_singleton:
+ * @fn test_empty_set_singleton
+ * Tests compilerkit_empty_set_get_instance in CompilerKitEmptySet struct to verify it's a singleton.
  * @pre None
  * @param None
  * @return void
  */
-void test_empty_set_method (void)
+void test_empty_set_singleton (void)
 {
-    g_test_message ("Testing EmptySet method");
+    GObject *emptyset1, *emptyset2;
+
+    g_test_message ("Testing EmptySet to see if it is a singleton");
     g_test_timer_start ();
-    
-    /** @todo Test here  */
-    g_assert(FALSE);
-    
+
+    /** Create two pointers to empty_set  */
+    emptyset1 = compilerkit_empty_set_get_instance();
+    emptyset2 = compilerkit_empty_set_get_instance();
+
+    // Are the pointers the same? They should be.
+    g_assert(emptyset1 == emptyset2);
+
+    g_object_unref (emptyset1);
+    g_object_unref (emptyset2);
+
+    // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
