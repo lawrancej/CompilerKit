@@ -15,19 +15,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#ifndef INCLUDE_CompilerKit_regex_h__
-#define INCLUDE_CompilerKit_regex_h__
+#ifndef INCLUDE_CompilerKit_visitors_h__
+#define INCLUDE_CompilerKit_visitors_h__
 
-/* Regular expression includes */
-#include "automata.h"
-#include "scanner.h"
+#include "visitor.h"
 
-#include "empty-set.h"
-#include "empty-string.h"
-#include "symbol.h"
-#include "alternation.h"
-#include "complement.h"
-#include "concatenation.h"
-#include "kleene-star.h"
+/* Visitor function prototypes */
+CompilerKitVisitor *compilerkit_derivative_visitor ();
 
-#endif /* INCLUDE_CompilerKit_regex_h__ */
+#endif
