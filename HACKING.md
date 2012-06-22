@@ -79,9 +79,30 @@ cmake --build .
 For subsequent builds, in the `build` folder, just run `cmake --build .`
 
 ## Where is the documentation?
-After building CompilerKit, look inside the `docs/html` folder.
+[CompilerKit uses Doxygen](#what-is-doxygen) to generate documentation. After building CompilerKit, look inside the `docs/html` folder.
 
 Also, read up on [GLib](#how-do-i-use-glib) and [GObject](#how-do-i-use-gobject).
+
+## What is Doxygen?
+Doxygen generates documentation in HTML, LaTeX, RTF (MS-Word) using specially-formatted comments.
+It can also extract the code structure from undocumented source files for many programming languages (C/C++, Java, Python, etc).
+
+Example comment:
+```
+/**
+ * compilerkit_visitor_register:
+ * @fn compilerkit_visitor_register
+ * @memberof CompilerKitVisitor
+ * Associate the GType of a class with a visitor function.
+ * @pre CompilerKitVisitor* is not NULL.
+ * @param CompilerKitVisitor* The visitor instance.
+ * @param GType The type of the class to visit.
+ * @param CompilerKitVisitorFunc A pointer to a visitor function for the specified type.
+ * @return void
+ */
+```
+
+![A graph of how Doxygen works](images/Doxygen.png)
 
 ## How to contribute
 ### Know thy code layout
