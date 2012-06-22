@@ -15,12 +15,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include <glib.h>
 #include "CompilerKit.h"
+#include "test-suite.h"
 
-/** Test case function prototypes of the form: void test_class_case (void); */
-void test_FSM_start_state (void);
-void test_FSM_states (void);
-void test_concatenation_constructor (void);
-void test_visitor_null_visit(void);
 void test_convenience_alternation(void)
+{
+	 GObject expression = compilerkit_character_class_new('0','h');
+	 g_assert(expression == NULL);
+	 g_object_unref(expression);
+}
