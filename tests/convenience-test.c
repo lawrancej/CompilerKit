@@ -20,7 +20,13 @@
 
 void test_convenience_alternation(void)
 {
-	 GObject expression = compilerkit_character_class_new('0','h');
-	 g_assert(expression == NULL);
-	 g_object_unref(expression);
+	 GObject* expression1 = compilerkit_character_class_new('0','h');
+	 GObject* expression2 = compilerkit_character_class_new(33,'h');
+	 GObject* expression3 = compilerkit_character_class_new('0',137);
+	 g_assert(expression1 != NULL);
+	 g_assert(expression2 == NULL);
+	 g_assert(expression3 == NULL);
+	 g_object_unref(expression1);
+	 g_object_unref(expression2);
+	 g_object_unref(expression3);
 }
