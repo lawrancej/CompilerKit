@@ -15,17 +15,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#ifndef INCLUDE_CompilerKit_h__
-#define INCLUDE_CompilerKit_h__
+#ifndef INCLUDE_CompilerKit_convenience_h__
+#define INCLUDE_CompilerKit_convenience_h__
 
-#include "CompilerKit/regex.h"
-#include "CompilerKit/cfg.h"
-
-#include "CompilerKit/convenience.h"
-
-#include "CompilerKit/scanner.h"
-
-#include "CompilerKit/visitor.h"
-#include "CompilerKit/visitors.h"
+GObject* compilerkit_character_class_new(gunichar, gunichar);
+int compilerkit_character_is_alpha_numeric(gunichar);
 
 #endif
