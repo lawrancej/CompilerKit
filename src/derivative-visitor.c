@@ -81,12 +81,15 @@ static GObject *derivative_complement (CompilerKitVisitor *self, GObject *obj)
 static GObject *derivative_symbol (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitSymbol *symbol;
+    gunichar *character = self->state;
+    gunichar regex_symb = compilerkit_symbol_get_symbol(symbol);
     g_assert(COMPILERKIT_IS_SYMBOL(obj));
     
     symbol = COMPILERKIT_SYMBOL (obj);
     
-    compilerkit_symbol_get_symbol(symbol);
-    return NULL;
+    if (*character == regex_symb)
+        return compilerkit_empty_string_get_instance();
+    return compilerkit_empty_set_get_instance();
 }
 
 /* Derivative empty set. */
@@ -94,7 +97,7 @@ static GObject *derivative_empty_set (CompilerKitVisitor *self, GObject *obj)
 {
     g_assert(COMPILERKIT_IS_EMPTY_SET(obj));
 
-    return NULL;
+    return compilerkit_empty_set_get_instance();
 }
 
 /* Derivative empty string. */
@@ -102,7 +105,7 @@ static GObject *derivative_empty_string (CompilerKitVisitor *self, GObject *obj)
 {
     g_assert(COMPILERKIT_IS_EMPTY_STRING(obj));
 
-    return NULL;
+    return compilerkit_empty_set_get_instance();
 }
 
 /* Derivative grammar. */
