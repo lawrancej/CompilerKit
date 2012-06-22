@@ -15,17 +15,18 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#ifndef INCLUDE_CompilerKit_h__
-#define INCLUDE_CompilerKit_h__
+#include "CompilerKit.h"
+#include "test-suite.h"
 
-#include "CompilerKit/regex.h"
-#include "CompilerKit/cfg.h"
-
-#include "CompilerKit/convenience.h"
-
-#include "CompilerKit/scanner.h"
-
-#include "CompilerKit/visitor.h"
-#include "CompilerKit/visitors.h"
-
-#endif
+void test_convenience_alternation(void)
+{
+	 GObject* expression1 = compilerkit_character_class_new('0','h');
+	 GObject* expression2 = compilerkit_character_class_new(33,'h');
+	 GObject* expression3 = compilerkit_character_class_new('0',137);
+	 g_assert(expression1 != NULL);
+	 g_assert(expression2 == NULL);
+	 g_assert(expression3 == NULL);
+	 g_object_unref(expression1);
+	 g_object_unref(expression2);
+	 g_object_unref(expression3);
+}
