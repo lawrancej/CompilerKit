@@ -32,7 +32,7 @@ static void compilerkit_nonterminal_dispose (GObject* object);
 struct _CompilerKitNonterminalPrivate
 {
     /** The name of the nonterminal */
-    char *name;
+    gchar *name;
 };
 
 /**
@@ -89,7 +89,7 @@ compilerkit_nonterminal_init (CompilerKitNonterminal *self)
  * @param char* Name of the nonterminal
  * @return A new CompilerKitNonterminal struct.
  */
-CompilerKitNonterminal* compilerkit_nonterminal_new (char *name)
+CompilerKitNonterminal* compilerkit_nonterminal_new (gchar *name)
 {
 	CompilerKitNonterminal *result = COMPILERKIT_NONTERMINAL (g_object_new (COMPILERKIT_TYPE_NONTERMINAL, NULL));
     result->priv->name = name;

@@ -78,7 +78,7 @@ typedef struct _CompilerKitNonterminalClass
 GType compilerkit_nonterminal_get_type (void);
 
 /** Public method function prototypes */
-CompilerKitNonterminal* compilerkit_nonterminal_new (char *name);
+CompilerKitNonterminal* compilerkit_nonterminal_new (gchar *name);
 
 char *compilerkit_nonterminal_get_name(CompilerKitNonterminal *self);
 

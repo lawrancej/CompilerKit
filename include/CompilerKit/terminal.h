@@ -81,7 +81,9 @@ GType compilerkit_terminal_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-GObject *compilerkit_terminal_new (void);
+GObject *compilerkit_terminal_new (GObject *content);
+
+GObject *compilerkit_terminal_get_content (CompilerKitTerminal *self);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_terminal_h__ */

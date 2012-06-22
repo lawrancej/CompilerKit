@@ -147,6 +147,8 @@ compilerkit_production_dispose (GObject* object)
     priv = COMPILERKIT_PRODUCTION_GET_PRIVATE (self);
 
     /** @todo Deallocate memory as necessary */
+    g_object_unref (priv->variable);
+    g_list_free (priv->replacement);
 
     G_OBJECT_CLASS (compilerkit_production_parent_class)->dispose (object);
 }
