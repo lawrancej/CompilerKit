@@ -31,6 +31,7 @@ exit_if_file_exists() {
 }
 
 next_steps() {
+    git add ${replacement[@]}
     echo
     echo "To properly implement $CamelClassName,"
     echo "1. Address all @todo items in:"
@@ -39,8 +40,7 @@ next_steps() {
     echo
     echo "2. Update include/CompilerKit.h as necessary."
     echo "3. Test, document, code, build, and debug as necessary."
-    echo "4. Commit changes. To commit, git must be aware of the new files:"
-    echo "   git add ${replacement[@]}"
+    echo "4. Commit changes. Git is already aware of the new files."
     echo "5. Happy Hacking!"
 }
 
@@ -87,8 +87,10 @@ main() {
         replacement=( "src/$class_filename-visitor.c" "tests/$class_filename-visitor-test.c" "examples/$class_filename-visitor-demo.c" "src/$class_filename.c" "include/CompilerKit/$class_filename.h" "examples/$class_filename-demo.c" "tests/$class_filename-test.c" )
         for filename in "${replacement[@]}"
         do
-            [ -e $filename ] && echo rm $filename && rm $filename
-			[ -e $filename ] && echo git rm $filename && git rm $filename
+            if [ -e $filename ]; then
+                rm $filename
+                git rm $filename
+            fi
         done
     else
         usage
