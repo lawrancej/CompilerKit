@@ -79,6 +79,7 @@ main() {
         for filename in "${replacement[@]}"
         do
             [ -e $filename ] && echo rm $filename && rm $filename
+			[ -e $filename ] && echo git rm $filename && git rm $filename
         done
     else
         usage
