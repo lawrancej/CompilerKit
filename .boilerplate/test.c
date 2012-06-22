@@ -35,7 +35,7 @@
  */
 void test_bar_case (void)
 {
-    Bar *obj;
+    CompilerKitBar *obj;
 
     g_test_message ("Testing Bar case");
     g_test_timer_start ();
