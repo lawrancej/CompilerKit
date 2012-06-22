@@ -36,7 +36,7 @@ struct _CompilerKitComplementPrivate
      * @todo dummy is here so everything will compile by default.
      * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
      */ 
-    int dummy;
+    GObject *node;
 };
 
 /**
@@ -50,20 +50,17 @@ struct _CompilerKitComplementPrivate
 static void
 compilerkit_complement_class_init (CompilerKitComplementClass *klass)
 {
-  GObjectClass *g_object_class;
-  
-  /* Add private structure */
-  g_type_class_add_private (klass, sizeof (CompilerKitComplementPrivate));
-  
-  /* Get the parent gobject class */
-  g_object_class = G_OBJECT_CLASS(klass);
-  
-  /** @todo Hook virtual methods to implementations */
-  // klass->method = method_implementation;
-  
-  /* Hook finalization functions */
-  g_object_class->dispose = compilerkit_complement_dispose;   /* instance destructor, reverse of init */
-  g_object_class->finalize = compilerkit_complement_finalize; /* class finalization, reverse of class init */
+    GObjectClass *g_object_class;
+
+    /* Add private structure */
+    g_type_class_add_private (klass, sizeof (CompilerKitComplementPrivate));
+
+    /* Get the parent gobject class */
+    g_object_class = G_OBJECT_CLASS(klass);
+
+    /* Hook finalization functions */
+    g_object_class->dispose = compilerkit_complement_dispose;   /* instance destructor, reverse of init */
+    g_object_class->finalize = compilerkit_complement_finalize; /* class finalization, reverse of class init */
 }
 
 /**
@@ -77,15 +74,11 @@ compilerkit_complement_class_init (CompilerKitComplementClass *klass)
 static void
 compilerkit_complement_init (CompilerKitComplement *self)
 {
-  CompilerKitComplementPrivate *priv;
+    CompilerKitComplementPrivate *priv;
 
-  self->priv = priv = COMPILERKIT_COMPLEMENT_GET_PRIVATE (self);
+    self->priv = priv = COMPILERKIT_COMPLEMENT_GET_PRIVATE (self);
 
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
-
-  /** @todo Initialize private fields */
-  // priv->member = whatever;
+    priv->node = NULL;
 }
 
 /**
@@ -94,12 +87,14 @@ compilerkit_complement_init (CompilerKitComplement *self)
  * @memberof CompilerKitComplement
  * Construct a CompilerKitComplement instance.
  * @pre None
- * @param None
+ * @param GObject* Node to complement.
  * @return A new CompilerKitComplement struct, cast to GObject*.
  */
-GObject *compilerkit_complement_new (void)
+GObject *compilerkit_complement_new (GObject *node)
 {
-	return g_object_new (COMPILERKIT_TYPE_COMPLEMENT, NULL);
+	CompilerKitComplement *result = COMPILERKIT_COMPLEMENT(g_object_new (COMPILERKIT_TYPE_COMPLEMENT, NULL));
+    result->priv->node = node;
+    return result;
 }
 
 /**
@@ -127,12 +122,17 @@ compilerkit_complement_finalize (GObject* object)
 static void
 compilerkit_complement_dispose (GObject* object)
 {
-  CompilerKitComplement *self = COMPILERKIT_COMPLEMENT (object);
-  CompilerKitComplementPrivate* priv;
+    CompilerKitComplement *self = COMPILERKIT_COMPLEMENT (object);
+    CompilerKitComplementPrivate* priv;
 
-  priv = COMPILERKIT_COMPLEMENT_GET_PRIVATE (self);
-  
-  /** @todo Deallocate memory as necessary */
+    priv = COMPILERKIT_COMPLEMENT_GET_PRIVATE (self);
 
-  G_OBJECT_CLASS (compilerkit_complement_parent_class)->dispose (object);
+    g_object_unref (priv->node);
+
+    G_OBJECT_CLASS (compilerkit_complement_parent_class)->dispose (object);
+}
+
+GObject *compilerkit_complement_get_node (CompilerKitComplement *self)
+{
+    return self->priv->node;
 }

@@ -24,6 +24,8 @@
 #include "CompilerKit/convenience.h"
 
 #include "CompilerKit/scanner.h"
+
 #include "CompilerKit/visitor.h"
+#include "CompilerKit/visitors.h"
 
 #endif

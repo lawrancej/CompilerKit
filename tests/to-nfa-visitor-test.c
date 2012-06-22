@@ -15,33 +15,36 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/empty-set.h"
 #include "test-suite.h"
 
+/** 
+ * @todo Write test cases for compilerkit_to_nfa_visitor.
+ * 1. Use this prototype (replace `case` as appropriate):
+ *  `void test_to_nfa_visitor (void);` 
+ * 2. Add function prototypes for all functions into `test-suite.h`
+ * 3. Add to `test-suite.c`:
+ *  `g_test_add_func ("/to_nfa/visitor", test_to_nfa_visitor);`
+ */
+
 /**
- * test_empty_set_singleton:
- * @fn test_empty_set_singleton
- * Tests compilerkit_empty_set_get_instance in CompilerKitEmptySet struct to verify it's a singleton.
+ * test_to_nfa_visitor:
+ * @fn test_to_nfa_visitor
+ * Tests compilerkit_to_nfa_visitor.
  * @pre None
  * @param None
  * @return void
  */
-void test_empty_set_singleton (void)
+void test_to_nfa_case (void)
 {
-    GObject *emptyset1, *emptyset2;
-
-    g_test_message ("Testing EmptySet to see if it is a singleton");
+    CompilerKitVisitor *to_nfa;
+    g_test_message ("Testing ToNfa visitor");
     g_test_timer_start ();
-
-    /** Create two pointers to empty_set  */
-    emptyset1 = compilerkit_empty_set_get_instance();
-    emptyset2 = compilerkit_empty_set_get_instance();
-
-    // Are the pointers the same? They should be.
-    g_assert(emptyset1 == emptyset2);
-
-    g_object_unref (emptyset1);
-    g_object_unref (emptyset2);
+    
+    /** @todo Test here  */
+    to_nfa = compilerkit_to_nfa_visitor();
+    g_assert(FALSE);
+    
+    g_object_unref (to_nfa);
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);

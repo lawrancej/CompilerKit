@@ -21,6 +21,19 @@
 /** Test case function prototypes of the form: void test_class_case (void); */
 void test_FSM_start_state (void);
 void test_FSM_states (void);
-void test_concatenation_constructor (void);
+
+void test_concatenation_constructor_normal (void);
+void test_concatenation_constructor_empty_string (void);
+void test_concatenation_constructor_empty_set (void);
+
 void test_visitor_null_visit(void);
+
 void test_convenience_alternation(void)
+
+void test_visitor_register_identity(void);
+
+void test_empty_set_singleton (void);
+void test_empty_string_singleton (void);
+
+void test_symbol_unicode (void);
+void test_symbol_flyweight (void);

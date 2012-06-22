@@ -1,13 +1,14 @@
 #include <stdio.h>
-#include "CompilerKit/header.h"
+#include "CompilerKit.h"
 
 /** @todo Describe what task main will accomplish. */
 int main (int argc, char ** argv)
 {
-    CompilerKitBar* bar;
+    CompilerKitVisitor *bar;
     g_type_init();
     
-    /** @todo Briefly show how to use the methods in CompilerKitBar to accomplish the task. */
+    bar = compilerkit_bar_visitor ();
+    /** @todo Briefly show how to use the bar visitor. */
 
     g_object_unref (bar);
 }

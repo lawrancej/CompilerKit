@@ -97,6 +97,7 @@ GType compilerkit_visitor_get_type (void);
 /** Public method function prototypes */
 CompilerKitVisitor *compilerkit_visitor_new (void);
 void compilerkit_visitor_register (CompilerKitVisitor *visitor, GType the_type, CompilerKitVisitorFunc);
+void compilerkit_visitor_register_identity (CompilerKitVisitor *self, GType the_type);
 GObject *compilerkit_visitor_visit (CompilerKitVisitor *visitor, GObject *obj);
 
 G_END_DECLS

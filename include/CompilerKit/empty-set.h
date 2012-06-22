@@ -43,7 +43,7 @@ typedef struct _CompilerKitEmptySet
 {
   /** Base instance (GObject) */
   GObject parent_instance;
-
+  
 } CompilerKitEmptySet;
 
 /**
@@ -56,6 +56,7 @@ typedef struct _CompilerKitEmptySetClass
 {
   /** Base class (GobjectClass) */
   GObjectClass parent_class;  
+  
 } CompilerKitEmptySetClass;
 
 /**

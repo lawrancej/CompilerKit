@@ -18,6 +18,7 @@
 #ifndef INCLUDE_CompilerKit_grammar_h__
 #define INCLUDE_CompilerKit_grammar_h__
 
+#include "nonterminal.h"
 #include <glib-object.h>
 G_BEGIN_DECLS
 #define COMPILERKIT_TYPE_GRAMMAR                  (compilerkit_grammar_get_type ())
@@ -81,7 +82,9 @@ GType compilerkit_grammar_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-GObject *compilerkit_grammar_new (void);
+CompilerKitGrammar *compilerkit_grammar_new (CompilerKitNonterminal *start, ...);
+GList *compilerkit_grammar_productions_for (CompilerKitGrammar *grammar, CompilerKitNonterminal *variable);
+CompilerKitNonterminal *compilerkit_grammar_get_start (CompilerKitGrammar *grammar);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_grammar_h__ */

@@ -22,25 +22,29 @@
  *  `void test_bar_case (void);` 
  * 2. Add function prototypes for all functions into `test-suite.h`
  * 3. Add to `test-suite.c`:
- *  `g_test_add_func ("/test-bar/test-bar-case", test_bar_case);`
+ *  `g_test_add_func ("/bar/case", test_bar_case);`
  */
 
 /**
- * test_bar_method:
- * @fn test_bar_method
- * Tests method compilerkit_bar_method in CompilerKitBar struct.
+ * test_bar_case:
+ * @fn test_bar_case
+ * Tests compilerkit_bar_case in CompilerKitBar struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_bar_method (void)
+void test_bar_case (void)
 {
-    Bar *obj;
-    g_test_message ("Testing Bar method");
+    CompilerKitBar *obj;
+
+    g_test_message ("Testing Bar case");
     g_test_timer_start ();
     
     /** @todo Test here  */
     g_assert(FALSE);
     
+    g_object_unref (obj);
+
+    // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }

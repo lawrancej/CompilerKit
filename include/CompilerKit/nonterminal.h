@@ -77,11 +77,10 @@ typedef struct _CompilerKitNonterminalClass
  */
 GType compilerkit_nonterminal_get_type (void);
 
-/** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
- * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
- */
-GObject *compilerkit_nonterminal_new (void);
+/** Public method function prototypes */
+CompilerKitNonterminal* compilerkit_nonterminal_new (gchar *name);
+
+char *compilerkit_nonterminal_get_name(CompilerKitNonterminal *self);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_nonterminal_h__ */

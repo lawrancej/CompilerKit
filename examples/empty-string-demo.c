@@ -7,7 +7,7 @@ int main (int argc, char ** argv)
     CompilerKitEmptyString* empty_string;
     g_type_init();
     
-    empty_string = compilerkit_empty_string_new();
+    empty_string = compilerkit_empty_string_get_instance();
     
     /** @todo Briefly show how to use the methods in CompilerKitEmptyString to accomplish the task. */
 

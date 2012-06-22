@@ -26,9 +26,23 @@ int main (int argc, char ** argv)
     /** @todo Add here: g_test_add_func ("/class/method", test_class_method); */
     g_test_add_func ("/automata/start-state", test_FSM_start_state);
     g_test_add_func ("/automata/states", test_FSM_states);
+
     g_test_add_func ("/visitor/null-visit",test_visitor_null_visit);
+
     g_test_add_func ("/concatenation/constructor", test_concatenation_constructor);
 	g_test_add_func ("convenience/alternation", test_convenience_alternation);
+
+    g_test_add_func ("/visitor/register_identity", test_visitor_register_identity);
+
+    g_test_add_func ("/concatenation/constructor_normal", test_concatenation_constructor_normal);
+    g_test_add_func ("/concatenation/constructor_empty_set", test_concatenation_constructor_empty_set);
+    g_test_add_func ("/concatenation/constructor_empty_string", test_concatenation_constructor_empty_string);
+
+    g_test_add_func ("/empty-set/singleton", test_empty_set_singleton);
+    g_test_add_func ("/empty-string/singleton", test_empty_string_singleton);
+
+//    g_test_add_func ("/symbol/unicode", test_symbol_unicode);
+//    g_test_add_func ("/symbol/flyweight", test_symbol_flyweight);
 
     g_test_run();
 }

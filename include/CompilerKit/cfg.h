@@ -22,5 +22,6 @@
 #include "nonterminal.h"
 #include "terminal.h"
 #include "grammar.h"
+#include "production.h"
 
 #endif /* INCLUDE_CompilerKit_cfg_h__ */
