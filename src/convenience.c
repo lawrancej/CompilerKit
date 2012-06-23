@@ -27,10 +27,12 @@ int compilerkit_character_is_alpha_numeric(gunichar character)
 
 GObject* compilerkit_character_class_new(gunichar hi, gunichar lo)
 {
-	if(!compilerkit_character_is_alpha_numeric(hi) || compilerkit_character_is_alpha_numeric(lo))
-		return NULL;
-    GObject* newExpression = G_OBJECT(compilerkit_symbol_new(lo));
+	GObject* newExpression;
     int i;
+    
+    if(!compilerkit_character_is_alpha_numeric(hi) || compilerkit_character_is_alpha_numeric(lo))
+		return NULL;
+    newExpression = G_OBJECT(compilerkit_symbol_new(lo));
     for(i = lo+1;i <= hi;i++)
     {
         if(i == 58)
