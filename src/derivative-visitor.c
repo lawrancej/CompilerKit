@@ -17,11 +17,6 @@
  */
 #include "CompilerKit.h"
 
-/** 
- * @todo Add the following to include/visitors.h:
- *     CompilerKitVisitor *compilerkit_derivative_visitor ();
- */
-
 /* Derivative alternation. */
 static GObject *derivative_alternation (CompilerKitVisitor *self, GObject *obj)
 {
@@ -162,4 +157,19 @@ CompilerKitVisitor *compilerkit_derivative_visitor ()
     compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_PRODUCTION, derivative_production);
     
     return visitor;
+}
+
+/**
+ * compilerkit_derivative_visitor:
+ * @fn compilerkit_derivative_visitor
+ * Apply the derivative visitor to a character.
+ * @pre None
+ * @param None
+ * @return A CompilerKitVisitor*.
+ * @memberof CompilerKitVisitor
+ */
+GObject *compilerkit_derivative_apply (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar symbol)
+{
+    compilerkit_visitor_set_state (derivative_visitor, &symbol);
+    return compilerkit_visitor_visit (derivative_visitor, regex);
 }
