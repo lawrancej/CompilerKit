@@ -40,7 +40,7 @@ Did you see `command not found` after typing these into Git Bash? You should not
  - `doxygen`
  - `cmake`
 
-### How to get rid of those annoying debug messages during testing.
+### How do I get rid of those annoying debug messages during testing?
 
 1. Open `regedit`
 2. Navigate to the following location and select `Windows Error Reporting`:
@@ -102,18 +102,9 @@ Follow these steps to fix the error:
 4.	Install Command line
 
 ## How do I build CompilerKit?
-CompilerKit builds with CMake. 
+Easy! Type this in:
 
-The first time you build, do this:
-
-```
-mkdir build && cd build
-cmake ..
-cmake --build .
-```
-
-
-For subsequent builds, in the `build` folder, just run `cmake --build .`
+    ./build.sh build
 
 ## Where is the documentation?
 [CompilerKit uses Doxygen](#what-is-doxygen) to generate documentation. After building CompilerKit, look inside the `docs/html` folder.
