@@ -18,6 +18,7 @@ Therefore, verify everything is working first before building CompilerKit.
  - [CMake.](http://www.cmake.org/cmake/resources/software.html)
  - [Doxygen.](http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc)
  - [GLib and GObject.](http://ftp.gnome.org/pub/gnome/binaries/win32/gtk+/2.24/gtk+-bundle_2.24.10-20120208_win32.zip) Extract to `C:\glib`. Add `C:\glib\bin` to the system PATH.
+ - [GrahpViz.](http://www.graphviz.org/Download_windows.php)
 
 ### How do I know it's working?
 Open Git Bash to the `CompilerKit` folder. Type in the first line. Did you see the rest? You should.
@@ -41,17 +42,18 @@ In the terminal, paste this in for your distribution:
 
 ### Red Hat:
 
-    sudo yum install git cmake doxygen glib-devel pkgconfig
+    sudo yum install git cmake doxygen glib-devel pkgconfig 'graphviz*'
 
 ### Debian, Ubuntu:
 
-    sudo apt-get install git cmake doxygen libglib2.0-dev pkg-config
+    sudo apt-get install git cmake doxygen libglib2.0-dev pkg-config graphviz
 
 ## What to install on Mac
 If you do not already have it, install:
 
  - [Command Line Tools for Xcode](https://developer.apple.com/downloads) or [Xcode](http://itunes.apple.com/us/app/xcode/id448457090)
  - [Java Developer Update](https://connect.apple.com)
+ - [GraphViz](http://www.graphviz.org/Download_macos.php)
 
 In the terminal, paste this in:
 
