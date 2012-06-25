@@ -9,7 +9,7 @@ if [ $# = 0 ]; then
 	echo "build     Builds CompilerKit."
 	echo "rebuild   Removes the existing binaries and rebuilds CompilerKit."
 	echo "clean     Removes the existing binaries."
-    echo "test      Tests CompilerKit."
+    echo "test      Builds and Tests CompilerKit."
     echo "coverage  Generate test coverage report."
 	echo ""
 	echo "And -v builds verbosely."
