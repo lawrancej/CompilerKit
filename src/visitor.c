@@ -256,7 +256,7 @@ GObject *compilerkit_visitor_visit (CompilerKitVisitor *self, GObject *obj)
     CompilerKitVisitorFunc func;
     
     g_return_val_if_fail (self, NULL);
-    g_return_val_if_fail (self, NULL);
+    if (!obj) return NULL;
 
     the_type = G_OBJECT_TYPE(obj);
     func = g_hash_table_lookup (self->priv->visitors, g_type_name(the_type));
