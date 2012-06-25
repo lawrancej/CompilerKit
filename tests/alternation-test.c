@@ -15,28 +15,34 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/alternation.h"
-#include "test-suite.h"
-
-/** @todo Write test cases of the form: void test_alternation_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-alternation/test-alternation-method", test_alternation_method); */
+#include <glib.h>
+#include "CompilerKit.h"
 
 /**
- * test_alternation_method:
- * @fn test_alternation_method
- * Tests method compilerkit_alternation_method in CompilerKitAlternation struct.
+ * test_alternation_constructor:
+ * @fn test_alternation_constructor
+ * Tests method compilerkit_alternation_new in CompilerKitAlternation struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_alternation_method (void)
+void test_alternation_constructor (void)
 {
-    g_test_message ("Testing Alternation method");
+    g_test_message ("Testing Alternation constructor");
     g_test_timer_start ();
     
     /** @todo Test here  */
     g_assert(FALSE);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/alternation/constructor", test_alternation_constructor);
+    
+    g_test_run ();
 }

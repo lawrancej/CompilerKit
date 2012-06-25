@@ -15,16 +15,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "test-suite.h"
-
-/** 
- * @todo Write test cases for compilerkit_derivative_visitor.
- * 1. Use this prototype (replace `case` as appropriate):
- *  `void test_derivative_visitor (void);` 
- * 2. Add function prototypes for all functions into `test-suite.h`
- * 3. Add to `test-suite.c`:
- *  `g_test_add_func ("/derivative/visitor", test_derivative_visitor);`
- */
+#include <glib.h>
+#include "CompilerKit.h"
 
 /**
  * test_derivative_visitor:
@@ -34,7 +26,7 @@
  * @param None
  * @return void
  */
-void test_derivative_case (void)
+void test_derivative_visitor (void)
 {
     CompilerKitVisitor *derivative;
     GObject *regex, *symbol, *alt, *cat, *star;
@@ -50,4 +42,14 @@ void test_derivative_case (void)
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/visitors/derivative", test_derivative_visitor);
+   
+    g_test_run ();
 }

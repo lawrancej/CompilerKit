@@ -15,12 +15,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/kleene-star.h"
-#include "test-suite.h"
-
-/** @todo Write test cases of the form: void test_kleene_star_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-kleene-star/test-kleene_star-method", test_kleene_star_method); */
+#include <glib.h>
+#include "CompilerKit.h"
 
 /**
  * test_kleene_star_method:
@@ -39,4 +35,14 @@ void test_kleene_star_method (void)
     g_assert(FALSE);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/kleene_star/method", test_kleene_star_method);
+   
+    g_test_run ();
 }

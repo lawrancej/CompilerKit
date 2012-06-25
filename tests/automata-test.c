@@ -15,16 +15,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/automata.h"
-#include "test-suite.h"
+#include <glib.h>
+#include "CompilerKit.h"
 
-/** @todo Write test cases for CompilerKitFSM.
- * 1. Use this prototype (replace `case` as appropriate):
- *  `void test_FSM_case (void);` 
- * 2. Add function prototypes for all functions into `test-suite.h`
- * 3. Add to `test-suite.c`:
- *  `g_test_add_func ("/test-bar/test-FSM-case", test_FSM_case);`
- */
+/** @todo Write test cases for CompilerKitFSM. */
  
 /**
  * test_FSM_start_state:
@@ -87,3 +81,13 @@ void test_FSM_states (void)
     g_object_unref (fsm);
 }
 
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/automata/start-state", test_FSM_start_state);
+    g_test_add_func ("/automata/states", test_FSM_states);
+    
+    g_test_run ();
+}

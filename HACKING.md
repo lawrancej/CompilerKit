@@ -40,6 +40,18 @@ Did you see `command not found` after typing these into Git Bash? You should not
  - `doxygen`
  - `cmake`
 
+How to get rid of those annoying debug messages during testing.
+
+1. Open `regedit`
+2. Navigate to the following location and select `Windows Error Reporting`:
+
+       HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Windows Error Reporting
+
+3. Select `Edit -> New -> DWORD (32-bit value)`
+4. Replace `New Value #1` with `DontShowUI`
+5. Double click `DontShowUI`. Enter `1` for value data. Click OK.
+6. Exit `regedit`
+
 ## What to install on Linux
 In the terminal, paste this in for your distribution:
 
