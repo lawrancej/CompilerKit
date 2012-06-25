@@ -25,6 +25,7 @@
  * \section Organization
  * Just as compilers consist of distinct phases, CompilerKit library functionality fits into these groups:
  * 
+ * * \ref testing
  * * \ref visitor
  * * \ref regular (lexical analysis)
  * * \ref contextfree (syntax analysis)
@@ -32,7 +33,7 @@
  * * Intermediate representation classes (not yet implemented)
  * * Code generation classes (not yet implemented)
  * * Optimization classes (not yet implemented)
- * \page Testing
+ * \page testing Testing
  * <http://developer.gnome.org/glib/2.31/glib-Testing.html>
  */
 
