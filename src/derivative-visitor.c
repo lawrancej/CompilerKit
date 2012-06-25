@@ -17,7 +17,7 @@
  */
 #include "CompilerKit.h"
 
-/* Derivative alternation. */
+/* Derivative of alternation. */
 static GObject *derivative_alternation (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitAlternation *alt;
@@ -31,7 +31,7 @@ static GObject *derivative_alternation (CompilerKitVisitor *self, GObject *obj)
     return NULL;
 }
 
-/* Derivative concatenation. */
+/* Derivative of concatenation. */
 static GObject *derivative_concatenation (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitConcatenation *cat;
@@ -45,7 +45,7 @@ static GObject *derivative_concatenation (CompilerKitVisitor *self, GObject *obj
     return NULL;
 }
 
-/* Derivative Kleene star. */
+/* Derivative of Kleene star. */
 static GObject *derivative_kleene_star (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitKleeneStar *star;
@@ -58,7 +58,7 @@ static GObject *derivative_kleene_star (CompilerKitVisitor *self, GObject *obj)
     return NULL;
 }
 
-/* Derivative complement. */
+/* Derivative of complement. */
 static GObject *derivative_complement (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitComplement *comp;
@@ -72,22 +72,22 @@ static GObject *derivative_complement (CompilerKitVisitor *self, GObject *obj)
 }
 
 
-/* Derivative symbol. */
+/* Derivative of symbol. */
 static GObject *derivative_symbol (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitSymbol *symbol;
     gunichar *character = self->state;
-    gunichar regex_symb = compilerkit_symbol_get_symbol(symbol);
+
     g_assert(COMPILERKIT_IS_SYMBOL(obj));
     
     symbol = COMPILERKIT_SYMBOL (obj);
     
-    if (*character == regex_symb)
-        return compilerkit_empty_string_get_instance();
-    return compilerkit_empty_set_get_instance();
+    if (*character == compilerkit_symbol_get_symbol (symbol))
+        return compilerkit_empty_string_get_instance ();
+    return compilerkit_empty_set_get_instance ();
 }
 
-/* Derivative empty set. */
+/* Derivative of empty set. */
 static GObject *derivative_empty_set (CompilerKitVisitor *self, GObject *obj)
 {
     g_assert(COMPILERKIT_IS_EMPTY_SET(obj));
@@ -95,7 +95,7 @@ static GObject *derivative_empty_set (CompilerKitVisitor *self, GObject *obj)
     return compilerkit_empty_set_get_instance();
 }
 
-/* Derivative empty string. */
+/* Derivative of empty string. */
 static GObject *derivative_empty_string (CompilerKitVisitor *self, GObject *obj)
 {
     g_assert(COMPILERKIT_IS_EMPTY_STRING(obj));
@@ -103,25 +103,25 @@ static GObject *derivative_empty_string (CompilerKitVisitor *self, GObject *obj)
     return compilerkit_empty_set_get_instance();
 }
 
-/* Derivative grammar. */
+/* Derivative of grammar. */
 static GObject *derivative_grammar (CompilerKitVisitor *self, GObject *obj)
 {
    return NULL;
 }
 
-/* Derivative terminal. */
+/* Derivative of terminal. */
 static GObject *derivative_terminal (CompilerKitVisitor *self, GObject *obj)
 {
     return NULL;
 }
 
-/* Derivative nonterminal. */
+/* Derivative of nonterminal. */
 static GObject *derivative_nonterminal (CompilerKitVisitor *self, GObject *obj)
 {
     return NULL;
 }
 
-/* Derivative production. */
+/* Derivative of production. */
 static GObject *derivative_production (CompilerKitVisitor *self, GObject *obj)
 {
     return NULL;

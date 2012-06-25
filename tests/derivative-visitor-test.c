@@ -37,6 +37,8 @@
 void test_derivative_case (void)
 {
     CompilerKitVisitor *derivative;
+    GObject *regex, *symbol, *alt, *cat, *star;
+    
     g_test_message ("Testing Derivative visitor");
     g_test_timer_start ();
     
