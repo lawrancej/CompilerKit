@@ -160,16 +160,35 @@ CompilerKitVisitor *compilerkit_derivative_visitor ()
 }
 
 /**
- * compilerkit_derivative_visitor:
- * @fn compilerkit_derivative_visitor
+ * compilerkit_derivative_apply_char:
+ * @fn compilerkit_derivative_apply_char
  * Apply the derivative visitor to a character.
  * @pre None
  * @param None
  * @return A CompilerKitVisitor*.
  * @memberof CompilerKitVisitor
  */
-GObject *compilerkit_derivative_apply (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar symbol)
+GObject *compilerkit_derivative_apply_char (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar symbol)
 {
     compilerkit_visitor_set_state (derivative_visitor, &symbol);
     return compilerkit_visitor_visit (derivative_visitor, regex);
+}
+
+/**
+ * compilerkit_derivative_apply_string:
+ * @fn compilerkit_derivative_apply_string
+ * Apply the derivative visitor to a string.
+ * @pre None
+ * @param None
+ * @return A CompilerKitVisitor*.
+ * @memberof CompilerKitVisitor
+ */
+GObject *compilerkit_derivative_apply_string (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar *string)
+{
+    GObject *result = regex;
+    while (*string)
+    {
+        result = compilerkit_derivative_apply_char (derivative_visitor, result, *string++);
+    }
+    return result;
 }

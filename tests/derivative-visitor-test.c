@@ -29,16 +29,30 @@
 void test_derivative_visitor (void)
 {
     CompilerKitVisitor *derivative;
-    GObject *regex, *symbol, *alt, *cat, *star;
+    GObject *regex, *symbol, *new_regex, *cat, *star;
+    gchar *hello = "hello";
     
     g_test_message ("Testing Derivative visitor");
     g_test_timer_start ();
     
     /** @todo Test here  */
     derivative = compilerkit_derivative_visitor();
-    g_assert(FALSE);
+    regex = compilerkit_symbol_new ('h');
+    
+    // When we match a single character, h, against the single character 'h', we should get the empty string, because they match.
+    new_regex = compilerkit_derivative_apply_char (derivative, regex, 'h');
+    g_assert (new_regex == compilerkit_empty_string_get_instance());
+    
+    // When we match a single character, h, against the single character 'e', we should get the empty set, because they don't match.
+    new_regex = compilerkit_derivative_apply_char (derivative, regex, 'e');
+    g_assert (new_regex == compilerkit_empty_set_get_instance());
+    
+    // When we match a single character, h, against a string, we should get the empty set, because they don't match.
+    regex = compilerkit_derivative_apply_string (derivative, regex, hello);
+    g_assert (regex == compilerkit_empty_set_get_instance());
     
     g_object_unref (derivative);
+    g_object_unref (regex);
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
