@@ -32,6 +32,7 @@ else
 	fi
     if [ $1 = "test" ]; then
         cd build
+        cmake ..
         if [ "$2" = "-v" ]; then
             ctest -v
         else
