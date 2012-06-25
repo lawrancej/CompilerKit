@@ -6,9 +6,10 @@ if [ $# = 0 ]; then
 	echo "Usage:	$0 COMMAND [-v]"
 	echo ""
 	echo "Where COMMAND is one of the following:"
-	echo "build		Builds CompilerKit."
-	echo "rebuild		Removes the existing binaries and rebuilds CompilerKit."
-	echo "clean		Removes the existing binaries."
+	echo "build     Builds CompilerKit."
+	echo "rebuild   Removes the existing binaries and rebuilds CompilerKit."
+	echo "clean     Removes the existing binaries."
+    echo "test      Tests CompilerKit."
 	echo ""
 	echo "And -v builds verbosely."
 	echo ""
@@ -29,4 +30,12 @@ else
 			cmake --build . | grep -iE "error|warning|======"
 		fi
 	fi
+    if [ $1 = "test" ]; then
+        cd build
+        if [ "$2" = "-v" ]; then
+            ctest -v
+        else
+            ctest
+        fi
+    fi
 fi
