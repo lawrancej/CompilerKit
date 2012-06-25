@@ -28,13 +28,91 @@
  */
 void test_alternation_constructor (void)
 {
+	GObject* alt;
+	GObject* left;
+	GObject* right;
+	
     g_test_message ("Testing Alternation constructor");
     g_test_timer_start ();
+	
+	left = compilerkit_symbol_new('a');
+	right = compilerkit_symbol_new('b');
+	alt = compilerkit_alternation_new(left, right);
     
-    /** @todo Test here  */
-    g_assert(FALSE);
+    g_assert (COMPILERKIT_IS_ALTERNATION(alt));
+	g_assert (left != right);
+	g_assert (left != alt);
+	g_assert (right != alt);
+
+	g_object_unref (alt); // This will unref left and right as well
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+/**
+ * test_alternation_vlist_new:
+ * @fn test_alternation_vlist_new
+ * Tests method compilerkit_alternation_vlist_new in CompilerKitAlternation struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_alternation_vlist_new (void)
+{
+/*
+	GObject* alt;
+	GObject* left;
+	GObject* right;
+	
+    g_test_message ("Testing Alternation constructor");
+    g_test_timer_start ();
+	
+	left = compilerkit_symbol_new('a');
+	right = compilerkit_symbol_new('b');
+	alt = compilerkit_alternation_new(left, right);
+    
+    g_assert (COMPILERKIT_IS_ALTERNATION(alt));
+	g_assert (left != right);
+	g_assert (left != alt);
+	g_assert (right != alt);
+
+	g_object_unref (alt); // This will unref left and right as well
+    
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+*/
+}
+
+/**
+ * test_alternation_get_left_and_right:
+ * @fn test_alternation_get_left_and_right
+ * Tests method compilerkit_alternation_get_left and compilerkit_alternation_get_right in CompilerKitAlternation struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_alternation_get_left_and_right (void)
+{
+/*
+	GObject* alt;
+	GObject* left;
+	GObject* right;
+	
+    g_test_message ("Testing Alternation constructor");
+    g_test_timer_start ();
+	
+	left = compilerkit_symbol_new('a');
+	right = compilerkit_symbol_new('b');
+	alt = compilerkit_alternation_new(left, right);
+    
+    g_assert (COMPILERKIT_IS_ALTERNATION(alt));
+	g_assert (left != right);
+	g_assert (left != alt);
+	g_assert (right != alt);
+
+	g_object_unref (alt); // This will unref left and right as well
+    
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+*/
 }
 
 int main (int argc, char ** argv)
