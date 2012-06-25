@@ -15,12 +15,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+#include <glib.h>
 #include "CompilerKit.h"
-#include "test-suite.h"
-
-/** @todo Write test cases of the form: void test_concatenation_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-concatenation/test-concatenation-method", test_concatenation_method); */
 
 /**
  * test_concatenation_constructor_normal:
@@ -149,4 +145,16 @@ void test_concatenation_constructor_empty_string (void)
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/concatenation/constructor_normal", test_concatenation_constructor_normal);
+    g_test_add_func ("/concatenation/constructor_empty_set", test_concatenation_constructor_empty_set);
+    g_test_add_func ("/concatenation/constructor_empty_string", test_concatenation_constructor_empty_string);
+    
+    g_test_run ();
 }

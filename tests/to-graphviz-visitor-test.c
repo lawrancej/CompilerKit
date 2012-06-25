@@ -15,16 +15,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "test-suite.h"
-
-/** 
- * @todo Write test cases for compilerkit_to_graphviz_visitor.
- * 1. Use this prototype (replace `case` as appropriate):
- *  `void test_to_graphviz_visitor (void);` 
- * 2. Add function prototypes for all functions into `test-suite.h`
- * 3. Add to `test-suite.c`:
- *  `g_test_add_func ("/to_graphviz/visitor", test_to_graphviz_visitor);`
- */
+#include <glib.h>
+#include "CompilerKit.h"
 
 /**
  * test_to_graphviz_visitor:
@@ -34,7 +26,7 @@
  * @param None
  * @return void
  */
-void test_to_graphviz_case (void)
+void test_to_graphviz_visitor (void)
 {
     CompilerKitVisitor *to_graphviz;
     g_test_message ("Testing ToGraphviz visitor");
@@ -48,4 +40,14 @@ void test_to_graphviz_case (void)
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/visitors/to_graphviz", test_to_graphviz_visitor);
+   
+    g_test_run ();
 }

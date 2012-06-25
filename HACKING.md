@@ -40,6 +40,18 @@ Did you see `command not found` after typing these into Git Bash? You should not
  - `doxygen`
  - `cmake`
 
+### How do I get rid of those annoying debug messages during testing?
+
+1. Open `regedit`
+2. Navigate to the following location and select `Windows Error Reporting`:
+
+       HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Windows Error Reporting
+
+3. Select `Edit -> New -> DWORD (32-bit value)`
+4. Replace `New Value #1` with `DontShowUI`
+5. Double click `DontShowUI`. Enter `1` for value data. Click OK.
+6. Exit `regedit`
+
 ## What to install on Linux
 In the terminal, paste this in for your distribution:
 
@@ -65,23 +77,60 @@ Once installed, paste this into the Terminal:
 
     brew install git cmake doxygen glib pkg-config
 
+### Troubleshooting
+If you see the following error when using CMake on the Mac:
+
+```
+build User$ cmake ..
+CMake Error: CMake was unable to find a build program corresponding to "Unix Makefiles". CMAKE_MAKE_PROGRAM is not set. You probably need to select a different build tool.
+CMake Error: Error required internal CMake variable not set, cmake may be not be built correctly.
+Missing variable is:
+CMAKE_C_COMPILER_ENV_VAR
+CMake Error: Error required internal CMake variable not set, cmake may be not be built correctly.
+Missing variable is:
+CMAKE_C_COMPILER
+CMake Error: Could not find cmake module file:/Users/User/CompilerKit/build/CMakeFiles/CMakeCCompiler.cmake
+CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
+-- Configuring incomplete, errors occurred!
+```
+
+Follow these steps to fix the error:
+
+1.	Open XCode
+2.	Go to Preferences
+3.	Download tab
+4.	Install Command line
+
 ## How do I build CompilerKit?
-CompilerKit builds with CMake. 
+Easy! Type this in:
 
-The first time you build, do this:
-
-```
-mkdir build && cd build
-cmake ..
-cmake --build .
-```
-
-For subsequent builds, in the `build` folder, just run `cmake --build .`
+    ./build.sh build
 
 ## Where is the documentation?
-After building CompilerKit, look inside the `docs/html` folder.
+[CompilerKit uses Doxygen](#what-is-doxygen) to generate documentation. After building CompilerKit, look inside the `docs/html` folder.
 
 Also, read up on [GLib](#how-do-i-use-glib) and [GObject](#how-do-i-use-gobject).
+
+## What is Doxygen?
+Doxygen generates documentation in HTML, LaTeX, RTF (MS-Word) using specially-formatted comments.
+It can also extract the code structure from undocumented source files for many programming languages (C/C++, Java, Python, etc).
+
+Example comment:
+```
+/**
+ * compilerkit_visitor_register:
+ * @fn compilerkit_visitor_register
+ * @memberof CompilerKitVisitor
+ * Associate the GType of a class with a visitor function.
+ * @pre CompilerKitVisitor* is not NULL.
+ * @param CompilerKitVisitor* The visitor instance.
+ * @param GType The type of the class to visit.
+ * @param CompilerKitVisitorFunc A pointer to a visitor function for the specified type.
+ * @return void
+ */
+```
+
+![A graph of how Doxygen works](images/Doxygen.png)
 
 ## How to contribute
 ### Know thy code layout
@@ -97,6 +146,21 @@ include             The include files for the CompilerKit library.
 src                 The CompilerKit library source code.
 tests               The test suite to exercise the CompilerKit library.
 ```
+
+The regex classes are:
+* CompilerKitSymbol
+* CompilerKitEmptySet,
+* CompiletKitEmptystring
+* CompilerKitConcatenation
+* CompilerKitAlternation
+* CompilerKitKleenestar
+* CompilerKitComplement
+
+The cfg classes are:
+* CompilerKitGrammar
+* CompilerKitTerminal
+* CompilerKitNonterminal
+* CompilerKitProduction
 
 ### Find an issue to work on
 We use github's [issue tracker](https://github.com/lawrancej/CompilerKit/issues) to manage our work.

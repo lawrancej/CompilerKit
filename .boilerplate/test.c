@@ -15,15 +15,11 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "test-suite.h"
+#include <glib.h>
+#include "CompilerKit.h"
 
-/** @todo Write test cases for Bar.
- * 1. Use this prototype (replace `case` as appropriate):
- *  `void test_bar_case (void);` 
- * 2. Add function prototypes for all functions into `test-suite.h`
- * 3. Add to `test-suite.c`:
- *  `g_test_add_func ("/bar/case", test_bar_case);`
- */
+/** @todo Write test cases for Bar of the form: void test_bar_case (void); */
+/** @todo Add to `main`: g_test_add_func ("/bar/case", test_bar_case); */
 
 /**
  * test_bar_case:
@@ -47,4 +43,19 @@ void test_bar_case (void)
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/bar/case", test_bar_case);
+
+    /**
+     * @todo Add additional test cases as necessary here:
+     * g_test_add_func ("/bar/other_case", test_bar_other_case);
+     */
+    
+    g_test_run ();
 }

@@ -15,15 +15,11 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "test-suite.h"
+#include <glib.h>
+#include "CompilerKit.h"
 
 /** 
  * @todo Write test cases for compilerkit_string_builder_visitor.
- * 1. Use this prototype (replace `case` as appropriate):
- *  `void test_string_builder_visitor (void);` 
- * 2. Add function prototypes for all functions into `test-suite.h`
- * 3. Add to `test-suite.c`:
- *  `g_test_add_func ("/string_builder/visitor", test_string_builder_visitor);`
  */
 
 /**
@@ -34,7 +30,7 @@
  * @param None
  * @return void
  */
-void test_string_builder_case (void)
+void test_string_builder_visitor (void)
 {
     CompilerKitVisitor *string_builder;
     g_test_message ("Testing StringBuilder visitor");
@@ -48,4 +44,14 @@ void test_string_builder_case (void)
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/visitors/string_builder", test_string_builder_visitor);
+   
+    g_test_run ();
 }
