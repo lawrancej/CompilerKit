@@ -57,11 +57,11 @@ In the terminal, paste this in for your distribution:
 
 ### Red Hat:
 
-    sudo yum install git cmake doxygen glib-devel pkgconfig
+    sudo yum install git cmake doxygen glib-devel pkgconfig lcov
 
 ### Debian, Ubuntu:
 
-    sudo apt-get install git cmake doxygen libglib2.0-dev pkg-config
+    sudo apt-get install git cmake doxygen libglib2.0-dev pkg-config lcov
 
 ## What to install on Mac
 If you do not already have it, install:
@@ -75,7 +75,7 @@ In the terminal, paste this in:
     
 Once installed, paste this into the Terminal:
 
-    brew install git cmake doxygen glib pkg-config
+    brew install git cmake doxygen glib pkg-config lcov
 
 ### Troubleshooting
 If you see the following error when using CMake on the Mac:

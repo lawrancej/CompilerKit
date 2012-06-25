@@ -10,6 +10,7 @@ if [ $# = 0 ]; then
 	echo "rebuild   Removes the existing binaries and rebuilds CompilerKit."
 	echo "clean     Removes the existing binaries."
     echo "test      Tests CompilerKit."
+    echo "coverage  Generate test coverage report."
 	echo ""
 	echo "And -v builds verbosely."
 	echo ""
@@ -20,7 +21,7 @@ else
 		echo "Clearing build folder."
 		rm build/* -r
 	fi
-	if [ $1 = "build" ] || [ $1 = "rebuild" ]; then
+	if [ $1 = "build" ] || [ $1 = "rebuild" ] || [ $1 = "test" ] || [ $1 = "coverage" ]; then
 		echo "Building CompilerKit"
 		cd build
 		cmake .. 
@@ -30,13 +31,19 @@ else
 			cmake --build . | grep -iE "error|warning|======"
 		fi
 	fi
-    if [ $1 = "test" ]; then
-        cd build
-        cmake ..
+    if [ $1 = "coverage" ]; then
+        lcov --directory . --zerocounters
+    fi
+    if [ $1 = "test" ] || [ $1 = "coverage" ]; then
         if [ "$2" = "-v" ]; then
             ctest -v
         else
             ctest
         fi
+    fi
+    if [ $1 = "coverage" ]; then
+        lcov --directory . --capture --output-file app.info
+        genhtml app.info
+        echo "Open build/index.html for the test coverage report."
     fi
 fi
