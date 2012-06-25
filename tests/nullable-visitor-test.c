@@ -37,10 +37,7 @@
 void test_nullable_visitor (void)
 {
     CompilerKitVisitor *nullable;
-    CompilerKitSymbol *symbol;
-    CompilerKitKleeneStar *star;
-    CompilerKitConcatenation *cat;
-    CompilerKitAlternation *alt1, *alt2;
+    GObject *symbol, *star, *cat, *alt1, *alt2;
     
     g_test_message ("Testing Nullable visitor");
     g_test_timer_start ();
