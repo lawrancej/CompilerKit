@@ -22,6 +22,9 @@
 
 /* Visitor function prototypes */
 CompilerKitVisitor *compilerkit_derivative_visitor ();
+GObject *compilerkit_derivative_apply_char (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar symbol);
+GObject *compilerkit_derivative_apply_string (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar *symbol);
+
 CompilerKitVisitor *compilerkit_nullable_visitor ();
 CompilerKitVisitor *compilerkit_string_builder_visitor ();
 CompilerKitVisitor *compilerkit_to_nfa_visitor ();

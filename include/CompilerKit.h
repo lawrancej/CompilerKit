@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2012 The CompilerKit contributors.
  *
  * This library is free software; you can redistribute it and/or
@@ -17,6 +17,25 @@
  */
 #ifndef INCLUDE_CompilerKit_h__
 #define INCLUDE_CompilerKit_h__
+
+/**
+ * \mainpage CompilerKit
+ * CompilerKit is a compiler construction library in C.
+ * 
+ * \section Organization
+ * Just as compilers consist of distinct phases, CompilerKit library functionality fits into these groups:
+ * 
+ * * \ref testing
+ * * \ref visitor
+ * * \ref regular (lexical analysis)
+ * * \ref contextfree (syntax analysis)
+ * * Abstract syntax tree classes (not yet implemented)
+ * * Intermediate representation classes (not yet implemented)
+ * * Code generation classes (not yet implemented)
+ * * Optimization classes (not yet implemented)
+ * \page testing Testing
+ * <http://developer.gnome.org/glib/2.31/glib-Testing.html>
+ */
 
 #include "CompilerKit/regex.h"
 #include "CompilerKit/cfg.h"

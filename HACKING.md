@@ -40,16 +40,28 @@ Did you see `command not found` after typing these into Git Bash? You should not
  - `doxygen`
  - `cmake`
 
+### How do I get rid of those annoying debug messages during testing?
+
+1. Open `regedit`
+2. Navigate to the following location and select `Windows Error Reporting`:
+
+       HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Windows Error Reporting
+
+3. Select `Edit -> New -> DWORD (32-bit value)`
+4. Replace `New Value #1` with `DontShowUI`
+5. Double click `DontShowUI`. Enter `1` for value data. Click OK.
+6. Exit `regedit`
+
 ## What to install on Linux
 In the terminal, paste this in for your distribution:
 
 ### Red Hat:
 
-    sudo yum install git cmake doxygen glib-devel pkgconfig
+    sudo yum install git cmake doxygen glib-devel pkgconfig lcov
 
 ### Debian, Ubuntu:
 
-    sudo apt-get install git cmake doxygen libglib2.0-dev pkg-config
+    sudo apt-get install git cmake doxygen libglib2.0-dev pkg-config lcov
 
 ## What to install on Mac
 If you do not already have it, install:
@@ -63,7 +75,7 @@ In the terminal, paste this in:
     
 Once installed, paste this into the Terminal:
 
-    brew install git cmake doxygen glib pkg-config
+    brew install git cmake doxygen glib pkg-config lcov
 
 ### Troubleshooting
 If you see the following error when using CMake on the Mac:
@@ -90,18 +102,9 @@ Follow these steps to fix the error:
 4.	Install Command line
 
 ## How do I build CompilerKit?
-CompilerKit builds with CMake. 
+Easy! Type this in:
 
-The first time you build, do this:
-
-```
-mkdir build && cd build
-cmake ..
-cmake --build .
-```
-
-
-For subsequent builds, in the `build` folder, just run `cmake --build .`
+    ./build.sh build
 
 ## Where is the documentation?
 [CompilerKit uses Doxygen](#what-is-doxygen) to generate documentation. After building CompilerKit, look inside the `docs/html` folder.

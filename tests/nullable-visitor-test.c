@@ -15,16 +15,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "test-suite.h"
-
-/** 
- * @todo Write test cases for compilerkit_nullable_visitor.
- * 1. Use this prototype (replace `case` as appropriate):
- *  `void test_nullable_visitor (void);` 
- * 2. Add function prototypes for all functions into `test-suite.h`
- * 3. Add to `test-suite.c`:
- *  `g_test_add_func ("/nullable/visitor", test_nullable_visitor);`
- */
+#include <glib.h>
+#include "CompilerKit.h"
 
 /**
  * test_nullable_visitor:
@@ -37,10 +29,7 @@
 void test_nullable_visitor (void)
 {
     CompilerKitVisitor *nullable;
-    CompilerKitSymbol *symbol;
-    CompilerKitKleeneStar *star;
-    CompilerKitConcatenation *cat;
-    CompilerKitAlternation *alt1, *alt2;
+    GObject *symbol, *star, *cat, *alt1, *alt2;
     
     g_test_message ("Testing Nullable visitor");
     g_test_timer_start ();
@@ -80,4 +69,14 @@ void test_nullable_visitor (void)
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/visitors/nullable", test_nullable_visitor);
+    
+    g_test_run ();
 }

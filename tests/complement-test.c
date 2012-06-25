@@ -15,22 +15,18 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/complement.h"
-#include "test-suite.h"
-
-/** @todo Write test cases of the form: void test_complement_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-complement/test-complement-method", test_complement_method); */
+#include <glib.h>
+#include "CompilerKit.h"
 
 /**
- * test_complement_method:
- * @fn test_complement_method
- * Tests method compilerkit_complement_method in CompilerKitComplement struct.
+ * test_complement_constructor:
+ * @fn test_complement_constructor
+ * Tests method compilerkit_complement_new in CompilerKitComplement struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_complement_method (void)
+void test_complement_constructor (void)
 {
     g_test_message ("Testing Complement method");
     g_test_timer_start ();
@@ -39,4 +35,14 @@ void test_complement_method (void)
     g_assert(FALSE);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/complement/constructor", test_complement_constructor);
+
+    g_test_run ();
 }
