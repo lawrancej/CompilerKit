@@ -32,6 +32,8 @@
  * * Intermediate representation classes (not yet implemented)
  * * Code generation classes (not yet implemented)
  * * Optimization classes (not yet implemented)
+ * \page Testing
+ * <http://developer.gnome.org/glib/2.31/glib-Testing.html>
  */
 
 #include "CompilerKit/regex.h"
