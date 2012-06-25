@@ -40,7 +40,7 @@ Did you see `command not found` after typing these into Git Bash? You should not
  - `doxygen`
  - `cmake`
 
-How to get rid of those annoying debug messages during testing.
+### How to get rid of those annoying debug messages during testing.
 
 1. Open `regedit`
 2. Navigate to the following location and select `Windows Error Reporting`:
