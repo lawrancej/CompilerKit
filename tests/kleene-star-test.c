@@ -20,14 +20,14 @@
 #include "CompilerKit.h"
 
 /**
- * test_kleene_star_method:
- * @fn test_kleene_star_method
- * Tests method compilerkit_kleene_star_method in CompilerKitKleeneStar struct.
+ * test_kleene_star_constructor:
+ * @fn test_kleene_star_constructor
+ * Tests compilerkit_kleene_star_new in CompilerKitKleeneStar struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_kleene_star_method (void)
+void test_kleene_star_constructor (void)
 {
 	GObject* e_set;
 	GObject* e_string;
@@ -45,6 +45,7 @@ void test_kleene_star_method (void)
 		e_set = compilerkit_empty_set_get_instance();
 		result = compilerkit_kleene_star_new(e_set);
 		g_assert(COMPILERKIT_IS_EMPTY_SET (result));
+        g_object_unref (result);
 	}
 	
 	//empty string
@@ -52,6 +53,7 @@ void test_kleene_star_method (void)
 		e_string = compilerkit_empty_string_get_instance();
 		result = compilerkit_kleene_star_new(e_string);
 		g_assert(COMPILERKIT_IS_EMPTY_STRING (result));
+        g_object_unref (result);
 	}
 	
 	//symbol
@@ -59,6 +61,7 @@ void test_kleene_star_method (void)
 		a = compilerkit_symbol_new('a');
 		result = compilerkit_kleene_star_new(a);
 		g_assert(COMPILERKIT_IS_KLEENE_STAR (result));
+        g_object_unref (result);
 	}
     
     
@@ -70,7 +73,7 @@ int main (int argc, char ** argv)
     g_test_init (&argc, &argv, NULL);
     g_type_init ();
 
-    g_test_add_func ("/kleene_star/method", test_kleene_star_method);
+    g_test_add_func ("/kleene_star/constructor", test_kleene_star_constructor);
    
     g_test_run ();
 }
