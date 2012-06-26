@@ -9,7 +9,5 @@ int main (int argc, char ** argv)
     
     empty_string = compilerkit_empty_string_get_instance();
     
-    /** @todo Briefly show how to use the methods in CompilerKitEmptyString to accomplish the task. */
-
     g_object_unref (empty_string);
 }
