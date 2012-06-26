@@ -15,20 +15,18 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-
+#include "CompilerKit.h"
 #include "test-suite.h"
 
-int main (int argc, char ** argv)
+void test_convenience_alternation(void)
 {
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    /** @todo Add here: g_test_add_func ("/class/method", test_class_method); */
-    g_test_add_func ("/automata/start-state", test_FSM_start_state);
-    g_test_add_func ("/automata/states", test_FSM_states);
-    g_test_add_func ("/visitor/null-visit",test_visitor_null_visit);
-    g_test_add_func ("/concatenation/constructor", test_concatenation_constructor);
-	g_test_add_func ("/test-kleene-star/test-kleene_star-method", test_kleene_star_method);
-
-    g_test_run();
+	 GObject* expression1 = compilerkit_character_class_new('0','h');
+	 GObject* expression2 = compilerkit_character_class_new(33,'h');
+	 GObject* expression3 = compilerkit_character_class_new('0',137);
+	 g_assert(expression1 != NULL);
+	 g_assert(expression2 == NULL);
+	 g_assert(expression3 == NULL);
+	 g_object_unref(expression1);
+	 g_object_unref(expression2);
+	 g_object_unref(expression3);
 }

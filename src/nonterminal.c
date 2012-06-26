@@ -31,12 +31,8 @@ static void compilerkit_nonterminal_dispose (GObject* object);
  */
 struct _CompilerKitNonterminalPrivate
 {
-    /** @todo Declare private members here */
-    /**
-     * @todo dummy is here so everything will compile by default.
-     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
-     */ 
-    int dummy;
+    /** The name of the nonterminal */
+    gchar *name;
 };
 
 /**
@@ -81,11 +77,7 @@ compilerkit_nonterminal_init (CompilerKitNonterminal *self)
 
   self->priv = priv = COMPILERKIT_NONTERMINAL_GET_PRIVATE (self);
 
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
-
-  /** @todo Initialize private fields */
-  // priv->member = whatever;
+  priv->name = NULL;
 }
 
 /**
@@ -93,13 +85,15 @@ compilerkit_nonterminal_init (CompilerKitNonterminal *self)
  * @fn compilerkit_nonterminal_new
  * @memberof CompilerKitNonterminal
  * Construct a CompilerKitNonterminal instance.
- * @pre None
- * @param None
+ * @pre Parameter name is not NULL.
+ * @param char* Name of the nonterminal
  * @return A new CompilerKitNonterminal struct.
  */
-GObject *compilerkit_nonterminal_new (void)
+CompilerKitNonterminal* compilerkit_nonterminal_new (gchar *name)
 {
-	return g_object_new (COMPILERKIT_TYPE_NONTERMINAL, NULL);
+	CompilerKitNonterminal *result = COMPILERKIT_NONTERMINAL (g_object_new (COMPILERKIT_TYPE_NONTERMINAL, NULL));
+    result->priv->name = name;
+    return result;
 }
 
 /**
@@ -135,4 +129,18 @@ compilerkit_nonterminal_dispose (GObject* object)
   /** @todo Deallocate memory as necessary */
 
   G_OBJECT_CLASS (compilerkit_nonterminal_parent_class)->dispose (object);
+}
+
+/**
+ * compilerkit_nonterminal_get_name:
+ * @fn compilerkit_nonterminal_get_name
+ * @memberof CompilerKitNonterminal
+ * Return the name of the nonterminal.
+ * @pre The parameter self is not NULL.
+ * @param CompilerKit* A pointer to the nonterminal.
+ * @return The name of the nonterminal.
+ */
+char *compilerkit_nonterminal_get_name(CompilerKitNonterminal *self)
+{
+    return self->priv->name;
 }

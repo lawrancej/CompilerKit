@@ -7,7 +7,7 @@ int main (int argc, char ** argv)
     CompilerKitNonterminal* nonterminal;
     g_type_init();
     
-    nonterminal = compilerkit_nonterminal_new();
+    nonterminal = compilerkit_nonterminal_new("S");
     
     /** @todo Briefly show how to use the methods in CompilerKitNonterminal to accomplish the task. */
 

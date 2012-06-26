@@ -32,11 +32,7 @@ static void compilerkit_terminal_dispose (GObject* object);
 struct _CompilerKitTerminalPrivate
 {
     /** @todo Declare private members here */
-    /**
-     * @todo dummy is here so everything will compile by default.
-     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
-     */ 
-    int dummy;
+    GObject *content;
 };
 
 /**
@@ -77,29 +73,27 @@ compilerkit_terminal_class_init (CompilerKitTerminalClass *klass)
 static void
 compilerkit_terminal_init (CompilerKitTerminal *self)
 {
-  CompilerKitTerminalPrivate *priv;
+    CompilerKitTerminalPrivate *priv;
 
-  self->priv = priv = COMPILERKIT_TERMINAL_GET_PRIVATE (self);
+    self->priv = priv = COMPILERKIT_TERMINAL_GET_PRIVATE (self);
 
-  /** @todo Initialize public fields */
-  // self->public_field = some_value;
-
-  /** @todo Initialize private fields */
-  // priv->member = whatever;
+    priv->content = NULL;
 }
 
 /**
  * compilerkit_terminal_new:
  * @fn compilerkit_terminal_new
- * @memberof CompilerKitTerminal
  * Construct a CompilerKitTerminal instance.
  * @pre None
- * @param None
+ * @param GObject* Content of the terminal.
  * @return A new CompilerKitTerminal struct.
+ * @memberof CompilerKitTerminal
  */
-GObject *compilerkit_terminal_new (void)
+GObject *compilerkit_terminal_new (GObject *content)
 {
-	return G_OBJECT(COMPILERKIT_TERMINAL (g_object_new (COMPILERKIT_TYPE_TERMINAL, NULL)));
+	CompilerKitTerminal *term = COMPILERKIT_TERMINAL (g_object_new (COMPILERKIT_TYPE_TERMINAL, NULL));
+    term->priv->content = content;
+    return G_OBJECT(term);
 }
 
 /**
@@ -127,12 +121,27 @@ compilerkit_terminal_finalize (GObject* object)
 static void
 compilerkit_terminal_dispose (GObject* object)
 {
-  CompilerKitTerminal *self = COMPILERKIT_TERMINAL (object);
-  CompilerKitTerminalPrivate* priv;
+    CompilerKitTerminal *self = COMPILERKIT_TERMINAL (object);
+    CompilerKitTerminalPrivate* priv;
 
-  priv = COMPILERKIT_TERMINAL_GET_PRIVATE (self);
-  
-  /** @todo Deallocate memory as necessary */
+    priv = COMPILERKIT_TERMINAL_GET_PRIVATE (self);
 
-  G_OBJECT_CLASS (compilerkit_terminal_parent_class)->dispose (object);
+    /** @todo Deallocate memory as necessary */
+    g_object_unref (priv->content);
+
+    G_OBJECT_CLASS (compilerkit_terminal_parent_class)->dispose (object);
+}
+
+/**
+ * compilerkit_terminal_get_content:
+ * @fn compilerkit_terminal_get_content
+ * Return the "content" of a terminal.
+ * @pre CompilerKitTerminal* is not NULL.
+ * @param CompilerKitTerminal* A CompilerKitTerminal struct.
+ * @return GObject* Content of the terminal.
+ * @memberof CompilerKitTerminal
+ */
+GObject *compilerkit_terminal_get_content (CompilerKitTerminal *self)
+{
+    return self->priv->content;
 }

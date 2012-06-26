@@ -18,9 +18,39 @@
 #include <glib.h>
 #include "CompilerKit.h"
 
-/** Test case function prototypes of the form: void test_class_case (void); */
-void test_FSM_start_state (void);
-void test_FSM_states (void);
-void test_concatenation_constructor (void);
-void test_visitor_null_visit(void);
-void test_kleene_star_method(void);
+/** @todo Write test cases for Production.
+ */
+
+/**
+ * test_production_case:
+ * @fn test_production_case
+ * Tests compilerkit_production_case in CompilerKitProduction struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_production_case (void)
+{
+    CompilerKitProduction *obj;
+
+    g_test_message ("Testing Production case");
+    g_test_timer_start ();
+    
+    /** @todo Test here  */
+    g_assert(FALSE);
+    
+    g_object_unref (obj);
+
+    // This test shouldn't take too long to run
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/production/case", test_production_case);
+    
+    g_test_run ();
+}
