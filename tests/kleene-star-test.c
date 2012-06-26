@@ -42,14 +42,14 @@ void test_kleene_star_method (void)
 	//empty set
 	{
 	
-		e_set = compilerkit_empty_set_new();
+		e_set = compilerkit_empty_set_get_instance();
 		result = compilerkit_kleene_star_new(e_set);
 		g_assert(COMPILERKIT_IS_EMPTY_SET (result));
 	}
 	
 	//empty string
 	{
-		e_string = compilerkit_empty_string_new();
+		e_string = compilerkit_empty_string_get_instance();
 		result = compilerkit_kleene_star_new(e_string);
 		g_assert(COMPILERKIT_IS_EMPTY_STRING (result));
 	}

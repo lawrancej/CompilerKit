@@ -69,7 +69,7 @@ typedef struct _CompilerKitEmptySetClass
 GType compilerkit_empty_set_get_type (void);
 
 /** Public method function prototypes */
-GObject *compilerkit_empty_set_get_instance (void);
+GObject *compilerkit_empty_set_  (void);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_empty_set_h__ */
