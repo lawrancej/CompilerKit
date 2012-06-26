@@ -15,8 +15,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+#include <glib.h>
 #include "CompilerKit.h"
-#include "test-suite.h"
 
 void test_convenience_alternation(void)
 {
@@ -29,4 +29,14 @@ void test_convenience_alternation(void)
 	 g_object_unref(expression1);
 	 g_object_unref(expression2);
 	 g_object_unref(expression3);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/convenience/alternation", test_convenience_alternation);
+    
+    g_test_run ();
 }
