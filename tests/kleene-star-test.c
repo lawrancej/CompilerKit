@@ -15,7 +15,9 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/kleene-star.h"
+#include "CompilerKit.h"
+#include "empty-set.c"
+#include "kleene-star.c"
 #include "test-suite.h"
 
 /** @todo Write test cases of the form: void test_kleene_star_method (void); */
@@ -32,11 +34,38 @@
  */
 void test_kleene_star_method (void)
 {
+	GObject* e_set;
+	GObject* e_string;
+	GObject* a;
+	GObject* result;
+	
+	
     g_test_message ("Testing KleeneStar method");
     g_test_timer_start ();
+	
+	
+	//empty set
+	{
+	
+		e_set = compilerkit_empty_set_new();
+		result = compilerkit_kleene_star_new(e_set);
+		g_assert(COMPILERKIT_IS_EMPTY_SET (result));
+	}
+	
+	//empty string
+	{
+		e_string = compilerkit_empty_string_new();
+		result = compilerkit_kleene_star_new(e_string);
+		g_assert(COMPILERKIT_IS_EMPTY_STRING (result));
+	}
+	
+	//symbol
+	{
+		a = compilerkit_symbol_new('a');
+		result = compilerkit_kleene_star_new(a);
+		g_assert(COMPILERKIT_IS_KLEENE_STAR (result));
+	}
     
-    /** @todo Test here  */
-    g_assert(FALSE);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }

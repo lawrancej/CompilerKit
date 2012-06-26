@@ -89,9 +89,9 @@ compilerkit_kleene_star_init (CompilerKitKleeneStar *self)
  */
 GObject* compilerkit_kleene_star_new (GObject *node)
 {
-	if(G_TYPE_FROM_INSTANCE(node) == COMPILERKIT_TYPE_EMPTY_SET)
+	if (COMPILERKIT_IS_EMPTY_SET (node))
 		return node;
-	else if(G_TYPE_FROM_INSTANCE(node) == COMPILERKIT_TYPE_EMPTY_STRING)
+	else if (COMPILERKIT_IS_EMPTY_STRING (node))
 		return node;
 	else
 	{
