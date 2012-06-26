@@ -17,21 +17,64 @@
  */
 #include "CompilerKit.h"
 
-int compilerkit_character_is_alpha_numeric(gunichar character)
+gboolean compilerkit_character_is_alpha_numeric (gunichar character)
 {
-    return '0' <= character && character <= '9' ||
-           'a' <= character && character <= 'z' ||
-           'A' <= character && character <= 'Z';
+    return ('0' <= character && character <= '9') ||
+           ('A' <= character && character <= 'Z') ||
+           ('a' <= character && character <= 'z');
 }
 
+/* Ensure lo is indeed lower than hi */
+static void sort_chars (gunichar *lo, gunichar *hi)
+{
+    gunichar temp;
+
+    if (*lo > *hi)
+    {
+        temp = *lo;
+        *lo = *hi;
+        *hi = temp;
+    }
+}
+
+/**
+ * compilerkit_alpha_numeric_character_class_new:
+ * @fn compilerkit_alpha_numeric_character_class_new
+ *
+ * Constructs an alphanumeric character class object (internally the equivalent CompilerKitAlternation).
+ * 
+ * For example, `compilerkit_character_class_new('0','z')` produces the regex `[0-9A-Za-z]`.
+ * Note that only alphanumeric characters will be included in the character class, and nothing else.
+ *
+ * @pre None.
+ * @param gunichar `lo` The low end of the character class. If this is `'\0'`, `lo` is the next higher character.
+ * @param gunichar `hi` The high end of the character class. If this is `'\0'`, return the empty string.
+ * @return GObject* a pointer to the new character class regex, or NULL if `lo` or `hi` are non-alphanumeric.
+ */
 GObject* compilerkit_alpha_numeric_character_class_new(gunichar lo, gunichar hi)
 {
-    if(!compilerkit_character_is_alpha_numeric(hi) || !compilerkit_character_is_alpha_numeric(lo))
-		return NULL;
-    if(i == 58)
-        i = 65;
-    else if(i == 91)
-        i = 97;
+    GObject *result;
+    if (!compilerkit_character_is_alpha_numeric(lo)) return NULL;
+    if (!compilerkit_character_is_alpha_numeric(hi)) return NULL;
+    
+    sort_chars (&lo, &hi);
+
+    result = compilerkit_empty_set_get_instance ();
+    if (lo <= '9' && hi >= 'A')
+    {
+        result = compilerkit_character_class_new (lo, '9');
+        lo = 'A';
+    }
+    if ('A' <= lo && lo <= 'Z' && hi >= 'a')
+    {
+        result = compilerkit_alternation_new (result, compilerkit_character_class_new (lo, 'Z'));
+        lo = 'a';
+    }
+    if ('a' <= lo)
+    {
+        result = compilerkit_alternation_new (result, compilerkit_character_class_new (lo, hi));
+    }
+    return result;
 }
 
 /**
@@ -41,26 +84,22 @@ GObject* compilerkit_alpha_numeric_character_class_new(gunichar lo, gunichar hi)
  * Constructs a character class object (internally the equivalent CompilerKitAlternation).
  * 
  * For example, `compilerkit_character_class_new('a','z')` produces the regex `[a-z]`.
+ * `compilerkit_character_class_new('!','~')` produces the a regex to match all characters between ASCII '!' and '~' (this happens to include all Latin printable characters).
+ * 
  * @pre None.
  * @param gunichar `lo` The low end of the character class. If this is `'\0'`, `lo` is the next higher character.
  * @param gunichar `hi` The high end of the character class. If this is `'\0'`, return the empty string.
- * @return GObject* a pointer to the new character class.
+ * @return GObject* a pointer to the new character class regex.
  */
 GObject* compilerkit_character_class_new(gunichar lo, gunichar hi)
 {
 	GObject* newExpression;
     gunichar i;
-    gunichar temp;
 
-    /* Ensure lo is indeed lower than hi */
-    if (lo > hi)
-    {
-        temp = lo;
-        lo = hi;
-        hi = temp;
-    }
+    sort_chars (&lo, &hi);
+
     /* If they're the same, return the symbol instead. */
-    else if (lo == hi)
+    if (lo == hi)
     {
         return compilerkit_symbol_new (lo);
     }
@@ -70,6 +109,7 @@ GObject* compilerkit_character_class_new(gunichar lo, gunichar hi)
     {
         lo++;
     }
+
     /* This must mean lo and hi are both NULL. Return EmptyString instead. */
     else if (hi == '\0')
     {

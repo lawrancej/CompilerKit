@@ -19,7 +19,7 @@
 #define INCLUDE_CompilerKit_convenience_h__
 
 GObject* compilerkit_character_class_new(gunichar, gunichar);
-int compilerkit_character_is_alpha_numeric(gunichar);
-GObject* compilerkit_alpha_numeric_character_class_new(gunichar, gunichar)
+gboolean compilerkit_character_is_alpha_numeric(gunichar);
+GObject* compilerkit_alpha_numeric_character_class_new(gunichar, gunichar);
 
 #endif
