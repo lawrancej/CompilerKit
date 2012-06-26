@@ -16,11 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "CompilerKit.h"
-#include "test-suite.h"
 
 void test_convenience_alternation(void)
 {
-	 GObject* expression1 = compilerkit_character_class_new('0','h');
+     GObject* expression1 = compilerkit_character_class_new('0','h');
 	 GObject* expression2 = compilerkit_character_class_new(33,'h');
 	 GObject* expression3 = compilerkit_character_class_new('0',137);
 	 g_assert(expression1 != NULL);
@@ -29,4 +28,9 @@ void test_convenience_alternation(void)
 	 g_object_unref(expression1);
 	 g_object_unref(expression2);
 	 g_object_unref(expression3);
+}
+
+int main()
+{
+    return 0;
 }
