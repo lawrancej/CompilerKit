@@ -10,12 +10,12 @@ Hacking CompilerKit
     - [Mac](#what-to-install-on-mac)
 2. [Fork the project here.](https://github.com/lawrancej/CompilerKit/fork)
 
-       git clone https://github.com/YourNameGoesHereButDontTypeThisInLiterally/CompilerKit.git
-       cd CompilerKit
+         git clone https://github.com/YourNameGoesHereButDontTypeThisInLiterally/CompilerKit.git
+         cd CompilerKit
 
 3. Add me as upstream
 
-       git remote add upstream https://github.com/lawrancej/CompilerKit.git
+         git remote add upstream https://github.com/lawrancej/CompilerKit.git
 
 3. [Build CompilerKit.](#how-do-i-build-compilerkit)
 4. [Read Documentation.](#where-is-the-documentation)
