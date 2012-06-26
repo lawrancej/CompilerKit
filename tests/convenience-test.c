@@ -15,18 +15,26 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+#include <glib.h>
 #include "CompilerKit.h"
-#include "test-suite.h"
 
 void test_convenience_alternation(void)
 {
-	 GObject* expression1 = compilerkit_character_class_new('0','h');
-	 GObject* expression2 = compilerkit_character_class_new(33,'h');
-	 GObject* expression3 = compilerkit_character_class_new('0',137);
+	 GObject* expression1 = compilerkit_alpha_numeric_character_class_new('0','h');
+	 GObject* expression2 = compilerkit_alpha_numeric_character_class_new(33,'h');
+	 GObject* expression3 = compilerkit_alpha_numeric_character_class_new('0',137);
 	 g_assert(expression1 != NULL);
 	 g_assert(expression2 == NULL);
 	 g_assert(expression3 == NULL);
 	 g_object_unref(expression1);
-	 g_object_unref(expression2);
-	 g_object_unref(expression3);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/convenience/alternation", test_convenience_alternation);
+    
+    g_test_run ();
 }
