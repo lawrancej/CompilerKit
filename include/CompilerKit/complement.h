@@ -72,12 +72,8 @@ typedef struct _CompilerKitComplementClass
  */
 GType compilerkit_complement_get_type (void);
 
-/** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
- * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
- */
+/** Public method function prototypes */
 GObject *compilerkit_complement_new (GObject *node);
-
 GObject *compilerkit_complement_get_node (CompilerKitComplement *self);
 
 G_END_DECLS
