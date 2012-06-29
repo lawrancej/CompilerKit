@@ -323,6 +323,20 @@ GList *compilerkit_FSM_get_accepting_states (CompilerKitFSM *self)
 }
 
 /**
+ * compilerkit_FSM_get_transitions:
+ * Return a GList* of all transitions.
+ * @fn compilerkit_FSM_get_transitions
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
+ * @return GList*          A GList containing all transitions. Use `g_list_free()` when done using it.
+ * @memberof CompilerKitFSM
+ */
+GList *compilerkit_FSM_get_transitions (CompilerKitFSM *self)
+{
+    return g_hash_table_get_keys (self->priv->transitions);
+}
+
+/**
  * compilerkit_FSM_get_states:
  * Return a GList* of all states.
  * @fn compilerkit_FSM_get_states
