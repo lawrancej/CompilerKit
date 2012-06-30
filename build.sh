@@ -1,20 +1,21 @@
 #!/bin/bash
 
 if [ $# = 0 ]; then
-	echo "Build CompilerKit."
-	echo ""
-	echo "Usage:	$0 COMMAND [-v]"
-	echo ""
-	echo "Where COMMAND is one of the following:"
-	echo "build     Builds CompilerKit."
-	echo "rebuild   Removes the existing binaries and rebuilds CompilerKit."
-	echo "clean     Removes the existing binaries."
+    echo "Build CompilerKit."
+    echo ""
+    echo "Usage:    $0 COMMAND [-v]"
+    echo ""
+    echo "Where COMMAND is one of the following:"
+    echo "build     Builds CompilerKit."
+    echo "rebuild   Removes the existing binaries and rebuilds CompilerKit."
+    echo "clean     Removes the existing binaries."
     echo "test      Builds and Tests CompilerKit."
     echo "coverage  Generate test coverage report."
-	echo ""
-	echo "And -v builds verbosely."
-	echo ""
-	echo "Example: $0 rebuild -v"
+    echo "board     Generate leaderboard."
+    echo ""
+    echo "And -v builds verbosely."
+    echo ""
+    echo "Example: $0 rebuild -v"
 else
 	mkdir -p build
 	if [ $1 = "clean" ] || [ $1 = "rebuild" ]; then
@@ -45,5 +46,11 @@ else
         lcov --directory . --capture --output-file app.info
         genhtml app.info
         echo "Open build/index.html for the test coverage report."
+    fi
+    if [ $1 = "board" ]; then
+        # http://stackoverflow.com/questions/4589731/git-blame-statistics
+
+        git ls-tree -r HEAD|sed -E -e 's/^.{53}//'|while read filename; do file "$filename"; done|grep -E ': .*text'|sed -E -e 's/: .*//'|while read filename; do git blame "$filename"; done|sed -E -e 's/.*\((.*)[0-9]{4}-[0-9]{2}-[0-9]{2} .*/\1/' -e 's/ +$//'|sort|uniq -c|sort -nr
+
     fi
 fi
