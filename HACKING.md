@@ -5,9 +5,11 @@ Hacking CompilerKit
 
 ## Getting started
 1. Install the dependencies (Git, CMake, Doxygen, GLib, GObject, C compiler) for your platform.
+
     - [Windows](#what-to-install-on-windows)
     - [Linux](#what-to-install-on-linux)
     - [Mac](#what-to-install-on-mac)
+
 2. [Fork the project here.](https://github.com/lawrancej/CompilerKit/fork)
 
          git clone https://github.com/YourNameGoesHereButDontTypeThisInLiterally/CompilerKit.git
@@ -29,7 +31,7 @@ Hacking CompilerKit
 6. [Learn how to contribute.](#how-to-contribute)
 
         git pull upstream master          # Get the latest and greatest.
-        git checkout -b issueXYZ          # Work on an issue in a new topic branch.
+        git checkout -b issueXYZ          # Work on an issue in a new topic branch, based off of the upstream master branch.
         ... Hack away ...                 # Your new code compiles and the tests pass, right?
         git commit -a -m "Fixed issueXYZ" # Great! Commit your changes.
         git push origin issueXYZ          # Push your changes to your repo. Send in a pull request.
@@ -186,16 +188,19 @@ The regex classes are: `CompilerKitSymbol`, `CompilerKitEmptySet`, `CompiletKitE
 The cfg classes are: `CompilerKitGrammar`, `CompilerKitTerminal`, `CompilerKitNonterminal`, `CompilerKitProduction`.
 
 ### Find (or open) an issue to work on
-We use github's issue tracker to manage our participation. many ways:
+We use github's issue tracker to manage our participation:
 
  - [Work on open issues in github's issue tracker](https://github.com/lawrancej/CompilerKit/issues) (comment on issues to get dibs).
    * Pro tip: pair up and split the work on an issue with someone else. E.g., you test and document, they implement.
  - [Open new issues.](https://github.com/lawrancej/CompilerKit/issues/new)
    * Write test cases for inadequately covered code (see existing test cases for ideas).
    * Improve the documentation (see existing documentation for ideas).
- - [Review code for quality issues (comment on pull requests).](https://github.com/lawrancej/CompilerKit/issues)
-   * Does the code compile and make sense?
-   * Did it handle all cases? Check the coverage report.
+
+### Review contributions
+[Review code, tests, and documentation for quality issues (comment on pull requests).](https://github.com/lawrancej/CompilerKit/pulls)
+
+ * Does the code compile and make sense?
+ * Did it handle all cases? Check the coverage report.
 
 ### Use topic branches for your work
 Topic branches isolate chunks of work so that it's easier to merge in changes.
