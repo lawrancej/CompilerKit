@@ -215,22 +215,6 @@ git push origin issueXYZ # Push local branch to remote repo
 git checkout master
 ```
 
-Using topic branches means you'll need to know how to switch among branches and remove old branches as necessary.
-
-- To switch back to master, type: `git checkout master`
-- To see the branches, type: `git branch`
-- To remove a local branch, type: `git branch -D branch_name`
-- To remove a remote branch, type: `git push origin :branch_name`
-
-You will also need to understand merging.
-
-- If you haven't already done so, type: `./collaborators.sh setup`
-- To get everyone's updates, type: `git fetch --all`
-- To see a list of remotes, type: `git remote`
-- To merge in changes from `contributor`'s `branch` into your current branch, type: `git merge contributor/branch`
-- To deal with merge conflicts, type: `git status`. Then, open up all unstaged files. Make changes as necessary, and do `git add file_name` for each file.
-- To merge in only the version from `somebranch`, type: `git checkout somebranch file_name`
-
 ### Test your changes
 I will not merge code into my master branch until:
 
