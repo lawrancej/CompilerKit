@@ -52,6 +52,9 @@ usage() {
     echo "visitor    Generate a visitor"
     echo "interface  Generate an interface (WARNING: untested boilerplate interface)"
     echo "rm         Remove an existing class or interface"
+    echo "total       Generate leader board by total line contributions."
+    echo "lastweek    Generate leader board by commits within last week."
+    echo "mergestats  Generate leader board by merges within last week."
 }
 
 # Main driver function
@@ -92,6 +95,14 @@ main() {
                 git rm $filename
             fi
         done
+    elif [ $1 = "total" ]; then
+        # Adapted from: http://stackoverflow.com/questions/4589731/git-blame-statistics
+
+        git ls-tree -r HEAD|sed -E -e 's/^.{53}//'|while read filename; do file "$filename"; done|grep -E ': .*text'|sed -E -e 's/: .*//'|while read filename; do git blame -w "$filename"; done|sed -E -e 's/.*\((.*)[0-9]{4}-[0-9]{2}-[0-9]{2} .*/\1/' -e 's/ +$//'|sort|uniq -c|sort -nr
+    elif [ $1 = "lastweek" ]; then
+        git shortlog --no-merges -s -n --since="(7days)"
+    elif [ $1 = "mergestats" ]; then
+        git shortlog --merges -s -n --since="(7days)"
     else
         usage
     fi
