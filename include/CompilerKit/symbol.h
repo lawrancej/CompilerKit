@@ -19,7 +19,6 @@
 #define INCLUDE_CompilerKit_symbol_h__
 
 #include <glib-object.h>
-#include <glib/gunicode.h>
 G_BEGIN_DECLS
 #define COMPILERKIT_TYPE_SYMBOL                  (compilerkit_symbol_get_type ())
 #define COMPILERKIT_SYMBOL(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_SYMBOL, CompilerKitSymbol))
