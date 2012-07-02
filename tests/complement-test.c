@@ -28,11 +28,32 @@
  */
 void test_complement_constructor (void)
 {
-    g_test_message ("Testing Complement method");
+	GObject* newComplement;
+    g_test_message ("Testing Complement constructor");
     g_test_timer_start ();
     
-    /** @todo Test here  */
-    g_assert(FALSE);
+	//@todo check to see if this usage is correct
+	newComplement = compilerkit_complement_new (compilerkit_symbol_new('a'));
+    
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+/**
+ * test_complement_get_node:
+ * @fn test_complement_get_node
+ * Tests method compilerkit_complement_get_node in CompilerKitComplement struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_complement_get_node (void)
+{
+	GObject* result;
+	
+    g_test_message ("Testing Complement get_node method");
+    g_test_timer_start ();
+    
+	result = compilerkit_complement_get_node (COMPILERKIT_COMPLEMENT (g_object_new (COMPILERKIT_TYPE_COMPLEMENT, NULL)));
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
@@ -43,6 +64,7 @@ int main (int argc, char ** argv)
     g_type_init ();
 
     g_test_add_func ("/complement/constructor", test_complement_constructor);
+	g_test_add_func ("/complement/get_node", test_complement_get_node);
 
     g_test_run ();
 }
