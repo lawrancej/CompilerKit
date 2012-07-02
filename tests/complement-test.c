@@ -31,8 +31,8 @@ void test_complement_constructor (void)
 	GObject* newComplement;
     g_test_message ("Testing Complement constructor");
     g_test_timer_start ();
-    
-	//@todo check to see if this usage is correct
+
+	/** @todo check to see if this usage is correct */
 	newComplement = compilerkit_complement_new (compilerkit_symbol_new('a'));
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);

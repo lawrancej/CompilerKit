@@ -125,6 +125,8 @@ void test_alternation_vlist_new (void)
 	g_assert (three != alt);
 	g_assert (three == compilerkit_alternation_get_right(alt));
 	g_assert (one == compilerkit_alternation_get_left(compilerkit_alternation_get_left(alt)));
+	
+	/**@todo - this fails due to some problem with the assembly or disassembly of this alternation */
 	g_assert (two == compilerkit_alternation_get_left(compilerkit_alternation_get_right(alt)));
 
 	g_object_unref (alt); // This will unref one, two and three as well
