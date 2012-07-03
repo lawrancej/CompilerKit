@@ -10,6 +10,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 PROJECT(libCompilerKit C)
 
+SET(CMAKE_C_COMPILER_ENV_VAR =)
+
 # Generate documentation
 FIND_PACKAGE(Doxygen)
 IF (DOXYGEN_FOUND)
@@ -42,6 +44,8 @@ LINK_DIRECTORIES(${GLIB2_LIBRARY_DIRS} ${GOBJECT_PKG_LIBRARY_DIRS})
 
 # Compile and link CompilerKit
 ADD_LIBRARY(CompilerKit ${SRC})
+
+
 
 # Test suite
 ENABLE_TESTING()
