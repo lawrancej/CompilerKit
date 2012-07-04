@@ -46,6 +46,7 @@ Therefore, verify everything is working first before building CompilerKit.
  - [CMake.](http://www.cmake.org/cmake/resources/software.html)
  - [Doxygen.](http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc)
  - [GLib and GObject.](http://ftp.gnome.org/pub/gnome/binaries/win32/gtk+/2.24/gtk+-bundle_2.24.10-20120208_win32.zip) Extract to `C:\glib`. Add `C:\glib\bin` to the system PATH.
+ - [StarUML](http://staruml.sourceforge.net/en/) to examine UML diagrams. We should switch to cross-platform [Dia](http://dia-installer.de/index.html.en), since StarUML only works on Windows.
 
 ### How do I know it's working?
 Open Git Bash to the `CompilerKit` folder. Type in the first line. Did you see the rest? You should.
