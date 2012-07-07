@@ -47,25 +47,26 @@ next_steps() {
 usage() {
     echo "Build CompilerKit."
     echo ""
-    echo "Usage:    $0 COMMAND [-v]"
+    echo "Usage:        $0 COMMAND [-v]"
     echo ""
     echo "Where COMMAND is one of the following:"
     echo ""
-    echo "build       Builds CompilerKit library, binaries and documentation."
-    echo "rebuild     Removes the existing binaries and rebuilds CompilerKit."
-    echo "clean       Removes the existing binaries."
-    echo "docs        Builds CompilerKit documentation only."
-    echo "tests       Builds and Tests CompilerKit."
-    echo "coverage    Generate test coverage report."
+    echo "build         Builds CompilerKit library, binaries and documentation."
+    echo "rebuild       Removes the existing binaries and rebuilds CompilerKit."
+    echo "clean         Removes the existing binaries."
+    echo "docs          Builds CompilerKit documentation only."
+    echo "tests         Builds and Tests CompilerKit."
+    echo "coverage      Generate test coverage report."
     echo ""
-    echo "class       Generate a class"
-    echo "visitor     Generate a visitor"
-    echo "interface   Generate an interface (WARNING: untested boilerplate interface)"
-    echo "rm          Remove an existing class or interface"
+    echo "class         Generate a class"
+    echo "visitor       Generate a visitor"
+    echo "interface     Generate an interface (WARNING: untested boilerplate interface)"
+    echo "rm            Remove an existing class or interface"
     echo ""
-    echo "total       Generate leader board by total non-whitespace line contributions."
-    echo "lastweek    Generate leader board by commits within last week."
-    echo "mergestats  Generate leader board by merges within last week."
+    echo "total         Generate leader board by total non-whitespace line contributions."
+    echo "totalcommits  Generate leader board by total commits."
+    echo "lastweek      Generate leader board by commits within last week."
+    echo "mergestats    Generate leader board by merges within last week."
     echo ""
     echo "And -v builds verbosely."
     echo ""
@@ -147,10 +148,26 @@ main() {
             fi
         done
     elif [ $1 = "total" ]; then
-        # Adapted from: http://stackoverflow.com/questions/4589731/git-blame-statistics
-
-        git ls-tree -r HEAD|sed -E -e 's/^.{53}//'|while read filename; do git blame -w "$filename"; done|sed -E -e 's/.*\((.*)[0-9]{4}-[0-9]{2}-[0-9]{2} .*/\1/' -e 's/ +$//'|sort|uniq -c|sort -nr
+        echo "Non-whitespace lines added and removed by author."
+        echo ""
+        SAVEIFS=$IFS
+        IFS=$(echo -en "\n\b")
+        authors=( $(git log --format="%aN" | sort -u ) )
+        for author in "${authors[@]}"; do
+            sum=0
+            LINES=`git log --author="$author" --no-merges -C -C --numstat --pretty=format:""| cut -f1,2|tr '\t' '
+'| tr -d '-' | sed '/^$/d'`
+            for line in $LINES; do
+                sum=$(($sum+$line))
+            done
+            echo -e "$sum\t$author"
+        done | sort -nr
+        IFS=$SAVEIFS
+    elif [ $1 = "totalcommits" ]; then
+        git shortlog --no-merges -s -n
     elif [ $1 = "lastweek" ]; then
+        echo "Last week's commits."
+        echo ""
         git shortlog --no-merges -s -n --since="(7days)"
     elif [ $1 = "mergestats" ]; then
         git shortlog --merges -s -n --since="(7days)"
