@@ -63,7 +63,7 @@ void test_alternation_get_left_and_right (void)
 	GObject* left;
 	GObject* right;
 	
-    g_test_message ("Testing Alternation constructor");
+    g_test_message ("Testing Alternation get_left and get_right");
     g_test_timer_start ();
 	
 	left = compilerkit_symbol_new('a');
@@ -96,14 +96,26 @@ void test_alternation_vlist_new (void)
 	GObject* two;
 	GObject* three;
 	
-    g_test_message ("Testing Alternation constructor");
+    g_test_message ("Testing Alternation vlist new");
     g_test_timer_start ();
 	
 	one = compilerkit_symbol_new('a');
+	printf("\na - %X\n",one); 
 	two = compilerkit_symbol_new('b');
+	printf("b - %X\n",two); 
 	three = compilerkit_symbol_new('c');
-	alt = compilerkit_alternation_new(one, two, three, NULL);
-    
+	printf("c - %X\n",three);
+	alt = compilerkit_alternation_vlist_new(one, two, three, NULL);
+	printf("alt - %X\n",alt);
+	
+	printf("left - %X\n",compilerkit_alternation_get_left(alt));
+	printf("left right - %X\n",compilerkit_alternation_get_left(compilerkit_alternation_get_right(alt)));
+	printf("left left - %X\n",compilerkit_alternation_get_left(compilerkit_alternation_get_left(alt)));
+
+	printf("right - %X\n",compilerkit_alternation_get_right(alt));
+ 	printf("right right - %X\n",compilerkit_alternation_get_right(compilerkit_alternation_get_right(alt)));
+	printf("right left - %X\n",compilerkit_alternation_get_right(compilerkit_alternation_get_left(alt)));
+   
     g_assert (COMPILERKIT_IS_ALTERNATION(alt));
 	g_assert (one != two);
 	g_assert (two != three);
@@ -113,7 +125,9 @@ void test_alternation_vlist_new (void)
 	g_assert (three != alt);
 	g_assert (three == compilerkit_alternation_get_right(alt));
 	g_assert (one == compilerkit_alternation_get_left(compilerkit_alternation_get_left(alt)));
-	g_assert (two == compilerkit_alternation_get_right(compilerkit_alternation_get_left(alt)));
+	
+	/**@todo - this fails due to some problem with the assembly or disassembly of this alternation */
+	g_assert (two == compilerkit_alternation_get_left(compilerkit_alternation_get_right(alt)));
 
 	g_object_unref (alt); // This will unref one, two and three as well
     
@@ -126,6 +140,8 @@ int main (int argc, char ** argv)
     g_type_init ();
 
     g_test_add_func ("/alternation/constructor", test_alternation_constructor);
+	g_test_add_func ("/alternation/get_left_and_get_right", test_alternation_get_left_and_right);
+	g_test_add_func ("/alternation/vlist_new", test_alternation_vlist_new);
     
     g_test_run ();
 }
