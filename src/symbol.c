@@ -91,13 +91,13 @@ compilerkit_symbol_init (CompilerKitSymbol *self)
  * Construct a CompilerKitSymbol instance.
  * @pre None
  * @param None
- * @return A new CompilerKitSymbol struct.
+ * @return A new CompilerKitSymbol struct, cast to GObject*.
  */
-CompilerKitSymbol* compilerkit_symbol_new (gunichar symbol)
+GObject *compilerkit_symbol_new (gunichar symbol)
 {
 	CompilerKitSymbol *result = COMPILERKIT_SYMBOL (g_object_new (COMPILERKIT_TYPE_SYMBOL, NULL));
     result->priv->symbol = symbol;
-    return result;
+    return G_OBJECT(result);
 }
 
 /**

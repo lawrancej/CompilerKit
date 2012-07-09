@@ -21,6 +21,17 @@ FIND_PACKAGE (PkgConfig REQUIRED)
 pkg_check_modules (GLIB2 glib-2.0>=2.26)
 pkg_check_modules (GOBJECT_PKG gobject-2.0)
 
+# Platform-specific flags
+IF (MSVC)
+    SET(CMAKE_C_FLAGS "/W4 /MP /nologo /Zi ${CMAKE_C_FLAGS}")
+    SET(CMAKE_C_FLAGS_DEBUG "/Od /MP /DEBUG /Zi /MTd /RTC1 /RTCs /RTCu")
+    SET(CMAKE_C_FLAGS_RELEASE "/MT /O2")
+ELSE ()
+    SET(CMAKE_C_FLAGS "-O2 -g -D_GNU_SOURCE -Wall -Wextra -Wno-missing-field-initializers -Wstrict-aliasing=2 -Wstrict-prototypes -Wmissing-prototypes -fprofile-arcs -ftest-coverage ${CMAKE_C_FLAGS}")
+    SET(CMAKE_C_FLAGS_DEBUG "-O0 -g")
+    SET(CMAKE_EXE_LINKER_FLAGS="-fprofile-arcs -ftest-coverage")
+ENDIF ()
+
 FILE (GLOB SRC src/*.c)
 FILE (GLOB TEST_SUITE tests/*.c)
 FILE (GLOB EXAMPLES examples/*.c)
@@ -34,14 +45,21 @@ ADD_LIBRARY(CompilerKit ${SRC})
 
 # Test suite
 ENABLE_TESTING()
-ADD_EXECUTABLE(test-suite ${TEST_SUITE})
-TARGET_LINK_LIBRARIES(test-suite CompilerKit)
-ADD_TEST(compilerkit-tests test-suite)
+FOREACH(FILE ${TEST_SUITE})
+    GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
+
+    ADD_EXECUTABLE(${FNAME} ${FILE})
+    IF (MSVC)
+        TARGET_LINK_LIBRARIES(${FNAME} CompilerKit)
+    ELSE ()
+        TARGET_LINK_LIBRARIES(${FNAME} CompilerKit gcov)
+    ENDIF()
+    ADD_TEST(${FNAME} ${FNAME})
+ENDFOREACH(FILE)
 
 # Build demo applications
-
 FOREACH(FILE ${EXAMPLES})
-	GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
-	ADD_EXECUTABLE(${FNAME} ${FILE})
-	TARGET_LINK_LIBRARIES(${FNAME} CompilerKit)
+    GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
+    ADD_EXECUTABLE(${FNAME} ${FILE})
+    TARGET_LINK_LIBRARIES(${FNAME} CompilerKit)
 ENDFOREACH(FILE)

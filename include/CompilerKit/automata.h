@@ -80,7 +80,7 @@ typedef struct _CompilerKitFSMClass
 GType compilerkit_FSM_get_type (void);
 
 /* Public method function prototypes */
-CompilerKitFSM* compilerkit_FSM_new         (gchar *str);
+CompilerKitFSM *compilerkit_FSM_new         (gchar *str);
 
 void compilerkit_FSM_set_start_state        (CompilerKitFSM* self,
                                              gchar *state);

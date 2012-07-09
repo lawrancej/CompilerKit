@@ -16,7 +16,42 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include <glib.h>
+#include "CompilerKit.h"
 
-/** Test case function prototypes of the form: void test_class_case (void); */
-void test_FSM_start_state (void);
-void test_FSM_states (void);
+/** 
+ * @todo Write test cases for compilerkit_to_nfa_visitor.
+ */
+
+/**
+ * test_to_nfa_visitor:
+ * @fn test_to_nfa_visitor
+ * Tests compilerkit_to_nfa_visitor.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_to_nfa_visitor (void)
+{
+    CompilerKitVisitor *to_nfa;
+    g_test_message ("Testing ToNfa visitor");
+    g_test_timer_start ();
+    
+    /** @todo Test here  */
+    to_nfa = compilerkit_to_nfa_visitor();
+    g_assert(FALSE);
+    
+    g_object_unref (to_nfa);
+
+    // This test shouldn't take too long to run
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/visitors/to_nfa", test_to_nfa_visitor);
+   
+    g_test_run ();
+}

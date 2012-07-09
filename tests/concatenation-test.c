@@ -15,12 +15,88 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/concatenation.h"
-#include "test-suite.h"
+#include <glib.h>
+#include "CompilerKit.h"
 
-/** @todo Write test cases of the form: void test_concatenation_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-concatenation/test-concatenation-method", test_concatenation_method); */
+/**
+ * test_concatenation_constructor_normal:
+ * @fn test_concatenation_constructor_normal
+ * Tests compilerkit_concatenation_new in CompilerKitConcatenation struct when both sides are symbols.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_concatenation_constructor_normal (void)
+{
+	GObject* ckc;
+	GObject* left;
+	GObject* right;
+    
+    g_test_message ("Testing concatenation constructor when both sides are symbols");
+    g_test_timer_start ();
+
+    left = compilerkit_symbol_new('a');
+    right = compilerkit_symbol_new('b');
+    ckc = compilerkit_concatenation_new (left, right);
+
+    g_assert(COMPILERKIT_IS_CONCATENATION(ckc));
+    g_assert (left != ckc);
+    g_assert (right != ckc);
+
+    g_object_unref (ckc); // This will unref left and right as well
+
+    // This test shouldn't take too long to run
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+/**
+ * test_concatenation_constructor_empty_set:
+ * @fn test_concatenation_constructor_empty_set
+ * Tests compilerkit_concatenation_new in CompilerKitConcatenation struct when either side is an empty set.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_concatenation_constructor_empty_set (void)
+{
+	GObject* ckc;
+	GObject* left;
+	GObject* right;
+
+    g_test_message ("Testing concatenation constructor when either side is an empty set");
+    g_test_timer_start ();
+
+	// Right parameter is EmptySet
+    {
+        left = compilerkit_symbol_new('a');
+        right = compilerkit_empty_set_get_instance ();
+        ckc = compilerkit_concatenation_new(left,right);
+
+        // Assert that ckc is the empty set, and that emptyset is a singleton.
+        g_assert (right == ckc);
+        g_assert(COMPILERKIT_IS_EMPTY_SET(ckc));
+
+        g_object_unref (left);
+        g_object_unref (right);
+    }
+
+	// Left parameter is EmptySet
+    {
+        left = compilerkit_empty_set_get_instance();
+        right = compilerkit_symbol_new('a');
+        ckc = compilerkit_concatenation_new(left,right);
+
+        // Assert that concatenation is returning the empty set here.
+        g_assert (ckc == left);
+        g_assert (COMPILERKIT_IS_EMPTY_SET(ckc));
+
+        g_object_unref (left);
+        g_object_unref (right);
+    }
+
+    // This test shouldn't take too long to run
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
 
 /**
  * test_concatenation_method:
@@ -30,13 +106,55 @@
  * @param None
  * @return void
  */
-void test_concatenation_method (void)
+void test_concatenation_constructor_empty_string (void)
 {
-    g_test_message ("Testing Concatenation method");
+	GObject* ckc;
+	GObject* left;
+	GObject* right;
+
+    g_test_message ("Testing Concatenation constructor when either side is an empty string");
     g_test_timer_start ();
-    
+
     /** @todo Test here  */
-    g_assert(FALSE);
-    
+
+	// Right parameter is EmptyString
+    {
+        left = compilerkit_symbol_new('a');
+        right = compilerkit_empty_string_get_instance ();
+        ckc = compilerkit_concatenation_new(left,right);
+
+        g_assert(COMPILERKIT_IS_SYMBOL(ckc));
+        g_assert (left == ckc);
+
+        g_object_unref (left);
+        g_object_unref (right);
+    }
+
+	// Left parameter is EmptyString
+    {
+        left = compilerkit_empty_string_get_instance ();
+        right = compilerkit_symbol_new('a');
+        ckc = compilerkit_concatenation_new(left,right);
+
+        g_assert(COMPILERKIT_IS_SYMBOL(ckc));
+        g_assert (ckc == right);
+
+        g_object_unref (left);
+        g_object_unref (right);
+    }
+
+    // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/concatenation/constructor_normal", test_concatenation_constructor_normal);
+    g_test_add_func ("/concatenation/constructor_empty_set", test_concatenation_constructor_empty_set);
+    g_test_add_func ("/concatenation/constructor_empty_string", test_concatenation_constructor_empty_string);
+    
+    g_test_run ();
 }

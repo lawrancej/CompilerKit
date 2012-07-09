@@ -15,28 +15,133 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "CompilerKit/alternation.h"
-#include "test-suite.h"
-
-/** @todo Write test cases of the form: void test_alternation_method (void); */
-/** @todo Add function prototypes for all functions into test-suite.h */
-/** @todo Add to test-suite.c: g_test_add_func ("/test-alternation/test-alternation-method", test_alternation_method); */
+#include <glib.h>
+#include "CompilerKit.h"
 
 /**
- * test_alternation_method:
- * @fn test_alternation_method
- * Tests method compilerkit_alternation_method in CompilerKitAlternation struct.
+ * test_alternation_constructor:
+ * @fn test_alternation_constructor
+ * Tests method compilerkit_alternation_new in CompilerKitAlternation struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_alternation_method (void)
+void test_alternation_constructor (void)
 {
-    g_test_message ("Testing Alternation method");
+	GObject* alt;
+	GObject* left;
+	GObject* right;
+	
+    g_test_message ("Testing Alternation constructor");
     g_test_timer_start ();
+	
+	left = compilerkit_symbol_new('a');
+	right = compilerkit_symbol_new('b');
+	alt = compilerkit_alternation_new(left, right);
     
-    /** @todo Test here  */
-    g_assert(FALSE);
+    g_assert (COMPILERKIT_IS_ALTERNATION(alt));
+	g_assert (left != right);
+	g_assert (left != alt);
+	g_assert (right != alt);
+
+	g_object_unref (alt); // This will unref left and right as well
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+/**
+ * test_alternation_get_left_and_right:
+ * @fn test_alternation_get_left_and_right
+ * Tests method compilerkit_alternation_get_left and compilerkit_alternation_get_right in CompilerKitAlternation struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_alternation_get_left_and_right (void)
+{
+	GObject* alt;
+	GObject* left;
+	GObject* right;
+	
+    g_test_message ("Testing Alternation get_left and get_right");
+    g_test_timer_start ();
+	
+	left = compilerkit_symbol_new('a');
+	right = compilerkit_symbol_new('b');
+	alt = compilerkit_alternation_new(left, right);
+    
+    g_assert (COMPILERKIT_IS_ALTERNATION(alt));
+	g_assert (left == compilerkit_alternation_get_left(alt));
+	g_assert (right == compilerkit_alternation_get_right(alt));
+	g_assert (left != alt);
+	g_assert (right != alt);
+
+	g_object_unref (alt); // This will unref left and right as well
+    
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+/**
+ * test_alternation_vlist_new:
+ * @fn test_alternation_vlist_new
+ * Tests method compilerkit_alternation_vlist_new in CompilerKitAlternation struct.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_alternation_vlist_new (void)
+{
+	GObject* alt;
+	GObject* one;
+	GObject* two;
+	GObject* three;
+	
+    g_test_message ("Testing Alternation vlist new");
+    g_test_timer_start ();
+	
+	one = compilerkit_symbol_new('a');
+	printf("\na - %X\n",one); 
+	two = compilerkit_symbol_new('b');
+	printf("b - %X\n",two); 
+	three = compilerkit_symbol_new('c');
+	printf("c - %X\n",three);
+	alt = compilerkit_alternation_vlist_new(one, two, three, NULL);
+	printf("alt - %X\n",alt);
+	
+	printf("left - %X\n",compilerkit_alternation_get_left(alt));
+	printf("left right - %X\n",compilerkit_alternation_get_left(compilerkit_alternation_get_right(alt)));
+	printf("left left - %X\n",compilerkit_alternation_get_left(compilerkit_alternation_get_left(alt)));
+
+	printf("right - %X\n",compilerkit_alternation_get_right(alt));
+ 	printf("right right - %X\n",compilerkit_alternation_get_right(compilerkit_alternation_get_right(alt)));
+	printf("right left - %X\n",compilerkit_alternation_get_right(compilerkit_alternation_get_left(alt)));
+   
+    g_assert (COMPILERKIT_IS_ALTERNATION(alt));
+	g_assert (one != two);
+	g_assert (two != three);
+	g_assert (one != three);
+	g_assert (one != alt);
+	g_assert (two != alt);
+	g_assert (three != alt);
+	g_assert (three == compilerkit_alternation_get_right(alt));
+	g_assert (one == compilerkit_alternation_get_left(compilerkit_alternation_get_left(alt)));
+	
+	/**@todo - this fails due to some problem with the assembly or disassembly of this alternation */
+	g_assert (two == compilerkit_alternation_get_left(compilerkit_alternation_get_right(alt)));
+
+	g_object_unref (alt); // This will unref one, two and three as well
+    
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
+int main (int argc, char ** argv)
+{
+    g_test_init (&argc, &argv, NULL);
+    g_type_init ();
+
+    g_test_add_func ("/alternation/constructor", test_alternation_constructor);
+	g_test_add_func ("/alternation/get_left_and_get_right", test_alternation_get_left_and_right);
+	g_test_add_func ("/alternation/vlist_new", test_alternation_vlist_new);
+    
+    g_test_run ();
 }

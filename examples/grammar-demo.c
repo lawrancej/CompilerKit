@@ -5,11 +5,12 @@
 int main (int argc, char ** argv)
 {
     CompilerKitGrammar* grammar;
+    CompilerKitNonterminal *start;
+    
     g_type_init();
     
-    grammar = compilerkit_grammar_new();
-    
-    /** @todo Briefly show how to use the methods in CompilerKitGrammar to accomplish the task. */
+    start = compilerkit_nonterminal_new("S");
+    grammar = compilerkit_grammar_new(start, NULL);
 
     g_object_unref (grammar);
 }

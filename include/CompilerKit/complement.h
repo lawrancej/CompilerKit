@@ -41,13 +41,11 @@ typedef struct _CompilerKitComplementPrivate CompilerKitComplementPrivate;
  */
 typedef struct _CompilerKitComplement
 {
-  /** Base instance (GObject) */
-  GObject parent_instance;
+    /** Base instance (GObject) */
+    GObject parent_instance;
 
-  /** @todo Define public fields here */
-
-  /** Opaque pointer to private fields */
-  CompilerKitComplementPrivate *priv;
+    /** Opaque pointer to private fields */
+    CompilerKitComplementPrivate *priv;
 
 } CompilerKitComplement;
 
@@ -60,12 +58,9 @@ typedef struct _CompilerKitComplement
  */
 typedef struct _CompilerKitComplementClass
 {
-  /** Base class (GobjectClass) */
-  GObjectClass parent_class;
+    /** Base class (GobjectClass) */
+    GObjectClass parent_class;
 
-  /** @todo Virtual public methods (function pointers) go here */
-  // void (*method_name) (CompilerKitComplement *self, ...);
-  
 } CompilerKitComplementClass;
 
 /**
@@ -77,11 +72,9 @@ typedef struct _CompilerKitComplementClass
  */
 GType compilerkit_complement_get_type (void);
 
-/** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
- * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
- */
-CompilerKitComplement* compilerkit_complement_new (void);
+/** Public method function prototypes */
+GObject *compilerkit_complement_new (GObject *node);
+GObject *compilerkit_complement_get_node (CompilerKitComplement *self);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_complement_h__ */

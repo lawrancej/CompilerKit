@@ -16,6 +16,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "CompilerKit/kleene-star.h"
+#include "CompilerKit/empty-set.h"
+#include "CompilerKit/empty-string.h"
 #define COMPILERKIT_KLEENE_STAR_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_KLEENE_STAR, CompilerKitKleeneStarPrivate))
 G_DEFINE_TYPE(CompilerKitKleeneStar, compilerkit_kleene_star, G_TYPE_OBJECT);
 
@@ -85,11 +87,18 @@ compilerkit_kleene_star_init (CompilerKitKleeneStar *self)
  * @param None
  * @return A new CompilerKitKleeneStar struct.
  */
-CompilerKitKleeneStar* compilerkit_kleene_star_new (GObject *node)
+GObject* compilerkit_kleene_star_new (GObject *node)
 {
-	CompilerKitKleeneStar* result = COMPILERKIT_KLEENE_STAR (g_object_new (COMPILERKIT_TYPE_KLEENE_STAR, NULL));
-    result->priv->node = node;
-    return result;
+	if (COMPILERKIT_IS_EMPTY_SET (node))
+		return node;
+	else if (COMPILERKIT_IS_EMPTY_STRING (node))
+		return node;
+	else
+	{
+		CompilerKitKleeneStar* result = COMPILERKIT_KLEENE_STAR (g_object_new (COMPILERKIT_TYPE_KLEENE_STAR, NULL));
+		result->priv->node = node;
+		return (GObject*) result;
+	}
 }
 
 /**
