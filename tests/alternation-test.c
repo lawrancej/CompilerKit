@@ -109,12 +109,12 @@ void test_alternation_vlist_new (void)
 	printf("alt - %X\n",alt);
 	
 	printf("left - %X\n",compilerkit_alternation_get_left(alt));
-	printf("left right - %X\n",compilerkit_alternation_get_left(compilerkit_alternation_get_right(alt)));
+	printf("left right - %X\n",compilerkit_alternation_get_right(compilerkit_alternation_get_left(alt)));
 	printf("left left - %X\n",compilerkit_alternation_get_left(compilerkit_alternation_get_left(alt)));
 
 	printf("right - %X\n",compilerkit_alternation_get_right(alt));
  	printf("right right - %X\n",compilerkit_alternation_get_right(compilerkit_alternation_get_right(alt)));
-	printf("right left - %X\n",compilerkit_alternation_get_right(compilerkit_alternation_get_left(alt)));
+	printf("right left - %X\n",compilerkit_alternation_get_left(compilerkit_alternation_get_right(alt)));
    
     g_assert (COMPILERKIT_IS_ALTERNATION(alt));
 	g_assert (one != two);
@@ -125,9 +125,7 @@ void test_alternation_vlist_new (void)
 	g_assert (three != alt);
 	g_assert (three == compilerkit_alternation_get_right(alt));
 	g_assert (one == compilerkit_alternation_get_left(compilerkit_alternation_get_left(alt)));
-	
-	/**@todo - this fails due to some problem with the assembly or disassembly of this alternation */
-	g_assert (two == compilerkit_alternation_get_left(compilerkit_alternation_get_right(alt)));
+	g_assert (two == compilerkit_alternation_get_right(compilerkit_alternation_get_left(alt)));
 
 	g_object_unref (alt); // This will unref one, two and three as well
     
