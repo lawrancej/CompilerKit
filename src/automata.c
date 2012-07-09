@@ -34,12 +34,13 @@ static void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2);
 static gchar *compilerkit_FSM_get_transition_key (gchar *state, gchar transition)
 {
     int key_length = strlen (state) + 1;
-    gchar *key = g_malloc (key_length);
-    int i = 0;
-    key[0] = transition;
-    for (i = 1; i < key_length; i++)
-        key[i] = *state++;
-    return key;
+    gchar *key = g_malloc (key_length + 1);
+    gchar *result = key;
+
+    *key++ = transition;
+    while (*key++ = *state++);
+
+    return result;
 }
 
 /**
