@@ -100,21 +100,9 @@ void test_alternation_vlist_new (void)
     g_test_timer_start ();
 	
 	one = compilerkit_symbol_new('a');
-	printf("\na - %X\n",one); 
 	two = compilerkit_symbol_new('b');
-	printf("b - %X\n",two); 
 	three = compilerkit_symbol_new('c');
-	printf("c - %X\n",three);
 	alt = compilerkit_alternation_vlist_new(one, two, three, NULL);
-	printf("alt - %X\n",alt);
-	
-	printf("left - %X\n",compilerkit_alternation_get_left(alt));
-	printf("left right - %X\n",compilerkit_alternation_get_right(compilerkit_alternation_get_left(alt)));
-	printf("left left - %X\n",compilerkit_alternation_get_left(compilerkit_alternation_get_left(alt)));
-
-	printf("right - %X\n",compilerkit_alternation_get_right(alt));
- 	printf("right right - %X\n",compilerkit_alternation_get_right(compilerkit_alternation_get_right(alt)));
-	printf("right left - %X\n",compilerkit_alternation_get_left(compilerkit_alternation_get_right(alt)));
    
     g_assert (COMPILERKIT_IS_ALTERNATION(alt));
 	g_assert (one != two);

@@ -7,6 +7,8 @@ int main (int argc, char ** argv)
     GObject *alternationTwo;
     GObject *left;
     GObject *right;
+	GObject *left_left;
+	GObject *left_right;
 	GObject *subAlternation;
 	
     g_type_init();
@@ -19,6 +21,8 @@ int main (int argc, char ** argv)
 	right = compilerkit_alternation_get_right(alternationOne); //returns the symbol 'b'
 	
 	subAlternation = compilerkit_alternation_get_left(alternationTwo); //returns the alternation ('c' | 'd')
+	left_left = compilerkit_alternation_get_left(compilerkit_alternation_get_left(alternationTwo)); //returns the symbol 'c'
+	left_right = compilerkit_alternation_get_right(compilerkit_alternation_get_left(alternationTwo)); //returns the symbol 'd'
 	right = compilerkit_alternation_get_right(alternationTwo); //returns the symbol 'e'
 	
     g_object_unref (alternationOne);

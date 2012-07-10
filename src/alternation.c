@@ -117,26 +117,17 @@ GObject* compilerkit_alternation_vlist_new (GObject *left, GObject *right, ...)
 	va_start(args,right);
 	
 	first = compilerkit_alternation_new(left, right);
-	printf("\n\nleft - %X\n",left);
-	printf("right - %X\n",right);
-	printf("first - %X\n",first);
-	printf("first left - %X\n",compilerkit_alternation_get_left(first));
-	printf("first right - %X\n",compilerkit_alternation_get_right(first));
 		
 	while(1)
 	{	
 		second = va_arg(args, GObject*);
+		
 		if(second == NULL)
 		{
 			break;
 		}
-		printf("old first - %X\n",first);
+		
 		first = compilerkit_alternation_new(first, second);
-
-		printf("second - %X\n",second);
-		printf("new first - %X\n",first);
-		printf("first left - %X\n",compilerkit_alternation_get_left(first));
-		printf("first right - %X\n\n\n",compilerkit_alternation_get_right(first));
 	}
 	
 	va_end(args);
