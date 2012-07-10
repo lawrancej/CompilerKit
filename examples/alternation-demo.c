@@ -1,6 +1,5 @@
 #include "CompilerKit.h"
 
-/** @todo Describe what task main will accomplish. */
 int main (int argc, char ** argv)
 {
     GObject *alternationOne;
