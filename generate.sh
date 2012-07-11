@@ -91,7 +91,7 @@ main() {
 		if [ "$2" = "-v" ]; then
 			cmake --build .
 		else
-			cmake --build . | grep -iE "error|warning|======"
+			cmake --build . | grep -iE "error |warning |======"
 		fi
 	fi
     if [ $1 = "docs" ] || [ $1 = "docs/" ]; then
