@@ -28,13 +28,18 @@
  */
 void test_complement_constructor (void)
 {
-	GObject* newComplement;
+	GObject* complement;
+	GObject* regex;
+	
     g_test_message ("Testing Complement constructor");
     g_test_timer_start ();
 
-	/** @todo check to see if this usage is correct */
-	newComplement = compilerkit_complement_new (compilerkit_symbol_new('a'));
+	regex = compilerkit_symbol_new('a');
+	complement = compilerkit_complement_new (regex);
     
+	g_assert (COMPILERKIT_IS_COMPLEMENT(complement));
+	g_assert (regex != complement);
+	
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
 
@@ -48,12 +53,21 @@ void test_complement_constructor (void)
  */
 void test_complement_get_node (void)
 {
+	GObject* regex;
+	GObject* complement;
 	GObject* result;
 	
     g_test_message ("Testing Complement get_node method");
     g_test_timer_start ();
     
-	result = compilerkit_complement_get_node (COMPILERKIT_COMPLEMENT (g_object_new (COMPILERKIT_TYPE_COMPLEMENT, NULL)));
+	regex = compilerkit_symbol_new('a');
+	complement = compilerkit_complement_new (regex);
+	result = compilerkit_complement_get_node (complement);
+	
+	g_assert (COMPILERKIT_IS_COMPLEMENT(complement));
+	g_assert (regex != complement);
+	g_assert (complement != result);
+	g_assert (regex == result);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
