@@ -79,7 +79,7 @@ void compilerkit_FSM_graphviz_render (CompilerKitFSM *fsm) {
 	transitions = compilerkit_FSM_get_transitions(fsm);
 	while(transitions)
 	{
-		printf(" transition %c\n", (gchar*)(transitions->data));
+		printf(" transition %c\n", (transitions->data));
 		states = g_hash_table_get_keys((GHashTable*)(transitions->data));
 		while(states)
 		{
@@ -111,6 +111,7 @@ void compilerkit_FSM_graphviz_render (CompilerKitFSM *fsm) {
 int main (int argc, char ** argv)
 {
     CompilerKitFSM* fsm;
+	
     g_type_init();
     
     fsm = state_machine();
