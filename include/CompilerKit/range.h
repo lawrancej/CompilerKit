@@ -31,7 +31,9 @@ typedef struct _CompilerKitrangePrivate CompilerKitrangePrivate;
 
 /**
  * @struct CompilerKitrange
- * @todo Briefly describe this struct. (Remove the todo).
+ * A range struct
+ *
+ * if a is a symbol and b is a symbol then [a-b] is a regular expression that matches all symbols between a and b
  *
  * Defines all public fields. Private fields live behind an opaque pointer.
  * @see #_CompilerKitrangePrivate for private fields.
@@ -44,8 +46,6 @@ typedef struct _CompilerKitrange
     /** Base instance (GObject) */
     GObject parent_instance;
 
-    /** @todo Define public fields here */
-
     /** Opaque pointer to private fields */
     CompilerKitrangePrivate *priv;
 
@@ -53,7 +53,6 @@ typedef struct _CompilerKitrange
 
 /**
  * @struct CompilerKitrangeClass
- * @todo Briefly describe this struct. (Remove the todo).
  *
  * This struct declares the virtual public methods.
  * @see #CompilerKitrange for a list of fields.
@@ -63,8 +62,6 @@ typedef struct _CompilerKitrangeClass
     /** Base class (GObjectClass) */
     GObjectClass parent_class;
 
-    /** @todo Virtual public methods (function pointers) go here */
-    // void (*method_name) (CompilerKitrange *self, ...);
 } CompilerKitrangeClass;
 
 /**
@@ -80,7 +77,10 @@ GType compilerkit_range_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitrange* compilerkit_range_new (void);
+CompilerKitrange* compilerkit_range_new (CompilerKitSymbol a, CompilerKitSymbol b);
+GObject* compilerkit_range_get+equivelent(CompilerKitRange *self);
+CompilerKitSymbol* compilerkit_range_get_left(CompilerKitRange *self);
+CompilerKitSymbol* compilerkit_range_get_right(CompilerKitRange *self);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_range_h__ */
