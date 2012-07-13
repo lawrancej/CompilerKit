@@ -41,6 +41,9 @@ void test_complement_constructor (void)
 	g_assert (regex != complement);
 	
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+	
+	g_object_unref (complement);
+	g_object_unref (regex);
 }
 
 /**
@@ -70,6 +73,10 @@ void test_complement_get_node (void)
 	g_assert (regex == result);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+	
+	g_object_unref (regex);
+	g_object_unref (complement);
+	g_object_unref (result);
 }
 
 int main (int argc, char ** argv)
