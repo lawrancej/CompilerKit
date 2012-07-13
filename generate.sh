@@ -102,7 +102,7 @@ main() {
     fi
     if [ $1 = "test" ] || [ $1 = "tests" ] || [ $1 = "tests/" ] || [ $1 = "coverage" ]; then
         if [ "$2" = "-v" ]; then
-            ctest -v
+            ctest -V
         else
             ctest
         fi

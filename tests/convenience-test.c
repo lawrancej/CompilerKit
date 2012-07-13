@@ -20,13 +20,34 @@
 
 void test_convenience_alternation(void)
 {
-	 GObject* expression1 = compilerkit_alpha_numeric_character_class_new('0','h');
-	 GObject* expression2 = compilerkit_alpha_numeric_character_class_new(33,'h');
-	 GObject* expression3 = compilerkit_alpha_numeric_character_class_new('0',137);
-	 g_assert(expression1 != NULL);
-	 g_assert(expression2 == NULL);
-	 g_assert(expression3 == NULL);
-	 g_object_unref(expression1);
+    GObject* expression1 = compilerkit_alpha_numeric_character_class_new('0','h');
+    GObject* expression2 = compilerkit_alpha_numeric_character_class_new(33,'h');
+    GObject* expression3 = compilerkit_alpha_numeric_character_class_new('0',137);
+    g_assert(expression1 != NULL);
+    g_assert(expression2 == NULL);
+    g_assert(expression3 == NULL);
+    g_object_unref(expression1);
+}
+
+void test_positive_closure(void)
+{
+    GObject *regex, *positive_closure;
+    CompilerKitConcatenation *cat;
+    CompilerKitKleeneStar *star;
+    
+    regex = compilerkit_concatenation_new (compilerkit_symbol_new('a'), compilerkit_symbol_new('b'));
+    positive_closure = compilerkit_positive_closure_new (regex);
+    
+    g_assert (COMPILERKIT_IS_CONCATENATION(positive_closure));
+    cat = COMPILERKIT_CONCATENATION(positive_closure);
+    
+    g_assert (compilerkit_concatenation_get_left (cat) == regex);
+    
+    g_assert (COMPILERKIT_IS_KLEENE_STAR (compilerkit_concatenation_get_right (cat)));
+    star = COMPILERKIT_KLEENE_STAR (compilerkit_concatenation_get_right (cat));
+    
+    g_assert (compilerkit_kleene_star_get_node (star) == regex);
+    
 }
 
 int main (int argc, char ** argv)
@@ -35,6 +56,7 @@ int main (int argc, char ** argv)
     g_type_init ();
 
     g_test_add_func ("/convenience/alternation", test_convenience_alternation);
+    g_test_add_func ("/convenience/positive_closure", test_positive_closure);
     
     g_test_run ();
 }

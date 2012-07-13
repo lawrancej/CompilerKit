@@ -82,6 +82,7 @@ GObject* compilerkit_alpha_numeric_character_class_new(gunichar lo, gunichar hi)
  * @fn compilerkit_character_class_new
  *
  * Constructs a character class object (internally the equivalent CompilerKitAlternation).
+ * compilerkit_character_class_new(compilerkit_symbol_new('a'), compilerkit_symbol_new('b'))
  * 
  * For example, `compilerkit_character_class_new('a','z')` produces the regex `[a-z]`.
  * `compilerkit_character_class_new('!','~')` produces the a regex to match all characters between ASCII '!' and '~' (this happens to include all Latin printable characters).
@@ -122,4 +123,22 @@ GObject* compilerkit_character_class_new(gunichar lo, gunichar hi)
         newExpression = compilerkit_alternation_new (newExpression, compilerkit_symbol_new(i));
     }
     return newExpression;
+}
+
+/**
+ * compilerkit_postive_closure_new:
+ * @fn compilerkit_postive_closure_new
+ *
+ * Constructs a positive closure (internally the equivalent CompilerKitConcatenation and CompilerKitKleeneStar).
+ * 
+ * For example, `compilerkit_positive_closure_new(compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_symbol_new('b')))` produces the regex `(ab)+`.
+ * 
+ * @pre `regex` is not NULL.
+ * @param GObject* `regex` The regex to match one or more times.
+ * @return GObject* regex that matches the given regex one or more times.
+ */
+GObject *compilerkit_positive_closure_new (GObject *regex)
+{
+    g_assert (regex);
+    return compilerkit_concatenation_new (regex, compilerkit_kleene_star_new (regex));
 }

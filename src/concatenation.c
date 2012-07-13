@@ -152,6 +152,7 @@ compilerkit_concatenation_dispose (GObject* object)
  * @pre CompilerKitConcatenation* is not NULL.
  * @param CompilerKitConcatenation* The concatenation to query.
  * @return The left side of the concatenation.
+ * @memberof CompilerKitConcatenation
  */
 GObject* compilerkit_concatenation_get_left (CompilerKitConcatenation *self)
 {
@@ -165,6 +166,7 @@ GObject* compilerkit_concatenation_get_left (CompilerKitConcatenation *self)
  * @pre CompilerKitConcatenation* is not NULL.
  * @param CompilerKitConcatenation* The concatenation to query.
  * @return The right side of the concatenation.
+ * @memberof CompilerKitConcatenation
  */
 GObject* compilerkit_concatenation_get_right (CompilerKitConcatenation *self)
 {
