@@ -16,8 +16,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "CompilerKit/range.h"
-#define COMPILERKIT_RANGE_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_RANGE, CompilerKitrangePrivate))
-G_DEFINE_TYPE(CompilerKitrange, compilerkit_range, G_TYPE_OBJECT);
+#define COMPILERKIT_RANGE_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_RANGE, CompilerKitRangePrivate))
+G_DEFINE_TYPE(CompilerKitRange, compilerkit_range, G_TYPE_OBJECT);
 
 /** @todo Private method function prototypes go here (for private methods, declare as static) */
 static void compilerkit_range_finalize (GObject* object);
@@ -29,14 +29,10 @@ static void compilerkit_range_dispose (GObject* object);
  * 
  * @see #CompilerKitrange
  */
-struct _CompilerKitrangePrivate
+struct _CompilerKitRangePrivate
 {
-    /** @todo Declare private members here */
-    /**
-     * @todo dummy is here so everything will compile by default.
-     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
-     */ 
-    int dummy;
+    GObject *left;
+	GObject *right;
 };
 
 /**
@@ -48,18 +44,16 @@ struct _CompilerKitrangePrivate
  * @return void
  */
 static void
-compilerkit_range_class_init (CompilerKitrangeClass *klass)
+compilerkit_range_class_init (CompilerKitRangeClass *klass)
 {
     GObjectClass *g_object_class;
 
     /* Add private structure */
-    g_type_class_add_private (klass, sizeof (CompilerKitrangePrivate));
+    g_type_class_add_private (klass, sizeof (CompilerKitRangePrivate));
 
     /* Get the parent gobject class */
     g_object_class = G_OBJECT_CLASS(klass);
 
-    /** @todo Hook virtual methods to implementations */
-    // klass->method = method_implementation;
 
     /* Hook finalization functions */
     g_object_class->dispose = compilerkit_range_dispose;   /* instance destructor, reverse of init */
@@ -75,17 +69,14 @@ compilerkit_range_class_init (CompilerKitrangeClass *klass)
  * @return void
  */
 static void
-compilerkit_range_init (CompilerKitrange *self)
+compilerkit_range_init (CompilerKitRange *self)
 {
-    CompilerKitrangePrivate *priv;
+    CompilerKitRangePrivate *priv;
 
     self->priv = priv = COMPILERKIT_RANGE_GET_PRIVATE (self);
 
-    /** @todo Initialize public fields */
-    // self->public_field = some_value;
-
-    /** @todo Initialize private fields */
-    // priv->member = whatever;
+	priv->left = NULL;
+	priv->right = NULL;
 }
 
 /**
@@ -95,11 +86,14 @@ compilerkit_range_init (CompilerKitrange *self)
  * Construct a CompilerKitrange instance.
  * @pre None
  * @param None
- * @return A new CompilerKitrange struct.
+ * @return A new CompilerKitrange struct as a GObject.
  */
-CompilerKitrange* compilerkit_range_new (void)
+GObject *compilerkit_range_new (GObject *a, GObject *b)
 {
-	return COMPILERKIT_RANGE (g_object_new (COMPILERKIT_TYPE_RANGE, NULL));
+	CompilerKitRange* result = COMPILERKIT_RANGE (g_object_new (COMPILERKIT_TYPE_RANGE, NULL));
+	result->priv->left = a;
+	result->priv->right = b;
+	return G_OBJECT(result);
 }
 
 /**
@@ -127,12 +121,13 @@ compilerkit_range_finalize (GObject* object)
 static void
 compilerkit_range_dispose (GObject* object)
 {
-    CompilerKitrange *self = COMPILERKIT_RANGE (object);
-    CompilerKitrangePrivate* priv;
+    CompilerKitRange *self = COMPILERKIT_RANGE (object);
+    CompilerKitRangePrivate* priv;
 
     priv = COMPILERKIT_RANGE_GET_PRIVATE (self);
 
-    /** @todo Deallocate memory as necessary */
+    g_object_unref(priv->left);
+    g_object_unref(priv->right);
 
     G_OBJECT_CLASS (compilerkit_range_parent_class)->dispose (object);
 }

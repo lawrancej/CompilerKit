@@ -21,52 +21,52 @@
 #include <glib-object.h>
 G_BEGIN_DECLS
 #define COMPILERKIT_TYPE_RANGE                  (compilerkit_range_get_type ())
-#define COMPILERKIT_RANGE(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_RANGE, CompilerKitrange))
+#define COMPILERKIT_RANGE(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_RANGE, CompilerKitRange))
 #define COMPILERKIT_IS_RANGE(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), COMPILERKIT_TYPE_RANGE))
-#define COMPILERKIT_RANGE_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), COMPILERKIT_TYPE_RANGE, CompilerKitrangeClass))
+#define COMPILERKIT_RANGE_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), COMPILERKIT_TYPE_RANGE, CompilerKitRangeClass))
 #define COMPILERKIT_IS_RANGE_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), COMPILERKIT_TYPE_RANGE))
-#define COMPILERKIT_RANGE_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), COMPILERKIT_TYPE_RANGE, CompilerKitrangeClass))
+#define COMPILERKIT_RANGE_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), COMPILERKIT_TYPE_RANGE, CompilerKitRangeClass))
 
-typedef struct _CompilerKitrangePrivate CompilerKitrangePrivate;
+typedef struct _CompilerKitRangePrivate CompilerKitRangePrivate;
 
 /**
- * @struct CompilerKitrange
+ * @struct CompilerKitRange
  * A range struct
  *
  * if a is a symbol and b is a symbol then [a-b] is a regular expression that matches all symbols between a and b
  *
  * Defines all public fields. Private fields live behind an opaque pointer.
- * @see #_CompilerKitrangePrivate for private fields.
- * @see #CompilerKitrangeClass for virtual public methods.
+ * @see #_CompilerKitRangePrivate for private fields.
+ * @see #CompilerKitRangeClass for virtual public methods.
  * @example range-demo.c
- * This is an example of how to use the CompilerKitrange struct.
+ * This is an example of how to use the CompilerKitRange struct.
  */
-typedef struct _CompilerKitrange
+typedef struct _CompilerKitRange
 {
     /** Base instance (GObject) */
     GObject parent_instance;
 
     /** Opaque pointer to private fields */
-    CompilerKitrangePrivate *priv;
+    CompilerKitRangePrivate *priv;
 
-} CompilerKitrange;
+} CompilerKitRange;
 
 /**
- * @struct CompilerKitrangeClass
+ * @struct CompilerKitRangeClass
  *
  * This struct declares the virtual public methods.
- * @see #CompilerKitrange for a list of fields.
+ * @see #CompilerKitRange for a list of fields.
  */
-typedef struct _CompilerKitrangeClass
+typedef struct _CompilerKitRangeClass
 {
     /** Base class (GObjectClass) */
     GObjectClass parent_class;
 
-} CompilerKitrangeClass;
+} CompilerKitRangeClass;
 
 /**
  * @fn compilerkit_range_get_type
- * Returns the runtime type information for CompilerKitrange. Macro COMPILERKIT_TYPE_RANGE uses it.
+ * Returns the runtime type information for CompilerKitRange. Macro COMPILERKIT_TYPE_RANGE uses it.
  * @pre None
  * @param None
  * @return GType (runtime type information)
@@ -74,13 +74,12 @@ typedef struct _CompilerKitrangeClass
 GType compilerkit_range_get_type (void);
 
 /** Public method function prototypes 
- * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitrange* compilerkit_range_new (CompilerKitSymbol a, CompilerKitSymbol b);
-GObject* compilerkit_range_get+equivelent(CompilerKitRange *self);
-CompilerKitSymbol* compilerkit_range_get_left(CompilerKitRange *self);
-CompilerKitSymbol* compilerkit_range_get_right(CompilerKitRange *self);
+GObject* compilerkit_range_new (GObject *a, GObject *b);
+GObject* compilerkit_range_get_equivelent (CompilerKitRange *self);
+GObject* compilerkit_range_get_left (CompilerKitRange *self);
+GObject* compilerkit_range_get_right (CompilerKitRange *self);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_range_h__ */
