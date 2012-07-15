@@ -42,6 +42,9 @@ void test_concatenation_constructor_normal (void)
     g_assert(COMPILERKIT_IS_CONCATENATION(ckc));
     g_assert (left != ckc);
     g_assert (right != ckc);
+	g_assert (compilerkit_get_left(ckc) == left);
+	g_assert (compilerkit_get_right(ckc) == right);
+	g_assert (left != right);
 
     g_object_unref (ckc); // This will unref left and right as well
 
@@ -114,8 +117,6 @@ void test_concatenation_constructor_empty_string (void)
 
     g_test_message ("Testing Concatenation constructor when either side is an empty string");
     g_test_timer_start ();
-
-    /** @todo Test here  */
 
 	// Right parameter is EmptyString
     {
