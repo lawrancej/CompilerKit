@@ -45,7 +45,7 @@ void match_string(CompilerKitFSM *fsm)
     gchar *str;
 
     printf ("Enter a string: ");
-    scanf ("%20[^\n]s", buf);
+    scanf_s ("%20[^\n]s", buf);
     str = buf;
     state = compilerkit_FSM_get_start_state(fsm);
     while (*str) {
