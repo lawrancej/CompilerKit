@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "CompilerKit/empty-set.h"
 
-/** @todo Describe what task main will accomplish. */
+/** This program shows how to get a reference to an EmptySet object */
+
 int main (int argc, char ** argv)
 {
     CompilerKitEmptySet* empty_set;
