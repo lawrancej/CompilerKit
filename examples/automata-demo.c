@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "CompilerKit.h"
 
+/** The following shows how to build up a Finite State Machine and search through it. */
+
 // Build up the state machine. Should match "fsm" or "demo", separated by (but not ending with) spaces.
 CompilerKitFSM *state_machine ()
 {
