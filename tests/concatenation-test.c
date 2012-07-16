@@ -42,8 +42,8 @@ void test_concatenation_constructor_normal (void)
     g_assert(COMPILERKIT_IS_CONCATENATION(ckc));
     g_assert (left != ckc);
     g_assert (right != ckc);
-	g_assert (compilerkit_get_left(ckc) == left);
-	g_assert (compilerkit_get_right(ckc) == right);
+	g_assert (compilerkit_concatenation_get_left(ckc) == left);
+	g_assert (compilerkit_concatenation_get_right(ckc) == right);
 	g_assert (left != right);
 
     g_object_unref (ckc); // This will unref left and right as well
