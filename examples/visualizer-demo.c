@@ -38,69 +38,38 @@ void print_states(CompilerKitFSM *fsm)
 }
 
 void compilerkit_FSM_graphviz_render (CompilerKitFSM *fsm) {
-	int i, j;
-	FILE *fp;
-	GList *states, *transitions;
+    FILE *fp;
+    GList *states, *transitions;
+    gchar character;
+    gchar* state, *new_state;
 
-
-	fp = fopen("visualizer-demo.dot", "w");
-	fprintf(fp, "digraph NFA {\nrankdir=LR;\n");
-	fprintf(fp, "node [style=invisible]; ");
-	fprintf(fp, " state_");
-	fprintf(fp, compilerkit_FSM_get_start_state(fsm) );
-	fprintf(fp, ";\n");
-	fprintf(fp, "node [style=solid,shape=doublecircle,fontsize=2];");
+    fp = fopen("visualizer-demo.dot", "w");
+    
+    /* Set up start and accepting state node styles */
+    fprintf(fp, "digraph NFA {\nrankdir=LR;\n");
+    fprintf(fp, "node [style=invisible]; state_start;\n");
+    fprintf(fp, "node [style=solid,shape=doublecircle];");
 	
+    /* Traverse through accepting states */
 	states = compilerkit_FSM_get_accepting_states(fsm);
     while (states) {
-		fprintf(fp, " state_\n");
-		fprintf(fp, (gchar*)states->data );
+        fprintf(fp, " state_");
+        fprintf(fp, "%s", (gchar*)states->data );
         states = g_list_next(states);
     }
 
-	fprintf(fp, ";\nnode [shape=circle];\n");
-	printf(" states done\n");
+    fprintf(fp, ";\nnode [shape=circle];\n");
+    fprintf(fp, "state_start -> state_%s;\n", compilerkit_FSM_get_start_state(fsm));
 	
-	/*
-		for (StateCharacter sc : fa.transitions.keySet ()) {
-			for (State s : fa.transitions.get (sc)) {
-				sb.append ("state_");
-				sb.append (sc.s.hashCode ());
-				sb.append (" -> ");
-				sb.append ("state_");
-				sb.append (s.hashCode ());
-				sb.append (" [ label = \"");
-				sb.append ((sc.c != null) ? sc.c : "λ");
-				sb.append ("\" ];\n");
-			}
-		}
-	*/
-	
+    /* Traverse through transitions */
 	transitions = compilerkit_FSM_get_transitions(fsm);
 	while(transitions)
 	{
-		printf(" transition %c\n", (transitions->data));
-		states = g_hash_table_get_keys((GHashTable*)(transitions->data));
-		while(states)
-		{
-			printf(" + to %c\n", states->data);
-			fprintf(fp, "state_");
-			fprintf(fp, (gchar*)states->data);
-			fprintf(fp, " -> ");
-			fprintf(fp, "state_");
-			fprintf(fp, (gchar*)transitions->data);
-			fprintf(fp, " [ label = \"");
-			if(states->data != NULL)
-			{
-				fprintf(fp, (gchar*)states->data);
-			}
-			else
-			{
-				fprintf(fp, "λ");
-			}
-			fprintf(fp, "\" ];\n");
-			states = g_list_next(states);
-		}
+		character = ((gchar*)(transitions->data))[0];
+        state = ++((gchar*)(transitions->data));
+        new_state = compilerkit_FSM_get_next_state (fsm, state, character);
+
+        fprintf(fp, "state_%s -> state_%s [ label = \"%c\" ];\n", state, new_state, character);
 		transitions = g_list_next(transitions);
 	}
 

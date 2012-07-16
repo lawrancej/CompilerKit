@@ -376,7 +376,7 @@ gboolean compilerkit_FSM_is_accepting_state (CompilerKitFSM *self, gchar *state)
  * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
  * @param gchar*           A `state`. (Possibly `NULL`).
  * @param gchar            A character.
- * @return gboolean        The next state.
+ * @return gchar*          The next state.
  * @memberof CompilerKitFSM
  */
 gchar *compilerkit_FSM_get_next_state (CompilerKitFSM *self, gchar *from_state, gchar transition)
