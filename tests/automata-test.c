@@ -17,8 +17,6 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
-
-/** @todo Write test cases for CompilerKitFSM. */
  
 /**
  * test_FSM_start_state:
@@ -34,7 +32,6 @@ void test_FSM_start_state (void)
     g_test_message ("Testing FSM start_state");
     g_test_timer_start ();
     
-    /** @todo Test here  */
     fsm = compilerkit_FSM_new ("constructor");
     g_assert (g_strcmp0 (compilerkit_FSM_get_start_state (fsm), "constructor") == 0);
     compilerkit_FSM_set_start_state (fsm, "start_state");
@@ -59,7 +56,6 @@ void test_FSM_states (void)
     g_test_message ("Testing FSM state");
     g_test_timer_start ();
 
-    /** @todo Test here  */
     fsm = compilerkit_FSM_new ("zero");
     compilerkit_FSM_add_state (fsm, "one");
     compilerkit_FSM_add_state (fsm, "two");
