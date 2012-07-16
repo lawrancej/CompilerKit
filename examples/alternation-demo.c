@@ -1,5 +1,7 @@
 #include "CompilerKit.h"
 
+/** The following program creates concatenation objects in two different ways. The first is with two parameters 'a' and 'b'. The second is with a NULL terminated list with at least 2 parameters. Finally, we de-reference the variables. */
+
 int main (int argc, char ** argv)
 {
     GObject *alternationOne;
@@ -24,6 +26,6 @@ int main (int argc, char ** argv)
 	left_right = compilerkit_alternation_get_right(compilerkit_alternation_get_left(alternationTwo)); //returns the symbol 'd'
 	right = compilerkit_alternation_get_right(alternationTwo); //returns the symbol 'e'
 	
-    g_object_unref (alternationOne);
-    g_object_unref (alternationTwo);
+    g_object_unref (alternationOne); //Also de-references the parts (left and right)
+    g_object_unref (alternationTwo); //Also de-references the parts (subAlternation, left_left, left_right, and right)
 }

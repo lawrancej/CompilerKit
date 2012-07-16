@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "CompilerKit/empty-string.h"
 
-/** @todo Describe what task main will accomplish. */
+/** This program shows how to get a reference to an EmptyString object */
+
 int main (int argc, char ** argv)
 {
     CompilerKitEmptyString* empty_string;
