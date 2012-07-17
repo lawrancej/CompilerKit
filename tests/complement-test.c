@@ -62,7 +62,7 @@ void test_complement_get_node (void)
     
 	regex = compilerkit_symbol_new('a');
 	complement = compilerkit_complement_new (regex);
-	result = compilerkit_complement_get_node (complement);
+	result = compilerkit_complement_get_node (COMPILERKIT_COMPLEMENT(complement));
 	
 	g_assert (COMPILERKIT_IS_COMPLEMENT(complement));
 	g_assert (regex != complement);
