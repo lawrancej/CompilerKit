@@ -13,8 +13,8 @@ int main (int argc, char ** argv)
     concatenation = compilerkit_concatenation_new(compilerkit_symbol_new('a'),compilerkit_symbol_new('b'));
 
 	//Getting the left and right side of the concatenation
-    left = compilerkit_concatenation_get_left(concatenation);
-    right = compilerkit_concatenation_get_right(concatenation);
+    left = compilerkit_concatenation_get_left(COMPILERKIT_CONCATENATION(concatenation));
+    right = compilerkit_concatenation_get_right(COMPILERKIT_CONCATENATION(concatenation));
 
     g_object_unref (concatenation); //Also de-references the parts (left and right)
 	

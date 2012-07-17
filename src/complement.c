@@ -90,7 +90,7 @@ GObject *compilerkit_complement_new (GObject *node)
 {
 	CompilerKitComplement *result = COMPILERKIT_COMPLEMENT(g_object_new (COMPILERKIT_TYPE_COMPLEMENT, NULL));
     result->priv->node = node;
-    return result;
+    return G_OBJECT(result);
 }
 
 /**

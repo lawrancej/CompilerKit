@@ -18,13 +18,13 @@ int main (int argc, char ** argv)
 	alternationTwo = compilerkit_alternation_vlist_new(compilerkit_symbol_new('c'), compilerkit_symbol_new('d'), compilerkit_symbol_new('e'), NULL); //NULL terminated list of at least 2 GObjects
 																																					 //creates an alternation (('c' | 'd') | 'e')
 
-	left = compilerkit_alternation_get_left(alternationOne); //returns the symbol 'a'
-	right = compilerkit_alternation_get_right(alternationOne); //returns the symbol 'b'
+	left = compilerkit_alternation_get_left(COMPILERKIT_ALTERNATION(alternationOne)); //returns the symbol 'a'
+	right = compilerkit_alternation_get_right(COMPILERKIT_ALTERNATION(alternationOne)); //returns the symbol 'b'
 	
-	subAlternation = compilerkit_alternation_get_left(alternationTwo); //returns the alternation ('c' | 'd')
-	left_left = compilerkit_alternation_get_left(compilerkit_alternation_get_left(alternationTwo)); //returns the symbol 'c'
-	left_right = compilerkit_alternation_get_right(compilerkit_alternation_get_left(alternationTwo)); //returns the symbol 'd'
-	right = compilerkit_alternation_get_right(alternationTwo); //returns the symbol 'e'
+	subAlternation = compilerkit_alternation_get_left(COMPILERKIT_ALTERNATION(alternationTwo)); //returns the alternation ('c' | 'd')
+	left_left = compilerkit_alternation_get_left(COMPILERKIT_ALTERNATION(compilerkit_alternation_get_left(COMPILERKIT_ALTERNATION(alternationTwo)))); //returns the symbol 'c'
+	left_right = compilerkit_alternation_get_right(COMPILERKIT_ALTERNATION(compilerkit_alternation_get_left(COMPILERKIT_ALTERNATION(alternationTwo)))); //returns the symbol 'd'
+	right = compilerkit_alternation_get_right(COMPILERKIT_ALTERNATION(alternationTwo)); //returns the symbol 'e'
 	
     g_object_unref (alternationOne); //Also de-references the parts (left and right)
     g_object_unref (alternationTwo); //Also de-references the parts (subAlternation, left_left, left_right, and right)

@@ -31,7 +31,7 @@
  */
 void test_production_case (void)
 {
-    CompilerKitProduction *obj;
+    //CompilerKitProduction *obj;
 
     g_test_message ("Testing Production case");
     g_test_timer_start ();
@@ -39,7 +39,7 @@ void test_production_case (void)
     /** @todo Test here  */
     g_assert(FALSE);
     
-    g_object_unref (obj);
+    //g_object_unref (obj);
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
