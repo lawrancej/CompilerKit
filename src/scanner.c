@@ -136,3 +136,56 @@ compilerkit_scanner_dispose (GObject* object)
 
   G_OBJECT_CLASS (compilerkit_scanner_parent_class)->dispose (object);
 }
+
+/**
+ * An equivalent to lex. Given a filename for a scanner definition, produce the scanner.
+ */
+CompilerKitScanner *compilerkit_scanner_new_from_file (char *filename)
+{
+    return NULL;
+}
+
+/**
+ * Open a file to scan by name.
+ */
+void compilerkit_scanner_open_filename(CompilerKitScanner *scanner, char *filename)
+{
+
+}
+/**
+ * Open a file to scan by file pointer.
+ */
+void compilerkit_scanner_open_file(CompilerKitScanner *scanner, FILE *fp)
+{
+
+}
+/**
+ * Close the file to scan.
+ */
+void compilerkit_scanner_close_file(CompilerKitScanner *scanner)
+{
+
+}
+/**
+ * This would be a list of tokens
+ */
+GList *compilerkit_scanner_get_tokens (CompilerKitScanner *scanner)
+{
+    return NULL;
+}
+/**
+ * Produce the next token in the file.
+ * Return NULL for the last token.
+ */
+CompilerKitToken *compilerkit_scanner_next_token (CompilerKitScanner *scanner)
+{
+    return NULL;
+}
+
+/**
+ * The order in which we call this function determines priority of matching regexes.
+ */
+GList *compilerkit_scanner_register (CompilerKitScanner *scanner, CompilerKitToken *token, GObject *regex)
+{
+    return NULL;
+}
