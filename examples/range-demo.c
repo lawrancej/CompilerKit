@@ -4,7 +4,7 @@
 /** @todo Describe what task main will accomplish. */
 int main (int argc, char ** argv)
 {
-    CompilerKitrange* range;
+    CompilerKitRange* range;
     g_type_init();
     
     /** @todo Briefly show how to use the methods in CompilerKitrange to accomplish the task. */

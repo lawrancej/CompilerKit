@@ -24,20 +24,27 @@
 /**
  * test_range_case:
  * @fn test_range_case
- * Tests compilerkit_range_case in CompilerKitrange struct.
+ * Tests compilerkit_range_case in CompilerKitRange struct.
  * @pre None
  * @param None
  * @return void
  */
 void test_range_case (void)
 {
-    CompilerKitrange *obj;
+    GObject* obj;
+	GObject* left;
+	GObject* right;
 
     g_test_message ("Testing range case");
     g_test_timer_start ();
+	
+	left = compilerkit_symbol_new('A');
+	right = compilerkit_symbol_new('C');
     
+	obj = compilerkit_range_new(left, right);
     /** @todo Test here  */
-    g_assert(FALSE);
+	g_assert(COMPILERKIT_IS_RANGE(obj));
+    //g_assert(obj->priv->left->priv->node == 'A');
     
     g_object_unref (obj);
 

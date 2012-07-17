@@ -24,10 +24,10 @@ static void compilerkit_range_finalize (GObject* object);
 static void compilerkit_range_dispose (GObject* object);
 
 /**
- * @struct _CompilerKitrangePrivate
- * The private fields of the CompilerKitrange struct.
+ * @struct _CompilerKitRangePrivate
+ * The private fields of the CompilerKitRange struct.
  * 
- * @see #CompilerKitrange
+ * @see #CompilerKitRange
  */
 struct _CompilerKitRangePrivate
 {
@@ -38,9 +38,9 @@ struct _CompilerKitRangePrivate
 /**
  * compilerkit_range_class_init:
  * @fn compilerkit_range_class_init
- * Initializes the CompilerKitrangeClass (virtual table).
+ * Initializes the CompilerKitRangeClass (virtual table).
  * @pre klass is not NULL.
- * @param CompilerKitrangeClass to initialize
+ * @param CompilerKitRangeClass to initialize
  * @return void
  */
 static void
@@ -63,9 +63,9 @@ compilerkit_range_class_init (CompilerKitRangeClass *klass)
 /**
  * compilerkit_range_init:
  * @fn compilerkit_range_init 
- * Initializes the CompilerKitrange instance.
+ * Initializes the CompilerKitRange instance.
  * @pre self is not NULL.
- * @param CompilerKitrange to initialize
+ * @param CompilerKitRange to initialize
  * @return void
  */
 static void
@@ -82,11 +82,11 @@ compilerkit_range_init (CompilerKitRange *self)
 /**
  * compilerkit_range_new:
  * @fn compilerkit_range_new
- * @memberof CompilerKitrange
- * Construct a CompilerKitrange instance.
+ * @memberof CompilerKitRange
+ * Construct a CompilerKitRange instance.
  * @pre None
  * @param None
- * @return A new CompilerKitrange struct as a GObject.
+ * @return A new CompilerKitRange struct as a GObject.
  */
 GObject *compilerkit_range_new (GObject *a, GObject *b)
 {
