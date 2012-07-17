@@ -5,7 +5,7 @@
 
 int main (int argc, char ** argv)
 {
-    CompilerKitEmptyString* empty_string;
+    GObject* empty_string;
     g_type_init();
     
     empty_string = compilerkit_empty_string_get_instance();
