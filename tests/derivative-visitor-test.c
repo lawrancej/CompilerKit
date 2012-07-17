@@ -30,12 +30,12 @@
 void test_derivative_visitor (void)
 {
     CompilerKitVisitor *derivative;
-    GObject *regex, *symbol, *new_regex, *cat, *star;
+    GObject *regex, *new_regex;
+	//GObject *symbol, *cat, *star;	/** @todo these are currently unused */
     
     g_test_message ("Testing Derivative visitor");
     g_test_timer_start ();
     
-    /** @todo Test here  */
     derivative = compilerkit_derivative_visitor();
     regex = compilerkit_symbol_new ('h');
     
