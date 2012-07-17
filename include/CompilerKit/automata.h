@@ -57,6 +57,14 @@ typedef struct _CompilerKitFSM
   
 } CompilerKitFSM;
 
+typedef struct _CompilerKitFSMNode
+{
+	gchar* id;
+	gchar* data;
+	GList* paths;
+	bool endState;
+} CompilerKitFSMNode;
+
 /**
  * @struct CompilerKitFSMClass
  * A finite state machine class struct.
@@ -80,42 +88,24 @@ typedef struct _CompilerKitFSMClass
 GType compilerkit_FSM_get_type (void);
 
 /* Public method function prototypes */
+
 CompilerKitFSM *compilerkit_FSM_new         (gchar *str);
 
-void compilerkit_FSM_set_start_state        (CompilerKitFSM* self,
-                                             gchar *state);
-gchar *compilerkit_FSM_get_start_state      (CompilerKitFSM* self);
+void compilerkit_FSM_set_start_state(CompilerKitFSM *self, gchar* id);
 
-void compilerkit_FSM_add_state              (CompilerKitFSM *self,
-                                             gchar *state);
+gchar* compilerkit_FSM_get_start_state(CompilerKitFSM *self);
 
-GList *compilerkit_FSM_get_states           (CompilerKitFSM *self);
+void compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar* parentID, gchar* id, gchar* value);
 
-GList *compilerkit_FSM_get_transitions      (CompilerKitFSM *self);
+bool compilerkit_FSM_has_state(CompilerKitFSM* self, gchar* id);
 
-gboolean compilerkit_FSM_has_state          (CompilerKitFSM *self,
-                                             gchar *state);
+void compilerkit_FSM_add_end_state(CompilerKitFSM* self,gchar id);
 
+void compilerkit_FSM_node_reset_visited(CompilerKitFSMNode* node);
 
-void compilerkit_FSM_add_transition         (CompilerKitFSM* self,
-                                             gchar *from_state,
-                                             gchar *to_state,
-                                             gchar input);
+CompilerKitFSMNode* compilerkit_FSM_node_find(CompilerKitFSMNode* node, gchar* id);
 
-gchar *compilerkit_FSM_get_next_state       (CompilerKitFSM *self,
-                                             gchar *from_state,
-                                             gchar transition);
-
-void compilerkit_FSM_add_accepting_state    (CompilerKitFSM* self,
-                                             gchar *state);
-
-GList *compilerkit_FSM_get_accepting_states (CompilerKitFSM *self);
-
-gboolean compilerkit_FSM_is_accepting_state (CompilerKitFSM *self,
-                                             gchar *state);
-
-void compilerkit_FSM_merge                  (CompilerKitFSM *self,
-                                             CompilerKitFSM *other);
+bool compilerkit_FSM_node_add(CompilerKitFSM *self, gchar* parentID, gchar* id, gchar* value);
 
 G_END_DECLS
 #endif

@@ -29,21 +29,6 @@ static void compilerkit_FSM_dispose (GObject* object);
 static void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2);
 
 /**
- * Get the key for a state and transition. (Private function)
- */
-static gchar *compilerkit_FSM_get_transition_key (gchar *state, gchar transition)
-{
-    int key_length = strlen (state) + 1;
-    gchar *key = g_malloc (key_length + 1);
-    gchar *result = key;
-
-    *key++ = transition;
-    while (*key++ = *state++);
-
-    return result;
-}
-
-/**
  * @struct _CompilerKitFSMPrivate
  * The private fields of the finite state machine.
  * 
@@ -51,14 +36,7 @@ static gchar *compilerkit_FSM_get_transition_key (gchar *state, gchar transition
  */
 struct _CompilerKitFSMPrivate
 {
-    /** Starting state of the finite automaton. */
-    gchar *start;
-    /** Set of states (vertices) in the finite automaton. */
-    GHashTable *states;
-    /** Transitions between states (edges) in the finite automaton. */
-    GHashTable *transitions;
-    /** If we are in any of these accepting states by the end of a match, then the match succeeds. */
-    GHashTable *accept_states;
+  CompilerKitFSMNode start;
 };
 
 /**
@@ -84,307 +62,132 @@ compilerkit_FSM_class_init (CompilerKitFSMClass *klass)
     g_object_class->finalize = compilerkit_FSM_finalize; /* class finalization, reverse of class init */
 }
 
-/**
- * compilerkit_FSM_init:
- * Initializes the CompilerKitFSM struct.
- * @pre self is not NULL.
- * @param CompilerKitFSM to initialize
- * @return void
- */
-static void
-compilerkit_FSM_init (CompilerKitFSM *self)
+CompilerKitFSM* compilerkit_FSM_new(gchar* start)
 {
-    CompilerKitFSMPrivate* priv;
-    self->priv = priv = COMPILERKIT_FSM_GET_PRIVATE (self);
-
-    /** @todo Initialize hash tables here */
-    priv->start = NULL;
-    priv->states = g_hash_table_new(g_str_hash, g_str_equal);
-    priv->transitions = g_hash_table_new(g_str_hash, g_str_equal);
-    priv->accept_states = g_hash_table_new(g_str_hash, g_str_equal);
-}
-
-/**
- * compilerkit_FSM_new:
- * Construct a CompilerKitFSM
- * @fn compilerkit_FSM_new
- * @pre None
- * @param None
- * @return A new CompilerKitFSM struct.
- * @memberof CompilerKitFSM
- */
-CompilerKitFSM *compilerkit_FSM_new (gchar *start)
-{
-	CompilerKitFSM *result = COMPILERKIT_FSM (g_object_new (COMPILERKIT_TYPE_FSM, NULL));
-    compilerkit_FSM_set_start_state (result, g_strdup(start));
+    CompilerKitFSM *result = COMPILERKIT_FSM(g_object_new(COMPILERKIT_TYPE_FSM,NULL));
+    compilerkit_FSM_set_start_state(result,g_strdup(start));
     return result;
 }
 
-/**
- * compilerkit_FSM_finalize:
- * Reverse what compilerkit_FSM_class_init allocated.
- * @pre GObject is not NULL.
- * @param GObject to finalize
- * @return void
- */
-static void
-compilerkit_FSM_finalize (GObject* object)
+void compilerkit_FSM_set_start_state(CompilerKitFSM *self, gchar* id)
 {
-	/* Reverse what was allocated by class init */
-	G_OBJECT_CLASS (compilerkit_FSM_parent_class)->finalize (object);
+    //Make the node that has the id specified as the start point
+    compilerkit_FSM_node_add(self, NULL, id, NULL);
 }
 
-/**
- * compilerkit_FSM_dispose:
- * Reverse what compilerkit_FSM_init allocated.
- * @fn compilerkit_FSM_dispose
- * @pre GObject is not NULL.
- * @param GObject to dispose.
- * @return void
- */
-static void
-compilerkit_FSM_dispose (GObject* object)
+gchar* compilerkit_FSM_get_start_state(CompilerKitFSM *self)
 {
-    /* Reverse what was allocated by instance init */
-    CompilerKitFSM *self = COMPILERKIT_FSM (object);
-    CompilerKitFSMPrivate* priv;
-
-    priv = COMPILERKIT_FSM_GET_PRIVATE (self);
-
-    g_free (priv->start);
-    g_hash_table_destroy(priv->states);
-    g_hash_table_destroy(priv->transitions);
-    g_hash_table_destroy(priv->accept_states);
-
-    G_OBJECT_CLASS (compilerkit_FSM_parent_class)->dispose (object);
+	if(self->priv->start == NULL)
+		return NULL;
+	return g_strdup(self->priv->start->data);
 }
 
-/**
- * compilerkit_FSM_add_transition:
- * Add a transition to a finite state machine.
- * If the start and end states aren't already in the set of states, this function adds them in.
- * @fn compilerkit_FSM_add_transition
- * @pre No NULL parameters.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer.
- * @param gchar*           Start state for the transition.
- * @param gchar*           End state for the transition.
- * @param gchar            The necessary input to make the transition.
- * @return void
- * @memberof CompilerKitFSM
- */
-void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
+void compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar* parentID, gchar* id, gchar* value)
 {
-    gchar *key;
-    g_return_if_fail (COMPILERKIT_IS_FSM (self));
-
-    compilerkit_FSM_add_state (self, from_state);
-    compilerkit_FSM_add_state (self, to_state);
-    
-    /**
-      * @todo Let's pretend we're a DFA, since that's simpler to implement for now.
-      * This should really be split up into an abstract automaton base class, since DFA and NFA differ on what to do here.
-      */
-    key = compilerkit_FSM_get_transition_key (from_state, transition);
-
-    g_hash_table_insert (self->priv->transitions, key, to_state);
+    compilerkit_FSM_node_add(self,parentID,id,value);
 }
 
-/**
- * compilerkit_FSM_add_accepting_state:
- * Add an accepting state to a finite state machine.
- * @fn compilerkit_FSM_add_accepting_state
- * @pre No NULL parameters.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer.
- * @param gchar*           An accepting state.
- * @return void
- * @memberof CompilerKitFSM
- */
-void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state)
+bool compilerkit_FSM_has_state(CompilerKitFSM* self, gchar* id)
 {
-    compilerkit_FSM_add_state (self, state);
-    
-	g_hash_table_insert(self->priv->accept_states,state, NULL);
+	//Reset all the node visited status so we can traverse it correctly
+    compilerkit_FSM_node_reset_visited(self->priv->start);
+    //Grab the correct node
+    CompilerKitFSMNode* node = compilerkit_FSM_node_find(self->priv->start.id);
+	//if the node does exist return true
+	if(node != NULL)
+		return true;
+	return false;
 }
 
-/**
- * compilerkit_FSM_merge:
- * Copy all states and transitions (but not accepting states) from another CompilerKitFSM into self.
- * @fn compilerkit_FSM_merge
- * @pre No NULL parameters.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
- * @param CompilerKitFSM*  The other CompilerKitFSM pointer.
- * @return void
- * @memberof CompilerKitFSM
- */
-void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other)
+void compilerkit_FSM_add_end_state(CompilerKitFSM* self,gchar id)
 {
-	CompilerKitFSMPrivate* priv = self->priv;
-	CompilerKitFSMPrivate* newPriv = other->priv;
-	
-	compilerkit_FSM_mergeTables(priv->states, newPriv->states);
-	compilerkit_FSM_mergeTables(priv->transitions, newPriv->transitions);
+	//Reset all the node visited status so we can traverse it correctly
+    compilerkit_FSM_node_reset_visited(self->priv->start);
+    //Grab the correct node
+    CompilerKitFSMNode* node = compilerkit_FSM_node_find(self->priv->start.id);
+	if(node != NULL)
+		node->endState = true;
 }
 
-/**
- * Copy entries from table2 into table1.
- */
-static void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2)
+void compilerkit_FSM_node_reset_visited(CompilerKitFSMNode* node)
 {
-	GHashTableIter iter;
-	gpointer key, value;
+    //Check to make sure the current node is not NULL before trying to access its data
+    if(node == NULL)
+	return;
+    //Set the nodes visited status to false
+    node->visited = false;
+    //Loop through all the paths the node has to make sure they are all visited
+    int i = 0;
+    CompilerKitFSMNode* path = NULL;
+    while((path = (CompilerKitFSMNode*)g_list_nth_data(i++)) != NULL)
+	if(path->visited == false) //Make sure not to visit already visited nodes
+	    compilerkit_FSM_node_reset_visited(path);
+}
 
-	g_hash_table_iter_init (&iter, table2);
-	while (g_hash_table_iter_next (&iter, &key, &value))
+CompilerKitFSMNode* compilerkit_FSM_node_find(CompilerKitFSMNode* node, gchar* id)
+{
+    //Make sure the node is not NULL before attempting to access its private data
+    if(node == NULL)
+	return NULL;
+    //Check if the node is the node we are looking for. If it is return it.
+    if(g_strcmp0(node->id,id) == 0)
+	return node;
+    node->visited = true;
+    //Loop through all pathways of the current node to check if they are the node we are looking for.
+    int i = 0;
+    CompilerKitFSMNode* path = NULL;
+    while((path = (CompilerKitFSMNode*)g_list_nth_data(i++)) != NULL)
 	{
-		g_hash_table_insert(table1, key, value);
+		if(path->visited == false)
+		{
+			CompilerKitFSMNode* returnedNode = compilerkit_FSM_node_find(path,id);
+			if(g_strcomp0(node->id,id) == 0)
+				return returnNode;
+		}
 	}
+	return NULL;
 }
 
-/**
- * compilerkit_FSM_add_state:
- * Add a state into the set of states of a finite state machine.
- * @fn compilerkit_FSM_add_state
- * @pre No NULL parameters.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
- * @param CompilerKitFSM*  The other CompilerKitFSM pointer.
- * @return void
- * @memberof CompilerKitFSM
- */
-void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
+bool compilerkit_FSM_node_add(CompilerKitFSM *self, gchar* parentID, gchar* id, gchar* value)
 {
-    g_assert (self);
-    g_assert (state);
-
-	g_hash_table_insert(self->priv->states,state, NULL);
-}
-
-/**
- * compilerkit_FSM_has_state:
- * Return whether the state exists.
- * @fn compilerkit_FSM_has_state
- * @pre CompilerKitFSM* is not `NULL`.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
- * @param gchar*           A `state`. (Possibly `NULL`)
- * @return gboolean        Whether the `state` exists.
- * @memberof CompilerKitFSM
- */
-gboolean compilerkit_FSM_has_state (CompilerKitFSM *self, gchar *state)
-{
-    g_assert (self);
-
-    if (!state) return FALSE;
-    return g_hash_table_lookup_extended (self->priv->states, state, NULL, NULL);
-}
-
-/**
- * compilerkit_FSM_set_start_state:
- * Designate the starting state of a finite state machine.
- * @fn compilerkit_FSM_set_start_state
- * @pre No NULL parameters.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
- * @param gchar*           The starting state
- * @return void
- * @memberof CompilerKitFSM
- */
-void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state)
-{
-    compilerkit_FSM_add_state (self, state);
-
-    g_free (self->priv->start);
+    //Reset all the node visited status so we can traverse it correctly
+    compilerkit_FSM_node_reset_visited(self->priv->start);
+    //Make sure the node does not already exist
+    if(compilerkit_FSM_node_find(self->priv->start.id) != NULL)
+		return false;
     
-	self->priv->start = g_strdup (state);
+    //Declare the node for the parent
+    CompilerKitFSMNode* node = NULL;
+    
+    if(parentID != NULL)
+    {
+		//Get the node designated as the parent node
+		compilerkit_FSM_node_reset_visited(self->priv->start);
+		node = compilerkit_FSM_node_find(parentID);
+    }
+    
+    //If we have been given a parent and it was not found return a state of failure
+    if(node == NULL && parentID != NULL)
+		return false;
+    
+    //Allocate a new node and set the data for it
+    CompilerKitFSMNode* newNode = malloc(sizeof(CompilerKitFSMNode));
+    newNode->id = g_strdup(id);
+    newNode->data = g_strdup(value);
+    newNode->paths = g_list_alloc();
+	newNode->endState = false;
+    
+    if(parentID == NULL)
+    {
+		//Append the new node onto the parent node
+		g_list_append(node->paths,newNode);
+    }
+    else
+    {
+		//Set the new node as the start node
+		self->priv->start = newNode;
+    }
+    
+    //Return that the addition was complete
+    return true;
 }
-
-/**
- * compilerkit_FSM_get_start_state:
- * Return the starting state of a finite state machine.
- * @fn compilerkit_FSM_get_start_state
- * @pre No NULL parameters.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
- * @return gchar*          The start state.
- * @memberof CompilerKitFSM
- */
-gchar *compilerkit_FSM_get_start_state (CompilerKitFSM* self)
-{
-    return self->priv->start;
-}
-
-/**
- * compilerkit_FSM_get_accepting_states:
- * Return a GList* of accepting states.
- * @fn compilerkit_FSM_get_accepting_states
- * @pre No NULL parameters.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
- * @return GList*          A GList containing all accepting states. Use `g_list_free()` when done using it.
- * @memberof CompilerKitFSM
- */
-GList *compilerkit_FSM_get_accepting_states (CompilerKitFSM *self)
-{
-    return g_hash_table_get_keys (self->priv->accept_states);
-}
-
-/**
- * compilerkit_FSM_get_transitions:
- * Return a GList* of all transitions.
- * @fn compilerkit_FSM_get_transitions
- * @pre No NULL parameters.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
- * @return GList*          A GList containing all transitions. Use `g_list_free()` when done using it.
- * @memberof CompilerKitFSM
- */
-GList *compilerkit_FSM_get_transitions (CompilerKitFSM *self)
-{
-    return g_hash_table_get_keys (self->priv->transitions);
-}
-
-/**
- * compilerkit_FSM_get_states:
- * Return a GList* of all states.
- * @fn compilerkit_FSM_get_states
- * @pre No NULL parameters.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
- * @return GList*          A GList containing all states. Use `g_list_free()` when done using it.
- * @memberof CompilerKitFSM
- */
-GList *compilerkit_FSM_get_states (CompilerKitFSM *self)
-{
-    return g_hash_table_get_keys (self->priv->states);
-}
-
-/**
- * compilerkit_FSM_is_accepting_state:
- * Return whether the state is an accepting state.
- * @fn compilerkit_FSM_is_accepting_state
- * @pre CompilerKitFSM* is not `NULL`.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
- * @param gchar*           A `state`. (Possibly `NULL`)
- * @return gboolean        Whether the `state` is accepting. `NULL` states are never accepting.
- * @memberof CompilerKitFSM
- */
-gboolean compilerkit_FSM_is_accepting_state (CompilerKitFSM *self, gchar *state)
-{
-    g_assert (self);
-    if (!state) return FALSE;
-    return g_hash_table_lookup_extended (self->priv->accept_states, state, NULL, NULL);
-}
-
-/**
- * compilerkit_FSM_get_next_state:
- * Return the next state given a state and the transition character.
- * @fn compilerkit_FSM_get_next_state
- * @pre CompilerKitFSM* is not NULL.
- * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
- * @param gchar*           A `state`. (Possibly `NULL`).
- * @param gchar            A character.
- * @return gchar*          The next state.
- * @memberof CompilerKitFSM
- */
-gchar *compilerkit_FSM_get_next_state (CompilerKitFSM *self, gchar *from_state, gchar transition)
-{
-    gchar *key;
-    g_assert (self);
-    if (!from_state) return from_state;
-    key = compilerkit_FSM_get_transition_key (from_state, transition);
-    return g_hash_table_lookup (self->priv->transitions, key);
-}
-
