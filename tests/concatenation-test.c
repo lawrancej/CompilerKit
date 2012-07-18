@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 /**
  * test_concatenation_constructor_normal:
@@ -42,6 +43,9 @@ void test_concatenation_constructor_normal (void)
     g_assert(COMPILERKIT_IS_CONCATENATION(ckc));
     g_assert (left != ckc);
     g_assert (right != ckc);
+	g_assert (compilerkit_concatenation_get_left(COMPILERKIT_CONCATENATION(ckc)) == left);
+	g_assert (compilerkit_concatenation_get_right(COMPILERKIT_CONCATENATION(ckc)) == right);
+	g_assert (left != right);
 
     g_object_unref (ckc); // This will unref left and right as well
 
@@ -115,8 +119,6 @@ void test_concatenation_constructor_empty_string (void)
     g_test_message ("Testing Concatenation constructor when either side is an empty string");
     g_test_timer_start ();
 
-    /** @todo Test here  */
-
 	// Right parameter is EmptyString
     {
         left = compilerkit_symbol_new('a');
@@ -145,16 +147,4 @@ void test_concatenation_constructor_empty_string (void)
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
-
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/concatenation/constructor_normal", test_concatenation_constructor_normal);
-    g_test_add_func ("/concatenation/constructor_empty_set", test_concatenation_constructor_empty_set);
-    g_test_add_func ("/concatenation/constructor_empty_string", test_concatenation_constructor_empty_string);
-    
-    g_test_run ();
 }

@@ -19,23 +19,22 @@
 #include "CompilerKit.h"
 #include "test.h"
 
-/** @todo Write test cases for Bar of the form: void test_bar_case (void); */
-/** @todo Add void test_bar_case (void); to `test.h` */
-/** @todo Add to `main`: g_test_add_func ("/header/case", test_bar_case); */
+/** @todo Write test cases for Token of the form: void test_token_case (void); */
+/** @todo Add to `main`: g_test_add_func ("/token/case", test_token_case); */
 
 /**
- * test_bar_case:
- * @fn test_bar_case
- * Tests compilerkit_bar_case in CompilerKitBar struct.
+ * test_token_case:
+ * @fn test_token_case
+ * Tests compilerkit_token_case in CompilerKitToken struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_bar_case (void)
+void test_token_case (void)
 {
-    CompilerKitBar *obj;
+    CompilerKitToken *obj;
 
-    g_test_message ("Testing Bar case");
+    g_test_message ("Testing Token case");
     g_test_timer_start ();
     
     /** @todo Test here  */
@@ -45,20 +44,4 @@ void test_bar_case (void)
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
-
-/** TODO: remove this. Move g_test_add_func to test.c */
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/header/case", test_bar_case);
-
-    /**
-     * @todo Add additional test cases as necessary here:
-     * g_test_add_func ("/bar/other_case", test_bar_other_case);
-     */
-    
-    g_test_run ();
 }

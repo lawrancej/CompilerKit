@@ -14,6 +14,19 @@ generate() {
     rm $1.bak
 }
 
+# Cross platform file open
+file_open() {
+    if [ $OSTYPE == "msys" ] || [ $OSTYPE == "cygwin" ]; then
+        start "$1"
+    elif [ $OSTYPE == "linux-gnu" ]; then
+        gnome-open "$1"
+    elif [[ $OSTYPE == darwin* ]]; then
+        open "$1"
+    else
+        echo "Unable to open file $1. What OS is this, anyway? $OSTYPE?"
+    fi
+}
+
 # Ask for the class name in camel case, and export all class name variations for generate()
 get_identifier() {
     echo -n "Enter the $choice name in CamelCase (e.g., ClassName): "
@@ -91,11 +104,12 @@ main() {
 		if [ "$2" = "-v" ]; then
 			cmake --build .
 		else
-			cmake --build . | grep -iE "error|warning|======"
+			cmake --build . | grep -iE "error |warning |======"
 		fi
 	fi
     if [ $1 = "docs" ] || [ $1 = "docs/" ]; then
         doxygen
+        file_open docs/html/index.html
     fi
     if [ $1 = "coverage" ]; then
         lcov --directory . --zerocounters
@@ -110,7 +124,7 @@ main() {
     if [ $1 = "coverage" ]; then
         lcov --directory . --capture --output-file app.info
         genhtml app.info
-        echo "Open build/index.html for the test coverage report."
+        file_open build/index.html
     fi
 
     if [[ $1 == "class" || $1 == "interface" ]]; then

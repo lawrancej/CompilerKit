@@ -19,6 +19,10 @@
 #define INCLUDE_CompilerKit_scanner_h__
 
 #include <glib-object.h>
+#include <glib.h>
+#include <stdio.h>
+#include "token.h"
+
 G_BEGIN_DECLS
 #define COMPILERKIT_TYPE_SCANNER                  (compilerkit_scanner_get_type ())
 #define COMPILERKIT_SCANNER(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), COMPILERKIT_TYPE_SCANNER, CompilerKitScanner))
@@ -31,9 +35,8 @@ typedef struct _CompilerKitScannerPrivate CompilerKitScannerPrivate;
 
 /**
  * @struct CompilerKitScanner
- * @todo Briefly describe this struct. (Remove the todo).
+ * The scanner breaks down a text file into a sequence of tokens using the supplied regexes.
  *
- * Defines all public fields. Private fields live behind an opaque pointer.
  * @see #_CompilerKitScannerPrivate for private fields.
  * @see #CompilerKitScannerClass for virtual public methods.
  * @example scanner-demo.c
@@ -82,6 +85,13 @@ GType compilerkit_scanner_get_type (void);
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
 CompilerKitScanner *compilerkit_scanner_new (void);
+CompilerKitScanner *compilerkit_scanner_new_from_file (char *);
+void compilerkit_scanner_open_filename(CompilerKitScanner *, char *);
+void compilerkit_scanner_open_file(CompilerKitScanner *, FILE *);
+void compilerkit_scanner_close_file(CompilerKitScanner *);
+GList *compilerkit_scanner_get_tokens (CompilerKitScanner *);
+CompilerKitToken *compilerkit_scanner_next_token (CompilerKitScanner *);
+GList *compilerkit_scanner_register (CompilerKitScanner *, CompilerKitToken *, GObject *regex);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_scanner_h__ */
