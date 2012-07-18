@@ -100,7 +100,7 @@ main() {
 	if [ $1 = "build" ] || [ $1 = "rebuild" ] || [ $1 = "test" ] || [ $1 = "tests" ] || [ $1 = "tests/" ] || [ $1 = "coverage" ]; then
 		echo "Building CompilerKit"
 		cd build
-		cmake .. 
+		cmake ${*:2} .. 
 		if [ "$2" = "-v" ]; then
 			cmake --build .
 		else
