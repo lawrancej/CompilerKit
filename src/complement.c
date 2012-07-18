@@ -31,11 +31,7 @@ static void compilerkit_complement_dispose (GObject* object);
  */
 struct _CompilerKitComplementPrivate
 {
-    /** @todo Declare private members here */
-    /**
-     * @todo dummy is here so everything will compile by default.
-     * If the class does not require private fields, search for private and remove all relevant macros, function calls, etc.
-     */ 
+    /** Declare private members here */
     GObject *node;
 };
 
@@ -94,7 +90,7 @@ GObject *compilerkit_complement_new (GObject *node)
 {
 	CompilerKitComplement *result = COMPILERKIT_COMPLEMENT(g_object_new (COMPILERKIT_TYPE_COMPLEMENT, NULL));
     result->priv->node = node;
-    return result;
+    return G_OBJECT(result);
 }
 
 /**
@@ -132,6 +128,14 @@ compilerkit_complement_dispose (GObject* object)
     G_OBJECT_CLASS (compilerkit_complement_parent_class)->dispose (object);
 }
 
+/**
+ * compilerkit_complement_get_node:
+ * @fn compilerkit_complement_get_node
+ * Gets the node value of the complement object.
+ * @pre CompilerKitComplement is not NULL.
+ * @param CompilerKitComplement* The object to get the node from.
+ * @return GObject*
+ */
 GObject *compilerkit_complement_get_node (CompilerKitComplement *self)
 {
     return self->priv->node;

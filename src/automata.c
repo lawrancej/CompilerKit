@@ -34,12 +34,13 @@ static void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2);
 static gchar *compilerkit_FSM_get_transition_key (gchar *state, gchar transition)
 {
     int key_length = strlen (state) + 1;
-    gchar *key = g_malloc (key_length);
-    int i = 0;
-    key[0] = transition;
-    for (i = 1; i < key_length; i++)
-        key[i] = *state++;
-    return key;
+    gchar *key = g_malloc (key_length + 1);
+    gchar *result = key;
+
+    *key++ = transition;
+    while (*key++ = *state++);
+
+    return result;
 }
 
 /**
@@ -323,6 +324,20 @@ GList *compilerkit_FSM_get_accepting_states (CompilerKitFSM *self)
 }
 
 /**
+ * compilerkit_FSM_get_transitions:
+ * Return a GList* of all transitions.
+ * @fn compilerkit_FSM_get_transitions
+ * @pre No NULL parameters.
+ * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
+ * @return GList*          A GList containing all transitions. Use `g_list_free()` when done using it.
+ * @memberof CompilerKitFSM
+ */
+GList *compilerkit_FSM_get_transitions (CompilerKitFSM *self)
+{
+    return g_hash_table_get_keys (self->priv->transitions);
+}
+
+/**
  * compilerkit_FSM_get_states:
  * Return a GList* of all states.
  * @fn compilerkit_FSM_get_states
@@ -361,7 +376,7 @@ gboolean compilerkit_FSM_is_accepting_state (CompilerKitFSM *self, gchar *state)
  * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
  * @param gchar*           A `state`. (Possibly `NULL`).
  * @param gchar            A character.
- * @return gboolean        The next state.
+ * @return gchar*          The next state.
  * @memberof CompilerKitFSM
  */
 gchar *compilerkit_FSM_get_next_state (CompilerKitFSM *self, gchar *from_state, gchar transition)

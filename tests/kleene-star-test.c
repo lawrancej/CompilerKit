@@ -15,34 +15,56 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 /**
- * test_kleene_star_method:
- * @fn test_kleene_star_method
- * Tests method compilerkit_kleene_star_method in CompilerKitKleeneStar struct.
+ * test_kleene_star_constructor:
+ * @fn test_kleene_star_constructor
+ * Tests compilerkit_kleene_star_new in CompilerKitKleeneStar struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_kleene_star_method (void)
+void test_kleene_star_constructor (void)
 {
+	GObject* e_set;
+	GObject* e_string;
+	GObject* a;
+	GObject* result;
+	
+	
     g_test_message ("Testing KleeneStar method");
     g_test_timer_start ();
+	
+	
+	//empty set
+	{
+	
+		e_set = compilerkit_empty_set_get_instance();
+		result = compilerkit_kleene_star_new(e_set);
+		g_assert(COMPILERKIT_IS_EMPTY_SET (result));
+        g_object_unref (result);
+	}
+	
+	//empty string
+	{
+		e_string = compilerkit_empty_string_get_instance();
+		result = compilerkit_kleene_star_new(e_string);
+		g_assert(COMPILERKIT_IS_EMPTY_STRING (result));
+        g_object_unref (result);
+	}
+	
+	//symbol
+	{
+		a = compilerkit_symbol_new('a');
+		result = compilerkit_kleene_star_new(a);
+		g_assert(COMPILERKIT_IS_KLEENE_STAR (result));
+        g_object_unref (result);
+	}
     
-    /** @todo Test here  */
-    g_assert(FALSE);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
-
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/kleene_star/method", test_kleene_star_method);
-   
-    g_test_run ();
 }

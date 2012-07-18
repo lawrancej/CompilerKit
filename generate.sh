@@ -14,6 +14,19 @@ generate() {
     rm $1.bak
 }
 
+# Cross platform file open
+file_open() {
+    if [ $OSTYPE == "msys" ] || [ $OSTYPE == "cygwin" ]; then
+        start "$1"
+    elif [ $OSTYPE == "linux-gnu" ]; then
+        gnome-open "$1"
+    elif [[ $OSTYPE == darwin* ]]; then
+        open "$1"
+    else
+        echo "Unable to open file $1. What OS is this, anyway? $OSTYPE?"
+    fi
+}
+
 # Ask for the class name in camel case, and export all class name variations for generate()
 get_identifier() {
     echo -n "Enter the $choice name in CamelCase (e.g., ClassName): "
@@ -45,20 +58,77 @@ next_steps() {
 }
 
 usage() {
-    echo "Usage: $0 cmd"
-    echo 
-    echo "Where cmd is:"
-    echo "class      Generate a class"
-    echo "visitor    Generate a visitor"
-    echo "interface  Generate an interface (WARNING: untested boilerplate interface)"
-    echo "rm         Remove an existing class or interface"
+    echo "Build CompilerKit."
+    echo ""
+    echo "Usage:        $0 COMMAND [-v]"
+    echo ""
+    echo "Where COMMAND is one of the following:"
+    echo ""
+    echo "build         Builds CompilerKit library, binaries and documentation."
+    echo "rebuild       Removes the existing binaries and rebuilds CompilerKit."
+    echo "clean         Removes the existing binaries."
+    echo "docs          Builds CompilerKit documentation only."
+    echo "tests         Builds and Tests CompilerKit."
+    echo "coverage      Generate test coverage report."
+    echo ""
+    echo "class         Generate a class"
+    echo "visitor       Generate a visitor"
+    echo "interface     Generate an interface (WARNING: untested boilerplate interface)"
+    echo "rm            Remove an existing class or interface"
+    echo ""
+    echo "total         Generate leader board by total non-whitespace line contributions."
+    echo "totalcommits  Generate leader board by total commits."
+    echo "lastweek      Generate leader board by commits within last week."
+    echo "mergestats    Generate leader board by merges within last week."
+    echo ""
+    echo "And -v builds verbosely."
+    echo ""
+    echo "Example: $0 rebuild -v"
 }
 
 # Main driver function
 main() {
     if [ $# == 0 ]; then
         usage
-    elif [[ $1 == "class" || $1 == "interface" ]]; then
+        exit
+    fi
+	mkdir -p build
+	if [ $1 = "clean" ] || [ $1 = "rebuild" ]; then
+		echo "Clearing build folder."
+		rm build/* -r
+	fi
+	if [ $1 = "build" ] || [ $1 = "rebuild" ] || [ $1 = "test" ] || [ $1 = "tests" ] || [ $1 = "tests/" ] || [ $1 = "coverage" ]; then
+		echo "Building CompilerKit"
+		cd build
+		command="cmake ${@:2} .."
+        eval "$command"
+		if [ "$2" = "-v" ]; then
+			cmake --build .
+		else
+			cmake --build . | grep -iE "error |warning |error:|warning:|======"
+		fi
+	fi
+    if [ $1 = "docs" ] || [ $1 = "docs/" ]; then
+        doxygen
+        file_open docs/html/index.html
+    fi
+    if [ $1 = "coverage" ]; then
+        lcov --directory . --zerocounters
+    fi
+    if [ $1 = "test" ] || [ $1 = "tests" ] || [ $1 = "tests/" ] || [ $1 = "coverage" ]; then
+        if [ "$2" = "-v" ]; then
+            ctest -V
+        else
+            ctest
+        fi
+    fi
+    if [ $1 = "coverage" ]; then
+        lcov --directory . --capture --output-file app.info
+        genhtml app.info
+        file_open build/index.html
+    fi
+
+    if [[ $1 == "class" || $1 == "interface" ]]; then
         export choice="$1"
         get_identifier
         boilerplate=( ".boilerplate/$choice.c" ".boilerplate/$choice.h" ".boilerplate/demo.c" ".boilerplate/test.c" )
@@ -92,8 +162,30 @@ main() {
                 git rm $filename
             fi
         done
-    else
-        usage
+    elif [ $1 = "total" ]; then
+        echo "Non-whitespace lines added and removed by author."
+        echo ""
+        SAVEIFS=$IFS
+        IFS=$(echo -en "\n\b")
+        authors=( $(git log --format="%aN" | sort -u ) )
+        for author in "${authors[@]}"; do
+            sum=0
+            LINES=`git log --author="$author" --no-merges -C -C --numstat --pretty=format:""| cut -f1,2|tr '\t' '
+'| tr -d '-' | sed '/^$/d'`
+            for line in $LINES; do
+                sum=$(($sum+$line))
+            done
+            echo -e "$sum\t$author"
+        done | sort -nr
+        IFS=$SAVEIFS
+    elif [ $1 = "totalcommits" ]; then
+        git shortlog --no-merges -s -n
+    elif [ $1 = "lastweek" ]; then
+        echo "Last week's commits."
+        echo ""
+        git shortlog --no-merges -s -n --since="(7days)"
+    elif [ $1 = "mergestats" ]; then
+        git shortlog --merges -s -n --since="(7days)"
     fi
 }
 

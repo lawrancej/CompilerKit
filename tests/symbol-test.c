@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 /**
  * test_symbol_unicode:
@@ -75,15 +76,4 @@ void test_symbol_flyweight (void)
     g_object_unref(symbol3);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
-
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/symbol/unicode", test_symbol_unicode);
-    g_test_add_func ("/symbol/flyweight", test_symbol_flyweight);
-   
-    g_test_run ();
 }

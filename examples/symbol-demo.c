@@ -1,5 +1,6 @@
 #include <glib.h>
 #include "CompilerKit/symbol.h"
+#include <glib/gprintf.h>
 
 /** Symbol unicode works (on Linux), but there's got to be an easier way. */
 int main (int argc, char ** argv)

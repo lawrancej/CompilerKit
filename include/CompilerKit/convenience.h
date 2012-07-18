@@ -15,33 +15,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include <glib.h>
-#include "CompilerKit.h"
-#include "test.h"
+#ifndef INCLUDE_CompilerKit_convenience_h__
+#define INCLUDE_CompilerKit_convenience_h__
 
-/** @todo Write test cases for Production.
- */
+GObject* compilerkit_character_class_new(gunichar, gunichar);
+gboolean compilerkit_character_is_alpha_numeric(gunichar);
+GObject* compilerkit_alpha_numeric_character_class_new(gunichar, gunichar);
+GObject *compilerkit_positive_closure_new (GObject *);
 
-/**
- * test_production_case:
- * @fn test_production_case
- * Tests compilerkit_production_case in CompilerKitProduction struct.
- * @pre None
- * @param None
- * @return void
- */
-void test_production_case (void)
-{
-    //CompilerKitProduction *obj;
-
-    g_test_message ("Testing Production case");
-    g_test_timer_start ();
-    
-    /** @todo Test here  */
-    g_assert(FALSE);
-    
-    //g_object_unref (obj);
-
-    // This test shouldn't take too long to run
-    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
+#endif

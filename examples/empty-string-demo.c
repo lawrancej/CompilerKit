@@ -1,15 +1,14 @@
 #include <stdio.h>
 #include "CompilerKit/empty-string.h"
 
-/** @todo Describe what task main will accomplish. */
+/** This program shows how to get a reference to an EmptyString object */
+
 int main (int argc, char ** argv)
 {
-    CompilerKitEmptyString* empty_string;
+    GObject* empty_string;
     g_type_init();
     
     empty_string = compilerkit_empty_string_get_instance();
     
-    /** @todo Briefly show how to use the methods in CompilerKitEmptyString to accomplish the task. */
-
     g_object_unref (empty_string);
 }

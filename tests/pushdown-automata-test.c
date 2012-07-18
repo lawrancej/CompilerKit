@@ -19,29 +19,25 @@
 #include "CompilerKit.h"
 #include "test.h"
 
-/** @todo Write test cases for Production.
- */
+/** @todo Write test cases of the form: void test_pushdown_automata_case (void); */
+/** @todo Add to test-suite.c: g_test_add_func ("/pushdown-automata/case", test_pushdown_automata_case); */
 
 /**
- * test_production_case:
- * @fn test_production_case
- * Tests compilerkit_production_case in CompilerKitProduction struct.
+ * test_pushdown_automata_method:
+ * @fn test_pushdown_automata_method
+ * Tests method compilerkit_pushdown_automata_method in CompilerKitPushdownAutomata struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_production_case (void)
+void test_pushdown_automata_method (void)
 {
-    //CompilerKitProduction *obj;
-
-    g_test_message ("Testing Production case");
+    g_test_message ("Testing PushdownAutomata method");
     g_test_timer_start ();
     
     /** @todo Test here  */
     g_assert(FALSE);
     
-    //g_object_unref (obj);
-
-    // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
+
