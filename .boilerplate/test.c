@@ -17,9 +17,15 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
-/** @todo Write test cases for Bar of the form: void test_bar_case (void); */
-/** @todo Add to `main`: g_test_add_func ("/bar/case", test_bar_case); */
+/** 
+ * @todo Write test cases, add prototype to `test.h`, call `g_test_add_func` in `test.c:main`
+ * A test case for Bar should be in a function in this file called: `void test_bar_case (void);`
+ * The prototype for the function `void test_bar_case (void);` belongs in `test.h`
+ * In `test.c:main` add this function: g_test_add_func ("/header/case", test_bar_case);
+ * @todo The more test cases the better, until reaching sufficient coverage.
+ */
 
 /**
  * test_bar_case:
@@ -43,19 +49,4 @@ void test_bar_case (void)
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
-
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/bar/case", test_bar_case);
-
-    /**
-     * @todo Add additional test cases as necessary here:
-     * g_test_add_func ("/bar/other_case", test_bar_other_case);
-     */
-    
-    g_test_run ();
 }

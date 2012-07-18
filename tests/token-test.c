@@ -19,28 +19,28 @@
 #include "CompilerKit.h"
 #include "test.h"
 
-/** @todo Write test cases for Production.
- */
+/** @todo Write test cases for Token of the form: void test_token_case (void); */
+/** @todo Add to `main`: g_test_add_func ("/token/case", test_token_case); */
 
 /**
- * test_production_case:
- * @fn test_production_case
- * Tests compilerkit_production_case in CompilerKitProduction struct.
+ * test_token_case:
+ * @fn test_token_case
+ * Tests compilerkit_token_case in CompilerKitToken struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_production_case (void)
+void test_token_case (void)
 {
-    //CompilerKitProduction *obj;
+    CompilerKitToken *obj;
 
-    g_test_message ("Testing Production case");
+    g_test_message ("Testing Token case");
     g_test_timer_start ();
     
     /** @todo Test here  */
     g_assert(FALSE);
     
-    //g_object_unref (obj);
+    g_object_unref (obj);
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);

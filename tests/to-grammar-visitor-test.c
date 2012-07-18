@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 /**
  * test_to_grammar_visitor:
@@ -40,14 +41,4 @@ void test_to_grammar_visitor (void)
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
-
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/visitors/to_grammar", test_to_grammar_visitor);
-   
-    g_test_run ();
 }

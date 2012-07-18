@@ -6,9 +6,9 @@ Hacking CompilerKit
 ## Getting started
 1. Install the dependencies (Git, CMake, Doxygen, GLib, GObject, C compiler) for your platform.
 
-    - [Windows](#what-to-install-on-windows)
-    - [Linux](#what-to-install-on-linux)
-    - [Mac](#what-to-install-on-mac)
+ - [Windows](#what-to-install-on-windows)
+ - [Linux](#what-to-install-on-linux)
+ - [Mac](#what-to-install-on-mac)
 
 2. [Fork the project here.](https://github.com/lawrancej/CompilerKit/fork)
 
@@ -22,7 +22,9 @@ Hacking CompilerKit
 
 4. [Build CompilerKit.](#how-do-i-build-compilerkit)
 
-        ./build.sh build
+        ./generate.sh build # Builds tests only
+        ./generate.sh build -DBUILD_EXAMPLES # Builds all examples
+        ./generate.sh build -DBUILD_SCANNER_DEMO # Builds the scanner demo only
 
 5. [Read Documentation.](#where-is-the-documentation)
 
@@ -46,6 +48,7 @@ Therefore, verify everything is working first before building CompilerKit.
  - [CMake.](http://www.cmake.org/cmake/resources/software.html)
  - [Doxygen.](http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc)
  - [GLib and GObject.](http://ftp.gnome.org/pub/gnome/binaries/win32/gtk+/2.24/gtk+-bundle_2.24.10-20120208_win32.zip) Extract to `C:\glib`. Add `C:\glib\bin` to the system PATH.
+ - [GrahpViz.](http://www.graphviz.org/Download_windows.php)
  - [StarUML](http://staruml.sourceforge.net/en/) to examine UML diagrams. We should switch to cross-platform [Dia](http://dia-installer.de/index.html.en), since StarUML only works on Windows.
 
 ### How do I know it's working?
@@ -77,22 +80,28 @@ Did you see `command not found` after typing these into Git Bash? You should not
 5. Double click `DontShowUI`. Enter `1` for value data. Click OK.
 6. Exit `regedit`
 
+### How do I build using MSYS?
+If you installed MSYS, do the following to build all the examples:
+
+    ./generate.sh build -G '"MSYS Makefiles"' -DBUILD_EXAMPLES=ON
+
 ## What to install on Linux
 In the terminal, paste this in for your distribution:
 
 ### Red Hat:
 
-    sudo yum install git cmake doxygen glib-devel pkgconfig lcov
+    sudo yum install git cmake doxygen glib-devel pkgconfig lcov 'graphviz*'
 
 ### Debian, Ubuntu:
 
-    sudo apt-get install git cmake doxygen libglib2.0-dev pkg-config lcov
+    sudo apt-get install git cmake doxygen libglib2.0-dev pkg-config lcov graphviz
 
 ## What to install on Mac
 If you do not already have it, install:
 
  - [Command Line Tools for Xcode](https://developer.apple.com/downloads) or [Xcode](http://itunes.apple.com/us/app/xcode/id448457090)
  - [Java Developer Update](https://connect.apple.com)
+ - [GraphViz](http://www.graphviz.org/Download_macos.php)
 
 In the terminal, paste this in:
 
@@ -129,19 +138,19 @@ Follow these steps to fix the error:
 ## How do I build CompilerKit?
 Easy! Type this in:
 
-    ./build.sh build
+    ./generate.sh build
 
 If you get build errors that you know shouldn't be there, try rebuild:
 
-    ./build.sh rebuild
+    ./generate.sh rebuild
 
 To run the test suite, type:
 
-    ./build.sh test
+    ./generate.sh test
 
 To get a coverage report (assumes `lcov` is installed):
 
-    ./build.sh coverage
+    ./generate.sh coverage
 
 ## Where is the documentation?
 [CompilerKit uses Doxygen](#what-is-doxygen) to generate documentation. After building CompilerKit, look at `docs/html/index.html`.
