@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 /**
  * test_alternation_constructor:
@@ -118,16 +119,4 @@ void test_alternation_vlist_new (void)
 	g_object_unref (alt); // This will unref one, two and three as well
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
-
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/alternation/constructor", test_alternation_constructor);
-	g_test_add_func ("/alternation/get_left_and_get_right", test_alternation_get_left_and_right);
-	g_test_add_func ("/alternation/vlist_new", test_alternation_vlist_new);
-    
-    g_test_run ();
 }

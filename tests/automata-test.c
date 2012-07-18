@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
  
 /**
  * test_FSM_start_state:
@@ -75,15 +76,4 @@ void test_FSM_states (void)
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
     g_object_unref (fsm);
-}
-
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/automata/start-state", test_FSM_start_state);
-    g_test_add_func ("/automata/states", test_FSM_states);
-    
-    g_test_run ();
 }

@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 void test_convenience_alternation(void)
 {
@@ -48,15 +49,4 @@ void test_positive_closure(void)
     
     g_assert (compilerkit_kleene_star_get_node (star) == regex);
     
-}
-
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/convenience/alternation", test_convenience_alternation);
-    g_test_add_func ("/convenience/positive_closure", test_positive_closure);
-    
-    g_test_run ();
 }
