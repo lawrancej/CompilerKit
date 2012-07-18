@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 /** @todo Write test cases for range of the form: void test_range_case (void); */
 /** @todo Add to `main`: g_test_add_func ("/range/case", test_range_case); */
@@ -34,6 +35,7 @@ void test_range_case (void)
     GObject* obj;
 	GObject* left;
 	GObject* right;
+    CompilerKitRange *range;
 
     g_test_message ("Testing range case");
     g_test_timer_start ();
@@ -44,25 +46,11 @@ void test_range_case (void)
 	obj = compilerkit_range_new(left, right);
     /** @todo Test here  */
 	g_assert(COMPILERKIT_IS_RANGE(obj));
+    range = COMPILERKIT_RANGE(obj);
     //g_assert(obj->priv->left->priv->node == 'A');
     
     g_object_unref (obj);
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
-
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/range/case", test_range_case);
-
-    /**
-     * @todo Add additional test cases as necessary here:
-     * g_test_add_func ("/range/other_case", test_range_other_case);
-     */
-    
-    g_test_run ();
 }

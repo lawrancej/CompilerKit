@@ -54,6 +54,8 @@ void test_production_case (void);
 
 void test_pushdown_automata_method (void);
 
+void test_range_case (void);
+
 void test_scanner_method (void);
 
 void test_string_builder_visitor (void);

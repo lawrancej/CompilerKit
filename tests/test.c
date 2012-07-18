@@ -59,6 +59,8 @@ int main (int argc, char ** argv)
 
     g_test_add_func ("/pushdown-automata/test", test_pushdown_automata_method);
 
+    g_test_add_func ("/range/case", test_range_case);
+
     g_test_add_func ("/scanner/method", test_scanner_method);
 
     g_test_add_func ("/string-builder-visitor/test", test_string_builder_visitor);

@@ -77,7 +77,7 @@ GType compilerkit_range_get_type (void);
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
 GObject* compilerkit_range_new (GObject *a, GObject *b);
-GObject* compilerkit_range_get_equivelent (CompilerKitRange *self);
+GObject* compilerkit_range_get_equivalent (CompilerKitRange *self);
 GObject* compilerkit_range_get_left (CompilerKitRange *self);
 GObject* compilerkit_range_get_right (CompilerKitRange *self);
 
