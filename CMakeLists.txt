@@ -45,16 +45,17 @@ ADD_LIBRARY(CompilerKit ${SRC})
 
 # Test suite
 ENABLE_TESTING()
-FOREACH(FILE ${TEST_SUITE})
-    GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
+ADD_EXECUTABLE(test-suite ${TEST_SUITE})
+IF (MSVC)
+    TARGET_LINK_LIBRARIES(test-suite CompilerKit)
+ELSE ()
+    TARGET_LINK_LIBRARIES(test-suite CompilerKit gcov)
+ENDIF()
 
-    ADD_EXECUTABLE(${FNAME} ${FILE})
-    IF (MSVC)
-        TARGET_LINK_LIBRARIES(${FNAME} CompilerKit)
-    ELSE ()
-        TARGET_LINK_LIBRARIES(${FNAME} CompilerKit gcov)
-    ENDIF()
-    ADD_TEST(${FNAME} ${FNAME})
+FOREACH(FILE ${SRC})
+    GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
+    MESSAGE(${FNAME})
+    ADD_TEST(${FNAME} test-suite -v -p ${FNAME})
 ENDFOREACH(FILE)
 
 # Build demo applications

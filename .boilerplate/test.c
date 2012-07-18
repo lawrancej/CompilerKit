@@ -17,9 +17,11 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 /** @todo Write test cases for Bar of the form: void test_bar_case (void); */
-/** @todo Add to `main`: g_test_add_func ("/bar/case", test_bar_case); */
+/** @todo Add void test_bar_case (void); to `test.h` */
+/** @todo Add to `main`: g_test_add_func ("/header/case", test_bar_case); */
 
 /**
  * test_bar_case:
@@ -45,12 +47,13 @@ void test_bar_case (void)
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
 
+/** TODO: remove this. Move g_test_add_func to test.c */
 int main (int argc, char ** argv)
 {
     g_test_init (&argc, &argv, NULL);
     g_type_init ();
 
-    g_test_add_func ("/bar/case", test_bar_case);
+    g_test_add_func ("/header/case", test_bar_case);
 
     /**
      * @todo Add additional test cases as necessary here:

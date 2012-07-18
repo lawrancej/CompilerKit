@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 /**
  * test_complement_constructor:
@@ -70,15 +71,4 @@ void test_complement_get_node (void)
 	g_assert (regex == result);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
-
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/complement/constructor", test_complement_constructor);
-	g_test_add_func ("/complement/get_node", test_complement_get_node);
-
-    g_test_run ();
 }

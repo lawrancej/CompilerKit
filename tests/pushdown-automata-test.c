@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 /** @todo Write test cases of the form: void test_pushdown_automata_case (void); */
 /** @todo Add to test-suite.c: g_test_add_func ("/pushdown-automata/case", test_pushdown_automata_case); */
@@ -40,12 +41,3 @@ void test_pushdown_automata_method (void)
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
 
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/pushdown-automata/test", test_pushdown_automata_method);
-    
-    g_test_run ();
-}
