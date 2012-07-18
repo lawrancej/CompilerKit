@@ -6,9 +6,9 @@ Hacking CompilerKit
 ## Getting started
 1. Install the dependencies (Git, CMake, Doxygen, GLib, GObject, C compiler) for your platform.
 
- - [Windows](#what-to-install-on-windows)
- - [Linux](#what-to-install-on-linux)
- - [Mac](#what-to-install-on-mac)
+   - [Windows](#what-to-install-on-windows)
+   - [Linux](#what-to-install-on-linux)
+   - [Mac](#what-to-install-on-mac)
 
 2. [Fork the project here.](https://github.com/lawrancej/CompilerKit/fork)
 
