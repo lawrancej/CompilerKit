@@ -60,6 +60,7 @@
 #include "empty-set.h"
 #include "empty-string.h"
 #include "symbol.h"
+#include "range.h"
 #include "alternation.h"
 #include "complement.h"
 #include "concatenation.h"
