@@ -28,7 +28,7 @@ Hacking CompilerKit
 
 5. [Read Documentation.](#where-is-the-documentation)
 
-        docs/html/index.html
+        ./generate.sh docs
 
 6. [Learn how to contribute.](#how-to-contribute)
 
@@ -148,12 +148,14 @@ To run the test suite, type:
 
     ./generate.sh test
 
-To get a coverage report (assumes `lcov` is installed):
+To get a coverage report, type this (if on MSYS, [do this first](#how-do-i-build-using-msys)):
 
     ./generate.sh coverage
 
 ## Where is the documentation?
-[CompilerKit uses Doxygen](#what-is-doxygen) to generate documentation. After building CompilerKit, look at `docs/html/index.html`.
+[CompilerKit uses Doxygen](#what-is-doxygen) to generate documentation. Do this to generate and view documentation:
+
+    ./generate.sh docs
 
 Also, read up on [GLib](#how-do-i-use-glib) and [GObject](#how-do-i-use-gobject).
 
@@ -183,14 +185,25 @@ Example comment:
 The folder structure of CompilerKit is as follows:
 
 ```
-.boilerplate        Contains boilerplate that ./generate.sh copies to the appropriate folderss.
-build               You should make this folder yourself and run cmake inside there. Executables are here.
-build/Debug         The folder where executables go in Windows.
-docs                Once you've built CompilerKit, all generated documentation goes there. Read it!
-examples            Source code demonstrations for how to use each class. Shows up in the documentation.
-include             The include files for the CompilerKit library.
-src                 The CompilerKit library source code.
-tests               The test suite to exercise the CompilerKit library.
+.boilerplate        Contains boilerplate classes for writing new GObject classes.
+AUTHORS             A list of people who contribute to the project.
+CMakeLists.txt      CMake configuration file for generating Makefiles.
+CONVENTIONS.md      How to write code without looking stupid.
+COPYING             The license (LGPL 2.1+)
+Doxyfile            Doxygen configuration.
+HACKING.md          This file.
+README.md           The readme.
+TODO.md             A list of TODO items.
+build/              Where the build goes (git ignores this)
+collaborators.sh    Configure git to add all AUTHORS into your git remotes for you
+dependencies/       A folder containing project dependencies. Currently, just the latest from lcov CVS.
+docs/               All generated documentation goes there. Read it!
+examples/           Source code demonstrations for how to use each class. Shows up in the documentation.
+generate.sh         The Swiss-Army knife: it does everything.
+images/             Miscellaneous images in project documentation
+include/            The include files for the CompilerKit library.
+src/                The CompilerKit library source code.
+tests/              The test suite to exercise the CompilerKit library.
 ```
 
 The regex classes are: `CompilerKitSymbol`, `CompilerKitEmptySet`, `CompiletKitEmptystring`, `CompilerKitConcatenation`, `CompilerKitAlternation`, `CompilerKitKleeneStar`, `CompilerKitComplement`.
@@ -230,7 +243,7 @@ I will not merge code into my master branch until:
 
  - The [project builds successfully.](#how-do-i-build-compilerkit)
  - It has a demo (see `examples/`).
- - Test cases pass in the test suite (see `tests/test-suite.c` and `tests/test-suite.h`)
+ - Test cases pass in the test suite (see `tests/test.c` and `tests/test.h`)
  - [The documentation looks as expected](#where-is-the-documentation).
 
 Look for the demo and test suite executables in these folders:
