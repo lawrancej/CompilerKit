@@ -1,0 +1,3 @@
+[submodule "dependencies/lcov"]
+	path = dependencies/lcov
+	url = https://github.com/lawrancej/lcov.git

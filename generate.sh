@@ -1,5 +1,9 @@
 #!/bin/bash
 
+pushd dependencies/lcov/bin > /dev/null
+PATH=$PATH:$(pwd)
+popd > /dev/null
+
 # Replace boilerplate (bar) names with appropriate class name variation.
 # Conventions:
 # CamelClassName for the struct
@@ -123,9 +127,10 @@ main() {
         fi
     fi
     if [ $1 = "coverage" ]; then
+        mkdir -p coverage
         lcov --directory . --capture --output-file app.info
-        genhtml app.info
-        file_open build/index.html
+        genhtml -o coverage app.info
+        file_open coverage/index.html
     fi
 
     if [[ $1 == "class" || $1 == "interface" ]]; then
