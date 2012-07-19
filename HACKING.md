@@ -14,6 +14,8 @@ Hacking CompilerKit
 
          git clone https://github.com/YourNameGoesHereButDontTypeThisInLiterally/CompilerKit.git
          cd CompilerKit
+         git submodule init # This project has submodules in it, so do this first (one time).
+         git submodule update # This project has submodules in it, so do this first (one time).
 
 3. Add me as upstream, and add in your collaborators, too.
 
