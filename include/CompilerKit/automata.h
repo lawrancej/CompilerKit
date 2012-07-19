@@ -57,11 +57,16 @@ typedef struct _CompilerKitFSM
   
 } CompilerKitFSM;
 
+#define bool int
+#define true 1
+#define false 0
+
 typedef struct _CompilerKitFSMNode
 {
 	gchar* id;
-	gchar* data;
+	gchar data;
 	GList* paths;
+	bool visited;
 	bool endState;
 } CompilerKitFSMNode;
 
@@ -95,17 +100,22 @@ void compilerkit_FSM_set_start_state(CompilerKitFSM *self, gchar* id);
 
 gchar* compilerkit_FSM_get_start_state(CompilerKitFSM *self);
 
-void compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar* parentID, gchar* id, gchar* value);
+void compilerkit_FSM_add_transition(CompilerKitFSM* self, gchar* parentID, gchar* id, gchar value);
 
 bool compilerkit_FSM_has_state(CompilerKitFSM* self, gchar* id);
 
-void compilerkit_FSM_add_end_state(CompilerKitFSM* self,gchar id);
+void compilerkit_FSM_add_end_state(CompilerKitFSM* self,gchar* id);
 
 void compilerkit_FSM_node_reset_visited(CompilerKitFSMNode* node);
 
 CompilerKitFSMNode* compilerkit_FSM_node_find(CompilerKitFSMNode* node, gchar* id);
 
-bool compilerkit_FSM_node_add(CompilerKitFSM *self, gchar* parentID, gchar* id, gchar* value);
+bool compilerkit_FSM_node_add(CompilerKitFSM *self, gchar* parentID, gchar* id, gchar value);
+
+void compilerkit_FSM_node_destroy_all(CompilerKitFSMNode* node);
+
+gchar* compilerkit_FSM_get_next_state(CompilerKitFSM* self, gchar* state, gchar value);
+
 
 G_END_DECLS
 #endif

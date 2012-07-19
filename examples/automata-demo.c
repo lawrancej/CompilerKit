@@ -9,6 +9,7 @@ CompilerKitFSM *state_machine ()
     CompilerKitFSM* fsm; // Creates pointer for FSM
     
     fsm = compilerkit_FSM_new("A");  // Calls the constructor for the FSM
+    printf("Object created\r\n");
 //    compilerkit_FSM_set_start_state(fsm, "A");
     compilerkit_FSM_add_transition (fsm, "A", "B", 'd');
     compilerkit_FSM_add_transition (fsm, "A", "F", 'f');
@@ -19,24 +20,18 @@ CompilerKitFSM *state_machine ()
     compilerkit_FSM_add_transition (fsm, "F", "G", 's');
     compilerkit_FSM_add_transition (fsm, "G", "H", 'm');
     compilerkit_FSM_add_transition (fsm, "H", "A", ' ');
-    compilerkit_FSM_add_accepting_state (fsm, "E");
-    compilerkit_FSM_add_accepting_state (fsm, "H");
+    printf("Transitions added\r\n");
+    compilerkit_FSM_add_end_state (fsm, "F");
+    compilerkit_FSM_add_end_state (fsm, "E");
+    compilerkit_FSM_add_end_state (fsm, "H");
+    printf("End states added\r\n");
     return fsm;
 }
 
 // Print out the states
 void print_states(CompilerKitFSM *fsm)
 {
-    GList *list;
-
-    printf ("states: ");
-    list = compilerkit_FSM_get_states (fsm);
-    while (list) {
-        printf ((compilerkit_FSM_is_accepting_state(fsm, list->data) ? "(%s) " : "%s "), list->data);
-        list = g_list_next(list);
-    }
-    printf ("\n");
-    g_list_free (list);
+     
 }
 
 // Match a string.
@@ -53,6 +48,8 @@ void match_string(CompilerKitFSM *fsm)
     while (*str) {
         printf ("%s %c\n", state, *str);
         state = compilerkit_FSM_get_next_state (fsm, state, *str);
+	if(state == NULL)
+	  break;
         *str++;
     }
     printf ((compilerkit_FSM_is_accepting_state(fsm, state)) ? 
@@ -68,8 +65,7 @@ int main (int argc, char ** argv)
     g_type_init(); 
     
     fsm = state_machine();
-    print_states(fsm);
+    /*print_states(fsm);*/
     match_string(fsm);
-    
     g_object_unref (fsm); // Decreases the reference count by 1, if count becomes 0, then free memeory.
 }
