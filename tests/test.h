@@ -26,6 +26,7 @@ void test_alternation_flyweight(void);
 
 void test_FSM_start_state (void);
 void test_FSM_states (void);
+void test_FSM_transitions (void);
 
 void test_complement_constructor (void);
 void test_complement_get_node (void);

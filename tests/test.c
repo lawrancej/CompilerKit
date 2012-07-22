@@ -31,6 +31,7 @@ int main (int argc, char ** argv)
     
     g_test_add_func ("/automata/start-state", test_FSM_start_state);
     g_test_add_func ("/automata/states", test_FSM_states);
+    g_test_add_func ("/automata/transitions", test_FSM_transitions);
 
     g_test_add_func ("/complement/constructor", test_complement_constructor);
 	g_test_add_func ("/complement/get_node", test_complement_get_node);
