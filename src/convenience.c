@@ -142,7 +142,20 @@ GObject *compilerkit_positive_closure_new (GObject *regex)
     g_assert (regex);
     return compilerkit_concatenation_new (regex, compilerkit_kleene_star_new (regex));
 }
-
+/**
+ * compilerkit_optional_new:
+ * @fn compilerkit_optional_new
+ *
+ * Return a regex corresponding to the original regex|empty string
+ * 
+ * @pre regex is not NULL
+ * @param GObject* regex to make optional
+ * @return GObject* Alternation of the regex with the empty string
+ */
+GObject *compilerkit_optional_new (GObject *regex)
+{
+    return NULL;
+}
 /**
  * compilerkit_regex_digits:
  * @fn compilerkit_regex_digits
