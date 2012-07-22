@@ -168,7 +168,7 @@ GObject *compilerkit_optional_new (GObject *regex)
  */
 GObject *compilerkit_regex_digits(void)
 {
-    return NULL;
+    return compilerkit_character_class_new('0','9');
 }
 /**
  * compilerkit_regex_lower:
@@ -182,7 +182,7 @@ GObject *compilerkit_regex_digits(void)
  */
 GObject *compilerkit_regex_lower(void)
 {
-    return NULL;
+    return compilerkit_character_class_new('a','z');
 }
 /**
  * compilerkit_regex_upper:
@@ -196,7 +196,7 @@ GObject *compilerkit_regex_lower(void)
  */
 GObject *compilerkit_regex_upper(void)
 {
-    return NULL;
+    return compilerkit_character_class_new('A','Z');
 }
 /**
  * compilerkit_regex_punct:
