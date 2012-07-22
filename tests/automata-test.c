@@ -58,22 +58,12 @@ void test_FSM_states (void)
     g_test_timer_start ();
 
     fsm = compilerkit_FSM_new ("zero");
-    compilerkit_FSM_add_state (fsm, "one");
-    compilerkit_FSM_add_state (fsm, "two");
-    compilerkit_FSM_add_state (fsm, "three");
+	compilerkit_FSM_add_transition(fsm,"zero","one","a");
+	compilerkit_FSM_add_transition(fsm,"zero","two","b");
     
-    g_assert (compilerkit_FSM_has_state (fsm, "zero"));
-    g_assert (compilerkit_FSM_has_state (fsm, "one"));
-    g_assert (compilerkit_FSM_has_state (fsm, "two"));
-    g_assert (compilerkit_FSM_has_state (fsm, "three"));
-    g_assert (!compilerkit_FSM_has_state (fsm, "four"));
-    g_assert (!compilerkit_FSM_has_state (fsm, NULL));
-    
-    compilerkit_FSM_add_transition (fsm, "zero", "five", '5');
-    compilerkit_FSM_add_accepting_state (fsm, "six");
-    g_assert (compilerkit_FSM_has_state (fsm, "five"));
-    g_assert (compilerkit_FSM_has_state (fsm, "six"));
-    
+	g_assert(compilerkit_FSM_has_state(fsm,"zero"));
+	g_assert(compilerkit_FSM_has_state(fsm,"one"));
+	
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
     g_object_unref (fsm);
 }
