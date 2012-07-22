@@ -120,3 +120,30 @@ void test_alternation_vlist_new (void)
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
+
+/**
+ * test_alternation_vlist_new:
+ * @fn test_alternation_vlist_new
+ * Tests whether the alternation constructor is a flyweight constructor.
+ * @pre None
+ * @param None
+ * @return void
+ */
+void test_alternation_flyweight(void)
+{
+    GObject *alt1, *alt2;
+    
+    g_test_message ("Testing Alternation flyweight constructor");
+    g_test_timer_start ();
+    
+    alt1 = compilerkit_alternation_new (compilerkit_symbol_new ('A'), compilerkit_symbol_new ('B'));
+    alt2 = compilerkit_alternation_new (compilerkit_symbol_new ('A'), compilerkit_symbol_new ('B'));
+    
+    g_assert (alt1 == alt2);
+    
+	g_object_unref (alt1);
+	g_object_unref (alt2);
+    
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+    
+}

@@ -22,6 +22,7 @@
 void test_alternation_constructor (void);
 void test_alternation_get_left_and_right (void);
 void test_alternation_vlist_new (void);
+void test_alternation_flyweight(void);
 
 void test_FSM_start_state (void);
 void test_FSM_states (void);
