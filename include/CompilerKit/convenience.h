@@ -22,5 +22,10 @@ GObject* compilerkit_character_class_new(gunichar, gunichar);
 gboolean compilerkit_character_is_alpha_numeric(gunichar);
 GObject* compilerkit_alpha_numeric_character_class_new(gunichar, gunichar);
 GObject *compilerkit_positive_closure_new (GObject *);
+GObject *compilerkit_regex_digits(void);
+GObject *compilerkit_regex_lower(void);
+GObject *compilerkit_regex_upper(void);
+GObject *compilerkit_regex_punct(void);
+GObject *compilerkit_regex_whitespace(void);
 
 #endif
