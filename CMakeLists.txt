@@ -75,7 +75,7 @@ IF (BUILD_TESTS)
     ENDIF()
     FOREACH(FILE ${SRC})
         GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
-        ADD_TEST(${FNAME} test-suite -v -p ${FNAME})
+        ADD_TEST(${FNAME} test-suite -k -v -p ${FNAME})
     ENDFOREACH(FILE)
 ENDIF()
 
