@@ -19,31 +19,35 @@
 #include "CompilerKit.h"
 #include "test.h"
 
-/** 
- * @todo Write test cases, add prototype to `test.h`, call `g_test_add_func` in `test.c:main`
- * A test case for Bar should be in a function in this file called: `void test_bar_case (void);`
- * The prototype for the function `void test_bar_case (void);` belongs in `test.h`
- * In `test.c:main` add this function: g_test_add_func ("/header/case", test_bar_case);
- * @todo The more test cases the better, until reaching sufficient coverage.
- */
+/** @todo Write test cases for range of the form: void test_range_case (void); */
+/** @todo Add to `main`: g_test_add_func ("/range/case", test_range_case); */
 
 /**
- * test_bar_case:
- * @fn test_bar_case
- * Tests compilerkit_bar_case in CompilerKitBar struct.
+ * test_range_case:
+ * @fn test_range_case
+ * Tests compilerkit_range_case in CompilerKitRange struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_bar_case (void)
+void test_range_case (void)
 {
-    CompilerKitBar *obj;
+    GObject* obj;
+	GObject* left;
+	GObject* right;
+    CompilerKitRange *range;
 
-    g_test_message ("Testing Bar case");
+    g_test_message ("Testing range case");
     g_test_timer_start ();
+	
+	left = compilerkit_symbol_new('A');
+	right = compilerkit_symbol_new('C');
     
+	obj = compilerkit_range_new(left, right);
     /** @todo Test here  */
-    g_assert(FALSE);
+	g_assert(COMPILERKIT_IS_RANGE(obj));
+    range = COMPILERKIT_RANGE(obj);
+    //g_assert(obj->priv->left->priv->node == 'A');
     
     g_object_unref (obj);
 

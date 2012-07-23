@@ -49,20 +49,20 @@ void test_nullable_visitor (void)
     
     nullable = compilerkit_nullable_visitor();
     
-    // Symbol is not nullable, hence it should return NULL here.
-    g_assert (compilerkit_visitor_visit(nullable, symbol) == NULL);
+    // Symbol is not nullable, hence it should return EmptySet here.
+    g_assert (compilerkit_visitor_visit(nullable, symbol) == compilerkit_empty_set_get_instance());
     
     // KleeneStar is nullable, so it should return EmptyString here.
     g_assert (compilerkit_visitor_visit(nullable, star) == compilerkit_empty_string_get_instance());
     
-    // Concatenation is not nullable, so it should return NULL here.
-    g_assert (compilerkit_visitor_visit(nullable, cat) == NULL);
+    // Concatenation is not nullable, so it should return EmptySet here.
+    g_assert (compilerkit_visitor_visit(nullable, cat) == compilerkit_empty_set_get_instance());
     
     // Alt1 is nullable, because one side is nullable. 
     g_assert (compilerkit_visitor_visit(nullable, alt1) == compilerkit_empty_string_get_instance());
     
     // Alt2 is not nullable, because neither side is nullable. 
-    g_assert (compilerkit_visitor_visit(nullable, alt2) == NULL);
+    g_assert (compilerkit_visitor_visit(nullable, alt2) == compilerkit_empty_set_get_instance());
 
     g_object_unref (nullable);
     g_object_unref (alt1);

@@ -4,17 +4,42 @@
 # > cmake ..
 # > cmake --build .
 #
+# Or, use:
+# > ./generate.sh build
+# > ./generate.sh build -DBUILD_EXAMPLES=ON # Build all demos
+# > ./generate.sh build -DBUILD_NONTERMINAL_DEMO=ON # Build only the nonterminal demo
+#
 # CMake Tutorial: http://www.cmake.org/cmake/help/cmake_tutorial.html
 # CMake Example:  https://github.com/libgit2/libgit2/blob/development/CMakeLists.txt
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 PROJECT(libCompilerKit C)
 
+# Define shortcuts for src, test_suite and example folders.
+FILE (GLOB SRC src/*.c)
+FILE (GLOB TEST_SUITE tests/*.c)
+FILE (GLOB EXAMPLES examples/*.c)
+
+# Build options
+OPTION (BUILD_EXAMPLES "Build all examples" OFF)
+OPTION (BUILD_DOCS "Build documentation" OFF)
+OPTION (BUILD_TESTS "Build tests" ON)
+
+# Build examples
+FOREACH(FILE ${EXAMPLES})
+    GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
+    STRING (TOUPPER ${FNAME} FNAME)
+    STRING (REPLACE "-" "_" FNAME ${FNAME})
+    OPTION (BUILD_${FNAME} "Build ${FNAME}" OFF)
+ENDFOREACH(FILE)
+
 # Generate documentation
-FIND_PACKAGE(Doxygen)
-IF (DOXYGEN_FOUND)
-ADD_CUSTOM_TARGET(doc ALL ${DOXYGEN_EXECUTABLE} "${PROJECT_SOURCE_DIR}/Doxyfile" WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
-ENDIF (DOXYGEN_FOUND)
+IF (BUILD_DOCS)
+    FIND_PACKAGE(Doxygen)
+    IF (DOXYGEN_FOUND)
+        ADD_CUSTOM_TARGET(doc ALL ${DOXYGEN_EXECUTABLE} "${PROJECT_SOURCE_DIR}/Doxyfile" WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+    ENDIF (DOXYGEN_FOUND)
+ENDIF()
 
 # Use pkg-config to configure GLib and GObject includes, link libraries and link directories
 FIND_PACKAGE (PkgConfig REQUIRED)
@@ -30,11 +55,7 @@ ELSE ()
     SET(CMAKE_C_FLAGS "-O2 -g -D_GNU_SOURCE -Wall -Wextra -Wno-missing-field-initializers -Wstrict-aliasing=2 -Wstrict-prototypes -Wmissing-prototypes -fprofile-arcs -ftest-coverage ${CMAKE_C_FLAGS}")
     SET(CMAKE_C_FLAGS_DEBUG "-O0 -g")
     SET(CMAKE_EXE_LINKER_FLAGS="-fprofile-arcs -ftest-coverage")
-ENDIF ()
-
-FILE (GLOB SRC src/*.c)
-FILE (GLOB TEST_SUITE tests/*.c)
-FILE (GLOB EXAMPLES examples/*.c)
+ENDIF()
 
 INCLUDE_DIRECTORIES(${GLIB2_INCLUDE_DIRS} ${GOBJECT_PKG_INCLUDE_DIRS} src include)
 LINK_LIBRARIES(${GLIB2_LIBRARIES} ${GOBJECT_PKG_LIBRARIES})
@@ -44,23 +65,29 @@ LINK_DIRECTORIES(${GLIB2_LIBRARY_DIRS} ${GOBJECT_PKG_LIBRARY_DIRS})
 ADD_LIBRARY(CompilerKit ${SRC})
 
 # Test suite
-ENABLE_TESTING()
-ADD_EXECUTABLE(test-suite ${TEST_SUITE})
-IF (MSVC)
-    TARGET_LINK_LIBRARIES(test-suite CompilerKit)
-ELSE ()
-    TARGET_LINK_LIBRARIES(test-suite CompilerKit gcov)
+IF (BUILD_TESTS)
+    ENABLE_TESTING()
+    ADD_EXECUTABLE(test-suite ${TEST_SUITE})
+    IF (MSVC)
+        TARGET_LINK_LIBRARIES(test-suite CompilerKit)
+    ELSE ()
+        TARGET_LINK_LIBRARIES(test-suite CompilerKit gcov)
+    ENDIF()
+    FOREACH(FILE ${SRC})
+        GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
+        ADD_TEST(${FNAME} test-suite -k -v -p ${FNAME})
+    ENDFOREACH(FILE)
 ENDIF()
 
-FOREACH(FILE ${SRC})
-    GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
-    MESSAGE(${FNAME})
-    ADD_TEST(${FNAME} test-suite -v -p ${FNAME})
-ENDFOREACH(FILE)
-
 # Build demo applications
+# To build only a handful of demos, use -DBUILD_COMPONENT_NAME_HERE_DEMO=ON
+# For example, -DBUILD_SCANNER_DEMO=ON to build only the scanner demo
 FOREACH(FILE ${EXAMPLES})
     GET_FILENAME_COMPONENT(FNAME ${FILE} NAME_WE)
-    ADD_EXECUTABLE(${FNAME} ${FILE})
-    TARGET_LINK_LIBRARIES(${FNAME} CompilerKit)
+    STRING (TOUPPER ${FNAME} NEW_FNAME)
+    STRING (REPLACE "-" "_" NEW_FNAME ${NEW_FNAME})
+    IF (BUILD_${NEW_FNAME} OR BUILD_EXAMPLES)
+        ADD_EXECUTABLE(${FNAME} ${FILE})
+        TARGET_LINK_LIBRARIES(${FNAME} CompilerKit)
+    ENDIF()
 ENDFOREACH(FILE)

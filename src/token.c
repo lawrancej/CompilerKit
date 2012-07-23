@@ -94,10 +94,10 @@ compilerkit_token_init (CompilerKitToken *self)
  * @memberof CompilerKitToken
  * Construct a CompilerKitToken instance.
  * @pre None
- * @param None
+ * @param char* The name of the token
  * @return A new CompilerKitToken struct.
  */
-CompilerKitToken* compilerkit_token_new (void)
+CompilerKitToken* compilerkit_token_new (char *name)
 {
 	return COMPILERKIT_TOKEN (g_object_new (COMPILERKIT_TYPE_TOKEN, NULL));
 }

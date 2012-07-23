@@ -142,3 +142,87 @@ GObject *compilerkit_positive_closure_new (GObject *regex)
     g_assert (regex);
     return compilerkit_concatenation_new (regex, compilerkit_kleene_star_new (regex));
 }
+/**
+ * compilerkit_optional_new:
+ * @fn compilerkit_optional_new
+ *
+ * Return a regex corresponding to the original regex|empty string
+ * 
+ * @pre regex is not NULL
+ * @param GObject* regex to make optional
+ * @return GObject* Alternation of the regex with the empty string
+ */
+GObject *compilerkit_optional_new (GObject *regex)
+{
+    return NULL;
+}
+/**
+ * compilerkit_regex_digits:
+ * @fn compilerkit_regex_digits
+ *
+ * Return a character class corresponding to `[0-9]`
+ * 
+ * @pre None
+ * @param None
+ * @return GObject* regex that matches the digits 0 through 9.
+ */
+GObject *compilerkit_regex_digits(void)
+{
+    return NULL;
+}
+/**
+ * compilerkit_regex_lower:
+ * @fn compilerkit_regex_lower
+ *
+ * Return a character class corresponding to `[a-z]`
+ * 
+ * @pre None
+ * @param None
+ * @return GObject* regex that matches the symbols a through z.
+ */
+GObject *compilerkit_regex_lower(void)
+{
+    return NULL;
+}
+/**
+ * compilerkit_regex_upper:
+ * @fn compilerkit_regex_upper
+ *
+ * Return a character class corresponding to `[A-Z]`
+ * 
+ * @pre None
+ * @param None
+ * @return GObject* regex that matches the symbols A through Z.
+ */
+GObject *compilerkit_regex_upper(void)
+{
+    return NULL;
+}
+/**
+ * compilerkit_regex_punct:
+ * @fn compilerkit_regex_punct
+ *
+ * Return a character class corresponding to all punctuation.
+ * 
+ * @pre None
+ * @param None
+ * @return GObject* regex that matches all punctuation.
+ */
+GObject *compilerkit_regex_punct(void)
+{
+    return NULL;
+}
+/**
+ * compilerkit_regex_whitespace:
+ * @fn compilerkit_regex_whitespace
+ *
+ * Return a character class corresponding to all whitespace.
+ * 
+ * @pre None
+ * @param None
+ * @return GObject* regex that matches all whitespace.
+ */
+GObject *compilerkit_regex_whitespace(void)
+{
+    return NULL;
+}

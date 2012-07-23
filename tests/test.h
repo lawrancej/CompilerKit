@@ -22,9 +22,11 @@
 void test_alternation_constructor (void);
 void test_alternation_get_left_and_right (void);
 void test_alternation_vlist_new (void);
+void test_alternation_flyweight(void);
 
 void test_FSM_start_state (void);
 void test_FSM_states (void);
+void test_FSM_transitions (void);
 
 void test_complement_constructor (void);
 void test_complement_get_node (void);
@@ -53,6 +55,8 @@ void test_nullable_visitor (void);
 void test_production_case (void);
 
 void test_pushdown_automata_method (void);
+
+void test_range_case (void);
 
 void test_scanner_method (void);
 

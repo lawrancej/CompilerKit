@@ -27,9 +27,11 @@ int main (int argc, char ** argv)
     g_test_add_func ("/alternation/constructor", test_alternation_constructor);
 	g_test_add_func ("/alternation/get_left_and_get_right", test_alternation_get_left_and_right);
 	g_test_add_func ("/alternation/vlist_new", test_alternation_vlist_new);
+    g_test_add_func ("/alternation/flyweight", test_alternation_flyweight);
     
     g_test_add_func ("/automata/start-state", test_FSM_start_state);
     g_test_add_func ("/automata/states", test_FSM_states);
+    g_test_add_func ("/automata/transitions", test_FSM_transitions);
 
     g_test_add_func ("/complement/constructor", test_complement_constructor);
 	g_test_add_func ("/complement/get_node", test_complement_get_node);
@@ -58,6 +60,8 @@ int main (int argc, char ** argv)
     g_test_add_func ("/production/case", test_production_case);
 
     g_test_add_func ("/pushdown-automata/test", test_pushdown_automata_method);
+
+    g_test_add_func ("/range/case", test_range_case);
 
     g_test_add_func ("/scanner/method", test_scanner_method);
 

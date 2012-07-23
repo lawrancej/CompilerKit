@@ -18,9 +18,24 @@
 #ifndef INCLUDE_CompilerKit_convenience_h__
 #define INCLUDE_CompilerKit_convenience_h__
 
+#define MANY(x) (compilerkit_kleene_star_new(x))
+#define MANY1(x) (compilerkit_positive_closure_new(x))
+#define OPTION(x) (compilerkit_optional_new(x))
+#define SYMB(x) (compilerkit_symbol_new(x))
+#define OR(x,y,...) (compilerkit_alternation_vlist_new(x,y,__VA_ARGS__,NULL))
+#define SEQ(x,y,...) (compilerkit_concatenation_vlist_new(x,y,__VA_ARGS__,NULL))
+#define EMPTY_STRING (compilerkit_empty_string_get_instance())
+#define EMPTY_SET (compilerkit_empty_set_get_instance())
+
 GObject* compilerkit_character_class_new(gunichar, gunichar);
 gboolean compilerkit_character_is_alpha_numeric(gunichar);
 GObject* compilerkit_alpha_numeric_character_class_new(gunichar, gunichar);
 GObject *compilerkit_positive_closure_new (GObject *);
+GObject *compilerkit_optional_new (GObject *);
+GObject *compilerkit_regex_digits(void);
+GObject *compilerkit_regex_lower(void);
+GObject *compilerkit_regex_upper(void);
+GObject *compilerkit_regex_punct(void);
+GObject *compilerkit_regex_whitespace(void);
 
 #endif

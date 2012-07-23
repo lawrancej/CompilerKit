@@ -80,7 +80,7 @@ GType compilerkit_token_get_type (void);
  * @todo Add function prototypes here for both virtual and non-virtual public methods.
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
-CompilerKitToken* compilerkit_token_new (void);
+CompilerKitToken* compilerkit_token_new (char *);
 
 G_END_DECLS
 #endif /* INCLUDE_CompilerKit_token_h__ */

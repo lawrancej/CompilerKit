@@ -1,5 +1,9 @@
 #!/bin/bash
 
+pushd dependencies/lcov/bin > /dev/null
+PATH=$PATH:$(pwd)
+popd > /dev/null
+
 # Replace boilerplate (bar) names with appropriate class name variation.
 # Conventions:
 # CamelClassName for the struct
@@ -100,11 +104,12 @@ main() {
 	if [ $1 = "build" ] || [ $1 = "rebuild" ] || [ $1 = "test" ] || [ $1 = "tests" ] || [ $1 = "tests/" ] || [ $1 = "coverage" ]; then
 		echo "Building CompilerKit"
 		cd build
-		cmake .. 
+		command="cmake ${@:2} .."
+        eval "$command"
 		if [ "$2" = "-v" ]; then
 			cmake --build .
 		else
-			cmake --build . | grep -iE "error |warning |======"
+			cmake --build . | grep -iE "error |warning |error:|warning:|======"
 		fi
 	fi
     if [ $1 = "docs" ] || [ $1 = "docs/" ]; then
@@ -122,9 +127,10 @@ main() {
         fi
     fi
     if [ $1 = "coverage" ]; then
+        mkdir -p coverage
         lcov --directory . --capture --output-file app.info
-        genhtml app.info
-        file_open build/index.html
+        genhtml -o coverage app.info
+        file_open coverage/index.html
     fi
 
     if [[ $1 == "class" || $1 == "interface" ]]; then
