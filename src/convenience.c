@@ -23,18 +23,6 @@ gboolean compilerkit_character_is_alpha_numeric (gunichar character)
            ('A' <= character && character <= 'Z') ||
            ('a' <= character && character <= 'z');
 }
-
-/** Return a character class corresponding to [0-9] */
-GObject *compilerkit_regex_digits(void);
-/** Return a character class corresponding to [a-z] */
-GObject *compilerkit_regex_lower(void);
-/** Return a character class corresponding to [A-Z] */
-GObject *compilerkit_regex_upper(void);
-/** Return a character class corresponding to all punctuation */
-GObject *compilerkit_regex_punct(void);
-/** Return a character class corresponding to all whitespace */
-GObject *compilerkit_regex_whitespace(void);
-
 /* Ensure lo is indeed lower than hi */
 static void sort_chars (gunichar *lo, gunichar *hi)
 {
@@ -172,20 +160,6 @@ GObject *compilerkit_optional_new (GObject *regex)
     return NULL;
 }
 /**
- * compilerkit_regex_digits:
- * @fn compilerkit_regex_digits
- *
- * Return a character class corresponding to `[0-9]`
- * 
- * @pre None
- * @param None
- * @return GObject* regex that matches the digits 0 through 9.
- */
-GObject *compilerkit_regex_digits(void)
-{
-    return NULL;
-}
-/**
  * compilerkit_regex_lower:
  * @fn compilerkit_regex_lower
  *
@@ -197,7 +171,7 @@ GObject *compilerkit_regex_digits(void)
  */
 GObject *compilerkit_regex_lower(void)
 {
-    return NULL;
+    return compilerkit_character_class_new('a', 'z');
 }
 /**
  * compilerkit_regex_upper:
@@ -211,7 +185,7 @@ GObject *compilerkit_regex_lower(void)
  */
 GObject *compilerkit_regex_upper(void)
 {
-    return NULL;
+    return  compilerkit_character_class_new('A', 'Z');
 }
 /**
  * compilerkit_regex_punct:
@@ -225,7 +199,7 @@ GObject *compilerkit_regex_upper(void)
  */
 GObject *compilerkit_regex_punct(void)
 {
-    return NULL;
+    return compilerkit_character_class_new('!', '/');;
 }
 /**
  * compilerkit_regex_whitespace:
@@ -239,5 +213,5 @@ GObject *compilerkit_regex_punct(void)
  */
 GObject *compilerkit_regex_whitespace(void)
 {
-    return NULL;
+    return compilerkit_character_class_new(' ', ' ');;
 }
