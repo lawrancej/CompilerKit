@@ -24,6 +24,17 @@ gboolean compilerkit_character_is_alpha_numeric (gunichar character)
            ('a' <= character && character <= 'z');
 }
 
+/** Return a character class corresponding to [0-9] */
+GObject *compilerkit_regex_digits(void);
+/** Return a character class corresponding to [a-z] */
+GObject *compilerkit_regex_lower(void);
+/** Return a character class corresponding to [A-Z] */
+GObject *compilerkit_regex_upper(void);
+/** Return a character class corresponding to all punctuation */
+GObject *compilerkit_regex_punct(void);
+/** Return a character class corresponding to all whitespace */
+GObject *compilerkit_regex_whitespace(void);
+
 /* Ensure lo is indeed lower than hi */
 static void sort_chars (gunichar *lo, gunichar *hi)
 {
@@ -37,6 +48,10 @@ static void sort_chars (gunichar *lo, gunichar *hi)
     }
 }
 
+GObject *compilerkit_regex_digits()
+{
+	return compilerkit_character_class_new('0', '9');
+}
 /**
  * compilerkit_alpha_numeric_character_class_new:
  * @fn compilerkit_alpha_numeric_character_class_new
