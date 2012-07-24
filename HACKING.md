@@ -6,14 +6,16 @@ Hacking CompilerKit
 ## Getting started
 1. Install the dependencies (Git, CMake, Doxygen, GLib, GObject, C compiler) for your platform.
 
-    - [Windows](#what-to-install-on-windows)
-    - [Linux](#what-to-install-on-linux)
-    - [Mac](#what-to-install-on-mac)
+   - [Windows](#what-to-install-on-windows)
+   - [Linux](#what-to-install-on-linux)
+   - [Mac](#what-to-install-on-mac)
 
 2. [Fork the project here.](https://github.com/lawrancej/CompilerKit/fork)
 
          git clone https://github.com/YourNameGoesHereButDontTypeThisInLiterally/CompilerKit.git
          cd CompilerKit
+         git submodule init # This project has submodules in it, so do this first (one time).
+         git submodule update # This project has submodules in it, so do this first (one time).
 
 3. Add me as upstream, and add in your collaborators, too.
 
@@ -22,11 +24,13 @@ Hacking CompilerKit
 
 4. [Build CompilerKit.](#how-do-i-build-compilerkit)
 
-        ./build.sh build
+        ./generate.sh build # Builds tests only
+        ./generate.sh build -DBUILD_EXAMPLES # Builds all examples
+        ./generate.sh build -DBUILD_SCANNER_DEMO # Builds the scanner demo only
 
 5. [Read Documentation.](#where-is-the-documentation)
 
-        docs/html/index.html
+        ./generate.sh docs
 
 6. [Learn how to contribute.](#how-to-contribute)
 
@@ -78,16 +82,21 @@ Did you see `command not found` after typing these into Git Bash? You should not
 5. Double click `DontShowUI`. Enter `1` for value data. Click OK.
 6. Exit `regedit`
 
+### How do I build using MSYS?
+If you installed MSYS, do the following to build all the examples:
+
+    ./generate.sh build -G '"MSYS Makefiles"' -DBUILD_EXAMPLES=ON
+
 ## What to install on Linux
 In the terminal, paste this in for your distribution:
 
 ### Red Hat:
 
-    sudo yum install git cmake doxygen glib-devel pkgconfig lcov 'graphviz*'
+    sudo yum install git cmake doxygen glib-devel pkgconfig 'graphviz*'
 
 ### Debian, Ubuntu:
 
-    sudo apt-get install git cmake doxygen libglib2.0-dev pkg-config lcov graphviz
+    sudo apt-get install git cmake doxygen libglib2.0-dev pkg-config graphviz
 
 ## What to install on Mac
 If you do not already have it, install:
@@ -102,7 +111,7 @@ In the terminal, paste this in:
     
 Once installed, paste this into the Terminal:
 
-    brew install git cmake doxygen glib pkg-config lcov
+    brew install git cmake doxygen glib pkg-config
 
 ### Troubleshooting
 If you see the following error when using CMake on the Mac:
@@ -131,22 +140,24 @@ Follow these steps to fix the error:
 ## How do I build CompilerKit?
 Easy! Type this in:
 
-    ./build.sh build
+    ./generate.sh build
 
 If you get build errors that you know shouldn't be there, try rebuild:
 
-    ./build.sh rebuild
+    ./generate.sh rebuild
 
 To run the test suite, type:
 
-    ./build.sh test
+    ./generate.sh test
 
-To get a coverage report (assumes `lcov` is installed):
+To get a coverage report, type this (if on MSYS, [do this first](#how-do-i-build-using-msys)):
 
-    ./build.sh coverage
+    ./generate.sh coverage
 
 ## Where is the documentation?
-[CompilerKit uses Doxygen](#what-is-doxygen) to generate documentation. After building CompilerKit, look at `docs/html/index.html`.
+[CompilerKit uses Doxygen](#what-is-doxygen) to generate documentation. Do this to generate and view documentation:
+
+    ./generate.sh docs
 
 Also, read up on [GLib](#how-do-i-use-glib) and [GObject](#how-do-i-use-gobject).
 
@@ -176,14 +187,25 @@ Example comment:
 The folder structure of CompilerKit is as follows:
 
 ```
-.boilerplate        Contains boilerplate that ./generate.sh copies to the appropriate folderss.
-build               You should make this folder yourself and run cmake inside there. Executables are here.
-build/Debug         The folder where executables go in Windows.
-docs                Once you've built CompilerKit, all generated documentation goes there. Read it!
-examples            Source code demonstrations for how to use each class. Shows up in the documentation.
-include             The include files for the CompilerKit library.
-src                 The CompilerKit library source code.
-tests               The test suite to exercise the CompilerKit library.
+.boilerplate        Contains boilerplate classes for writing new GObject classes.
+AUTHORS             A list of people who contribute to the project.
+CMakeLists.txt      CMake configuration file for generating Makefiles.
+CONVENTIONS.md      How to write code without looking stupid.
+COPYING             The license (LGPL 2.1+)
+Doxyfile            Doxygen configuration.
+HACKING.md          This file.
+README.md           The readme.
+TODO.md             A list of TODO items.
+build/              Where the build goes (git ignores this)
+collaborators.sh    Configure git to add all AUTHORS into your git remotes for you
+dependencies/       A folder containing project dependencies. Currently, just the latest from lcov CVS.
+docs/               All generated documentation goes there. Read it!
+examples/           Source code demonstrations for how to use each class. Shows up in the documentation.
+generate.sh         The Swiss-Army knife: it does everything.
+images/             Miscellaneous images in project documentation
+include/            The include files for the CompilerKit library.
+src/                The CompilerKit library source code.
+tests/              The test suite to exercise the CompilerKit library.
 ```
 
 The regex classes are: `CompilerKitSymbol`, `CompilerKitEmptySet`, `CompiletKitEmptystring`, `CompilerKitConcatenation`, `CompilerKitAlternation`, `CompilerKitKleeneStar`, `CompilerKitComplement`.
@@ -223,7 +245,7 @@ I will not merge code into my master branch until:
 
  - The [project builds successfully.](#how-do-i-build-compilerkit)
  - It has a demo (see `examples/`).
- - Test cases pass in the test suite (see `tests/test-suite.c` and `tests/test-suite.h`)
+ - Test cases pass in the test suite (see `tests/test.c` and `tests/test.h`)
  - [The documentation looks as expected](#where-is-the-documentation).
 
 Look for the demo and test suite executables in these folders:

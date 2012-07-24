@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
  
 /**
  * test_FSM_start_state:
@@ -77,13 +78,62 @@ void test_FSM_states (void)
     g_object_unref (fsm);
 }
 
-int main (int argc, char ** argv)
+// Build up the state machine. Should match "fsm" or "demo", separated by (but not ending with) spaces.
+static CompilerKitFSM *state_machine ()
 {
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/automata/start-state", test_FSM_start_state);
-    g_test_add_func ("/automata/states", test_FSM_states);
+    CompilerKitFSM* fsm; // Creates pointer for FSM
     
-    g_test_run ();
+    fsm = compilerkit_FSM_new("A");  // Calls the constructor for the FSM
+//    compilerkit_FSM_set_start_state(fsm, "A");
+    compilerkit_FSM_add_transition (fsm, "A", "B", 'd');
+    compilerkit_FSM_add_transition (fsm, "A", "F", 'f');
+    compilerkit_FSM_add_transition (fsm, "B", "C", 'e');
+    compilerkit_FSM_add_transition (fsm, "C", "D", 'm');
+    compilerkit_FSM_add_transition (fsm, "D", "E", 'o');
+    compilerkit_FSM_add_transition (fsm, "E", "A", ' ');
+    compilerkit_FSM_add_transition (fsm, "F", "G", 's');
+    compilerkit_FSM_add_transition (fsm, "G", "H", 'm');
+    compilerkit_FSM_add_transition (fsm, "H", "A", ' ');
+    compilerkit_FSM_add_accepting_state (fsm, "E");
+    compilerkit_FSM_add_accepting_state (fsm, "H");
+    return fsm;
+}
+
+void test_FSM_transitions (void)
+{
+    CompilerKitFSM *fsm = state_machine();    
+    char *state;
+    gchar *pass = "fsm demo";
+    gchar *fail = "FSM";
+
+    g_test_message ("Testing FSM state");
+    g_test_timer_start ();
+
+    /* Assert there are indeed 8 unique states in the state machine. */
+    g_assert (g_list_length(compilerkit_FSM_get_states(fsm)) == 8);
+    
+    /* Assert there are indeed 9 transitions in the state machine. */
+    g_assert (g_list_length(compilerkit_FSM_get_transitions(fsm)) == 9);
+
+    /* Assert there are indeed 2 acceptings states in the state machine. */
+    g_assert (g_list_length(compilerkit_FSM_get_accepting_states(fsm)) == 2);
+
+    /* "fsm demo" should pass */
+    state = compilerkit_FSM_get_start_state(fsm);
+    while (*pass) {
+        state = compilerkit_FSM_get_next_state (fsm, state, *pass);
+        *pass++;
+    }
+    g_assert (compilerkit_FSM_is_accepting_state(fsm, state));
+
+    /* "FSM" should fail */
+    state = compilerkit_FSM_get_start_state(fsm);
+    while (*fail) {
+        state = compilerkit_FSM_get_next_state (fsm, state, *fail);
+        *fail++;
+    }
+    g_assert (!compilerkit_FSM_is_accepting_state(fsm, state));
+    
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+    g_object_unref (fsm);
 }

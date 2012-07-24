@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 /**
  * test_nullable_visitor:
@@ -48,20 +49,20 @@ void test_nullable_visitor (void)
     
     nullable = compilerkit_nullable_visitor();
     
-    // Symbol is not nullable, hence it should return NULL here.
-    g_assert (compilerkit_visitor_visit(nullable, symbol) == NULL);
+    // Symbol is not nullable, hence it should return EmptySet here.
+    g_assert (compilerkit_visitor_visit(nullable, symbol) == compilerkit_empty_set_get_instance());
     
     // KleeneStar is nullable, so it should return EmptyString here.
     g_assert (compilerkit_visitor_visit(nullable, star) == compilerkit_empty_string_get_instance());
     
-    // Concatenation is not nullable, so it should return NULL here.
-    g_assert (compilerkit_visitor_visit(nullable, cat) == NULL);
+    // Concatenation is not nullable, so it should return EmptySet here.
+    g_assert (compilerkit_visitor_visit(nullable, cat) == compilerkit_empty_set_get_instance());
     
     // Alt1 is nullable, because one side is nullable. 
     g_assert (compilerkit_visitor_visit(nullable, alt1) == compilerkit_empty_string_get_instance());
     
     // Alt2 is not nullable, because neither side is nullable. 
-    g_assert (compilerkit_visitor_visit(nullable, alt2) == NULL);
+    g_assert (compilerkit_visitor_visit(nullable, alt2) == compilerkit_empty_set_get_instance());
 
     g_object_unref (nullable);
     g_object_unref (alt1);
@@ -69,14 +70,4 @@ void test_nullable_visitor (void)
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
-}
-
-int main (int argc, char ** argv)
-{
-    g_test_init (&argc, &argv, NULL);
-    g_type_init ();
-
-    g_test_add_func ("/visitors/nullable", test_nullable_visitor);
-    
-    g_test_run ();
 }

@@ -19,28 +19,37 @@
 #include "CompilerKit.h"
 #include "test.h"
 
-/** @todo Write test cases for Production.
- */
+/** @todo Write test cases for range of the form: void test_range_case (void); */
+/** @todo Add to `main`: g_test_add_func ("/range/case", test_range_case); */
 
 /**
- * test_production_case:
- * @fn test_production_case
- * Tests compilerkit_production_case in CompilerKitProduction struct.
+ * test_range_case:
+ * @fn test_range_case
+ * Tests compilerkit_range_case in CompilerKitRange struct.
  * @pre None
  * @param None
  * @return void
  */
-void test_production_case (void)
+void test_range_case (void)
 {
-    //CompilerKitProduction *obj;
+    GObject* obj;
+	GObject* left;
+	GObject* right;
+    CompilerKitRange *range;
 
-    g_test_message ("Testing Production case");
+    g_test_message ("Testing range case");
     g_test_timer_start ();
+	
+	left = compilerkit_symbol_new('A');
+	right = compilerkit_symbol_new('C');
     
+	obj = compilerkit_range_new(left, right);
     /** @todo Test here  */
-    g_assert(FALSE);
+	g_assert(COMPILERKIT_IS_RANGE(obj));
+    range = COMPILERKIT_RANGE(obj);
+    //g_assert(obj->priv->left->priv->node == 'A');
     
-    //g_object_unref (obj);
+    g_object_unref (obj);
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);

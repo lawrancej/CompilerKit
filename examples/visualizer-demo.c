@@ -66,7 +66,8 @@ void compilerkit_FSM_graphviz_render (CompilerKitFSM *fsm) {
 	while(transitions)
 	{
 		character = ((gchar*)(transitions->data))[0];
-        state = ++((gchar*)(transitions->data));
+        state = ((gchar*)(transitions->data));
+        state++;
         new_state = compilerkit_FSM_get_next_state (fsm, state, character);
 
         fprintf(fp, "state_%s -> state_%s [ label = \"%c\" ];\n", state, new_state, character);
