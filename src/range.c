@@ -110,6 +110,15 @@ compilerkit_range_finalize (GObject* object)
 	G_OBJECT_CLASS (compilerkit_range_parent_class)->finalize (object);
 }
 
+GObject* compilerkit_range_get_left (CompilerKitRange *self)
+{
+	return self->priv->left;
+}
+GObject* compilerkit_range_get_right (CompilerKitRange *self)
+{
+	return self->priv->right;
+}
+
 /**
  * compilerkit_range_dispose:
  * @fn compilerkit_range_dispose
