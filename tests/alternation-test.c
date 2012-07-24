@@ -122,8 +122,8 @@ void test_alternation_vlist_new (void)
 }
 
 /**
- * test_alternation_vlist_new:
- * @fn test_alternation_vlist_new
+ * test_alternation_flyweight:
+ * @fn test_alternation_flyweight
  * Tests whether the alternation constructor is a flyweight constructor.
  * @pre None
  * @param None
