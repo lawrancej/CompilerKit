@@ -16,6 +16,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 #include "CompilerKit/alternation.h"
+#include "CompilerKit/empty-set.h"
+#include "CompilerKit/empty-string.h"
 #include <stdarg.h>
 #define COMPILERKIT_ALTERNATION_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_ALTERNATION, CompilerKitAlternationPrivate))
 G_DEFINE_TYPE(CompilerKitAlternation, compilerkit_alternation, G_TYPE_OBJECT);
@@ -93,6 +95,16 @@ compilerkit_alternation_init (CompilerKitAlternation *self)
 GObject *compilerkit_alternation_new (GObject *left, GObject *right)
 {
 	CompilerKitAlternation *result = COMPILERKIT_ALTERNATION (g_object_new (COMPILERKIT_TYPE_ALTERNATION, NULL));
+    // If left is the EmptySet, return the other side
+    if (COMPILERKIT_IS_EMPTY_SET(left))
+        return right;
+    // If right is the EmptySet, return the other side
+    else if (COMPILERKIT_IS_EMPTY_SET (right))
+        return left;
+    // If they're both empty strings, return the empty string
+    else if (COMPILERKIT_IS_EMPTY_STRING (left) && COMPILERKIT_IS_EMPTY_STRING(right))
+        return left;
+    
     result->priv->left = left;
     result->priv->right = right;
     return G_OBJECT(result);

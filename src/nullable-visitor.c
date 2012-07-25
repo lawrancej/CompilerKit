@@ -17,37 +17,36 @@
  */
 #include "CompilerKit.h"
 
-/** 
- * @todo Add the following to include/visitors.h:
- *     CompilerKitVisitor *compilerkit_nullable_visitor ();
- */
-
 /* Nullable alternation. */
 static GObject *nullable_alternation (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitAlternation *alt;
+    GObject *left, *right;
     g_assert(COMPILERKIT_IS_ALTERNATION(obj));
     
     alt = COMPILERKIT_ALTERNATION (obj);
 
-    compilerkit_visitor_visit(self, compilerkit_alternation_get_left  (alt));
-    compilerkit_visitor_visit(self, compilerkit_alternation_get_right (alt));
+    left = compilerkit_visitor_visit(self, compilerkit_alternation_get_left  (alt));
+    right = compilerkit_visitor_visit(self, compilerkit_alternation_get_right (alt));
 
-    return NULL;
+    // Since left and right are going to be either emptyset or emptystring, alternation_new will work for us.
+    return compilerkit_alternation_new (left, right);
 }
 
 /* Nullable concatenation. */
 static GObject *nullable_concatenation (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitConcatenation *cat;
+    GObject *left, *right;
     g_assert(COMPILERKIT_IS_CONCATENATION(obj));
     
     cat = COMPILERKIT_CONCATENATION (obj);
 
-    compilerkit_visitor_visit(self, compilerkit_concatenation_get_left  (cat));
-    compilerkit_visitor_visit(self, compilerkit_concatenation_get_right (cat));
+    left = compilerkit_visitor_visit(self, compilerkit_concatenation_get_left  (cat));
+    right = compilerkit_visitor_visit(self, compilerkit_concatenation_get_right (cat));
 
-    return NULL;
+    // Since left and right are going to be emptyset or emptystring, concatenation_new will do the work for us.
+    return compilerkit_concatenation_new (left, right);
 }
 
 /* Nullable Kleene star. */
@@ -58,9 +57,7 @@ static GObject *nullable_kleene_star (CompilerKitVisitor *self, GObject *obj)
     
     star = COMPILERKIT_KLEENE_STAR (obj);
     
-    compilerkit_visitor_visit(self, compilerkit_kleene_star_get_node (star));
-
-    return NULL;
+    return compilerkit_empty_string_get_instance();
 }
 
 /* Nullable complement. */
@@ -71,22 +68,16 @@ static GObject *nullable_complement (CompilerKitVisitor *self, GObject *obj)
     
     comp = COMPILERKIT_COMPLEMENT (obj);
     
-    compilerkit_visitor_visit(self, compilerkit_complement_get_node (comp));
-
-    return NULL;
+    if (COMPILERKIT_IS_EMPTY_SET(compilerkit_visitor_visit(self, compilerkit_complement_get_node (comp))))
+        return compilerkit_empty_string_get_instance();
+    else
+        return compilerkit_empty_set_get_instance();
 }
-
 
 /* Nullable symbol. */
 static GObject *nullable_symbol (CompilerKitVisitor *self, GObject *obj)
 {
-    CompilerKitSymbol *symbol;
-    g_assert(COMPILERKIT_IS_SYMBOL(obj));
-    
-    symbol = COMPILERKIT_SYMBOL (obj);
-    
-    compilerkit_symbol_get_symbol(symbol);
-    return NULL;
+    return compilerkit_empty_set_get_instance();
 }
 
 /* Nullable empty set. */
@@ -94,7 +85,7 @@ static GObject *nullable_empty_set (CompilerKitVisitor *self, GObject *obj)
 {
     g_assert(COMPILERKIT_IS_EMPTY_SET(obj));
 
-    return NULL;
+    return obj;
 }
 
 /* Nullable empty string. */
@@ -102,7 +93,7 @@ static GObject *nullable_empty_string (CompilerKitVisitor *self, GObject *obj)
 {
     g_assert(COMPILERKIT_IS_EMPTY_STRING(obj));
 
-    return NULL;
+    return obj;
 }
 
 /* Nullable grammar. */

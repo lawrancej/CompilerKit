@@ -30,12 +30,11 @@
 void test_nullable_visitor (void)
 {
     CompilerKitVisitor *nullable;
-    GObject *symbol, *star, *cat, *alt1, *alt2;
+    GObject *symbol, *star, *cat, *alt1, *alt2, *comp1, *comp2;
     
     g_test_message ("Testing Nullable visitor");
     g_test_timer_start ();
-    
-    /** @todo Test here  */
+
     // symbol is a
     symbol = compilerkit_symbol_new ('a');
     // star is a*
@@ -46,6 +45,9 @@ void test_nullable_visitor (void)
     alt1 = compilerkit_alternation_new (cat, compilerkit_empty_string_get_instance());
     // alt2 is aa*|a
     alt2 = compilerkit_alternation_new (cat, symbol);
+    
+    comp1 = compilerkit_complement_new (compilerkit_empty_set_get_instance());
+    comp2 = compilerkit_complement_new (compilerkit_empty_string_get_instance());
     
     nullable = compilerkit_nullable_visitor();
     
@@ -63,10 +65,17 @@ void test_nullable_visitor (void)
     
     // Alt2 is not nullable, because neither side is nullable. 
     g_assert (compilerkit_visitor_visit(nullable, alt2) == compilerkit_empty_set_get_instance());
+    
+    // comp1 is nullable, since it's the complement of the emptyset
+    g_assert (compilerkit_visitor_visit(nullable, comp1) == compilerkit_empty_string_get_instance());
+
+    // comp2 is not nullable, since it's the complement of the emptystring
+    g_assert (compilerkit_visitor_visit(nullable, comp2) == compilerkit_empty_set_get_instance());
 
     g_object_unref (nullable);
-    g_object_unref (alt1);
-    g_object_unref (alt2);
+    g_object_unref (comp1);
+    g_object_unref (comp2);
+//    g_object_unref (alt2);
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
