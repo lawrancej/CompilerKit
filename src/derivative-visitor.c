@@ -21,54 +21,59 @@
 static GObject *derivative_alternation (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitAlternation *alt;
+    GObject *left, *right;
     g_assert(COMPILERKIT_IS_ALTERNATION(obj));
     
     alt = COMPILERKIT_ALTERNATION (obj);
 
-    compilerkit_visitor_visit(self, compilerkit_alternation_get_left  (alt));
-    compilerkit_visitor_visit(self, compilerkit_alternation_get_right (alt));
+    left = compilerkit_visitor_visit(self, compilerkit_alternation_get_left  (alt));
+    right = compilerkit_visitor_visit(self, compilerkit_alternation_get_right (alt));
 
-    return NULL;
+    return compilerkit_alternation_new (left, right);
 }
 
 /* Derivative of concatenation. */
 static GObject *derivative_concatenation (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitConcatenation *cat;
+    GObject *left, *right, *nulled;
     g_assert(COMPILERKIT_IS_CONCATENATION(obj));
     
     cat = COMPILERKIT_CONCATENATION (obj);
 
-    compilerkit_visitor_visit(self, compilerkit_concatenation_get_left  (cat));
-    compilerkit_visitor_visit(self, compilerkit_concatenation_get_right (cat));
+    left = compilerkit_visitor_visit(self, compilerkit_concatenation_get_left  (cat));
+    right = compilerkit_visitor_visit(self, compilerkit_concatenation_get_right (cat));
+    nulled = compilerkit_visitor_visit(compilerkit_nullable_visitor (), compilerkit_concatenation_get_left  (cat));
 
-    return NULL;
+    return compilerkit_alternation_new (compilerkit_concatenation_new(left, compilerkit_concatenation_get_right (cat)),
+            compilerkit_concatenation_new (nulled, right));
 }
 
 /* Derivative of Kleene star. */
 static GObject *derivative_kleene_star (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitKleeneStar *star;
+    GObject *node;
     g_assert(COMPILERKIT_IS_KLEENE_STAR(obj));
     
     star = COMPILERKIT_KLEENE_STAR (obj);
+    node = compilerkit_visitor_visit(self, compilerkit_kleene_star_get_node (star));
     
-    compilerkit_visitor_visit(self, compilerkit_kleene_star_get_node (star));
-
-    return NULL;
+    return compilerkit_concatenation_new(node, star);
 }
 
 /* Derivative of complement. */
 static GObject *derivative_complement (CompilerKitVisitor *self, GObject *obj)
 {
     CompilerKitComplement *comp;
+    GObject *node;
     g_assert(COMPILERKIT_IS_COMPLEMENT(obj));
     
     comp = COMPILERKIT_COMPLEMENT (obj);
     
-    compilerkit_visitor_visit(self, compilerkit_complement_get_node (comp));
+    node = compilerkit_visitor_visit(self, compilerkit_complement_get_node (comp));
 
-    return NULL;
+    return compilerkit_complement_new(node);
 }
 
 
@@ -85,14 +90,6 @@ static GObject *derivative_symbol (CompilerKitVisitor *self, GObject *obj)
     if (*character == compilerkit_symbol_get_symbol (symbol))
         return compilerkit_empty_string_get_instance ();
     return compilerkit_empty_set_get_instance ();
-}
-
-/* Derivative of empty set. */
-static GObject *derivative_empty_set (CompilerKitVisitor *self, GObject *obj)
-{
-    g_assert(COMPILERKIT_IS_EMPTY_SET(obj));
-
-    return compilerkit_empty_set_get_instance();
 }
 
 /* Derivative of empty string. */
@@ -146,7 +143,7 @@ CompilerKitVisitor *compilerkit_derivative_visitor ()
     compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_CONCATENATION, derivative_concatenation);
     compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_KLEENE_STAR, derivative_kleene_star);
     compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_COMPLEMENT, derivative_complement);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_EMPTY_SET, derivative_empty_set);
+    compilerkit_visitor_register_identity (visitor, COMPILERKIT_TYPE_EMPTY_SET);
     compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_EMPTY_STRING, derivative_empty_string);
     compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_SYMBOL, derivative_symbol);
     
@@ -168,7 +165,7 @@ CompilerKitVisitor *compilerkit_derivative_visitor ()
  * @return A CompilerKitVisitor*.
  * @memberof CompilerKitVisitor
  */
-GObject *compilerkit_derivative_apply_char (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar symbol)
+GObject *compilerkit_derivative_apply_char (CompilerKitVisitor *derivative_visitor, GObject *regex, gunichar symbol)
 {
     compilerkit_visitor_set_state (derivative_visitor, &symbol);
     return compilerkit_visitor_visit (derivative_visitor, regex);
@@ -186,9 +183,11 @@ GObject *compilerkit_derivative_apply_char (CompilerKitVisitor *derivative_visit
 GObject *compilerkit_derivative_apply_string (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar *string)
 {
     GObject *result = regex;
+    g_utf8_validate(string, -1, NULL);
     while (*string)
     {
-        result = compilerkit_derivative_apply_char (derivative_visitor, result, *string++);
+        result = compilerkit_derivative_apply_char (derivative_visitor, result, g_utf8_get_char(string));
+        string = g_utf8_next_char(string);
     }
     return result;
 }

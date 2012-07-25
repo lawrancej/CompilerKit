@@ -32,7 +32,7 @@ void test_derivative_visitor (void)
 {
     CompilerKitVisitor *derivative;
     GObject *regex, *new_regex;
-	//GObject *symbol, *cat, *star;	/** @todo these are currently unused */
+    CompilerKitSymbol *symbol;
     
     g_test_message ("Testing Derivative visitor");
     g_test_timer_start ();
@@ -52,12 +52,21 @@ void test_derivative_visitor (void)
     new_regex = compilerkit_derivative_apply_string (derivative, regex, "hello");
     g_assert (new_regex == compilerkit_empty_set_get_instance());
     
+    symbol = compilerkit_symbol_new ('!');
     // When we match "hi!" against the string "hi", we should get the symbol "!", because that's what remains.
-    regex = compilerkit_concatenation_new (regex, compilerkit_concatenation_new (compilerkit_symbol_new ('i'), compilerkit_symbol_new ('!')));
+    regex = compilerkit_concatenation_new (regex, compilerkit_concatenation_new (compilerkit_symbol_new ('i'), symbol));
     new_regex = compilerkit_derivative_apply_string (derivative, regex, "hi");
-//    g_warn_if_fail (g_type_name(G_OBJECT_TYPE(new_regex)));
-//    g_assert (COMPILERKIT_IS_SYMBOL (new_regex));
-//    g_assert (compilerkit_symbol_get_symbol(COMPILERKIT_SYMBOL(new_regex)) == '!');
+    g_assert (new_regex == symbol);
+    
+    // When we match "h|i" against the string "hi", we should get empty set, because it's not a match.
+    regex = compilerkit_alternation_new (compilerkit_symbol_new ('h'), compilerkit_symbol_new ('i'));
+    new_regex = compilerkit_derivative_apply_string (derivative, regex, "hi");
+    g_assert (new_regex == compilerkit_empty_set_get_instance());
+    
+    // When we match "h*i" against the string "hi", we should get empty string, because it's a match.
+    regex = compilerkit_concatenation_new (compilerkit_kleene_star_new(compilerkit_symbol_new ('h')), compilerkit_symbol_new ('i'));
+    new_regex = compilerkit_derivative_apply_string (derivative, regex, "hi");
+    g_assert (new_regex == compilerkit_empty_string_get_instance());
     
     g_object_unref (derivative);
     g_object_unref (regex);

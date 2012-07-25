@@ -18,31 +18,28 @@
 #include <glib.h>
 #include "CompilerKit.h"
 
-/** @todo Write test cases for compilerkit_bar_visitor of the form: void test_bar_visitor_case (void); */
-/** @todo Add to `main`: g_test_add_func ("/bar-visitor/test", test_bar_visitor); */
-/** @todo Add to test.h: voit test_bar_visitor (void); */
-
 /**
- * test_bar_visitor:
- * @fn test_bar_visitor
- * Tests compilerkit_bar_visitor.
+ * test_print_visitor:
+ * @fn test_print_visitor
+ * Tests compilerkit_print_visitor.
  * @pre None
  * @param None
  * @return void
  */
-void test_bar_visitor (void)
+void test_print_visitor (void)
 {
-    CompilerKitVisitor *bar;
+    CompilerKitVisitor *print;
     
-    g_test_message ("Testing Bar visitor");
+    g_test_message ("Testing Print visitor");
     g_test_timer_start ();
     
     /** @todo Test here  */
-    bar = compilerkit_bar_visitor();
+    print = compilerkit_print_visitor();
     g_assert(FALSE);
     
-    g_object_unref (bar);
+    g_object_unref (print);
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
+

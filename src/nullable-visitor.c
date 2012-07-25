@@ -80,22 +80,6 @@ static GObject *nullable_symbol (CompilerKitVisitor *self, GObject *obj)
     return compilerkit_empty_set_get_instance();
 }
 
-/* Nullable empty set. */
-static GObject *nullable_empty_set (CompilerKitVisitor *self, GObject *obj)
-{
-    g_assert(COMPILERKIT_IS_EMPTY_SET(obj));
-
-    return obj;
-}
-
-/* Nullable empty string. */
-static GObject *nullable_empty_string (CompilerKitVisitor *self, GObject *obj)
-{
-    g_assert(COMPILERKIT_IS_EMPTY_STRING(obj));
-
-    return obj;
-}
-
 /* Nullable grammar. */
 static GObject *nullable_grammar (CompilerKitVisitor *self, GObject *obj)
 {
@@ -131,23 +115,24 @@ static GObject *nullable_production (CompilerKitVisitor *self, GObject *obj)
  */
 CompilerKitVisitor *compilerkit_nullable_visitor ()
 {
-    CompilerKitVisitor *visitor;
-    visitor = compilerkit_visitor_new();
-    
-    /* Regular expression visitors */
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_ALTERNATION, nullable_alternation);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_CONCATENATION, nullable_concatenation);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_KLEENE_STAR, nullable_kleene_star);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_COMPLEMENT, nullable_complement);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_EMPTY_SET, nullable_empty_set);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_EMPTY_STRING, nullable_empty_string);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_SYMBOL, nullable_symbol);
-    
-    /* CFG visitors */
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_GRAMMAR, nullable_grammar);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_NONTERMINAL, nullable_concatenation);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_TERMINAL, nullable_kleene_star);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_PRODUCTION, nullable_production);
-    
+    static CompilerKitVisitor *visitor = NULL;
+    if (visitor == NULL) {
+        visitor = compilerkit_visitor_new();
+        
+        /* Regular expression visitors */
+        compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_ALTERNATION, nullable_alternation);
+        compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_CONCATENATION, nullable_concatenation);
+        compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_KLEENE_STAR, nullable_kleene_star);
+        compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_COMPLEMENT, nullable_complement);
+        compilerkit_visitor_register_identity (visitor, COMPILERKIT_TYPE_EMPTY_SET);
+        compilerkit_visitor_register_identity (visitor, COMPILERKIT_TYPE_EMPTY_STRING);
+        compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_SYMBOL, nullable_symbol);
+        
+        /* CFG visitors */
+        compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_GRAMMAR, nullable_grammar);
+        compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_NONTERMINAL, nullable_concatenation);
+        compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_TERMINAL, nullable_kleene_star);
+        compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_PRODUCTION, nullable_production);
+    }
     return visitor;
 }

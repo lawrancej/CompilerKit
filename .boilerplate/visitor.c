@@ -154,8 +154,8 @@ CompilerKitVisitor *compilerkit_bar_visitor ()
     
     /* CFG visitors */
     compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_GRAMMAR, bar_grammar);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_NONTERMINAL, bar_concatenation);
-    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_TERMINAL, bar_kleene_star);
+    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_NONTERMINAL, bar_nonterminal);
+    compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_TERMINAL, bar_terminal);
     compilerkit_visitor_register (visitor, COMPILERKIT_TYPE_PRODUCTION, bar_production);
     
     return visitor;

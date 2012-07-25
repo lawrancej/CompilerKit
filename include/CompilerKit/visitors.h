@@ -22,7 +22,7 @@
 
 /* Visitor function prototypes */
 CompilerKitVisitor *compilerkit_derivative_visitor ();
-GObject *compilerkit_derivative_apply_char (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar symbol);
+GObject *compilerkit_derivative_apply_char (CompilerKitVisitor *derivative_visitor, GObject *regex, gunichar symbol);
 GObject *compilerkit_derivative_apply_string (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar *symbol);
 
 CompilerKitVisitor *compilerkit_nullable_visitor ();
@@ -30,6 +30,6 @@ CompilerKitVisitor *compilerkit_string_builder_visitor ();
 CompilerKitVisitor *compilerkit_to_nfa_visitor ();
 CompilerKitVisitor *compilerkit_to_graphviz_visitor ();
 CompilerKitVisitor *compilerkit_to_grammar_visitor ();
-
+CompilerKitVisitor *compilerkit_print_visitor ();
 
 #endif

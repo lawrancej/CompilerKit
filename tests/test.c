@@ -57,6 +57,8 @@ int main (int argc, char ** argv)
 
     g_test_add_func ("/nullable-visitor/test", test_nullable_visitor);
 
+    g_test_add_func ("/print-visitor/test", test_print_visitor);
+
     g_test_add_func ("/production/case", test_production_case);
 
     g_test_add_func ("/pushdown-automata/test", test_pushdown_automata_method);
