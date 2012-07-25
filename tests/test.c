@@ -42,6 +42,7 @@ int main (int argc, char ** argv)
 
     g_test_add_func ("/convenience/alternation", test_convenience_alternation);
     g_test_add_func ("/convenience/positive_closure", test_positive_closure);
+    g_test_add_func ("/convenience/string_concatenation", test_string_concatenation);
     g_test_add_func ("/convenience/ranges", test_convenience_ranges);
 
     g_test_add_func ("/derivative-visitor/test", test_derivative_visitor);

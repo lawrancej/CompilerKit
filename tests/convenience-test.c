@@ -57,11 +57,26 @@ void test_positive_closure(void)
     
 }
 
+void test_string_concatenation(void)
+{
+    GObject *str;
+
+    g_test_message ("Testing string concatenation");
+    g_test_timer_start ();
+
+    str = compilerkit_string_concatenation("hello");
+    g_assert (compilerkit_regex_matches_string (str, "hello"));
+    g_assert (!compilerkit_regex_matches_string (str, "world"));
+
+    // This test shouldn't take too long to run
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+}
+
 void test_convenience_ranges(void)
 {
     GObject *range, *result;
     
-    g_test_message ("Testing Print visitor");
+    g_test_message ("Testing convenience ranges");
     g_test_timer_start ();
 
     range = compilerkit_positive_closure_new(compilerkit_regex_digits());

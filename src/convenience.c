@@ -244,5 +244,15 @@ GObject *compilerkit_regex_digits()
  */
 GObject *compilerkit_string_concatenation(gchar *string)
 {
-    return NULL;
+    GObject *result;
+    g_utf8_validate(string, -1, NULL);
+    result = compilerkit_symbol_new (g_utf8_get_char (string));
+    string = g_utf8_next_char(string);
+    while (*string)
+    {
+        result = compilerkit_concatenation_new (result, compilerkit_symbol_new (g_utf8_get_char(string)));
+        string = g_utf8_next_char(string);
+    }
+
+    return result;
 }
