@@ -24,6 +24,7 @@
 CompilerKitVisitor *compilerkit_derivative_visitor ();
 GObject *compilerkit_derivative_apply_char (CompilerKitVisitor *derivative_visitor, GObject *regex, gunichar symbol);
 GObject *compilerkit_derivative_apply_string (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar *symbol);
+gboolean compilerkit_regex_matches_string (GObject *regex, gchar *symbol);
 
 CompilerKitVisitor *compilerkit_nullable_visitor ();
 CompilerKitVisitor *compilerkit_string_builder_visitor ();

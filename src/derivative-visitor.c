@@ -159,10 +159,12 @@ CompilerKitVisitor *compilerkit_derivative_visitor ()
 /**
  * compilerkit_derivative_apply_char:
  * @fn compilerkit_derivative_apply_char
- * Apply the derivative visitor to a character.
+ * Apply the derivative visitor to a Unicode character.
  * @pre None
- * @param None
- * @return A CompilerKitVisitor*.
+ * @param CompilerKitVisitor* A derivative visitor.
+ * @param GObject* A regex.
+ * @param gunichar A Unicode code point.
+ * @return A GObject representing the derivative of regex applied to symbol.
  * @memberof CompilerKitVisitor
  */
 GObject *compilerkit_derivative_apply_char (CompilerKitVisitor *derivative_visitor, GObject *regex, gunichar symbol)
@@ -176,8 +178,10 @@ GObject *compilerkit_derivative_apply_char (CompilerKitVisitor *derivative_visit
  * @fn compilerkit_derivative_apply_string
  * Apply the derivative visitor to a string.
  * @pre None
- * @param None
- * @return A CompilerKitVisitor*.
+ * @param CompilerKitVisitor* A derivative visitor.
+ * @param GObject* A regex.
+ * @param gchar* A UTF-8 string.
+ * @return A GObject representing the derivative of regex applied to a string.
  * @memberof CompilerKitVisitor
  */
 GObject *compilerkit_derivative_apply_string (CompilerKitVisitor *derivative_visitor, GObject *regex, gchar *string)
@@ -190,4 +194,24 @@ GObject *compilerkit_derivative_apply_string (CompilerKitVisitor *derivative_vis
         string = g_utf8_next_char(string);
     }
     return result;
+}
+
+/**
+ * compilerkit_regex_matches_string:
+ * @fn compilerkit_derivative_matches_string
+ * Determine whether the regex matches the string.
+ * @pre None
+ * @param GObject* A regex.
+ * @param gchar* A UTF-8 string.
+ * @return A gboolean indicating whether the regex matched the string completely.
+ * @memberof CompilerKitVisitor
+ */
+gboolean compilerkit_regex_matches_string (GObject *regex, gchar *string)
+{
+    CompilerKitVisitor *derivative_visitor = compilerkit_derivative_visitor();
+    CompilerKitVisitor *nullable_visitor = compilerkit_nullable_visitor();
+    GObject *result = compilerkit_derivative_apply_string (derivative_visitor, regex, string);
+    g_object_unref (derivative_visitor);
+    result = compilerkit_visitor_visit (nullable_visitor, result);
+    return result == compilerkit_empty_string_get_instance();
 }

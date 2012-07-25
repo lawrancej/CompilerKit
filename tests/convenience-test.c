@@ -36,6 +36,9 @@ void test_positive_closure(void)
     CompilerKitConcatenation *cat;
     CompilerKitKleeneStar *star;
     
+    g_test_message ("Testing positive closure");
+    g_test_timer_start ();
+    
     regex = compilerkit_concatenation_new (compilerkit_symbol_new('a'), compilerkit_symbol_new('b'));
     positive_closure = compilerkit_positive_closure_new (regex);
     
@@ -48,5 +51,36 @@ void test_positive_closure(void)
     star = COMPILERKIT_KLEENE_STAR (compilerkit_concatenation_get_right (cat));
     
     g_assert (compilerkit_kleene_star_get_node (star) == regex);
+
+    // This test shouldn't take too long to run
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+    
+}
+
+void test_convenience_ranges(void)
+{
+    GObject *range, *result;
+    
+    g_test_message ("Testing Print visitor");
+    g_test_timer_start ();
+
+    range = compilerkit_positive_closure_new(compilerkit_regex_digits());
+    g_assert (compilerkit_regex_matches_string (range, "0123456789"));
+    g_assert (!compilerkit_regex_matches_string (range, "abcdefghijklmnopqrstuvwxyz"));
+    
+    range = compilerkit_positive_closure_new (compilerkit_regex_lower());
+    g_assert (compilerkit_regex_matches_string (range, "abcdefghijklmnopqrstuvwxyz"));
+    g_assert (!compilerkit_regex_matches_string (range, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+
+    range = compilerkit_positive_closure_new (compilerkit_regex_upper());
+    g_assert (!compilerkit_regex_matches_string (range, "abcdefghijklmnopqrstuvwxyz"));
+    g_assert (compilerkit_regex_matches_string (range, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+
+    range = compilerkit_positive_closure_new (compilerkit_regex_punct());
+    g_assert (!compilerkit_regex_matches_string (range, "abcdefghijklmnopqrstuvwxyz"));
+    g_assert (compilerkit_regex_matches_string (range, "!@#$%^&*()_+=-:;',.<>/?`~[]\{}|"));
+    
+    // This test shouldn't take too long to run
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
     
 }

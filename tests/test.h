@@ -37,6 +37,7 @@ void test_concatenation_constructor_empty_string (void);
 
 void test_convenience_alternation(void);
 void test_positive_closure(void);
+void test_convenience_ranges(void);
 
 void test_derivative_visitor (void);
 

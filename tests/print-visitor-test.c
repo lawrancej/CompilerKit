@@ -17,6 +17,7 @@
  */
 #include <glib.h>
 #include "CompilerKit.h"
+#include "test.h"
 
 /**
  * test_print_visitor:

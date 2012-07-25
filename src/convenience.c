@@ -36,10 +36,6 @@ static void sort_chars (gunichar *lo, gunichar *hi)
     }
 }
 
-GObject *compilerkit_regex_digits()
-{
-	return compilerkit_character_class_new('0', '9');
-}
 /**
  * compilerkit_alpha_numeric_character_class_new:
  * @fn compilerkit_alpha_numeric_character_class_new
@@ -157,7 +153,7 @@ GObject *compilerkit_positive_closure_new (GObject *regex)
  */
 GObject *compilerkit_optional_new (GObject *regex)
 {
-    return NULL;
+    return compilerkit_alternation_new (regex, compilerkit_empty_string_get_instance());
 }
 /**
  * compilerkit_regex_lower:
@@ -185,7 +181,7 @@ GObject *compilerkit_regex_lower(void)
  */
 GObject *compilerkit_regex_upper(void)
 {
-    return  compilerkit_character_class_new('A', 'Z');
+    return compilerkit_character_class_new('A', 'Z');
 }
 /**
  * compilerkit_regex_punct:
@@ -199,7 +195,12 @@ GObject *compilerkit_regex_upper(void)
  */
 GObject *compilerkit_regex_punct(void)
 {
-    return compilerkit_character_class_new('!', '/');;
+    return compilerkit_alternation_vlist_new(
+        compilerkit_character_class_new('!', '/'),
+        compilerkit_character_class_new('@',':'),
+        compilerkit_character_class_new('[','`'),
+        compilerkit_character_class_new('{','~'),
+        NULL);
 }
 /**
  * compilerkit_regex_whitespace:
@@ -214,4 +215,19 @@ GObject *compilerkit_regex_punct(void)
 GObject *compilerkit_regex_whitespace(void)
 {
     return compilerkit_character_class_new(' ', ' ');;
+}
+
+/**
+ * compilerkit_regex_digits:
+ * @fn compilerkit_regex_digits
+ *
+ * Return a character class corresponding to `[0-9]`
+ * 
+ * @pre None
+ * @param None
+ * @return GObject* regex that matches the digits 0 through 9.
+ */
+GObject *compilerkit_regex_digits()
+{
+	return compilerkit_character_class_new('0', '9');
 }
