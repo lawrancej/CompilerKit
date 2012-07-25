@@ -29,7 +29,6 @@
  */
 void test_nullable_visitor (void)
 {
-    CompilerKitVisitor *nullable;
     GObject *symbol, *star, *cat, *alt1, *alt2, *comp1, *comp2;
     
     g_test_message ("Testing Nullable visitor");
@@ -48,31 +47,28 @@ void test_nullable_visitor (void)
     
     comp1 = compilerkit_complement_new (compilerkit_empty_set_get_instance());
     comp2 = compilerkit_complement_new (compilerkit_empty_string_get_instance());
-    
-    nullable = compilerkit_nullable_visitor();
-    
-    // Symbol is not nullable, hence it should return EmptySet here.
-    g_assert (compilerkit_visitor_visit(nullable, symbol) == compilerkit_empty_set_get_instance());
-    
-    // KleeneStar is nullable, so it should return EmptyString here.
-    g_assert (compilerkit_visitor_visit(nullable, star) == compilerkit_empty_string_get_instance());
-    
-    // Concatenation is not nullable, so it should return EmptySet here.
-    g_assert (compilerkit_visitor_visit(nullable, cat) == compilerkit_empty_set_get_instance());
-    
+
+    // Symbol is not nullable.
+    g_assert (!compilerkit_nullable(symbol));
+
+    // KleeneStar is nullable.
+    g_assert (compilerkit_nullable(star));
+
+    // cat is not nullable.
+    g_assert (!compilerkit_nullable(cat));
+
     // Alt1 is nullable, because one side is nullable. 
-    g_assert (compilerkit_visitor_visit(nullable, alt1) == compilerkit_empty_string_get_instance());
+    g_assert (compilerkit_nullable(alt1));
     
     // Alt2 is not nullable, because neither side is nullable. 
-    g_assert (compilerkit_visitor_visit(nullable, alt2) == compilerkit_empty_set_get_instance());
+    g_assert (!compilerkit_nullable(alt2));
     
     // comp1 is nullable, since it's the complement of the emptyset
-    g_assert (compilerkit_visitor_visit(nullable, comp1) == compilerkit_empty_string_get_instance());
+    g_assert (compilerkit_nullable(comp1));
 
     // comp2 is not nullable, since it's the complement of the emptystring
-    g_assert (compilerkit_visitor_visit(nullable, comp2) == compilerkit_empty_set_get_instance());
+    g_assert (!compilerkit_nullable(comp2));
 
-    g_object_unref (nullable);
     g_object_unref (comp1);
     g_object_unref (comp2);
 //    g_object_unref (alt2);

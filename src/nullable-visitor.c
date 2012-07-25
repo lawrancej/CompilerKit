@@ -105,6 +105,20 @@ static GObject *nullable_production (CompilerKitVisitor *self, GObject *obj)
 }
 
 /**
+ * compilerkit_nullable:
+ * @fn compilerkit_nullable
+ * Determine whether a regular expression is nullable.
+ * @pre None
+ * @param GObject* A regular expression.
+ * @return TRUE if the regular expression is nullable, FALSE otherwise.
+ * @memberof CompilerKitVisitor
+ */
+gboolean compilerkit_nullable(GObject *regex)
+{
+    return compilerkit_visitor_visit(compilerkit_nullable_visitor(), regex) == compilerkit_empty_string_get_instance();
+}
+
+/**
  * compilerkit_nullable_visitor:
  * @fn compilerkit_nullable_visitor
  * Construct a nullable visitor.

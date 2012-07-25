@@ -27,6 +27,8 @@ GObject *compilerkit_derivative_apply_string (CompilerKitVisitor *derivative_vis
 gboolean compilerkit_regex_matches_string (GObject *regex, gchar *symbol);
 
 CompilerKitVisitor *compilerkit_nullable_visitor ();
+gboolean compilerkit_nullable(GObject *regex);
+
 CompilerKitVisitor *compilerkit_string_builder_visitor ();
 CompilerKitVisitor *compilerkit_to_nfa_visitor ();
 CompilerKitVisitor *compilerkit_to_graphviz_visitor ();
