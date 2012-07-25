@@ -89,6 +89,14 @@ static GObject *print_symbol(CompilerKitVisitor *self, GObject *obj)
 /* Print complement. */
 static GObject *print_complement(CompilerKitVisitor *self, GObject *obj)
 {
+    CompilerKitSymbol *complement;
+    g_assert(COMPILERKIT_IS_COMPLEMENT(obj));
+    
+    complement = COMPILERKIT_COMPLEMENT (obj);
+    
+    printf("!");
+    compilerkit_visitor_visit(self, compilerkit_complement_get_node (complement));
+    
     return NULL;
 }
 

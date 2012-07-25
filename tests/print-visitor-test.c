@@ -38,17 +38,18 @@ void test_print_visitor (void)
     visitor = compilerkit_print_visitor();
     
     /* Construct regex (a|ab|{}|"")* programmatically. */
-    regex = compilerkit_kleene_star_new (compilerkit_alternation_vlist_new(compilerkit_symbol_new('a'),
+    regex = compilerkit_complement_new(compilerkit_kleene_star_new (compilerkit_alternation_vlist_new(compilerkit_symbol_new('a'),
                                                                     compilerkit_concatenation_new(
                                                                         compilerkit_symbol_new('a'),
                                                                         compilerkit_symbol_new('b')),
-                                                                    compilerkit_empty_set_get_instance(),
                                                                     compilerkit_empty_string_get_instance(),
                                                                     NULL
-                                                                    ));
+                                                                    )));
 
     /* Traverse through the regex structure using the regex_printer. */
     compilerkit_visitor_visit (visitor, regex);
+    
+    compilerkit_visitor_visit (visitor, compilerkit_complement_new(compilerkit_empty_set_get_instance()));
 
     /* Clean up after ourselves. */
     g_object_unref (visitor);
