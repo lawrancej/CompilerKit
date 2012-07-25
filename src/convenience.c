@@ -231,3 +231,18 @@ GObject *compilerkit_regex_digits()
 {
 	return compilerkit_character_class_new('0', '9');
 }
+
+/**
+ * compilerkit_string_concatenation:
+ * @fn compilerkit_string_concatenation
+ *
+ * Return a concatenation based off of a string.
+ * 
+ * @pre None
+ * @param gchar* A UTF-8 encoded string.
+ * @return GObject* regex that matches the string literally.
+ */
+GObject *compilerkit_string_concatenation(gchar *string)
+{
+    return NULL;
+}
