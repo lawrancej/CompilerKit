@@ -130,17 +130,10 @@ GObject* compilerkit_alternation_vlist_new (GObject *left, GObject *right, ...)
 	
 	first = compilerkit_alternation_new(left, right);
 		
-	while(1)
-	{	
-		second = va_arg(args, GObject*);
-		
-		if(second == NULL)
-		{
-			break;
-		}
-		
-		first = compilerkit_alternation_new(first, second);
-	}
+    while(second = va_arg(args, GObject*))
+    {
+        first = compilerkit_alternation_new(first, second);
+    }
 	
 	va_end(args);
 
