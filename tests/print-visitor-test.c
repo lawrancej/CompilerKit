@@ -28,16 +28,31 @@
  */
 void test_print_visitor (void)
 {
-    CompilerKitVisitor *print;
+    CompilerKitVisitor* visitor;
+    GObject *regex;
+    g_type_init();
     
     g_test_message ("Testing Print visitor");
     g_test_timer_start ();
+
+    visitor = compilerkit_print_visitor();
     
-    /** @todo Test here  */
-    print = compilerkit_print_visitor();
-    g_assert(FALSE);
-    
-    g_object_unref (print);
+    /* Construct regex (a|ab|{}|"")* programmatically. */
+    regex = compilerkit_kleene_star_new (compilerkit_alternation_vlist_new(compilerkit_symbol_new('a'),
+                                                                    compilerkit_concatenation_new(
+                                                                        compilerkit_symbol_new('a'),
+                                                                        compilerkit_symbol_new('b')),
+                                                                    compilerkit_empty_set_get_instance(),
+                                                                    compilerkit_empty_string_get_instance(),
+                                                                    NULL
+                                                                    ));
+
+    /* Traverse through the regex structure using the regex_printer. */
+    compilerkit_visitor_visit (visitor, regex);
+
+    /* Clean up after ourselves. */
+    g_object_unref (visitor);
+    g_object_unref (regex);
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
