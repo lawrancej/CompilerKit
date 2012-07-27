@@ -29,10 +29,9 @@ gboolean compilerkit_regex_matches_string (GObject *regex, gchar *symbol);
 CompilerKitVisitor *compilerkit_nullable_visitor ();
 gboolean compilerkit_nullable(GObject *regex);
 
-CompilerKitVisitor *compilerkit_string_builder_visitor ();
+gchar *compilerkit_to_string (GObject *regex);
 CompilerKitVisitor *compilerkit_to_nfa_visitor ();
 CompilerKitVisitor *compilerkit_to_graphviz_visitor ();
 CompilerKitVisitor *compilerkit_to_grammar_visitor ();
-CompilerKitVisitor *compilerkit_print_visitor ();
 
 #endif

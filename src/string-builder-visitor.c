@@ -137,16 +137,8 @@ static GObject *string_builder_production (CompilerKitVisitor *self, GObject *ob
     return NULL;
 }
 
-/**
- * compilerkit_string_builder_visitor:
- * @fn compilerkit_string_builder_visitor
- * Construct a string_builder visitor.
- * @pre None
- * @param None
- * @return A CompilerKitVisitor*.
- * @memberof CompilerKitVisitor
- */
-CompilerKitVisitor *compilerkit_string_builder_visitor ()
+/* StringBuilder visitor */
+static CompilerKitVisitor *compilerkit_string_builder_visitor ()
 {
     CompilerKitVisitor *visitor;
     visitor = compilerkit_visitor_new();
@@ -172,20 +164,20 @@ CompilerKitVisitor *compilerkit_string_builder_visitor ()
 }
 
 /**
- * compilerkit_regex_to_string:
- * @fn compilerkit_regex_to_string
- * Return a string representation of a regex.
+ * compilerkit_to_string:
+ * @fn compilerkit_to_string
+ * Return a string representation of an object (i.e., regex, grammar).
  * @pre None
- * @param GObject* A regex
- * @return A string representation of the regex. The caller must free the returned string with `g_free()`
+ * @param GObject* An object
+ * @return A string representation of the object. The caller must free the returned string with `g_free()`
  * @memberof CompilerKitVisitor
  */
-gchar *compilerkit_regex_to_string (GObject *regex)
+gchar *compilerkit_to_string (GObject *obj)
 {
     GString *str;
     CompilerKitVisitor *visitor = compilerkit_string_builder_visitor();
     
-    compilerkit_visitor_visit(visitor, regex);
+    compilerkit_visitor_visit(visitor, obj);
     
     str = (GString *) compilerkit_visitor_get_state(visitor);
     

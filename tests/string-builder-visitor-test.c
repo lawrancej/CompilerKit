@@ -35,7 +35,7 @@ void test_string_builder_visitor (void)
     g_test_message ("Testing StringBuilder visitor");
     g_test_timer_start ();
     
-    str = compilerkit_regex_to_string (regex);
+    str = compilerkit_to_string (regex);
     g_printf("%s\n", str);
     g_assert(g_strcmp0(str, "!(0|1|2|3|4|5|6|7|8|9)+") == 0);
     g_free (str);
