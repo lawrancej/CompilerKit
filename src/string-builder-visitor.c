@@ -180,6 +180,7 @@ gchar *compilerkit_to_string (GObject *obj)
     compilerkit_visitor_visit(visitor, obj);
     
     str = (GString *) compilerkit_visitor_get_state(visitor);
+    g_object_unref (visitor);
     
     return g_string_free (str, FALSE);
 }

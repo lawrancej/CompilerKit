@@ -18,7 +18,6 @@
 #include <glib.h>
 #include "CompilerKit.h"
 #include "test.h"
-#include <glib/gprintf.h>
 
 /**
  * test_string_builder_visitor:
@@ -30,16 +29,24 @@
  */
 void test_string_builder_visitor (void)
 {
-    GObject *regex = compilerkit_complement_new(compilerkit_positive_closure_new(compilerkit_regex_digits()));
+    GObject *regex = compilerkit_alternation_vlist_new(
+        compilerkit_symbol_new('a'),
+        compilerkit_concatenation_new(
+            compilerkit_symbol_new('b'),
+            compilerkit_kleene_star_new(compilerkit_symbol_new('c'))
+        ),
+        compilerkit_empty_string_get_instance(),
+        compilerkit_complement_new (compilerkit_empty_set_get_instance()),
+        NULL);
     gchar *str;
-    g_test_message ("Testing StringBuilder visitor");
+    g_test_message ("Testing StringBuilder digits");
     g_test_timer_start ();
     
     str = compilerkit_to_string (regex);
-    g_printf("%s\n", str);
-    g_assert(g_strcmp0(str, "!(0|1|2|3|4|5|6|7|8|9)+") == 0);
+    g_assert(g_strcmp0(str, "a|b(c)*|''|!{}") == 0);
     g_free (str);
     
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
+
