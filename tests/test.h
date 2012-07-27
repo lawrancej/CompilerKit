@@ -54,8 +54,6 @@ void test_nonterminal_method (void);
 
 void test_nullable_visitor (void);
 
-void test_print_visitor (void);
-
 void test_production_case (void);
 
 void test_pushdown_automata_method (void);
