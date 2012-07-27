@@ -72,9 +72,26 @@ void test_string_concatenation(void)
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
 }
 
+void test_convenience_times (void)
+{
+    GObject *times;
+    
+    g_test_message ("Testing convenience times");
+    g_test_timer_start ();
+
+    times = compilerkit_times_new(compilerkit_regex_digits(),5);
+    g_assert (compilerkit_regex_matches_string (times, "12345"));
+    g_assert (compilerkit_regex_matches_string (times, "01234"));
+    g_assert (!compilerkit_regex_matches_string (times, "0123"));
+    g_assert (!compilerkit_regex_matches_string (times, "1"));
+
+    // This test shouldn't take too long to run
+    g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);    
+}
+
 void test_convenience_ranges(void)
 {
-    GObject *range, *result;
+    GObject *range;
     
     g_test_message ("Testing convenience ranges");
     g_test_timer_start ();

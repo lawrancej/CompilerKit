@@ -256,3 +256,12 @@ GObject *compilerkit_string_concatenation(gchar *string)
 
     return result;
 }
+
+GObject *compilerkit_times_new(GObject *regex, guint lo)
+{
+    GObject *result = regex;
+    guint i;
+    for (i = 1; i < lo; i++)
+        result = compilerkit_concatenation_new (result, regex);
+    return result;
+}

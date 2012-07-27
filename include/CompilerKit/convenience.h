@@ -32,6 +32,7 @@ gboolean compilerkit_character_is_alpha_numeric(gunichar);
 GObject* compilerkit_alpha_numeric_character_class_new(gunichar, gunichar);
 GObject *compilerkit_positive_closure_new (GObject *);
 GObject *compilerkit_optional_new (GObject *);
+GObject *compilerkit_times_new(GObject *regex, guint lo);
 GObject *compilerkit_regex_digits(void);
 GObject *compilerkit_regex_lower(void);
 GObject *compilerkit_regex_upper(void);
