@@ -84,6 +84,14 @@ void test_convenience_times (void)
     g_assert (compilerkit_regex_matches_string (times, "01234"));
     g_assert (!compilerkit_regex_matches_string (times, "0123"));
     g_assert (!compilerkit_regex_matches_string (times, "1"));
+    g_assert (!compilerkit_regex_matches_string (times, "123456"));
+    
+    times = compilerkit_times_extended_new(compilerkit_regex_digits(),5,8);
+    g_assert (compilerkit_regex_matches_string (times, "12345"));
+    g_assert (compilerkit_regex_matches_string (times, "123456"));
+    g_assert (compilerkit_regex_matches_string (times, "1234567"));
+    g_assert (compilerkit_regex_matches_string (times, "12345678"));
+    g_assert (!compilerkit_regex_matches_string (times, "123456789"));
 
     // This test shouldn't take too long to run
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);    

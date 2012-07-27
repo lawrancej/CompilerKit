@@ -271,7 +271,32 @@ GObject *compilerkit_times_new(GObject *regex, guint k)
 {
     GObject *result = regex;
     guint i;
+    
     for (i = 1; i < k; i++)
         result = compilerkit_concatenation_new (result, regex);
+    
+    return result;
+}
+/**
+ * compilerkit_times_extended_new:
+ * @fn compilerkit_times_extended_new
+ *
+ * Match regex at least `k`, and at most `l` times.
+ * 
+ * @pre None
+ * @param GObject* A regex.
+ * @param guint The minimum number of times it should match.
+ * @param guint The maximum number of times it should match.
+ * @return GObject* regex that matches the given regex `k` times.
+ */
+GObject *compilerkit_times_extended_new(GObject *regex, guint k, guint l)
+{
+    GObject *result;
+    
+    result = compilerkit_times_new(regex, k);
+    for (k++; k <= l; k++)
+        result = compilerkit_concatenation_new (result,
+            compilerkit_optional_new(regex));
+    
     return result;
 }
