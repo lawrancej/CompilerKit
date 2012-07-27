@@ -256,12 +256,22 @@ GObject *compilerkit_string_concatenation(gchar *string)
 
     return result;
 }
-
-GObject *compilerkit_times_new(GObject *regex, guint lo)
+/**
+ * compilerkit_times_new:
+ * @fn compilerkit_times_new
+ *
+ * Match regex `k` times.
+ * 
+ * @pre None
+ * @param GObject* A regex.
+ * @param guint The number of times it should match.
+ * @return GObject* regex that matches the given regex `k` times.
+ */
+GObject *compilerkit_times_new(GObject *regex, guint k)
 {
     GObject *result = regex;
     guint i;
-    for (i = 1; i < lo; i++)
+    for (i = 1; i < k; i++)
         result = compilerkit_concatenation_new (result, regex);
     return result;
 }
