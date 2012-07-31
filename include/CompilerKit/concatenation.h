@@ -72,6 +72,7 @@ GType compilerkit_concatenation_get_type (void);
 
 /** Public method function prototypes */
 GObject *compilerkit_concatenation_new (GObject *left, GObject *right);
+GObject *compilerkit_concatenation_vlist_new (GObject *left, GObject *right, ...);
 GObject *compilerkit_concatenation_get_left(CompilerKitConcatenation *self);
 GObject *compilerkit_concatenation_get_right(CompilerKitConcatenation *self);
 

@@ -26,6 +26,8 @@
 #define SEQ(x,y,...) (compilerkit_concatenation_vlist_new(x,y,__VA_ARGS__,NULL))
 #define EMPTY_STRING (compilerkit_empty_string_get_instance())
 #define EMPTY_SET (compilerkit_empty_set_get_instance())
+#define DIGIT (compilerkit_regex_digits())
+#define PARENS(x) (compilerkit_parens(x))
 
 GObject* compilerkit_character_class_new(gunichar, gunichar);
 gboolean compilerkit_character_is_alpha_numeric(gunichar);
@@ -37,6 +39,7 @@ GObject *compilerkit_regex_digits(void);
 GObject *compilerkit_regex_lower(void);
 GObject *compilerkit_regex_upper(void);
 GObject *compilerkit_regex_punct(void);
+GObject *compilerkit_regex_parens(void);
 GObject *compilerkit_regex_whitespace(void);
 
 #endif

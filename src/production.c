@@ -106,13 +106,14 @@ CompilerKitProduction* compilerkit_production_new (CompilerKitNonterminal *var, 
     
     while (element = va_arg (args, GObject *))
     {
-        if (COMPILERKIT_IS_NONTERMINAL (element) || COMPILERKIT_IS_TERMINAL (element))
-        {
+//        if (COMPILERKIT_IS_NONTERMINAL (element) || COMPILERKIT_IS_TERMINAL (element))
+//        {
             result->priv->replacement = g_list_prepend(result->priv->replacement, element);
-        }
-        g_list_reverse (result->priv->replacement);
+//        }
     }
     va_end (args);
+
+    result->priv->replacement = g_list_reverse (result->priv->replacement);
     return result;
 }
 

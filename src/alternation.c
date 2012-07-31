@@ -137,7 +137,7 @@ GObject* compilerkit_alternation_vlist_new (GObject *left, GObject *right, ...)
 	
 	va_end(args);
 
-    return G_OBJECT(first);
+    return first;
 }
 
 /**

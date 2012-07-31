@@ -83,6 +83,8 @@ GType compilerkit_grammar_get_type (void);
  * @see http://developer.gnome.org/gobject/stable/howto-gobject-methods.html
  */
 CompilerKitGrammar *compilerkit_grammar_new (CompilerKitNonterminal *start, ...);
+GList *compilerkit_grammar_nonterminals (CompilerKitGrammar *grammar);
+GList *compilerkit_grammar_productions (CompilerKitGrammar *grammar);
 GList *compilerkit_grammar_productions_for (CompilerKitGrammar *grammar, CompilerKitNonterminal *variable);
 CompilerKitNonterminal *compilerkit_grammar_get_start (CompilerKitGrammar *grammar);
 

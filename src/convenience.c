@@ -233,6 +233,26 @@ GObject *compilerkit_regex_digits()
 }
 
 /**
+ * compilerkit_parens:
+ * @fn compilerkit_parens
+ *
+ * Match an object surrounded by parentheses.
+ * 
+ * @pre None
+ * @param GObject* a regex to match.
+ * @return GObject* that matches itself surrounded by parentheses
+ */
+GObject *compilerkit_parens(GObject *obj)
+{
+    return compilerkit_concatenation_vlist_new (
+        compilerkit_symbol_new ('('),
+        obj,
+        compilerkit_symbol_new (')'),
+        NULL
+    );
+}
+
+/**
  * compilerkit_string_concatenation:
  * @fn compilerkit_string_concatenation
  *

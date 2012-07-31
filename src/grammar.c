@@ -115,7 +115,7 @@ CompilerKitGrammar *compilerkit_grammar_new (CompilerKitNonterminal *start, ...)
         }
         else
         {
-            g_list_append (list, production);
+            list = g_list_append (list, production);
             g_hash_table_insert (cfg->priv->productions, key, list);
         }
     }
@@ -159,6 +159,37 @@ compilerkit_grammar_dispose (GObject* object)
     G_OBJECT_CLASS (compilerkit_grammar_parent_class)->dispose (object);
 }
 
+/** @todo It'd be better for grammar to maintain a single list of productions, and for the hash to point within that list. */
+
+
+/**
+ * compilerkit_grammar_productions:
+ * @fn compilerkit_grammar_productions
+ * Return the productions for the grammar.
+ * @pre CompilerKitGrammar* is not NULL.
+ * @param CompilerKitGrammar* The grammar.
+ * @return A list of productions for the grammar.
+ * @memberof CompilerKitGrammar
+ */
+GList *compilerkit_grammar_productions (CompilerKitGrammar *grammar)
+{
+    GList *values = g_hash_table_get_values (grammar->priv->productions);
+    GList *item;
+    GList *result = NULL;
+    
+    while (values)
+    {
+        item = (GList *) values->data;
+        while (item)
+        {
+            result = g_list_prepend (result, item->data);
+            item = g_list_next (item);
+        }
+        values = g_list_next(values);
+    }
+    return result;
+}
+
 /**
  * compilerkit_grammar_productions_for:
  * @fn compilerkit_grammar_productions_for
@@ -172,6 +203,20 @@ compilerkit_grammar_dispose (GObject* object)
 GList *compilerkit_grammar_productions_for (CompilerKitGrammar *grammar, CompilerKitNonterminal *variable)
 {
     return g_hash_table_lookup (grammar->priv->productions, variable);
+}
+
+/**
+ * compilerkit_grammar_nonterminals:
+ * @fn compilerkit_grammar_nonterminals
+ * Return a list of nonterminals in the grammar.
+ * @pre CompilerKitGrammar* is not NULL.
+ * @param CompilerKitGrammar* The grammar.
+ * @return A list of nonterminals in the given grammar, or NULL.
+ * @memberof CompilerKitGrammar
+ */
+GList *compilerkit_grammar_nonterminals (CompilerKitGrammar *grammar)
+{
+    return g_hash_table_get_keys (grammar->priv->productions);
 }
 
 /**

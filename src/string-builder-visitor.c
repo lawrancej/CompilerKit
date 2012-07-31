@@ -116,7 +116,21 @@ static GObject *string_builder_empty_string (CompilerKitVisitor *self, GObject *
 /* StringBuilder grammar. */
 static GObject *string_builder_grammar (CompilerKitVisitor *self, GObject *obj)
 {
-   return NULL;
+    GString *str = (GString *) compilerkit_visitor_get_state(self);
+    GList *productions;
+    CompilerKitGrammar *grammar;
+    
+    g_assert(COMPILERKIT_IS_GRAMMAR(obj));
+    
+    grammar = COMPILERKIT_GRAMMAR (obj);
+    productions = compilerkit_grammar_productions (grammar);
+    
+    while (productions)
+    {
+        compilerkit_visitor_visit (self, productions->data);
+        productions = g_list_next (productions);
+    }
+    return NULL;
 }
 
 /* StringBuilder terminal. */
@@ -128,12 +142,37 @@ static GObject *string_builder_terminal (CompilerKitVisitor *self, GObject *obj)
 /* StringBuilder nonterminal. */
 static GObject *string_builder_nonterminal (CompilerKitVisitor *self, GObject *obj)
 {
+    GString *str = (GString *) compilerkit_visitor_get_state(self);
+    CompilerKitNonterminal *nonterminal;
+    
+    g_assert(COMPILERKIT_IS_NONTERMINAL(obj));
+    
+    nonterminal = COMPILERKIT_NONTERMINAL (obj);
+    g_string_append (str, compilerkit_nonterminal_get_name(nonterminal));
+
     return NULL;
 }
 
 /* StringBuilder production. */
 static GObject *string_builder_production (CompilerKitVisitor *self, GObject *obj)
 {
+    GString *str = (GString *) compilerkit_visitor_get_state(self);
+    CompilerKitProduction *production;
+    GList *replacement;
+    
+    g_assert(COMPILERKIT_IS_PRODUCTION(obj));
+    
+    production = COMPILERKIT_PRODUCTION (obj);
+
+    compilerkit_visitor_visit (self, compilerkit_production_get_variable(production));
+    g_string_append (str, " -> ");
+    replacement = compilerkit_production_get_replacement(production);
+    while (replacement)
+    {
+        compilerkit_visitor_visit (self, (GObject *)replacement->data);
+        replacement = g_list_next (replacement);
+    }
+    g_string_append (str, "\n");
     return NULL;
 }
 
