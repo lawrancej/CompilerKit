@@ -46,8 +46,8 @@ CompilerKitGrammar *expression_grammar()
     return compilerkit_grammar_new (expr, 
         compilerkit_production_new (value, MANY1 (DIGIT), NULL),
         compilerkit_production_new (value, PARENS (expr), NULL),
-//        compilerkit_production_new (product, value, MANY (SEQ (OR (SYMB ('*'), SYMB ('/')), value)), NULL),
-//        compilerkit_production_new (sum, product, MANY (SEQ (OR (SYMB ('+'), SYMB ('-')), product)), NULL),
+        compilerkit_production_new (product, value, MANY (SEQ (OR (SYMB ('*'), SYMB ('/')), value)), NULL),
+        compilerkit_production_new (sum, product, MANY (SEQ (OR (SYMB ('+'), SYMB ('-')), product)), NULL),
         compilerkit_production_new (expr, sum, NULL),
         NULL);
 }
