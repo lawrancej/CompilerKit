@@ -32,11 +32,12 @@ void test_symbol_unicode (void)
     CompilerKitSymbol *symbol;
     g_test_message ("Testing Symbol unicode");
     g_test_timer_start ();
-    
-    /** @todo Test here  */
-    symbol = COMPILERKIT_SYMBOL (compilerkit_symbol_new(21488));
+   
+    gunichar ch = g_utf8_get_char("台");
 
-    g_assert(compilerkit_symbol_get_symbol (symbol) == '台');
+    symbol = COMPILERKIT_SYMBOL (compilerkit_symbol_new(ch));
+
+    g_assert(compilerkit_symbol_get_symbol (symbol) == ch /*'台'*/ );
 
     g_object_unref(symbol);
     
