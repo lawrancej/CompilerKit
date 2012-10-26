@@ -25,8 +25,8 @@ Hacking CompilerKit
 4. [Build CompilerKit.](#how-do-i-build-compilerkit)
 
         ./generate.sh build # Builds tests only
-        ./generate.sh build -DBUILD_EXAMPLES # Builds all examples
-        ./generate.sh build -DBUILD_SCANNER_DEMO # Builds the scanner demo only
+        ./generate.sh build -DBUILD_EXAMPLES=ON # Builds all examples
+        ./generate.sh build -DBUILD_SCANNER_DEMO=ON # Builds the scanner demo only
 
 5. [Read Documentation.](#where-is-the-documentation)
 
