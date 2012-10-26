@@ -284,7 +284,7 @@ GObject may seem intimidating. Learn how it works, and realize that OOP language
 To use GObject, read these first:
 
 * [GObject Tutorial](http://syscall.org/doku.php/gobjectutorial/start)
-* [GObject FAQ](http://irrepupavel.com/documents/gtk/gobject-faq.html)
+* [GObject FAQ](http://web.archive.org/web/20101115164311/http://irrepupavel.com/documents/gtk/gobject-faq.html)
 * [GObject Documentation](http://developer.gnome.org/gobject/stable/)
 
 ## How do I write GObject classes?
