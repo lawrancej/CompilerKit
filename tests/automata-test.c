@@ -33,7 +33,7 @@ void test_FSM_start_state (void)
     g_test_message ("Testing FSM start_state");
     g_test_timer_start ();
     
-    fsm = compilerkit_FSM_new ("constructor");
+    fsm = COMPILERKIT_FSM(compilerkit_dfa_new("constructor"));
     g_assert (g_strcmp0 (compilerkit_FSM_get_start_state (fsm), "constructor") == 0);
     compilerkit_FSM_set_start_state (fsm, "start_state");
     
@@ -57,7 +57,7 @@ void test_FSM_states (void)
     g_test_message ("Testing FSM state");
     g_test_timer_start ();
 
-    fsm = compilerkit_FSM_new ("zero");
+    fsm = COMPILERKIT_FSM(compilerkit_dfa_new("zero"));
     compilerkit_FSM_add_state (fsm, "one");
     compilerkit_FSM_add_state (fsm, "two");
     compilerkit_FSM_add_state (fsm, "three");
@@ -83,8 +83,8 @@ static CompilerKitFSM *state_machine ()
 {
     CompilerKitFSM* fsm; // Creates pointer for FSM
     
-    fsm = compilerkit_FSM_new("A");  // Calls the constructor for the FSM
-//    compilerkit_FSM_set_start_state(fsm, "A");
+    fsm = COMPILERKIT_FSM(compilerkit_dfa_new());;  // Calls the constructor for the FSM
+    compilerkit_FSM_set_start_state(fsm, "A");
     compilerkit_FSM_add_transition (fsm, "A", "B", 'd');
     compilerkit_FSM_add_transition (fsm, "A", "F", 'f');
     compilerkit_FSM_add_transition (fsm, "B", "C", 'e');

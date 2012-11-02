@@ -55,6 +55,8 @@
  */
 /* Regular expression includes */
 #include "automata.h"
+#include "dfa.h"
+#include "nfa.h"
 #include "scanner.h"
 
 #include "empty-set.h"

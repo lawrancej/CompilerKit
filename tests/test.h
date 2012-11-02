@@ -81,4 +81,6 @@ void test_to_nfa_visitor (void);
 void test_visitor_register_identity (void);
 void test_visitor_null_visit(void);
 
+void test_make_deterministic_end_to_end (void);
+
 #endif

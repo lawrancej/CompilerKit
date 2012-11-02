@@ -24,6 +24,10 @@ static void compilerkit_symbol_finalize (GObject* object);
 static void compilerkit_symbol_dispose (GObject* object);
 
 /**
+ * Static pointer to hash table containing interned symbols.
+ * **/
+static GHashTable *flyweight_table;
+/**
  * @struct _CompilerKitSymbolPrivate
  * The private fields of the CompilerKitSymbol struct.
  * 
@@ -54,12 +58,15 @@ compilerkit_symbol_class_init (CompilerKitSymbolClass *klass)
   
   /* Add private structure */
   g_type_class_add_private (klass, sizeof (CompilerKitSymbolPrivate));
+
+  
   
   /* Get the parent gobject class */
   g_object_class = G_OBJECT_CLASS(klass);
   
   /** @todo Hook virtual methods to implementations */
   // klass->method = method_implementation;
+
   
   /* Hook finalization functions */
   g_object_class->dispose = compilerkit_symbol_dispose;   /* instance destructor, reverse of init */
@@ -95,8 +102,24 @@ compilerkit_symbol_init (CompilerKitSymbol *self)
  */
 GObject *compilerkit_symbol_new (gunichar symbol)
 {
-	CompilerKitSymbol *result = COMPILERKIT_SYMBOL (g_object_new (COMPILERKIT_TYPE_SYMBOL, NULL));
-    result->priv->symbol = symbol;
+    
+    if (!flyweight_table) {
+        flyweight_table = g_hash_table_new (g_str_hash, g_str_equal);
+    }
+    
+
+    gchar *key = g_utf16_to_utf8(&symbol, -1, NULL, NULL, NULL); 
+    CompilerKitSymbol *result = g_hash_table_lookup(flyweight_table, key);
+    
+
+    if (!result) { 
+        result = COMPILERKIT_SYMBOL (g_object_new (COMPILERKIT_TYPE_SYMBOL, NULL));
+        result->priv->symbol = symbol;
+        g_hash_table_insert(flyweight_table, key, result);
+    } else {
+	g_object_ref(result);
+        g_free(key);
+    }
     return G_OBJECT(result);
 }
 

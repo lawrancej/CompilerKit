@@ -42,6 +42,7 @@ void test_symbol_unicode (void)
     g_object_unref(symbol);
     
     g_assert_cmpfloat(g_test_timer_elapsed (), <=, 1);
+
 }
 
 /**

@@ -86,5 +86,7 @@ int main (int argc, char ** argv)
     g_test_add_func ("/visitor/null_visit", test_visitor_null_visit);
     g_test_add_func ("/visitor/register_identity", test_visitor_register_identity);
 
+    g_test_add_func ("/make-deterministic/end_to_end", test_make_deterministic_end_to_end);
+
     g_test_run ();
 }
