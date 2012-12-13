@@ -60,6 +60,8 @@ typedef struct _CompilerKitSymbolClass
   /** Base class (GobjectClass) */
   GObjectClass parent_class;
 
+  GHashTable* flyweight_table; 
+
 } CompilerKitSymbolClass;
 
 /**

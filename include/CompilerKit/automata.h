@@ -67,6 +67,13 @@ typedef struct _CompilerKitFSMClass
 {
   /** Base class (GobjectClass) */
   GObjectClass parent_class;
+
+  /**
+   * Pointer to virtual method implementation
+  **/
+  void (*add_transition)          (CompilerKitFSM *self, gchar *from_state, gchar *to_state, gchar input);
+  void (*destroy_transition_val)  (CompilerKitFSM *self, gpointer data);
+    
 } CompilerKitFSMClass;
 
 /**
@@ -102,7 +109,7 @@ void compilerkit_FSM_add_transition         (CompilerKitFSM* self,
                                              gchar *to_state,
                                              gchar input);
 
-gchar *compilerkit_FSM_get_next_state       (CompilerKitFSM *self,
+gpointer *compilerkit_FSM_get_next_state       (CompilerKitFSM *self,
                                              gchar *from_state,
                                              gchar transition);
 
@@ -116,6 +123,13 @@ gboolean compilerkit_FSM_is_accepting_state (CompilerKitFSM *self,
 
 void compilerkit_FSM_merge                  (CompilerKitFSM *self,
                                              CompilerKitFSM *other);
+
+void compilerkit_FSM_transition_table_insert(CompilerKitFSM *self, 
+                                             gchar *key, 
+                                             gpointer val);
+
+gchar *compilerkit_FSM_get_transition_key (gchar *state, 
+                                             gchar transition);
 
 G_END_DECLS
 #endif

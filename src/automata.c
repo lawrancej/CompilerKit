@@ -21,7 +21,7 @@
 
 #define COMPILERKIT_FSM_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), COMPILERKIT_TYPE_FSM, CompilerKitFSMPrivate))
 
-G_DEFINE_TYPE(CompilerKitFSM, compilerkit_FSM, G_TYPE_OBJECT);
+G_DEFINE_ABSTRACT_TYPE(CompilerKitFSM, compilerkit_FSM, G_TYPE_OBJECT);
 
 /** Private method function prototypes */
 static void compilerkit_FSM_finalize (GObject* object);
@@ -29,9 +29,9 @@ static void compilerkit_FSM_dispose (GObject* object);
 static void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2);
 
 /**
- * Get the key for a state and transition. (Private function)
+ * Get the key for a state and transition.
  */
-static gchar *compilerkit_FSM_get_transition_key (gchar *state, gchar transition)
+gchar *compilerkit_FSM_get_transition_key (gchar *state, gchar transition)
 {
     int key_length = strlen (state) + 1;
     gchar *key = g_malloc (key_length + 1);
@@ -42,6 +42,23 @@ static gchar *compilerkit_FSM_get_transition_key (gchar *state, gchar transition
 
     return result;
 }
+
+
+/**
+ * Copy entries from table2 into table1.
+ */
+static void compilerkit_FSM_mergeTables (GHashTable* table1, GHashTable* table2)
+{
+	GHashTableIter iter;
+	gpointer key, value;
+
+	g_hash_table_iter_init (&iter, table2);
+	while (g_hash_table_iter_next (&iter, &key, &value))
+	{
+		g_hash_table_insert(table1, key, value);
+	}
+}
+
 
 /**
  * @struct _CompilerKitFSMPrivate
@@ -71,6 +88,8 @@ struct _CompilerKitFSMPrivate
 static void
 compilerkit_FSM_class_init (CompilerKitFSMClass *klass)
 {
+
+
     GObjectClass *g_object_class;
 
     /* Add private structure */
@@ -100,7 +119,7 @@ compilerkit_FSM_init (CompilerKitFSM *self)
     /** @todo Initialize hash tables here */
     priv->start = NULL;
     priv->states = g_hash_table_new(g_str_hash, g_str_equal);
-    priv->transitions = g_hash_table_new(g_str_hash, g_str_equal);
+    priv->transitions = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, COMPILERKIT_FSM_GET_CLASS(self)->destroy_transition_val);
     priv->accept_states = g_hash_table_new(g_str_hash, g_str_equal);
 }
 
@@ -115,7 +134,7 @@ compilerkit_FSM_init (CompilerKitFSM *self)
  */
 CompilerKitFSM *compilerkit_FSM_new (gchar *start)
 {
-	CompilerKitFSM *result = COMPILERKIT_FSM (g_object_new (COMPILERKIT_TYPE_FSM, NULL));
+    CompilerKitFSM *result = COMPILERKIT_FSM (g_object_new (COMPILERKIT_TYPE_FSM, NULL));
     compilerkit_FSM_set_start_state (result, g_strdup(start));
     return result;
 }
@@ -160,6 +179,10 @@ compilerkit_FSM_dispose (GObject* object)
 }
 
 /**
+ * VIRTUAL METHODS
+**/
+
+/**
  * compilerkit_FSM_add_transition:
  * Add a transition to a finite state machine.
  * If the start and end states aren't already in the set of states, this function adds them in.
@@ -174,20 +197,13 @@ compilerkit_FSM_dispose (GObject* object)
  */
 void compilerkit_FSM_add_transition (CompilerKitFSM* self, gchar *from_state, gchar *to_state, gchar transition)
 {
-    gchar *key;
-    g_return_if_fail (COMPILERKIT_IS_FSM (self));
-
-    compilerkit_FSM_add_state (self, from_state);
-    compilerkit_FSM_add_state (self, to_state);
-    
-    /**
-      * @todo Let's pretend we're a DFA, since that's simpler to implement for now.
-      * This should really be split up into an abstract automaton base class, since DFA and NFA differ on what to do here.
-      */
-    key = compilerkit_FSM_get_transition_key (from_state, transition);
-
-    g_hash_table_insert (self->priv->transitions, key, to_state);
+   COMPILERKIT_FSM_GET_CLASS(self)->add_transition(self, from_state, to_state, transition); 
 }
+
+/**
+ * END VIRTUAL METHODS
+**/
+
 
 /**
  * compilerkit_FSM_add_accepting_state:
@@ -203,7 +219,7 @@ void compilerkit_FSM_add_accepting_state (CompilerKitFSM* self, gchar *state)
 {
     compilerkit_FSM_add_state (self, state);
     
-	g_hash_table_insert(self->priv->accept_states,state, NULL);
+    g_hash_table_insert(self->priv->accept_states,state, NULL);
 }
 
 /**
@@ -220,25 +236,11 @@ void compilerkit_FSM_merge (CompilerKitFSM *self, CompilerKitFSM *other)
 {
 	CompilerKitFSMPrivate* priv = self->priv;
 	CompilerKitFSMPrivate* newPriv = other->priv;
-	
+
 	compilerkit_FSM_mergeTables(priv->states, newPriv->states);
 	compilerkit_FSM_mergeTables(priv->transitions, newPriv->transitions);
 }
 
-/**
- * Copy entries from table2 into table1.
- */
-static void compilerkit_FSM_mergeTables(GHashTable* table1, GHashTable* table2)
-{
-	GHashTableIter iter;
-	gpointer key, value;
-
-	g_hash_table_iter_init (&iter, table2);
-	while (g_hash_table_iter_next (&iter, &key, &value))
-	{
-		g_hash_table_insert(table1, key, value);
-	}
-}
 
 /**
  * compilerkit_FSM_add_state:
@@ -255,7 +257,7 @@ void compilerkit_FSM_add_state (CompilerKitFSM* self, gchar *state)
     g_assert (self);
     g_assert (state);
 
-	g_hash_table_insert(self->priv->states,state, NULL);
+    g_hash_table_insert(self->priv->states,state, NULL);
 }
 
 /**
@@ -292,7 +294,7 @@ void compilerkit_FSM_set_start_state (CompilerKitFSM* self, gchar *state)
 
     g_free (self->priv->start);
     
-	self->priv->start = g_strdup (state);
+    self->priv->start = g_strdup (state);
 }
 
 /**
@@ -370,16 +372,16 @@ gboolean compilerkit_FSM_is_accepting_state (CompilerKitFSM *self, gchar *state)
 
 /**
  * compilerkit_FSM_get_next_state:
- * Return the next state given a state and the transition character.
+ * Return the next state(s) given a state and the transition character.
  * @fn compilerkit_FSM_get_next_state
  * @pre CompilerKitFSM* is not NULL.
  * @param CompilerKitFSM*  A CompilerKitFSM pointer (`self`).
  * @param gchar*           A `state`. (Possibly `NULL`).
  * @param gchar            A character.
- * @return gchar*          The next state.
+ * @return gpointer*          The next state (gchar*) or states (glist*).
  * @memberof CompilerKitFSM
  */
-gchar *compilerkit_FSM_get_next_state (CompilerKitFSM *self, gchar *from_state, gchar transition)
+gpointer *compilerkit_FSM_get_next_state (CompilerKitFSM *self, gchar *from_state, gchar transition)
 {
     gchar *key;
     g_assert (self);
@@ -387,4 +389,13 @@ gchar *compilerkit_FSM_get_next_state (CompilerKitFSM *self, gchar *from_state, 
     key = compilerkit_FSM_get_transition_key (from_state, transition);
     return g_hash_table_lookup (self->priv->transitions, key);
 }
+
+void compilerkit_FSM_transition_table_insert(CompilerKitFSM *self, gchar *key, gpointer to_state)
+{
+    g_hash_table_insert (self->priv->transitions, key, to_state);
+}
+
+
+
+
 
